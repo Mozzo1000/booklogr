@@ -8,6 +8,7 @@ function SearchBar() {
     const [searchTerm, setSearchTerm] = useState('');
     const [suggestions, setSuggestions] = useState([{id: 0, name: ""}]);
     const [loading, setLoading] = useState(false);
+    const [showList, setShowList] = useState(false);
 
   
     const fetchSuggestions = (searchTerm) => {
@@ -21,6 +22,7 @@ function SearchBar() {
             }
             setSuggestions(newArray); // Assuming the API returns an array of suggestions*/
             setLoading(false);
+            setShowList(true);
             },
             error => {
             console.error('Error fetching suggestions:', error);
@@ -33,13 +35,14 @@ function SearchBar() {
         if (searchTerm.trim() === '') {
             setSuggestions([]);
             setLoading(false);
-            console.log("Hi")
+            setShowList(false);
         } 
     }, [searchTerm]);
 
     const changeHandler = (e) => {
         if (e.target.value) {
             setLoading(true);
+            setShowList(true);
             fetchSuggestions(e.target.value)
         }
     }
@@ -51,26 +54,28 @@ function SearchBar() {
     return (
         <div>
             <TextInput id="search" type="text" placeholder="Search for a book" onChange={(e) => (debouncedChangeHandler(e), setSearchTerm(e.target.value))} value={searchTerm} />
-            {loading ? (
-                <Spinner />
-            ): (
-                suggestions?.map(function(data) {
-                    return (
-                        <>  
-                        <div className="grid grid-cols-5 grid-rows-5">
-                            <div className="row-span-2">
-                                <img src={"https://covers.openlibrary.org/b/isbn/" + data.isbn +"-S.jpg"} />
+            <div className={`${showList? "block": "hidden"} absolute z-10 bg-white pt-10 max-w-md  overflow-y-auto	max-h-96 min-w-28 min-h-28`}>
+                {loading ? (
+                    <Spinner />
+                ): (
+                    suggestions?.map(function(data) {
+                        return (
+                            <>  
+                            <div className="grid grid-cols-5 grid-rows-5">
+                                <div className="row-span-2">
+                                    <img src={"https://covers.openlibrary.org/b/isbn/" + data.isbn +"-S.jpg"} />
+                                </div>
+                                <div ><p key={data.id}>{data.name}</p></div>
+                                <div className="col-start-2 row-start-2">
+                                    {data.isbn} 
+                                    <OpenLibraryButton isbn={data.isbn} />
+                                </div>
                             </div>
-                            <div ><p key={data.id}>{data.name}</p></div>
-                            <div className="col-start-2 row-start-2">
-                                {data.isbn} 
-                                <OpenLibraryButton isbn={data.isbn} />
-                            </div>
-                        </div>
-                        </>
-                    )
-                })
-            )}
+                            </>
+                        )
+                    })
+                )}
+            </div>
         </div>
     )
 }
