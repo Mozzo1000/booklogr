@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { debounce } from 'lodash';
 import { Spinner, TextInput } from "flowbite-react";
-import OpenLibraryButton from "./OpenLibraryButton";
+import { Link } from "react-router-dom";
 
 function SearchBar() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -61,16 +61,20 @@ function SearchBar() {
                     suggestions?.map(function(data) {
                         return (
                             <>  
-                            <div className="grid grid-cols-5 grid-rows-5">
+                            <div className="grid grid-cols-2 grid-rows-1 pt-2">
                                 <div className="row-span-2">
-                                    <img src={"https://covers.openlibrary.org/b/isbn/" + data.isbn +"-S.jpg"} />
+                                    <img className="object-contain h-24 w-24" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn +"-S.jpg"} />
                                 </div>
-                                <div ><p key={data.id}>{data.name}</p></div>
-                                <div className="col-start-2 row-start-2">
-                                    {data.isbn} 
-                                    <OpenLibraryButton isbn={data.isbn} />
+                                <div className="col-start-2">
+                                    <Link to={"/books/" + data.isbn} onClick={() => showList(false)}>
+                                        <p key={data.id}>{data.name}</p>
+                                        {data.isbn}
+                                    </Link>
+
                                 </div>
+                                
                             </div>
+                            <hr/>
                             </>
                         )
                     })
