@@ -16,4 +16,8 @@ class Books(db.Model):
     current_page = db.Column(db.Integer)
     total_pages = db.Column(db.Integer)
 
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
     
