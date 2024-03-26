@@ -1,0 +1,15 @@
+# docker-compose.yml
+version: '3.8'
+services:
+    issue-db:
+        container_name: "minimal-reading-db"
+        image: "postgres" # use latest official postgres version
+        ports:
+            - 5432:5432  
+        restart: always
+        env_file:
+            - .env
+        volumes:
+            - minimal-reading:/var/lib/postgresql/db-data/ # persist data even if container shuts down
+volumes:
+    minimal-reading:
