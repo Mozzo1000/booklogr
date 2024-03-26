@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "minimal-reading-api"
+version = "1.0.0"
+description = "API for Minimal Reading"
+authors = ["Andreas Backström <mozzo242@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{include = "api"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "3.0.0"
+python-dotenv = "1.0.0"
+Flask-JWT-Extended = "4.6.0"
+flask-cors = "4.0.0"
+psycopg2 = "2.9.9"
+flask-marshmallow = "0.15.0"
+flask-sqlalchemy = "3.1.1"
+marshmallow-sqlalchemy = "0.29.0"
+Flask-Migrate = "4.0.5"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "7.4.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
