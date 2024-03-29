@@ -26,6 +26,12 @@ def add_book():
     current_page = db.Column(db.Integer)
     total_pages = db.Column(db.Integer)
     """
+
+
+    author = None
+    if "author" in request.json:
+        author = request.json["author"]
+
     description = None
     if "description" in request.json:
         description = request.json["description"]
@@ -43,6 +49,6 @@ def add_book():
     
     new_book = Books(title=request.json["title"], isbn=request.json["isbn"], 
                      description=description, reading_status=reading_status, 
-                     current_page=current_page, total_pages=total_pages)
+                     current_page=current_page, total_pages=total_pages, author=author)
     new_book.save_to_db()
     return jsonify({'message': 'Book added to list.'}), 200
