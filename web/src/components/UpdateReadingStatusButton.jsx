@@ -2,15 +2,17 @@ import React, { useState }  from 'react'
 import { Button, TextInput, Modal, Label } from 'flowbite-react'
 import { SlBookOpen } from "react-icons/sl";
 import BooksService from '../services/books.service';
+import useToast from '../toast/useToast';
 
 function UpdateReadingStatusButton(props) {
     const [openModal, setOpenModal] = useState(false);
     const [updatedProgress, setUpdatedProgress] = useState();
+    const toast = useToast(4000);
 
     const updateProgress = () => {
         BooksService.edit(props.id, {current_page: updatedProgress}).then(
             response => {
-                console.log(response.data)
+                toast("success", response.data.message);
                 setOpenModal(false);
             }
         )
