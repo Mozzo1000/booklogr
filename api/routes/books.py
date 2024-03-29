@@ -52,3 +52,24 @@ def add_book():
                      current_page=current_page, total_pages=total_pages, author=author)
     new_book.save_to_db()
     return jsonify({'message': 'Book added to list.'}), 200
+
+@books_endpoint.route("/v1/books/<id>", methods=["PATCH"])
+def edit_book(id):
+    book = Books.query.filter(Books.id==id).first()
+    if request.json:
+        if "current_page" in request.json:
+            book.current_page = request.json["current_page"]
+
+        try:
+            book.save_to_db()
+            return jsonify({'message': 'Book changed sucessfully'}), 200
+        except:
+            return jsonify({
+                    "error": "Unkown error",
+                    "message": "Unkown error occurred"
+        }), 500
+    else:
+        return jsonify({
+                    "error": "Bad request",
+                    "message": "current_page"
+        }), 400
