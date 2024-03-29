@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import BookItem from './BookItem'
 import { Tabs } from "flowbite-react";
 import BooksService from '../../services/books.service';
+import PaneTabView from './PaneTabView';
 
 function LibraryPane() {
     const [activeTab, setActiveTab] = useState(0);
@@ -29,36 +30,37 @@ function LibraryPane() {
         <>
         <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} style='fullWidth'>
         <Tabs.Item active title="Currently reading">
-            <div className="grid grid-cols-3 gap-4">
+        <PaneTabView>
             {books?.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author}/>
+                        <BookItem internalID={item.id} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author}/>
                     </div>
                 )
             })}
-            </div>
+            </PaneTabView>
         </Tabs.Item>
         <Tabs.Item title="To be read">
-            <div className="grid grid-cols-3 gap-4">
+            <PaneTabView>
             {books?.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author}/>
+                        <BookItem internalID={item.id} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author}/>
                     </div>
                 )
             })}
-            </div>
+            </PaneTabView>
         </Tabs.Item>
         <Tabs.Item title="Read">
-            <div className="grid grid-cols-3 gap-4">
+            <PaneTabView>
             {books?.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem showProgress={false}  title={item.title} isbn={item.isbn} author={item.author}/>
+                        <BookItem internalID={item.id} showProgress={false}  title={item.title} isbn={item.isbn} author={item.author}/>
                     </div>
                 )
-            })}</div>
+            })}
+            </PaneTabView>
         </Tabs.Item>
         </Tabs>
         {books?.length <= 0 &&
