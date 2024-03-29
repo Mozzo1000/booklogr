@@ -32,7 +32,7 @@ function LibraryPane() {
             {books?.map((item) => {
                 return (
                     <div key={item.id}>
-                    <BookItem showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page}/>
+                        <BookItem showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author}/>
                     </div>
                 )
             })}
@@ -41,19 +41,20 @@ function LibraryPane() {
             {books?.map((item) => {
                 return (
                     <div key={item.id}>
-                    <BookItem showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page}/>
+                        <BookItem showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author}/>
                     </div>
                 )
             })}
         </Tabs.Item>
         <Tabs.Item title="Read">
+            <div className="flex gap-4">
             {books?.map((item) => {
                 return (
                     <div key={item.id}>
-                    <BookItem showProgress={false} title={item.title} isbn={item.isbn}/>
+                        <BookItem showProgress={false}  title={item.title} isbn={item.isbn} author={item.author}/>
                     </div>
                 )
-            })}
+            })}</div>
         </Tabs.Item>
         </Tabs>
         {books?.length <= 0 &&

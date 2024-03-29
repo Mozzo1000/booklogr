@@ -12,6 +12,7 @@ function AddToReadingListButton(props) {
         var arr = {}
         arr.title = props.data?.title;
         arr.isbn = props.isbn;
+        arr.author = props.data?.authors[0].name; //Authors object from the API can have more than one object inside.. fix this later by flattening and getting a list of all authors names.
         if (props.data?.description) {
             arr.description = props.data?.description;
         }
