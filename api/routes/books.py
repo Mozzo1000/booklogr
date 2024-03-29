@@ -1,9 +1,19 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
-from api.models import Books
+from api.models import Books, BooksSchema
 from api.decorators import required_params
 
 books_endpoint = Blueprint('books', __name__)
+
+@books_endpoint.route("/v1/books", methods=["GET"])
+def get_books():
+    query_status = request.args.get("status")
+    books_schema = BooksSchema(many=True)
+    if query_status:
+        books = Books.query.filter(Books.reading_status==query_status).all()
+    else:
+        books = Books.query.all()
+    return jsonify(books_schema.dump(books))
 
 @required_params("title", "isbn")
 @books_endpoint.route("/v1/books", methods=["POST"])
