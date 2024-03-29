@@ -16,7 +16,12 @@ const get = (status) => {
     }
 }
 
+const edit = (id, data) => {
+    return axios.patch(API_URL + "v1/books/" + id, data);
+};
+
 export default {
     add,
     get,
+    edit,
 };
