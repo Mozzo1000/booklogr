@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('books',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(), nullable=True),
-    sa.Column('isbn', sa.Integer(), nullable=True),
+    sa.Column('isbn', sa.String(), nullable=True),
     sa.Column('description', sa.String(), nullable=True),
     sa.Column('reading_status', sa.String(), nullable=True),
     sa.Column('current_page', sa.Integer(), nullable=True),
