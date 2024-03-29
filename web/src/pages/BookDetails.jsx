@@ -13,7 +13,7 @@ function BookDetails() {
     useEffect(() => {
         OpenLibraryService.get(id).then(
             response => {
-                setData(response.data);
+                setData(response.data["ISBN:" + id]);
                 console.log(response.data)
             }
         )
