@@ -14,7 +14,7 @@ function BookItem(props) {
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">by {props.author}</p>
                 {props.showProgress &&
                     <>
-                    <Progress className="mb-3" progress={(100 * props.currentPage) / props.totalPages} size="md" labelProgress textLabel="Reading progress" labelText textLabelPosition="outside" progressLabelPosition="outside" />
+                    <Progress className="mb-3" progress={Math.round((100 * props.currentPage) / props.totalPages)} size="md" labelProgress textLabel="Reading progress" labelText textLabelPosition="outside" progressLabelPosition="outside" />
                     <UpdateReadingStatusButton totalPages={props.totalPages} id={props.internalID} title={props.title}/>
                     </>
                 }
