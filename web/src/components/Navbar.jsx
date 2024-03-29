@@ -14,10 +14,10 @@ function NavigationMenu() {
         </div>
         <Navbar.Collapse>
             
-            <Navbar.Link href="#" active>
+            <Navbar.Link href="/" active={location.pathname == "/"}>
                 Home
             </Navbar.Link>
-            <Navbar.Link as={Link} href="#">
+            <Navbar.Link as={Link} href="/about" active={location.pathname == "/about"}>
                 About
             </Navbar.Link>
             </Navbar.Collapse>
