@@ -29,6 +29,7 @@ function LibraryPane() {
         <>
         <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} style='fullWidth'>
         <Tabs.Item active title="Currently reading">
+            <div className="grid grid-cols-3 gap-4">
             {books?.map((item) => {
                 return (
                     <div key={item.id}>
@@ -36,8 +37,10 @@ function LibraryPane() {
                     </div>
                 )
             })}
+            </div>
         </Tabs.Item>
         <Tabs.Item title="To be read">
+            <div className="grid grid-cols-3 gap-4">
             {books?.map((item) => {
                 return (
                     <div key={item.id}>
@@ -45,9 +48,10 @@ function LibraryPane() {
                     </div>
                 )
             })}
+            </div>
         </Tabs.Item>
         <Tabs.Item title="Read">
-            <div className="flex gap-4">
+            <div className="grid grid-cols-3 gap-4">
             {books?.map((item) => {
                 return (
                     <div key={item.id}>
