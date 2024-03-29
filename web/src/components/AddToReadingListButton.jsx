@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Modal, Label, TextInput, Select} from "flowbite-react";
 import BooksService from '../services/books.service';
 
@@ -37,6 +37,11 @@ function AddToReadingListButton(props) {
             }
         )
     }
+
+    useEffect(() => {
+      setTotalPages(props.data?.number_of_pages)
+    }, [props.data])
+    
 
     return (
         <div>
