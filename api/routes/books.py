@@ -59,6 +59,10 @@ def edit_book(id):
     if request.json:
         if "current_page" in request.json:
             book.current_page = request.json["current_page"]
+        if "status" in request.json:
+            # We should ideally do some validation here to ensure that the status being recieved matches
+            # what we can to save in the column, ie "Currently reading", "To be read" or "Read", case sensitive.
+            book.reading_status = request.json["status"]
 
         try:
             book.save_to_db()
