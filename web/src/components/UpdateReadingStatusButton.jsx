@@ -17,6 +17,15 @@ function UpdateReadingStatusButton(props) {
             }
         )
     }
+    
+    const setFinished = () => {
+        BooksService.edit(props.id, {current_page: props.totalPages, status: "Read"}).then(
+            response => {
+                toast("success", response.data.message);
+                setOpenModal(false);
+            }
+        )
+    }
 
     return (
         <>
@@ -36,6 +45,7 @@ function UpdateReadingStatusButton(props) {
                 <Modal.Footer>
                 <Button onClick={() => updateProgress()}>Update</Button>
                 <Button color="gray" onClick={() => setOpenModal(false)}> Cancel </Button>
+                <Button color="gray" onClick={() => setFinished()}>Set as finished</Button>
                 </Modal.Footer>
             </Modal>
         </>
