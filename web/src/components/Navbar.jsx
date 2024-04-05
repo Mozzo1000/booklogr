@@ -5,8 +5,9 @@ import SearchBar from '../components/SearchBar'
 function NavigationMenu() {
     return (
         <Navbar border>
-        <Navbar.Brand as={Link} href="https://flowbite-react.com">
-          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">minimal reading</span>
+        <Navbar.Brand as={Link} href="/">
+            <img src="/icon.svg" className="mr-3 h-6 sm:h-8" alt="Logo" />
+            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">minimal reading</span>
         </Navbar.Brand>
         <div className="flex">
             <SearchBar />
