@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import OpenLibraryService from '../services/openlibrary.service';
-import { JSONTree } from 'react-json-tree';
 import OpenLibraryButton from '../components/OpenLibraryButton';
 import AddToReadingListButtton from '../components/AddToReadingListButton';
 import Skeleton from 'react-loading-skeleton'
@@ -21,7 +20,7 @@ function BookDetails() {
     }, [])
 
     return (
-        <div className="container mx-auto pt-10">
+        <div className="pt-10 lg:pt-20 pb-20">
             <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 lg:grid-rows-2 gap-4 justify-items-center lg:justify-items-stretch	">
                 <div className="lg:row-span-2 mx-auto">
                     <img className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + id + "-L.jpg"} alt=""></img>
