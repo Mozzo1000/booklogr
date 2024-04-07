@@ -1,7 +1,8 @@
 import React from 'react'
-import { Progress } from "flowbite-react";
+import { Progress, Button, Dropdown } from "flowbite-react";
 import { Link } from 'react-router-dom';
 import UpdateReadingStatusButton from '../UpdateReadingStatusButton';
+import ChangeBookLibraryButton from '../ChangeBookLibraryButton';
 
 function BookItem(props) {
     return (
@@ -15,8 +16,18 @@ function BookItem(props) {
                 {props.showProgress &&
                     <>
                     <Progress className="mb-3" progress={Math.round((100 * props.currentPage) / props.totalPages)} size="md" labelProgress textLabel="Reading progress" labelText textLabelPosition="outside" progressLabelPosition="outside" />
-                    <UpdateReadingStatusButton totalPages={props.totalPages} id={props.internalID} title={props.title}/>
+                    <div className='flex flex-row items-center'>
+                        <div className="grow">
+                            <UpdateReadingStatusButton totalPages={props.totalPages} id={props.internalID} title={props.title}/>
+                        </div>
+                        <ChangeBookLibraryButton id={props.internalID} />
+                    </div>
                     </>
+                }
+                {!props.showProgress &&
+                    <div className="flex flex-row-reverse">
+                        <ChangeBookLibraryButton id={props.internalID}/>
+                    </div>
                 }
             </div>
         </div>
