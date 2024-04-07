@@ -12,6 +12,7 @@ function ChangeBookLibraryButton(props) {
         BooksService.edit(props.id, {status: status}).then(
             response => {
                 toast("success", response.data.message);
+                props.onSucess();
             }
         )
     }

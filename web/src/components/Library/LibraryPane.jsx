@@ -11,6 +11,12 @@ function LibraryPane() {
 
     
     useEffect(() => {
+        
+        getBooks(translateTabsToStatus());
+        
+    }, [activeTab])
+
+    const translateTabsToStatus = () => {
         let status = "Currently reading";
         if (activeTab == 0) {
             status = "Currently reading"
@@ -19,6 +25,10 @@ function LibraryPane() {
          }else if (activeTab == 2) {
             status = "Read"
         }
+        return status;
+    }
+
+    const getBooks = (status) => {
         BooksService.get(status).then(
             response => {
                 //setBooks(response.data)
@@ -26,8 +36,7 @@ function LibraryPane() {
                 console.log(response.data)
             }
         )
-    }, [activeTab])
-    
+    }
 
     return (
         <>
@@ -40,7 +49,7 @@ function LibraryPane() {
             {state.books?.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem internalID={item.id} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author}/>
+                        <BookItem internalID={item.id} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
                     </div>
                 )
             })}
@@ -51,7 +60,7 @@ function LibraryPane() {
             {state.books?.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem internalID={item.id} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author}/>
+                        <BookItem internalID={item.id} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
                     </div>
                 )
             })}
@@ -62,7 +71,7 @@ function LibraryPane() {
             {state.books?.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem internalID={item.id} showProgress={false}  title={item.title} isbn={item.isbn} author={item.author}/>
+                        <BookItem internalID={item.id} showProgress={false}  title={item.title} isbn={item.isbn} author={item.author} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}  />
                     </div>
                 )
             })}

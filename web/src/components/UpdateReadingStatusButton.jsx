@@ -14,6 +14,7 @@ function UpdateReadingStatusButton(props) {
             response => {
                 toast("success", response.data.message);
                 setOpenModal(false);
+                props.onSucess()
             }
         )
     }
@@ -23,6 +24,7 @@ function UpdateReadingStatusButton(props) {
             response => {
                 toast("success", response.data.message);
                 setOpenModal(false);
+                props.onSucess()
             }
         )
     }

@@ -18,15 +18,15 @@ function BookItem(props) {
                     <Progress className="mb-3" progress={Math.round((100 * props.currentPage) / props.totalPages)} size="md" labelProgress textLabel="Reading progress" labelText textLabelPosition="outside" progressLabelPosition="outside" />
                     <div className='flex flex-row items-center'>
                         <div className="grow">
-                            <UpdateReadingStatusButton totalPages={props.totalPages} id={props.internalID} title={props.title}/>
+                            <UpdateReadingStatusButton totalPages={props.totalPages} id={props.internalID} title={props.title} onSucess={props.onReadingStatusChanged}/>
                         </div>
-                        <ChangeBookLibraryButton id={props.internalID} />
+                        <ChangeBookLibraryButton id={props.internalID} onSucess={props.onReadingStatusChanged}/>
                     </div>
                     </>
                 }
                 {!props.showProgress &&
                     <div className="flex flex-row-reverse">
-                        <ChangeBookLibraryButton id={props.internalID}/>
+                        <ChangeBookLibraryButton id={props.internalID} onSucess={props.onReadingStatusChanged}/>
                     </div>
                 }
             </div>
