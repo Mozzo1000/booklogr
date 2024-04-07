@@ -63,17 +63,16 @@ def edit_book(id):
             # We should ideally do some validation here to ensure that the status being recieved matches
             # what we can to save in the column, ie "Currently reading", "To be read" or "Read", case sensitive.
             book.reading_status = request.json["status"]
-
-        try:
-            book.save_to_db()
-            return jsonify({'message': 'Book changed sucessfully'}), 200
-        except:
-            return jsonify({
-                    "error": "Unkown error",
-                    "message": "Unkown error occurred"
-        }), 500
     else:
         return jsonify({
                     "error": "Bad request",
-                    "message": "current_page"
+                    "message": "Received no json"
         }), 400
+    try:
+        book.save_to_db()
+        return jsonify({'message': 'Book changed sucessfully'}), 200
+    except:
+        return jsonify({
+                "error": "Unkown error",
+                "message": "Unkown error occurred"
+    }), 500
