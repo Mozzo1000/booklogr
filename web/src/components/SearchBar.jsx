@@ -15,7 +15,7 @@ function SearchBar() {
   
     const fetchSuggestions = (searchTerm) => {
       if (searchTerm) {
-        axios.get(`https://openlibrary.org/search.json?title=${encodeURIComponent(searchTerm)}&limit=10&offset=0?`).then(
+        axios.get(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchTerm)}&limit=10&offset=0&fields=title,isbn`).then(
             response => {
             let newArray = []
             for (let i = 0; i < response.data.docs.length; i++) {
