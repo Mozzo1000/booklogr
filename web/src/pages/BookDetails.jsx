@@ -21,7 +21,11 @@ function BookDetails() {
                     response => {
                         console.log(response.data)
                         if (response.data.description) {
-                            setDescription(response.data.description)
+                            if (response.data.description.value) {
+                                setDescription(response.data.description.value)
+                            } else {
+                                setDescription(response.data.description)
+                            }
                         } else {
                             setDescription("No description found")
                         }
