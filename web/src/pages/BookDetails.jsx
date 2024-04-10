@@ -31,6 +31,7 @@ function BookDetails() {
                         <p className="lead">by {data?.authors?.[0].name || <Skeleton className="w-1/2" />}</p>
                         <p><Skeleton count={4.5}/></p>
                         <p><span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">Pages</span> {data?.number_of_pages || <Skeleton width={50} />}</p>
+                        <p><span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">ISBN</span> {id}</p>
                     </article>
                 </div>
                 <div className="lg:col-start-2 lg:row-start-2 content-center">
