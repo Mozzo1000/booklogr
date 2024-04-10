@@ -9,12 +9,24 @@ import 'react-loading-skeleton/dist/skeleton.css'
 function BookDetails() {
     let { id } = useParams();
     const [data, setData] = useState();
+    const [description, setDescription] = useState();
 
     useEffect(() => {
         OpenLibraryService.get(id).then(
             response => {
-                setData(response.data["ISBN:" + id]);
+                setData(response.data["docs"][0]);
                 console.log(response.data)
+
+                OpenLibraryService.getWorks(response.data["docs"][0].key).then(
+                    response => {
+                        console.log(response.data)
+                        if (response.data.description) {
+                            setDescription(response.data.description)
+                        } else {
+                            setDescription("No description found")
+                        }
+                    }
+                )
             }
         )
     }, [])
@@ -28,9 +40,9 @@ function BookDetails() {
                 <div>
                     <article className="format">
                         <h2>{data?.title || <Skeleton />}</h2>
-                        <p className="lead">by {data?.authors?.[0].name || <Skeleton className="w-1/2" />}</p>
-                        <p><Skeleton count={4.5}/></p>
-                        <p><span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">Pages</span> {data?.number_of_pages || <Skeleton width={50} />}</p>
+                        <p className="lead">by {data?.author_name?.[0] || <Skeleton className="w-1/2" />}</p>
+                        <p>{description || <Skeleton count={4.5}/>}</p>
+                        <p><span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">Pages</span> {data?.number_of_pages_median || <Skeleton width={50} />}</p>
                         <p><span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">ISBN</span> {id}</p>
                     </article>
                 </div>
