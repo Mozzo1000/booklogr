@@ -8,13 +8,29 @@ function ChangeBookLibraryButton(props) {
     const [status, setStatus] = useState();
     const toast = useToast(4000);
 
-    const changeStatus = () => {
-        BooksService.edit(props.id, {status: status}).then(
+    const changeStatus = (statusChangeTo) => {
+        console.log(props.id)
+        console.log(statusChangeTo)
+        BooksService.edit(props.id, {status: statusChangeTo}).then(
             response => {
                 toast("success", response.data.message);
                 props.onSucess();
+            },
+            error => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                toast("error", resMessage);
             }
         )
+    }
+
+    const clickDropItem = (stateStatus) => {
+        setStatus(stateStatus);
+        changeStatus(stateStatus);
     }
 
     return (
@@ -23,9 +39,9 @@ function ChangeBookLibraryButton(props) {
                 <span className="block text-sm font-medium">Reading status</span>
                 <Dropdown.Divider/>
             </Dropdown.Header>
-            <Dropdown.Item onClick={() => (setStatus("Currently reading"), changeStatus())}>Currently reading</Dropdown.Item>
-            <Dropdown.Item onClick={() => (setStatus("To be read"), changeStatus())}>To be read</Dropdown.Item>
-            <Dropdown.Item onClick={() => (setStatus("Read"), changeStatus())}>Read</Dropdown.Item>
+            <Dropdown.Item onClick={() => (clickDropItem("Currently reading"))}>Currently reading</Dropdown.Item>
+            <Dropdown.Item onClick={() => (clickDropItem("To be read"))}>To be read</Dropdown.Item>
+            <Dropdown.Item onClick={() => (clickDropItem("Read"))}>Read</Dropdown.Item>
         </Dropdown>
     )
 }
