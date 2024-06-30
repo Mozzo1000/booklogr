@@ -5,6 +5,7 @@ from api.config import Config
 from flask_migrate import Migrate
 from api.models import db, ma
 from api.routes.books import books_endpoint
+from api.routes.profiles import profiles_endpoint
 
 app = Flask(__name__)
 CORS(app)
@@ -16,6 +17,7 @@ migrate = Migrate(app, db)
 jwt = JWTManager(app)
 
 app.register_blueprint(books_endpoint)
+app.register_blueprint(profiles_endpoint)
 
 @app.route("/")
 def index():
