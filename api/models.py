@@ -16,6 +16,7 @@ class Books(db.Model):
     reading_status = db.Column(db.String)
     current_page = db.Column(db.Integer)
     total_pages = db.Column(db.Integer)
+    owner_id = db.Column(db.Integer)
 
     def save_to_db(self):
         db.session.add(self)
