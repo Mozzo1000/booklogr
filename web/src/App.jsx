@@ -5,6 +5,7 @@ import SearchBar from "./components/SearchBar";
 import ToastContainer from "./toast/Container";
 import NavigationMenu from "./components/Navbar"
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           <Route path="/">
             <Route index element={<Home/>} />
             <Route path="books/:id" element={<BookDetails />} />
-            <Route path="search" element={<SearchBar />} />
+            <Route path="profile" element={<Profile />} />
             <Route path="login" element={<Login />} />
           </Route>
         </Routes>

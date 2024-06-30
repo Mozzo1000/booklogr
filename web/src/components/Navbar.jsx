@@ -28,7 +28,7 @@ function NavigationMenu() {
                   </Sidebar.ItemGroup>
                   <Sidebar.ItemGroup>
                     <Sidebar.Item href="/" icon={FaBook}><span className="font-semibold">My Library</span></Sidebar.Item>
-                    <Sidebar.Item href="#" icon={FaCircleUser }><span>Profile</span></Sidebar.Item>
+                    <Sidebar.Item href="profile" icon={FaCircleUser }><span>Profile</span></Sidebar.Item>
                     <Sidebar.Item href="#" icon={FaPlug }><span>Integrations</span></Sidebar.Item>
 
                 </Sidebar.ItemGroup>
