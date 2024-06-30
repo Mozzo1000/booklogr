@@ -36,8 +36,8 @@ function BookDetails() {
     }, [])
 
     return (
-        <div className="pt-10 lg:pt-20 pb-20">
-            <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 lg:grid-rows-2 gap-4 justify-items-center lg:justify-items-stretch	">
+        <div className="pt-10 lg:pt-20 pb-10">
+            <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4 justify-items-stretch	">
                 <div className="lg:row-span-2 mx-auto">
                     <img className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + id + "-L.jpg"} alt=""></img>
                 </div>
@@ -50,7 +50,7 @@ function BookDetails() {
                         <p><span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">ISBN</span> {id}</p>
                     </article>
                 </div>
-                <div className="lg:col-start-2 lg:row-start-2 content-center">
+                <div className="lg:col-start-2 lg:row-start-2">
                     <div className="flex flex-row gap-4 ">
                         <AddToReadingListButtton isbn={id} data={data} />
                         <OpenLibraryButton isbn={id} />
