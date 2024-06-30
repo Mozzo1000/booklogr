@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import SearchBar from "./components/SearchBar";
 import ToastContainer from "./toast/Container";
 import NavigationMenu from "./components/Navbar"
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route index element={<Home/>} />
             <Route path="books/:id" element={<BookDetails />} />
             <Route path="search" element={<SearchBar />} />
+            <Route path="login" element={<Login />} />
           </Route>
         </Routes>
       </div>
