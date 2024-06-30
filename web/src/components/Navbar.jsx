@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import SearchBar from '../components/SearchBar'
 import { Sidebar, Modal } from 'flowbite-react'
-import { IoLibraryOutline } from "react-icons/io5";
-import { VscAccount } from "react-icons/vsc";
-import { GoSidebarCollapse } from "react-icons/go";
-import { IoMdSearch } from "react-icons/io";
+import { TbLayoutSidebarRightCollapseFilled } from "react-icons/tb";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaBook } from "react-icons/fa6";
+import { FaCircleUser } from "react-icons/fa6";
+import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
+import { FaPlug } from "react-icons/fa6";
 
 function NavigationMenu() {
     const [sidebarState, setSidebarState] = useState(true);
@@ -19,17 +21,19 @@ function NavigationMenu() {
             <Sidebar.Items>
                   <Sidebar.ItemGroup>
                     {sidebarState ? (
-                      <Sidebar.Item icon={IoMdSearch} onClick={() => setOpenSearchModal(true)}>Search</Sidebar.Item>
+                      <Sidebar.Item icon={FaMagnifyingGlass} onClick={() => setOpenSearchModal(true)}>Search</Sidebar.Item>
                     ) :( 
                     <Sidebar.Item><SearchBar></SearchBar></Sidebar.Item>
                     )}
                   </Sidebar.ItemGroup>
                   <Sidebar.ItemGroup>
-                    <Sidebar.Item href="/" icon={IoLibraryOutline}><span className="font-semibold">My Library</span></Sidebar.Item>
-                    <Sidebar.Item href="#" icon={VscAccount }><span>Profile</span></Sidebar.Item>
+                    <Sidebar.Item href="/" icon={FaBook}><span className="font-semibold">My Library</span></Sidebar.Item>
+                    <Sidebar.Item href="#" icon={FaCircleUser }><span>Profile</span></Sidebar.Item>
+                    <Sidebar.Item href="#" icon={FaPlug }><span>Integrations</span></Sidebar.Item>
+
                 </Sidebar.ItemGroup>
                 <Sidebar.ItemGroup>
-                  <Sidebar.Item icon={GoSidebarCollapse} onClick={() => setSidebarState(!sidebarState)}>
+                  <Sidebar.Item icon={sidebarState ? TbLayoutSidebarRightCollapseFilled : TbLayoutSidebarLeftCollapseFilled } onClick={() => setSidebarState(!sidebarState)}>
                     {sidebarState ? (
                       <span>Expand</span>
                     ): (
