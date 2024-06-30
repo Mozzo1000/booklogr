@@ -25,9 +25,14 @@ function SearchBar() {
             setSuggestions(newArray); // Assuming the API returns an array of suggestions*/
             setLoading(false);
             setShowList(true);
+
+            if (response.data.num_found == 0) {
+                setSuggestions()
+            }
+
             },
             error => {
-            console.error('Error fetching suggestions:', error);
+                console.error('Error fetching suggestions:', error);
             }
         )
         }
