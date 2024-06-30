@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import SearchBar from '../components/SearchBar'
-import { Sidebar } from 'flowbite-react'
+import { Sidebar, Modal } from 'flowbite-react'
 import { IoLibraryOutline } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
 import { GoSidebarCollapse } from "react-icons/go";
@@ -8,8 +8,10 @@ import { IoMdSearch } from "react-icons/io";
 
 function NavigationMenu() {
     const [sidebarState, setSidebarState] = useState(true);
+    const [openSearchModal, setOpenSearchModal] = useState(false);
 
     return (
+        <>
         <Sidebar collapsed={sidebarState}>
           <Sidebar.Logo href="/" img="/icon.svg" className="mr-3 h-6 sm:h-8" alt="Logo">
             <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">minimal reading</span>
@@ -17,7 +19,7 @@ function NavigationMenu() {
             <Sidebar.Items>
                   <Sidebar.ItemGroup>
                     {sidebarState ? (
-                      <Sidebar.Item icon={IoMdSearch} onClick={() => setSidebarState(false)}>Search</Sidebar.Item>
+                      <Sidebar.Item icon={IoMdSearch} onClick={() => setOpenSearchModal(true)}>Search</Sidebar.Item>
                     ) :( 
                     <Sidebar.Item><SearchBar></SearchBar></Sidebar.Item>
                     )}
@@ -37,6 +39,12 @@ function NavigationMenu() {
                 </Sidebar.ItemGroup>
             </Sidebar.Items>
         </Sidebar>
+        <Modal dismissible show={openSearchModal} onClose={() => setOpenSearchModal(false)} position={"top-center"}>
+            <Modal.Body>
+                <SearchBar />
+            </Modal.Body>
+        </Modal>
+        </>
     )
 }
 
