@@ -41,6 +41,31 @@ class BooksSchema(ma.SQLAlchemyAutoSchema):
 
 class ProfileSchema(ma.SQLAlchemyAutoSchema):
     books = ma.List(ma.Nested(BooksSchema(only=("author", "description", "current_page", "total_pages", "reading_status", "title", "isbn"))))
+    num_books_read = ma.Method("get_num_books_read")
+    num_books_reading = ma.Method("get_num_books_currently_reading")
+    num_books_tbr = ma.Method("get_num_books_to_be_read")
+
+    def get_num_books_read(self, obj):
+        query = Books.query.filter(Books.owner_id==obj.owner_id, Books.reading_status=="Read").count()
+        if query:
+            return query
+        else:
+            return None
+    
+    def get_num_books_currently_reading(self, obj):
+        query = Books.query.filter(Books.owner_id==obj.owner_id, Books.reading_status=="Currently reading").count()
+        if query:
+            return query
+        else:
+            return None
+        
+    def get_num_books_to_be_read(self, obj):
+        query = Books.query.filter(Books.owner_id==obj.owner_id, Books.reading_status=="To be read").count()
+        if query:
+            return query
+        else:
+            return None
+    
     class Meta:
         model = Profile()
-        fields = ("id", "display_name", "visibility", "books",)
+        fields = ("id", "display_name", "visibility", "books", "num_books_read", "num_books_reading", "num_books_tbr",)
