@@ -119,10 +119,10 @@ function Profile() {
                         <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2">All books</span>
                     </div>
                     <Button.Group className="pb-4">
-                        <Button color="gray" onClick={() => setReadingStatusFilter("All")}>All</Button>
-                        <Button color="gray" onClick={() => setReadingStatusFilter("Read")}>Read</Button>
-                        <Button color="gray" onClick={() => setReadingStatusFilter("Currently reading")}>Currently reading</Button>
-                        <Button color="gray" onClick={() => setReadingStatusFilter("To be read")}>To be read</Button>
+                        <Button color="gray" onClick={() => setReadingStatusFilter("All")}>All ({data.books.length})</Button>
+                        <Button color="gray" onClick={() => setReadingStatusFilter("Read")}>Read ({data.num_books_read})</Button>
+                        <Button color="gray" onClick={() => setReadingStatusFilter("Currently reading")}>Currently reading ({data.num_books_reading})</Button>
+                        <Button color="gray" onClick={() => setReadingStatusFilter("To be read")}>To be read ({data.num_books_tbr})</Button>
                     </Button.Group>
                     <PaneTabView>
                     {filteredBooks.map((item) => {
