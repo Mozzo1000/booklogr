@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import ProfileService from '../services/profile.service';
-import { Button, TextInput, Label, Badge, Card } from "flowbite-react";
+import { Button, TextInput, Label, Badge } from "flowbite-react";
 import useToast from '../toast/useToast';
 import BookItem from '../components/Library/BookItem';
 import PaneTabView from '../components/Library/PaneTabView';
@@ -15,9 +15,20 @@ function Profile() {
     const [data, setData] = useState();
     const [noProfile, setNoProfile] = useState();
     const [createDisplayName, setCreateDisplayName] = useState();
+    const [readingStatusFilter, setReadingStatusFilter] = useState("All");
     const toast = useToast(4000);
     let { name } = useParams();
 
+    const filteredBooks = useMemo(() => {
+        if (data) {
+            if (readingStatusFilter == "All") {
+                return data.books;
+            } else {
+                return data.books.filter(data => data.reading_status.toLowerCase() === readingStatusFilter.toLowerCase());
+            }
+        }
+      }, [data, readingStatusFilter]);
+    
 
     useEffect(() => {
         if (name) {
@@ -107,8 +118,14 @@ function Profile() {
                         <hr className="w-full h-px my-8 bg-gray-200 border-0" />
                         <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2">All books</span>
                     </div>
+                    <Button.Group className="pb-4">
+                        <Button color="gray" onClick={() => setReadingStatusFilter("All")}>All</Button>
+                        <Button color="gray" onClick={() => setReadingStatusFilter("Read")}>Read</Button>
+                        <Button color="gray" onClick={() => setReadingStatusFilter("Currently reading")}>Currently reading</Button>
+                        <Button color="gray" onClick={() => setReadingStatusFilter("To be read")}>To be read</Button>
+                    </Button.Group>
                     <PaneTabView>
-                    {data.books?.map((item) => {
+                    {filteredBooks.map((item) => {
                         return (
                             <div key={0}>
                                 <BookItem internalID={0} showReadingStatusBadge={true} showOptions={false} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} readingStatus={item.reading_status} />
