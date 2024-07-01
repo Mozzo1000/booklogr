@@ -20,6 +20,8 @@ function App() {
             <Route index element={<Home/>} />
             <Route path="books/:id" element={<BookDetails />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="profile/:name" element={<Profile />} />
+
             <Route path="login" element={<Login />} />
           </Route>
         </Routes>
