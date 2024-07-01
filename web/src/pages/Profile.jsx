@@ -6,6 +6,10 @@ import BookItem from '../components/Library/BookItem';
 import PaneTabView from '../components/Library/PaneTabView';
 import { FaEye } from "react-icons/fa6";
 import { useParams } from 'react-router-dom';
+import BookStatsCard from '../components/BookStatsCard';
+import { FaBook } from "react-icons/fa6";
+import { FaBookmark } from "react-icons/fa6";
+import { FaBookOpen } from "react-icons/fa6";
 
 function Profile() {
     const [data, setData] = useState();
@@ -94,31 +98,10 @@ function Profile() {
                             <Badge icon={FaEye} >{data.visibility}</Badge>
                         </div>
                     </div>
-                    <div className="flex flex-col text-center md:flex-row gap-4 pt-8">
-                        <Card className="max-h-full">
-                            <p className="font-normal text-gray-700">
-                                Books read
-                            </p>
-                            <h5 className="text-2xl font-bold tracking-tight text-gray-900">
-                                {data.num_books_read}
-                            </h5>
-                        </Card>
-                        <Card>
-                            <p className="font-normal text-gray-700">
-                                Books currently reading
-                            </p>
-                            <h5 className="text-2xl font-bold tracking-tight text-gray-900">
-                                {data.num_books_reading}
-                            </h5>
-                        </Card>
-                        <Card>
-                            <p className="font-normal text-gray-700">
-                                Books to be read
-                            </p>
-                            <h5 className="text-2xl font-bold tracking-tight text-gray-900">
-                                {data.num_books_tbr}
-                            </h5>
-                        </Card>
+                    <div className="flex flex-row gap-16 pt-8 justify-around">
+                        <BookStatsCard icon={<FaBook className="w-8 h-8"/>} number={data.num_books_read} text="Read"/>
+                        <BookStatsCard icon={<FaBookOpen className="w-8 h-8"/>} number={data.num_books_reading} text="Reading"/>
+                        <BookStatsCard icon={<FaBookmark className="w-8 h-8"/>} number={data.num_books_tbr} text="To Be Read"/>
                     </div>
                     <div className="inline-flex items-center justify-center w-full">
                         <hr className="w-full h-px my-8 bg-gray-200 border-0" />
