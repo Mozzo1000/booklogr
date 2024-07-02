@@ -6,8 +6,9 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaBook } from "react-icons/fa6";
 import { FaCircleUser } from "react-icons/fa6";
 import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
-import { FaPlug } from "react-icons/fa6";
+import { FaRightFromBracket } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
+import AuthService from '../services/auth.service';
 
 function NavigationMenu() {
     const [sidebarState, setSidebarState] = useState(true);
@@ -34,7 +35,9 @@ function NavigationMenu() {
                     <Link to="/profile">
                       <Sidebar.Item icon={FaCircleUser }><span>Profile</span></Sidebar.Item>
                     </Link>
-                    <Sidebar.Item icon={FaPlug }><span>Integrations</span></Sidebar.Item>
+                    {AuthService.getCurrentUser() && 
+                      <Sidebar.Item href="" onClick={() => (AuthService.logout(), navigate("/"))} icon={FaRightFromBracket}>Logout</Sidebar.Item>
+                    }
                 </Sidebar.ItemGroup>
                 <Sidebar.ItemGroup>
                   <Sidebar.Item icon={sidebarState ? TbLayoutSidebarRightCollapseFilled : TbLayoutSidebarLeftCollapseFilled } onClick={() => setSidebarState(!sidebarState)}>
