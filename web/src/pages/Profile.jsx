@@ -116,7 +116,7 @@ function Profile() {
                     </div>
                     <div className="inline-flex items-center justify-center w-full">
                         <hr className="w-full h-px my-8 bg-gray-200 border-0" />
-                        <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2">All books</span>
+                        <span className="absolute font-medium text-gray-900 -translate-x-1/3 bg-white ">All books</span>
                     </div>
                     <Button.Group className="pb-4">
                         <Button color="gray" onClick={() => setReadingStatusFilter("All")}>All ({data.books.length})</Button>
