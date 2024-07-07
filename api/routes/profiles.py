@@ -52,3 +52,30 @@ def create_profile():
         new_profile = Profile(owner_id=claim_id, display_name=request.json["display_name"])
         new_profile.save_to_db()
         return jsonify({'message': 'Profile created'}), 200
+
+@profiles_endpoint.route("/v1/profiles", methods=["PATCH"])
+@jwt_required()
+def edit_profile():
+    claim_id = get_jwt()["id"]
+
+    profile = Profile.query.filter(Profile.owner_id==claim_id).first()
+    if profile:
+        if request.json:
+            if "display_name" in request.json:
+                profile.display_name = request.json["display_name"]
+            if "visibility" in request.json:
+                if "hidden" or "public" in request.json["visibility"]:
+                    profile.visibility = request.json["visibility"]
+            profile.save_to_db()
+            return jsonify({'message': 'Profile updated'}), 200
+        else:
+            return jsonify({
+                        "error": "Bad request",
+                        "message": "display_name and/or visibility not given"
+            }), 40
+
+    else:
+        return jsonify({
+                    "error": "Not found",
+                    "message": "No profile was found."
+        }), 404
