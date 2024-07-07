@@ -9,6 +9,7 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import { RiSideBarLine } from "react-icons/ri";
 import { RiSideBarFill  } from "react-icons/ri";
 import { RiSearch2Line } from "react-icons/ri";
+import { RiLoginBoxLine } from "react-icons/ri";
 
 const customTheme = {
   root: {
@@ -42,9 +43,13 @@ function NavigationMenu() {
                     <Link to="/profile">
                       <Sidebar.Item active={location.pathname == "/profile"} icon={RiUser3Line }>Profile</Sidebar.Item>
                     </Link>
-                    {AuthService.getCurrentUser() && 
+                    {AuthService.getCurrentUser() ? ( 
                       <Sidebar.Item href="" onClick={() => (AuthService.logout(), navigate("/"))} icon={RiLogoutBoxLine}>Logout</Sidebar.Item>
-                    }
+                    ):(
+                      <Link to="/login">
+                        <Sidebar.Item href="" icon={RiLoginBoxLine}>Login</Sidebar.Item>
+                      </Link>
+                    )}
                 </Sidebar.ItemGroup>
                 <Sidebar.ItemGroup>
                   <Sidebar.Item icon={sidebarState ? RiSideBarFill : RiSideBarLine  } onClick={() => setSidebarState(!sidebarState)}>
