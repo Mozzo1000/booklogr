@@ -29,7 +29,6 @@ def upgrade():
     )
     with op.batch_alter_table('books', schema=None) as batch_op:
         batch_op.create_foreign_key(None, 'profiles', ['owner_id'], ['owner_id'])
-        batch_op.drop_column('profile_id')
 
     # ### end Alembic commands ###
 
