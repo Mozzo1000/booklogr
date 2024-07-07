@@ -1,4 +1,4 @@
-import { Routes, Route, redirect } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import BookDetails from "./pages/BookDetails";
 import Library from "./pages/Library";
 import Home from "./pages/Home";
@@ -9,6 +9,12 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Footer from "./components/Footer";
 import Register from "./pages/Register";
+import AuthService from "./services/auth.service";
+
+function PrivateRoute({ children }) {
+  const auth = AuthService.getCurrentUser()
+  return auth ? children : <Navigate to="/login" />;
+}
 
 function App() {
   return (
@@ -22,9 +28,9 @@ function App() {
           <Route path="/">
             <Route index element={<Home/>} />
        
-            <Route path="library" element={<Library />} />
+            <Route path="library" element={<PrivateRoute><Library /></PrivateRoute>} />
             <Route path="books/:id" element={<BookDetails />} />
-            <Route path="profile" element={<Profile />} />
+            <Route exact path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
             <Route path="profile/:name" element={<Profile />} />
 
             <Route path="login" element={<Login />} />
