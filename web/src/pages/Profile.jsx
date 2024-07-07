@@ -5,7 +5,7 @@ import useToast from '../toast/useToast';
 import BookItem from '../components/Library/BookItem';
 import PaneTabView from '../components/Library/PaneTabView';
 import { FaEye } from "react-icons/fa6";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import BookStatsCard from '../components/BookStatsCard';
 import { FaBook } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
@@ -23,6 +23,7 @@ function Profile() {
     const [openSettingsModal, setOpenSettingsModal] = useState(false);
     const [displayName, setDisplayName] = useState();
     const [profileVisiblity, setProfileVisiblity] = useState();
+    const [profileNotFound, setProfileNotFound] = useState(false);
 
     const toast = useToast(4000);
     let { name } = useParams();
@@ -67,6 +68,7 @@ function Profile() {
                         error.message ||
                         error.toString();
                     toast("error", resMessage);
+                    setProfileNotFound(true);
                 }
             )
         } else {
@@ -222,6 +224,19 @@ function Profile() {
                 </div>
                 
             }
+
+            {profileNotFound &&
+                <div className="flex flex-col min-h-screen justify-center items-center text-center gap-4">
+                    <div className="format lg:format-lg">
+                        <h1>No profile found</h1>
+                        <p>We could not find a profile with that name. Either the profile does not exist or it is set to hidden.</p>
+                    </div>
+                    <Link to="/">
+                        <Button color="dark" size="lg">Go home</Button>
+                    </Link>
+                </div>
+            }
+
         </div>
     )
 }
