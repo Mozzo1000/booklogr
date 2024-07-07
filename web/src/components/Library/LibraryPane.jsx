@@ -82,7 +82,13 @@ function LibraryPane() {
         </Tabs.Item>
         </Tabs>
         {state.books?.length <= 0 &&
-            <p>No books found</p>
+            <div className="flex flex-col justify-center items-center text-center gap-4 pt-8">
+                <RiBook2Line size={96}/>
+                <div className="format lg:format-lg">
+                    <h2>No books found</h2>
+                    <p>There does not seem to be any books in this list. Use the search to find a book and add it to your list.</p>
+                </div>
+            </div>
         }
         </>
     )
