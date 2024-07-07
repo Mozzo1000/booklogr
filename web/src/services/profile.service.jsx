@@ -15,8 +15,13 @@ const get = () => {
     return axios.get(API_URL + "v1/profiles", { headers: authHeader() });
 };
 
+const edit = (data) => {
+    return axios.patch(API_URL + "v1/profiles", data, { headers: authHeader() });
+}
+
 export default {
     create,
     get,
     get_by_display_name,
+    edit,
 };
