@@ -7,6 +7,7 @@ import NavigationMenu from "./components/Navbar"
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Footer from "./components/Footer";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="profile/:name" element={<Profile />} />
 
             <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
           </Route>
         </Routes>
       </div>
