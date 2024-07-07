@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import ProfileService from '../services/profile.service';
-import { Button, TextInput, Label, Badge } from "flowbite-react";
+import { Button, TextInput, Label, Badge, Modal, Select, Popover } from "flowbite-react";
 import useToast from '../toast/useToast';
 import BookItem from '../components/Library/BookItem';
 import PaneTabView from '../components/Library/PaneTabView';
@@ -10,14 +10,32 @@ import BookStatsCard from '../components/BookStatsCard';
 import { FaBook } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
 import { FaBookOpen } from "react-icons/fa6";
+import { FaGear } from "react-icons/fa6";
+import { FaCircleQuestion } from "react-icons/fa6";
 
 function Profile() {
     const [data, setData] = useState();
     const [noProfile, setNoProfile] = useState();
     const [createDisplayName, setCreateDisplayName] = useState();
     const [readingStatusFilter, setReadingStatusFilter] = useState("All");
+
+    const [openSettingsModal, setOpenSettingsModal] = useState(false);
+    const [displayName, setDisplayName] = useState();
+    const [profileVisiblity, setProfileVisiblity] = useState();
+
     const toast = useToast(4000);
     let { name } = useParams();
+
+    const displayNamePopoverContent = (
+        <div className="w-64 text-sm text-gray-500 dark:text-gray-400">
+            <div className="border-b border-gray-200 bg-gray-100 px-3 py-2 dark:border-gray-600 dark:bg-gray-700">
+                <h3 className="font-semibold text-gray-900 dark:text-white">Help</h3>
+            </div>
+            <div className="px-3 py-2">
+                <p>Changing your display name will also change the link to get to your public profile.</p>
+            </div>
+        </div>
+    )
 
     const filteredBooks = useMemo(() => {
         if (data) {
@@ -36,6 +54,8 @@ function Profile() {
                 response => {
                     setData(response.data)
                     setNoProfile(false);
+                    setDisplayName(response.data.display_name);
+                    setProfileVisiblity(response.data.visibility)
                 },
                 error => {
                     const resMessage =
@@ -53,6 +73,8 @@ function Profile() {
                     console.log(response.data)
                     setData(response.data)
                     setNoProfile(false);
+                    setDisplayName(response.data.display_name);
+                    setProfileVisiblity(response.data.visibility)
                 },
                 error => {
                     if (error.response) {
@@ -84,6 +106,37 @@ function Profile() {
         )
     }
 
+    const handleUpdateProfile = (e) => {
+        e.preventDefault();
+        let newProfileData = {}
+
+        if(displayName != data.display_name) {
+            newProfileData.display_name = displayName;
+        }
+
+        if(profileVisiblity != data.visibility) {
+            newProfileData.visibility = profileVisiblity;
+        }
+        if (Object.keys(newProfileData).length > 0) {
+            ProfileService.edit(newProfileData).then(
+                response => {
+                    toast("success", response.data.message);
+                    setOpenSettingsModal(false);
+                },
+                error => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                    setOpenSettingsModal(false);
+                    toast("error", resMessage);
+                }
+            )
+        }
+    }
+
 
     return (
         <div>
@@ -103,11 +156,14 @@ function Profile() {
             }
             {data &&
                 <div>
-                    <div className="format lg:format-lg">
-                        <div className="flex flex-row justify-start gap-4">
-                            <h2 >{data.display_name}</h2> 
-                            <Badge icon={FaEye} >{data.visibility}</Badge>
+                    <div className="flex flex-row justify-between items-center gap-4">
+                        <div className="flex items-center gap-4">
+                        <div className="format lg:format-lg">
+                            <h2 >{data.display_name}</h2>
                         </div>
+                        <Badge icon={FaEye} >{data.visibility}</Badge>
+                        </div>
+                        <Button pill outline onClick={() => setOpenSettingsModal(true)}><FaGear className="h-6 w-6"/></Button>
                     </div>
                     <div className="flex flex-row gap-16 pt-8 justify-around">
                         <BookStatsCard icon={<FaBook className="w-8 h-8"/>} number={data.num_books_read || 0} text="Read"/>
@@ -133,7 +189,32 @@ function Profile() {
                         )
                     })}
                     </PaneTabView>
+                    <Modal dismissible show={openSettingsModal} onClose={() => setOpenSettingsModal(false)}>
+                        <Modal.Header>Update profile</Modal.Header>
+                        <Modal.Body>
+                            <form className="flex flex-col gap-4" onSubmit={handleUpdateProfile}>
+                                <div className="mb-2 block">
+                                    <div className="flex flex-row gap-2 items-center">
+                                    <Label htmlFor="displayname" value="Display name" />
+                                    <Popover trigger="hover" content={displayNamePopoverContent}>
+                                        <span><FaCircleQuestion /></span>
+                                    </Popover>
+                                    </div>
+                                </div>
+                                <TextInput id="displayname" type="text" required value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
+                                <div className="mb-2 block">
+                                    <Label htmlFor="visiblity" value="Visiblity" />
+                                </div>
+                                <Select id="visiblity" required value={profileVisiblity} onChange={(e) => setProfileVisiblity(e.target.value)}>
+                                    <option value="hidden">Hidden</option>
+                                    <option value="public">Public</option>
+                                </Select>
+                                <Button type="submit">Update</Button>
+                            </form>
+                        </Modal.Body>
+                    </Modal>
                 </div>
+                
             }
         </div>
     )
