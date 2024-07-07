@@ -18,7 +18,7 @@ function NavigationMenu() {
         <>
         <Sidebar collapsed={sidebarState}>
           <Sidebar.Logo as={Link} href="/" img="/icon.svg" className="mr-3 h-6 sm:h-8" alt="Logo">
-            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">minimal reading</span>
+            <span className="self-center whitespace-nowrap text-xl dark:text-white font-[800]">BookLogr</span>
           </Sidebar.Logo>
             <Sidebar.Items>
                   <Sidebar.ItemGroup>
