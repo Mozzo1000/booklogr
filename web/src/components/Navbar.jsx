@@ -37,8 +37,8 @@ function NavigationMenu() {
                     )}
                   </Sidebar.ItemGroup>
                   <Sidebar.ItemGroup>
-                    <Link to="/">
-                      <Sidebar.Item active={location.pathname == "/"} icon={RiBook2Line}>My Library</Sidebar.Item>
+                    <Link to="/library">
+                      <Sidebar.Item active={location.pathname == "/library"} icon={RiBook2Line}>My Library</Sidebar.Item>
                     </Link>
                     <Link to="/profile">
                       <Sidebar.Item active={location.pathname == "/profile"} icon={RiUser3Line }>Profile</Sidebar.Item>

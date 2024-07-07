@@ -1,5 +1,6 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, redirect } from "react-router-dom";
 import BookDetails from "./pages/BookDetails";
+import Library from "./pages/Library";
 import Home from "./pages/Home";
 import SearchBar from "./components/SearchBar";
 import ToastContainer from "./toast/Container";
@@ -20,6 +21,8 @@ function App() {
         <Routes>
           <Route path="/">
             <Route index element={<Home/>} />
+       
+            <Route path="library" element={<Library />} />
             <Route path="books/:id" element={<BookDetails />} />
             <Route path="profile" element={<Profile />} />
             <Route path="profile/:name" element={<Profile />} />
