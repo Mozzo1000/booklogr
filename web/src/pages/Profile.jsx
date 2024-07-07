@@ -171,7 +171,7 @@ function Profile() {
                             }
                         </div>
                         {currentUser &&
-                            <Button pill outline onClick={() => setOpenSettingsModal(true)}><RiSettings4Line className="h-6 w-6"/></Button>
+                            <Button outline color="light" pill onClick={() => setOpenSettingsModal(true)}><RiSettings4Line className="h-6 w-6"/></Button>
                         }                        
                     </div>
                     <div className="flex flex-row gap-16 pt-12 justify-around">
