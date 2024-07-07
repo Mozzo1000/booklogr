@@ -110,9 +110,9 @@ function Profile() {
                         </div>
                     </div>
                     <div className="flex flex-row gap-16 pt-8 justify-around">
-                        <BookStatsCard icon={<FaBook className="w-8 h-8"/>} number={data.num_books_read} text="Read"/>
-                        <BookStatsCard icon={<FaBookOpen className="w-8 h-8"/>} number={data.num_books_reading} text="Reading"/>
-                        <BookStatsCard icon={<FaBookmark className="w-8 h-8"/>} number={data.num_books_tbr} text="To Be Read"/>
+                        <BookStatsCard icon={<FaBook className="w-8 h-8"/>} number={data.num_books_read || 0} text="Read"/>
+                        <BookStatsCard icon={<FaBookOpen className="w-8 h-8"/>} number={data.num_books_reading || 0} text="Reading"/>
+                        <BookStatsCard icon={<FaBookmark className="w-8 h-8"/>} number={data.num_books_tbr || 0} text="To Be Read"/>
                     </div>
                     <div className="inline-flex items-center justify-center w-full">
                         <hr className="w-full h-px my-8 bg-gray-200 border-0" />
@@ -120,9 +120,9 @@ function Profile() {
                     </div>
                     <Button.Group className="pb-4">
                         <Button color="gray" onClick={() => setReadingStatusFilter("All")}>All ({data.books.length})</Button>
-                        <Button color="gray" onClick={() => setReadingStatusFilter("Read")}>Read ({data.num_books_read})</Button>
-                        <Button color="gray" onClick={() => setReadingStatusFilter("Currently reading")}>Currently reading ({data.num_books_reading})</Button>
-                        <Button color="gray" onClick={() => setReadingStatusFilter("To be read")}>To be read ({data.num_books_tbr})</Button>
+                        <Button color="gray" onClick={() => setReadingStatusFilter("Read")}>Read ({data.num_books_read || 0})</Button>
+                        <Button color="gray" onClick={() => setReadingStatusFilter("Currently reading")}>Currently reading ({data.num_books_reading || 0})</Button>
+                        <Button color="gray" onClick={() => setReadingStatusFilter("To be read")}>To be read ({data.num_books_tbr || 0})</Button>
                     </Button.Group>
                     <PaneTabView>
                     {filteredBooks.map((item) => {
