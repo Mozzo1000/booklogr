@@ -23,7 +23,7 @@ function NavigationMenu() {
 
     return (
         <>
-        <Sidebar collapsed={sidebarState} theme={customTheme} className="min-h-screen">
+        <Sidebar collapsed={sidebarState} theme={customTheme}>
           <Sidebar.Logo as={Link} href="/" img="/icon.svg" className="mr-3 h-6 sm:h-8" alt="Logo">
             <span className="self-center whitespace-nowrap text-xl dark:text-white font-[800]">BookLogr</span>
           </Sidebar.Logo>

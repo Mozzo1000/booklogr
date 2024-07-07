@@ -6,10 +6,11 @@ import ToastContainer from "./toast/Container";
 import NavigationMenu from "./components/Navbar"
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <>
+    <div className="min-h-screen">
     <div className="flex flex-row ">
       <div className="basis-1/12">
         <NavigationMenu />
@@ -27,8 +28,9 @@ function App() {
         </Routes>
       </div>
     </div>
+    <Footer />
     <ToastContainer />
-    </>
+    </div>
   )
 }
 
