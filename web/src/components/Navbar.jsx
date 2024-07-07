@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import SearchBar from '../components/SearchBar'
 import { Sidebar, Modal } from 'flowbite-react'
-import { TbLayoutSidebarRightCollapseFilled } from "react-icons/tb";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import { FaBook } from "react-icons/fa6";
-import { FaCircleUser } from "react-icons/fa6";
-import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
-import { FaRightFromBracket } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import AuthService from '../services/auth.service';
+import { RiBook2Line } from "react-icons/ri";
+import { RiUser3Line } from "react-icons/ri";
+import { RiLogoutBoxLine } from "react-icons/ri";
+import { RiSideBarLine } from "react-icons/ri";
+import { RiSideBarFill  } from "react-icons/ri";
+import { RiSearch2Line } from "react-icons/ri";
 
 const customTheme = {
   root: {
@@ -29,24 +29,24 @@ function NavigationMenu() {
             <Sidebar.Items>
                   <Sidebar.ItemGroup>
                     {sidebarState ? (
-                      <Sidebar.Item icon={FaMagnifyingGlass} onClick={() => setOpenSearchModal(true)}>Search</Sidebar.Item>
+                      <Sidebar.Item icon={RiSearch2Line} onClick={() => setOpenSearchModal(true)}>Search</Sidebar.Item>
                     ) :( 
                     <Sidebar.Item><SearchBar></SearchBar></Sidebar.Item>
                     )}
                   </Sidebar.ItemGroup>
                   <Sidebar.ItemGroup>
                     <Link to="/">
-                      <Sidebar.Item icon={FaBook}><span className="font-semibold">My Library</span></Sidebar.Item>
+                      <Sidebar.Item icon={RiBook2Line}><span className="font-semibold">My Library</span></Sidebar.Item>
                     </Link>
                     <Link to="/profile">
-                      <Sidebar.Item icon={FaCircleUser }><span>Profile</span></Sidebar.Item>
+                      <Sidebar.Item icon={RiUser3Line }><span>Profile</span></Sidebar.Item>
                     </Link>
                     {AuthService.getCurrentUser() && 
-                      <Sidebar.Item href="" onClick={() => (AuthService.logout(), navigate("/"))} icon={FaRightFromBracket}>Logout</Sidebar.Item>
+                      <Sidebar.Item href="" onClick={() => (AuthService.logout(), navigate("/"))} icon={RiLogoutBoxLine}>Logout</Sidebar.Item>
                     }
                 </Sidebar.ItemGroup>
                 <Sidebar.ItemGroup>
-                  <Sidebar.Item icon={sidebarState ? TbLayoutSidebarRightCollapseFilled : TbLayoutSidebarLeftCollapseFilled } onClick={() => setSidebarState(!sidebarState)}>
+                  <Sidebar.Item icon={sidebarState ? RiSideBarFill : RiSideBarLine  } onClick={() => setSidebarState(!sidebarState)}>
                     {sidebarState ? (
                       <span>Expand</span>
                     ): (

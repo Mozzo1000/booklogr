@@ -4,15 +4,15 @@ import { Button, TextInput, Label, Badge, Modal, Select, Popover, Avatar } from 
 import useToast from '../toast/useToast';
 import BookItem from '../components/Library/BookItem';
 import PaneTabView from '../components/Library/PaneTabView';
-import { FaEye } from "react-icons/fa6";
 import { Link, useParams } from 'react-router-dom';
 import BookStatsCard from '../components/BookStatsCard';
-import { FaBook } from "react-icons/fa6";
-import { FaBookmark } from "react-icons/fa6";
-import { FaBookOpen } from "react-icons/fa6";
-import { FaGear } from "react-icons/fa6";
-import { FaCircleQuestion } from "react-icons/fa6";
+import { RiSettings4Line } from "react-icons/ri";
+import { RiQuestionLine } from "react-icons/ri";
 import authService from '../services/auth.service';
+import { RiBook2Line } from "react-icons/ri";
+import { RiBookOpenLine } from "react-icons/ri";
+import { RiBookmarkLine } from "react-icons/ri";
+import { RiEyeLine } from "react-icons/ri";
 
 function Profile() {
     const [data, setData] = useState();
@@ -167,17 +167,17 @@ function Profile() {
                             <h1 >{data.display_name}</h1>
                         </div>
                             {currentUser &&
-                                <Badge icon={FaEye} >{data.visibility}</Badge>
+                                <Badge icon={RiEyeLine} >{data.visibility}</Badge>
                             }
                         </div>
                         {currentUser &&
-                            <Button pill outline onClick={() => setOpenSettingsModal(true)}><FaGear className="h-6 w-6"/></Button>
+                            <Button pill outline onClick={() => setOpenSettingsModal(true)}><RiSettings4Line className="h-6 w-6"/></Button>
                         }                        
                     </div>
                     <div className="flex flex-row gap-16 pt-12 justify-around">
-                        <BookStatsCard icon={<FaBook className="w-8 h-8"/>} number={data.num_books_read || 0} text="Read"/>
-                        <BookStatsCard icon={<FaBookOpen className="w-8 h-8"/>} number={data.num_books_reading || 0} text="Reading"/>
-                        <BookStatsCard icon={<FaBookmark className="w-8 h-8"/>} number={data.num_books_tbr || 0} text="To Be Read"/>
+                        <BookStatsCard icon={<RiBook2Line className="w-8 h-8"/>} number={data.num_books_read || 0} text="Read"/>
+                        <BookStatsCard icon={<RiBookOpenLine className="w-8 h-8"/>} number={data.num_books_reading || 0} text="Reading"/>
+                        <BookStatsCard icon={<RiBookmarkLine className="w-8 h-8"/>} number={data.num_books_tbr || 0} text="To Be Read"/>
                     </div>
                     <div className="inline-flex items-center justify-center w-full">
                         <hr className="w-full h-px my-8 bg-gray-200 border-0" />
@@ -206,7 +206,7 @@ function Profile() {
                                     <div className="flex flex-row gap-2 items-center">
                                     <Label htmlFor="displayname" value="Display name" />
                                     <Popover trigger="hover" content={displayNamePopoverContent}>
-                                        <span><FaCircleQuestion /></span>
+                                        <span><RiQuestionLine /></span>
                                     </Popover>
                                     </div>
                                 </div>
