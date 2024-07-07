@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import ProfileService from '../services/profile.service';
-import { Button, TextInput, Label, Badge, Modal, Select, Popover } from "flowbite-react";
+import { Button, TextInput, Label, Badge, Modal, Select, Popover, Avatar } from "flowbite-react";
 import useToast from '../toast/useToast';
 import BookItem from '../components/Library/BookItem';
 import PaneTabView from '../components/Library/PaneTabView';
@@ -160,10 +160,11 @@ function Profile() {
             }
             {data &&
                 <div>
-                    <div className="flex flex-row justify-between items-center gap-4">
+                    <div className="flex flex-row justify-between">
                         <div className="flex items-center gap-4">
+                            <Avatar rounded />
                         <div className="format lg:format-lg">
-                            <h2 >{data.display_name}</h2>
+                            <h1 >{data.display_name}</h1>
                         </div>
                             {currentUser &&
                                 <Badge icon={FaEye} >{data.visibility}</Badge>
@@ -171,9 +172,9 @@ function Profile() {
                         </div>
                         {currentUser &&
                             <Button pill outline onClick={() => setOpenSettingsModal(true)}><FaGear className="h-6 w-6"/></Button>
-                        }
+                        }                        
                     </div>
-                    <div className="flex flex-row gap-16 pt-8 justify-around">
+                    <div className="flex flex-row gap-16 pt-12 justify-around">
                         <BookStatsCard icon={<FaBook className="w-8 h-8"/>} number={data.num_books_read || 0} text="Read"/>
                         <BookStatsCard icon={<FaBookOpen className="w-8 h-8"/>} number={data.num_books_reading || 0} text="Reading"/>
                         <BookStatsCard icon={<FaBookmark className="w-8 h-8"/>} number={data.num_books_tbr || 0} text="To Be Read"/>
