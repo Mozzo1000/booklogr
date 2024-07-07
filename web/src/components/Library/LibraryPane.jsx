@@ -4,6 +4,9 @@ import { Tabs } from "flowbite-react";
 import BooksService from '../../services/books.service';
 import PaneTabView from './PaneTabView';
 import reducer, { initialState, actionTypes } from '../../useLibraryReducer';
+import { RiBook2Line } from "react-icons/ri";
+import { RiBookOpenLine } from "react-icons/ri";
+import { RiBookmarkLine } from "react-icons/ri";
 
 function LibraryPane() {
     const [activeTab, setActiveTab] = useState(0);
@@ -43,8 +46,8 @@ function LibraryPane() {
         <article className="format lg:format-lg pb-2">
             <h2>My Library</h2>
         </article>
-        <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} style='fullWidth'>
-        <Tabs.Item active title="Currently reading">
+        <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} style="underline" className="pt-1">
+        <Tabs.Item active title="Currently reading" icon={RiBookOpenLine}>
         <PaneTabView>
             {state.books?.map((item) => {
                 return (
@@ -55,7 +58,7 @@ function LibraryPane() {
             })}
             </PaneTabView>
         </Tabs.Item>
-        <Tabs.Item title="To be read">
+        <Tabs.Item title="To be read" icon={RiBookmarkLine}>
             <PaneTabView>
             {state.books?.map((item) => {
                 return (
@@ -66,7 +69,7 @@ function LibraryPane() {
             })}
             </PaneTabView>
         </Tabs.Item>
-        <Tabs.Item title="Read">
+        <Tabs.Item title="Read" icon={RiBook2Line}>
             <PaneTabView>
             {state.books?.map((item) => {
                 return (
