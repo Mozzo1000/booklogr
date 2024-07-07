@@ -12,6 +12,7 @@ import { FaBookmark } from "react-icons/fa6";
 import { FaBookOpen } from "react-icons/fa6";
 import { FaGear } from "react-icons/fa6";
 import { FaCircleQuestion } from "react-icons/fa6";
+import authService from '../services/auth.service';
 
 function Profile() {
     const [data, setData] = useState();
@@ -25,6 +26,7 @@ function Profile() {
 
     const toast = useToast(4000);
     let { name } = useParams();
+    const currentUser = authService.getCurrentUser();
 
     const displayNamePopoverContent = (
         <div className="w-64 text-sm text-gray-500 dark:text-gray-400">
@@ -161,9 +163,13 @@ function Profile() {
                         <div className="format lg:format-lg">
                             <h2 >{data.display_name}</h2>
                         </div>
-                        <Badge icon={FaEye} >{data.visibility}</Badge>
+                            {currentUser &&
+                                <Badge icon={FaEye} >{data.visibility}</Badge>
+                            }
                         </div>
-                        <Button pill outline onClick={() => setOpenSettingsModal(true)}><FaGear className="h-6 w-6"/></Button>
+                        {currentUser &&
+                            <Button pill outline onClick={() => setOpenSettingsModal(true)}><FaGear className="h-6 w-6"/></Button>
+                        }
                     </div>
                     <div className="flex flex-row gap-16 pt-8 justify-around">
                         <BookStatsCard icon={<FaBook className="w-8 h-8"/>} number={data.num_books_read || 0} text="Read"/>
