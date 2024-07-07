@@ -5,11 +5,13 @@ import OpenLibraryButton from '../components/OpenLibraryButton';
 import AddToReadingListButtton from '../components/AddToReadingListButton';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import useToast from '../toast/useToast';
 
 function BookDetails() {
     let { id } = useParams();
     const [data, setData] = useState();
     const [description, setDescription] = useState();
+    const toast = useToast(4000);
 
     useEffect(() => {
         OpenLibraryService.get(id).then(
@@ -31,6 +33,15 @@ function BookDetails() {
                         }
                     }
                 )
+            },
+            error => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                toast("error", "OpenLibrary: " + resMessage);
             }
         )
     }, [])
