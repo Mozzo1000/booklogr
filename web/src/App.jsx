@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import Footer from "./components/Footer";
 import Register from "./pages/Register";
 import AuthService from "./services/auth.service";
+import SidebarNav from "./components/SidebarNav";
 
 function PrivateRoute({ children }) {
   const auth = AuthService.getCurrentUser()
@@ -19,11 +20,16 @@ function PrivateRoute({ children }) {
 function App() {
   return (
     <div className="min-h-screen">
-    <div className="flex flex-row ">
+    <div className="flex flex-row">
+      {AuthService.getCurrentUser() &&
       <div className="basis-1/12">
-        <NavigationMenu />
+        <SidebarNav />
       </div>
-      <div className="container mx-auto pt-10 basis-full	"> 
+      }
+      <div className="container mx-auto pt-10 basis-full">
+        {!AuthService.getCurrentUser() &&
+          <NavigationMenu />
+        }
         <Routes>
           <Route path="/">
             <Route index element={<Home/>} />

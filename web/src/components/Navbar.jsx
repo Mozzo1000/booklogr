@@ -1,76 +1,45 @@
-import React, {useState} from 'react';
-import SearchBar from '../components/SearchBar'
-import { Sidebar, Modal } from 'flowbite-react'
+import React from 'react';
+import { Navbar } from 'flowbite-react'
 import { Link, useLocation } from 'react-router-dom';
-import AuthService from '../services/auth.service';
-import { RiBook2Line } from "react-icons/ri";
-import { RiUser3Line } from "react-icons/ri";
-import { RiLogoutBoxLine } from "react-icons/ri";
-import { RiSideBarLine } from "react-icons/ri";
-import { RiSideBarFill  } from "react-icons/ri";
-import { RiSearch2Line } from "react-icons/ri";
-import { RiLoginBoxLine } from "react-icons/ri";
 
-const customTheme = {
+const customThemeNav = {
   root: {
-    inner: "h-full overflow-y-auto overflow-x-hidden rounded bg-[#FDFCF7] py-4 px-3 dark:bg-gray-800 border-r",
+    base: "bg-[#FDFCF7] px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4",
+  },
+  link: {
+    active: {
+      on: "bg-cyan-700 underline text-white dark:text-white md:bg-transparent md:text-cyan-700"
+    }
   }
 };
 
 function NavigationMenu() {
-    const [sidebarState, setSidebarState] = useState(true);
-    const [openSearchModal, setOpenSearchModal] = useState(false);
     let location = useLocation();
-    const withouSidebarRoutes = ["/login", "/register", "/verify"];
-
-    if (withouSidebarRoutes.some((item) => location.pathname.includes(item)))
-      return null;
 
     return (
         <>
-        <Sidebar collapsed={sidebarState} theme={customTheme}>
-          <Sidebar.Logo as={Link} href="/" img="/icon.svg" className="mr-3 h-6 sm:h-8" alt="Logo">
-            <span className="self-center whitespace-nowrap text-xl dark:text-white font-[800]">BookLogr</span>
-          </Sidebar.Logo>
-            <Sidebar.Items>
-                  <Sidebar.ItemGroup>
-                    {sidebarState ? (
-                      <Sidebar.Item icon={RiSearch2Line} onClick={() => setOpenSearchModal(true)}>Search</Sidebar.Item>
-                    ) :( 
-                    <Sidebar.Item><SearchBar showAttribution={false}></SearchBar></Sidebar.Item>
-                    )}
-                  </Sidebar.ItemGroup>
-                  <Sidebar.ItemGroup>
-                    <Link to="/library">
-                      <Sidebar.Item active={location.pathname == "/library"} icon={RiBook2Line}>My Library</Sidebar.Item>
-                    </Link>
-                    <Link to="/profile">
-                      <Sidebar.Item active={location.pathname == "/profile"} icon={RiUser3Line }>Profile</Sidebar.Item>
-                    </Link>
-                    {AuthService.getCurrentUser() ? ( 
-                      <Sidebar.Item href="" onClick={() => (AuthService.logout(), navigate("/"))} icon={RiLogoutBoxLine}>Logout</Sidebar.Item>
-                    ):(
-                      <Link to="/login">
-                        <Sidebar.Item href="" icon={RiLoginBoxLine}>Login</Sidebar.Item>
-                      </Link>
-                    )}
-                </Sidebar.ItemGroup>
-                <Sidebar.ItemGroup>
-                  <Sidebar.Item icon={sidebarState ? RiSideBarFill : RiSideBarLine  } onClick={() => setSidebarState(!sidebarState)}>
-                    {sidebarState ? (
-                      <span>Expand</span>
-                    ): (
-                      <span>Collapse</span>
-                    )}
-                  </Sidebar.Item>
-                </Sidebar.ItemGroup>
-            </Sidebar.Items>
-        </Sidebar>
-        <Modal dismissible show={openSearchModal} onClose={() => setOpenSearchModal(false)} position={"top-center"}>
-            <Modal.Body>
-                <SearchBar absolute={false} hideESCIcon={false}/>
-            </Modal.Body>
-        </Modal>
+          <div className="pb-10">
+          <Navbar theme={customThemeNav}>
+            <Navbar.Brand as={Link} to="/">
+              <img src="/icon.svg" className="mr-3 h-6 sm:h-9" alt="Logo" />
+              <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">BookLogr</span>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+            <Navbar.Collapse>
+              {import.meta.env.VITE_DISABLE_HOMEPAGE === "false" &&
+                <Navbar.Link as={Link} to="/" active={location.pathname == "/"}>
+                  Home
+                </Navbar.Link>
+              }
+              <Navbar.Link as={Link} to="/login" active={location.pathname == "/login"}>
+                Login
+              </Navbar.Link>
+              <Navbar.Link as={Link} to="/register" active={location.pathname == "/register"}>
+                Register
+              </Navbar.Link>
+            </Navbar.Collapse>
+          </Navbar>
+          </div>
         </>
     )
 }
