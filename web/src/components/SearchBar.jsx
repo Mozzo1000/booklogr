@@ -62,7 +62,7 @@ function SearchBar(props) {
 
     return (
         <div>
-            <TextInput icon={RiSearch2Line} rightIcon={ESCIcon} id="search" type="text" placeholder="Search for a book" onChange={(e) => (debouncedChangeHandler(e), setSearchTerm(e.target.value))} value={searchTerm} />
+            <TextInput icon={RiSearch2Line} rightIcon={props.hideESCIcon ? "" : ESCIcon} id="search" type="text" placeholder="Search for a book" onChange={(e) => (debouncedChangeHandler(e), setSearchTerm(e.target.value))} value={searchTerm} />
             <div className={`${showList? "block": "hidden"} ${props.absolute? "absolute max-w-md": "relative"} z-10 bg-white pt-10 overflow-y-auto max-h-96 min-w-28 min-h-28`}>
                 {loading ? (
                      loadingPlaceholder.map(function() {
@@ -105,11 +105,16 @@ function SearchBar(props) {
                     })
                 )}
             </div>
+            {props.showAttribution &&
+                <p className="format pt-2 ml-2 text-xs text-gray-500 font">Search powered by <a href="https://openlibrary.org" target="_blank">OpenLibrary</a></p>
+            }
         </div>
     )
 }
 
 SearchBar.defaultProps = {
     absolute: true,
+    hideESCIcon: true,
+    showAttribution: true
   }
 export default SearchBar

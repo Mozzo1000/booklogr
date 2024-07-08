@@ -37,7 +37,7 @@ function NavigationMenu() {
                     {sidebarState ? (
                       <Sidebar.Item icon={RiSearch2Line} onClick={() => setOpenSearchModal(true)}>Search</Sidebar.Item>
                     ) :( 
-                    <Sidebar.Item><SearchBar></SearchBar></Sidebar.Item>
+                    <Sidebar.Item><SearchBar showAttribution={false}></SearchBar></Sidebar.Item>
                     )}
                   </Sidebar.ItemGroup>
                   <Sidebar.ItemGroup>
@@ -68,7 +68,7 @@ function NavigationMenu() {
         </Sidebar>
         <Modal dismissible show={openSearchModal} onClose={() => setOpenSearchModal(false)} position={"top-center"}>
             <Modal.Body>
-                <SearchBar absolute={false}/>
+                <SearchBar absolute={false} hideESCIcon={false}/>
             </Modal.Body>
         </Modal>
         </>
