@@ -21,6 +21,10 @@ function NavigationMenu() {
     const [sidebarState, setSidebarState] = useState(true);
     const [openSearchModal, setOpenSearchModal] = useState(false);
     let location = useLocation();
+    const withouSidebarRoutes = ["/login", "/register", "/verify"];
+
+    if (withouSidebarRoutes.some((item) => location.pathname.includes(item)))
+      return null;
 
     return (
         <>
