@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Modal, Label, TextInput, Select} from "flowbite-react";
 import BooksService from '../services/books.service';
+import useToast from '../toast/useToast';
 
 function AddToReadingListButton(props) {
     const [openModal, setOpenModal] = useState(false);
     const [readingStatus, setReadingStatus] = useState();
     const [currentPage, setCurrentPage] = useState();
     const [totalPages, setTotalPages] = useState();
-    
+    const toast = useToast(4000);
+
     const handleSave = () => {
         var arr = {}
         arr.title = props.data?.title;
@@ -30,11 +32,17 @@ function AddToReadingListButton(props) {
 
         BooksService.add(arr).then(
             response => {
-                console.log(response.data);
+                toast("success", response.data.message);
                 setOpenModal(false);
             },
             error => {
-                console.log("ERROR: " + error);
+              const resMessage =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+              toast("error", resMessage);
             }
         )
     }
