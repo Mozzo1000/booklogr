@@ -1,6 +1,6 @@
 import React, { useState }  from 'react'
 import { Button, TextInput, Modal, Label } from 'flowbite-react'
-import { SlBookOpen } from "react-icons/sl";
+import { RiBookOpenLine } from "react-icons/ri";
 import BooksService from '../services/books.service';
 import useToast from '../toast/useToast';
 
@@ -32,11 +32,11 @@ function UpdateReadingStatusButton(props) {
     return (
         <>
             <Button color="light" pill size="sm" onClick={() => setOpenModal(true)}>Update progress</Button>
-            <Modal size="md" show={openModal} onClose={() => setOpenModal(false)}>
+            <Modal size="lg" show={openModal} onClose={() => setOpenModal(false)}>
             <Modal.Header>Update reading progress</Modal.Header>
                 <Modal.Body>
                 <div className="space-y-6">
-                    <p className="flex items-center gap-2">{<SlBookOpen />} {props.title}</p>
+                    <p className="flex items-center gap-2">{<RiBookOpenLine />} {props.title}</p>
                     <div className="flex items-center gap-2">
                         <p>I am on page</p>
                         <TextInput className=""sizing="sm" value={updatedProgress} onChange={(e) => setUpdatedProgress(e.target.value)} />
