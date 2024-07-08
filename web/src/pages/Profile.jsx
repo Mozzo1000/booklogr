@@ -4,7 +4,7 @@ import { Button, TextInput, Label, Badge, Modal, Select, Popover, Avatar } from 
 import useToast from '../toast/useToast';
 import BookItem from '../components/Library/BookItem';
 import PaneTabView from '../components/Library/PaneTabView';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import BookStatsCard from '../components/BookStatsCard';
 import { RiSettings4Line } from "react-icons/ri";
 import { RiQuestionLine } from "react-icons/ri";
@@ -28,6 +28,7 @@ function Profile() {
     const toast = useToast(4000);
     let { name } = useParams();
     const currentUser = authService.getCurrentUser();
+    let navigate = useNavigate();
 
     const displayNamePopoverContent = (
         <div className="w-64 text-sm text-gray-500 dark:text-gray-400">
@@ -72,31 +73,36 @@ function Profile() {
                 }
             )
         } else {
-            ProfileService.get().then(
-                response => {
-                    console.log(response.data)
-                    setData(response.data)
-                    setNoProfile(false);
-                    setDisplayName(response.data.display_name);
-                    setProfileVisiblity(response.data.visibility)
-                },
-                error => {
-                    if (error.response) {
-                        console.log(error.response.status)
-                        if (error.response.status == 404) {
-                            setNoProfile(true);
-                        }
-                    }
-                }
-            )
+            getProfileData();
         }
     }, [])
+
+    const getProfileData = () => {
+        ProfileService.get().then(
+            response => {
+                console.log(response.data)
+                setData(response.data)
+                setNoProfile(false);
+                setDisplayName(response.data.display_name);
+                setProfileVisiblity(response.data.visibility)
+            },
+            error => {
+                if (error.response) {
+                    console.log(error.response.status)
+                    if (error.response.status == 404) {
+                        setNoProfile(true);
+                    }
+                }
+            }
+        )
+    }
 
     const handleCreateProfile = (e) => {
         e.preventDefault();
         ProfileService.create({"display_name": createDisplayName}).then(
             response => {
                 toast("success", response.data.message);
+                getProfileData();
             },
             error => {
                 const resMessage =
@@ -144,20 +150,27 @@ function Profile() {
 
     return (
         <div>
-            {noProfile &&
-                <>
-                <h1>Create profile</h1>
-                <form className="flex max-w-md flex-col gap-4" onSubmit={handleCreateProfile}>
-                    <div>
-                        <div className="mb-2 block">
-                        <Label htmlFor="displayname" value="Display name" />
+            
+            <Modal show={noProfile}>
+                <Modal.Body>
+                    <form className="flex flex-col gap-4" onSubmit={handleCreateProfile}>
+                        <div className="format lg:format-lg">
+                            <h3>Create profile</h3>
+                            <p>A profile is used to publicly display your library and what you are currently reading.</p>
+                            <p>Your display name will be used to link to your profile page. Display name and visibility of your profile page can be changed at any time.</p>
                         </div>
-                        <TextInput id="displayname" type="text" required value={createDisplayName} onChange={(e) => setCreateDisplayName(e.target.value)} />
-                    </div>         
-                    <Button type="submit">Create</Button>
-                </form>
-                </>
-            }
+                        <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="displayname" value="Display name" />
+                            </div>
+                            <TextInput id="displayname" type="text" required value={createDisplayName} onChange={(e) => setCreateDisplayName(e.target.value)} />
+                        </div>         
+                        <Button type="submit" disabled={!createDisplayName}>Create</Button>
+                        <Button color="light" onClick={() => navigate("/library")}>Cancel</Button>
+                    </form>
+                </Modal.Body>
+            </Modal>
+            
             {data &&
                 <div>
                     <div className="flex flex-row justify-between">
