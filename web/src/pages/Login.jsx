@@ -17,7 +17,7 @@ function Login() {
         e.preventDefault();
         AuthService.login(username, password).then(
             response => {
-                toast("success", response.data.message)
+                toast("success", "Login successful")
                 navigate("/")
             },
             error => {
