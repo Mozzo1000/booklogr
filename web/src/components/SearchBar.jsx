@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-function SearchBar() {
+function SearchBar(props) {
     const [searchTerm, setSearchTerm] = useState('');
     const [suggestions, setSuggestions] = useState([{id: 0, name: ""}]);
     const [loading, setLoading] = useState(false);
@@ -56,12 +56,12 @@ function SearchBar() {
 
     const debouncedChangeHandler = useMemo(
         () => debounce(changeHandler, 500)
-      , []);
+    ,[]);
 
     return (
         <div>
             <TextInput id="search" type="text" placeholder="Search for a book" onChange={(e) => (debouncedChangeHandler(e), setSearchTerm(e.target.value))} value={searchTerm} />
-            <div className={`${showList? "block": "hidden"} absolute z-10 bg-white pt-10 max-w-md  overflow-y-auto	max-h-96 min-w-28 min-h-28`}>
+            <div className={`${showList? "block": "hidden"} ${props.absolute? "absolute max-w-md": "relative"} z-10 bg-white pt-10 overflow-y-auto max-h-96 min-w-28 min-h-28`}>
                 {loading ? (
                      loadingPlaceholder.map(function() {
                         return (
@@ -107,4 +107,7 @@ function SearchBar() {
     )
 }
 
+SearchBar.defaultProps = {
+    absolute: true,
+  }
 export default SearchBar

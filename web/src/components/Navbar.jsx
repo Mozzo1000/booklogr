@@ -68,7 +68,7 @@ function NavigationMenu() {
         </Sidebar>
         <Modal dismissible show={openSearchModal} onClose={() => setOpenSearchModal(false)} position={"top-center"}>
             <Modal.Body>
-                <SearchBar />
+                <SearchBar absolute={false}/>
             </Modal.Body>
         </Modal>
         </>
