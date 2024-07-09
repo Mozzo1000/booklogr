@@ -28,7 +28,7 @@ function Home() {
                         <Button as={Link} to="/login">Get started!</Button>
                     </div>
                 </div>
-                <div class="mt-20 lg:mt-0 lg:col-span-5">
+                <div class="mt-20 lg:mt-0 lg:col-span-5 invisible md:visible">
                     <img src="/ReadingSideDoodle.svg" alt="mockup"/>
                 </div>
             </div>
