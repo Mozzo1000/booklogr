@@ -1,10 +1,12 @@
 import React from 'react'
 import LibraryPane from '../components/Library/LibraryPane'
 
-function Home() {
-  return (      
-    <LibraryPane />  
+function Library() {
+  return (
+    <div className="container mx-auto ">
+      <LibraryPane />  
+    </div>
   )
 }
 
-export default Home
+export default Library
