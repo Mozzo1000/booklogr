@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import Register from "./pages/Register";
 import AuthService from "./services/auth.service";
 import SidebarNav from "./components/SidebarNav";
+import Verify from "./pages/Verify";
 
 function PrivateRoute({ children }) {
   const auth = AuthService.getCurrentUser()
@@ -41,6 +42,8 @@ function App() {
 
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="verify" element={<Verify />} />
+
           </Route>
         </Routes>
       </div>
