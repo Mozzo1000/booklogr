@@ -2,6 +2,7 @@ import { Button } from 'flowbite-react';
 import React, { useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import FeatureSection from '../components/FeatureSection';
+import CTA from '../components/CTA';
 import AuthService from '../services/auth.service';
 
 function Home() {
@@ -17,7 +18,7 @@ function Home() {
     
 
     return (
-        <div className="min-h-screen flex flex-col justify-between ">
+        <div className="min-h-screen flex flex-col justify-between">
         <section className="md:bg-[length:100%] h-screen bg-no-repeat bg-bottom bg-wave-pattern">
             <div class="grid max-w-screen-xl px-4 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
                 <div class="mr-auto place-self-center lg:col-span-7">
@@ -32,7 +33,8 @@ function Home() {
                 </div>
             </div>
         </section>
-        <FeatureSection />        
+        <FeatureSection />
+        <CTA />
         </div>
     )
 }
