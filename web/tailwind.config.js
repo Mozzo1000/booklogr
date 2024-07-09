@@ -14,6 +14,7 @@ export default {
       },
       backgroundImage: {
         'wave-pattern': "url('/wave.svg')",
+        'wave-02-pattern': "url('/wave_02.svg')",
       }
     },
   },
