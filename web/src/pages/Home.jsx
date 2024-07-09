@@ -2,11 +2,15 @@ import { Button } from 'flowbite-react';
 import React, { useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import FeatureSection from '../components/FeatureSection';
+import AuthService from '../services/auth.service';
 
 function Home() {
     let navigate = useNavigate();
     useEffect(() => {
         if(import.meta.env.VITE_DISABLE_HOMEPAGE === "true") {
+            return navigate("/library")
+        }
+        if(AuthService.getCurrentUser()) {
             return navigate("/library")
         }
     }, [])
