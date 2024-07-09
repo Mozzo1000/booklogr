@@ -11,6 +11,9 @@ export default {
     extend: {
       fontFamily: {
         libre: ['"Libre Baskerville"', ...defaultTheme.fontFamily.sans]
+      },
+      backgroundImage: {
+        'wave-pattern': "url('/wave.svg')",
       }
     },
   },

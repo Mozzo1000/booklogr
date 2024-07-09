@@ -149,7 +149,7 @@ function Profile() {
 
 
     return (
-        <div>
+        <div className="container mx-auto">
             
             <Modal show={noProfile}>
                 <Modal.Body>

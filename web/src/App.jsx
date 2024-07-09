@@ -26,7 +26,7 @@ function App() {
         <SidebarNav />
       </div>
       }
-      <div className="container mx-auto pt-10 basis-full">
+      <div className="mx-auto pt-10 basis-full">
         {!AuthService.getCurrentUser() &&
           <NavigationMenu />
         }
