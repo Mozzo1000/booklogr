@@ -24,7 +24,7 @@ function SidebarNav() {
 
     return (
         <>
-        <Sidebar collapsed={sidebarState} theme={customTheme}>
+        <Sidebar collapsed={sidebarState} theme={customTheme} className="hidden md:block">
           <Sidebar.Logo as={Link} href="/" img="/icon.svg" className="mr-3 h-6 sm:h-8" alt="Logo">
             <span className="self-center whitespace-nowrap text-xl dark:text-white font-[800]">BookLogr</span>
           </Sidebar.Logo>
@@ -62,8 +62,33 @@ function SidebarNav() {
                 </Sidebar.ItemGroup>
             </Sidebar.Items>
         </Sidebar>
+
+        {/* Mobile bottom navigation bar */}
+        <div class="md:hidden fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600">
+            <div class="grid h-full max-w-lg grid-cols-3 mx-auto font-medium">
+                <Link to="/library" className="inline-flex flex-col pt-2">
+                  <button type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                      <RiBook2Line className={`w-5 h-5 mb-2 group-hover:text-blue-600 ${location.pathname == "/library" ? "text-blue-600" : "text-gray-500"}`}/>
+                      <span className={`text-sm dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 ${location.pathname == "/library" ? "text-blue-600" : "text-gray-500"}`}>Library</span>
+                  </button>
+                </Link>
+                
+                <button type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800" onClick={() => setOpenSearchModal(true)}>
+                    <RiSearch2Line className="w-5 h-5 mb-2 text-gray-500 group-hover:text-blue-600"/>
+                    <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Search</span>
+                </button>
+
+                <Link to="/profile" className="inline-flex flex-col pt-2">
+                  <button type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                      <RiUser3Line className={`w-5 h-5 mb-2 group-hover:text-blue-600 ${location.pathname == "/profile" ? "text-blue-600" : "text-gray-500"}`}/>
+                      <span className={`text-sm dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 ${location.pathname == "/profile" ? "text-blue-600" : "text-gray-500"}`}>Profile</span>
+                  </button>
+                </Link>
+            </div>
+        </div>
         
-        <Modal dismissible show={openSearchModal} onClose={() => setOpenSearchModal(false)} position={"top-center"}>
+        {/* Modal for search */}
+        <Modal dismissible show={openSearchModal} onClose={() => setOpenSearchModal(false)} position={"top-center"} size="md">
             <Modal.Body>
                 <SearchBar absolute={false} hideESCIcon={false}/>
             </Modal.Body>
