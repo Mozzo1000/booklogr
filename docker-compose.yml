@@ -1,8 +1,7 @@
 # docker-compose.yml
-version: '3.8'
 services:
     issue-db:
-        container_name: "minimal-reading-db"
+        container_name: "booklogr-db"
         image: "postgres" # use latest official postgres version
         ports:
             - 5432:5432  
@@ -10,6 +9,41 @@ services:
         env_file:
             - .env
         volumes:
-            - minimal-reading:/var/lib/postgresql/db-data/ # persist data even if container shuts down
+            - booklogr:/var/lib/postgresql/db-data/ # persist data even if container shuts down
+
+    auth-db:
+        container_name: "auth-server-db"
+        image: "postgres" # use latest official postgres version
+        ports:
+            - 5433:5432
+        restart: always
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        environment:
+            POSTGRES_USER: "admin" # CHANGE THIS FOR USE IN PRODUCTION!
+            POSTGRES_PASSWORD: "password" # CHANGE THIS FOR USE IN PRODUCTION!
+            POSTGRES_DB: "auth-server"
+        volumes:
+            - auth-server:/var/lib/postgresql/db-data/ # persist data even if container shuts down
+    auth-api:
+        container_name: "auth-server-api"
+        build: https://github.com/Mozzo1000/auth-server.git
+        image: auth-server-api
+        depends_on:
+            auth-db:
+              condition: service_healthy
+        restart: always
+        environment:
+            FLASK_APP: "api.app"
+            DATABASE_URL: "postgresql://admin:password@auth-db/auth-server" # CHANGE THIS FOR USE IN PRODUCTION! Needs to be the same as the credentials in auth-db
+        env_file:
+            - .env
+        ports:
+            - 5001:5000
+
 volumes:
-    minimal-reading:
+    booklogr:
+    auth-server:
