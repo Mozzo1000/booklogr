@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "minimal-reading-api"
+name = "booklogr-api"
 version = "1.0.0"
-description = "API for Minimal Reading"
+description = "API for Booklogr"
 authors = ["Andreas Backström <mozzo242@gmail.com>"]
 license = "Apache-2.0"
 readme = "README.md"
