@@ -24,20 +24,7 @@
 ## Features
 
 ## Development
-### Dependencies
-* Python
-* NodeJS
-
-### Instructions
-* Copy `.env.example` file and rename it to  `.env`
-* Edit `.env` file as necessary
-* Run `docker compose up`
-  * This will start up the authentication server API and databse as well as a database for booklogr itself.
-* Install poetry with `python -m pip install poetry
-* Run `poetry install` to install python dependencies
-* Run `poetry run flask upgrade` to run migration scripts to booklogr database.
-* Run `poetry run flask run` to start booklogr API
-* Run `cd web` and `npm run dev` to start frontend
+See [development instructions](https://github.com/Mozzo1000/booklogr/wiki/Development) on the wiki to get started.
 
 ## Contributing
 All contributions are welcome!
