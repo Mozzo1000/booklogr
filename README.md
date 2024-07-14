@@ -38,3 +38,4 @@ See [development instructions](https://github.com/Mozzo1000/booklogr/wiki/Develo
 All contributions are welcome!
 
 ## License
+This project is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full license text.
