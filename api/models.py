@@ -29,6 +29,7 @@ class Books(db.Model):
     reading_status = db.Column(db.String)
     current_page = db.Column(db.Integer)
     total_pages = db.Column(db.Integer)
+    rating = db.Column(db.Numeric(precision=3, scale=2), nullable=True)
     owner_id = db.Column(db.Integer, db.ForeignKey("profiles.owner_id"))
 
     def save_to_db(self):
