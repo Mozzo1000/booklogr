@@ -21,8 +21,13 @@ const edit = (id, data) => {
     return axios.patch(API_URL + "v1/books/" + id, data, { headers: authHeader() });
 };
 
+const remove = (id) => {
+    return axios.delete(API_URL + "v1/books/" + id, { headers: authHeader() });
+};
+
 export default {
     add,
     get,
     edit,
+    remove,
 };

@@ -25,7 +25,7 @@ function BookItem(props) {
                         <div className="grow">
                             <UpdateReadingStatusButton totalPages={props.totalPages} id={props.internalID} title={props.title} onSucess={props.onReadingStatusChanged}/>
                         </div>
-                        <ChangeBookLibraryButton id={props.internalID} onSucess={props.onReadingStatusChanged}/>
+                        <ChangeBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged}/>
                     </div>
                     </>
                 }
