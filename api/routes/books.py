@@ -82,3 +82,17 @@ def edit_book(id):
                 "error": "Unkown error",
                 "message": "Unkown error occurred"
     }), 500
+
+@books_endpoint.route("/v1/books/<id>", methods=["DELETE"])
+@jwt_required()
+def remove_book(id):
+    claim_id = get_jwt()["id"]
+    book = Books.query.filter(Books.owner_id==claim_id, Books.id==id).first()
+    if book:
+        book.delete()
+        return jsonify({'message': 'Book removed successfully'}), 200
+    else:
+        return jsonify({
+                    "error": "Not found",
+                    "message": f"No book with ID: {id} was found"
+        }), 404
