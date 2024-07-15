@@ -45,7 +45,7 @@ class BooksSchema(ma.SQLAlchemyAutoSchema):
         model = Books
 
 class ProfileSchema(ma.SQLAlchemyAutoSchema):
-    books = ma.List(ma.Nested(BooksSchema(only=("author", "description", "current_page", "total_pages", "reading_status", "title", "isbn"))))
+    books = ma.List(ma.Nested(BooksSchema(only=("author", "description", "current_page", "total_pages", "reading_status", "title", "isbn", "rating"))))
     num_books_read = ma.Method("get_num_books_read")
     num_books_reading = ma.Method("get_num_books_currently_reading")
     num_books_tbr = ma.Method("get_num_books_to_be_read")
