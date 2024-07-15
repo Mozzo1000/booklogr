@@ -206,7 +206,7 @@ function Profile() {
                     {filteredBooks.map((item) => {
                         return (
                             <div key={0}>
-                                <BookItem internalID={0} showReadingStatusBadge={true} showOptions={false} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} readingStatus={item.reading_status} />
+                                <BookItem internalID={0} disableGiveRating={true} showReadingStatusBadge={true} showOptions={false} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} readingStatus={item.reading_status} rating={item.rating} />
                             </div>
                         )
                     })}

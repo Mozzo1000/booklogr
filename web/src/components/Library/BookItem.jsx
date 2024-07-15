@@ -34,13 +34,13 @@ function BookItem(props) {
                     </div>
                     </>
                 }
+                {props.showRating &&
+                    <BookRating id={props.internalID} title={props.title} rating={props.rating} disableGiveRating={props.disableGiveRating} />
+                }
                 {!props.showProgress && props.showOptions &&
-                    <>
-                        <BookRating id={props.internalID} title={props.title} rating={props.rating}/>
-                        <div className="flex flex-row-reverse">
-                            <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged}/>
-                        </div>
-                    </>
+                    <div className="flex flex-row-reverse">
+                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged}/>
+                    </div>
                 }
             </div>
         </div>
@@ -51,6 +51,8 @@ BookItem.defaultProps = {
     showProgress: true,
     showOptions: true,
     showReadingStatusBadge: false,
+    showRating: true,
+    disableGiveRating: false,
 }
 
 export default BookItem

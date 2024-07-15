@@ -52,7 +52,7 @@ function LibraryPane() {
             {state.books?.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem internalID={item.id} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
+                        <BookItem internalID={item.id} showRating={false} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
                     </div>
                 )
             })}

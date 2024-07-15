@@ -28,9 +28,16 @@ function BookRating(props) {
         )
     }
 
+    const handleOpenModal = () => {
+        console.log(props.disableGiveRating)
+        if(!props.disableGiveRating) {
+            setOpenModal(true)
+        }
+    }
+
     return (
         <>
-        <Rating size={props.size} onClick={() => setOpenModal(true)} className="hover:bg-gray-100 hover:cursor-pointer w-fit">
+        <Rating size={props.size} onClick={() => handleOpenModal()} className={`${!props.disableGiveRating ? "hover:bg-gray-100 hover:cursor-pointer":""} w-fit`}>
             <Rating.Star filled={Math.floor(props.rating) >= 1 ? true : false} />
             <Rating.Star filled={Math.floor(props.rating) >= 2 ? true : false} />
             <Rating.Star filled={Math.floor(props.rating) >= 3 ? true : false} />
@@ -64,6 +71,7 @@ function BookRating(props) {
 
 BookRating.defaultProps = {
     size: "sm",
+    disableGiveRating: false,
 }
 
 export default BookRating
