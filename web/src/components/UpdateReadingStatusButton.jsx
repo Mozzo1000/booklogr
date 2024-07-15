@@ -6,6 +6,7 @@ import useToast from '../toast/useToast';
 import Confetti from 'react-confetti'
 import { RiMastodonFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
+import BookRating from './Library/BookRating';
 
 function UpdateReadingStatusButton(props) {
     const [openModal, setOpenModal] = useState(false);
@@ -65,6 +66,11 @@ function UpdateReadingStatusButton(props) {
                         <div className="format lg:format-lg">
                             <h2>Congratulations!</h2>
                             <p>On finishing reading <strong>{props.title}</strong></p>
+                            
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <p>Rate this book</p>
+                            <BookRating size={"lg"} id={props.id} title={props.title} rating={props.rating} />
                         </div>
                     </div>
                 </Modal.Body>

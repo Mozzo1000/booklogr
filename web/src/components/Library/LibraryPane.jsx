@@ -52,7 +52,7 @@ function LibraryPane() {
             {state.books?.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem internalID={item.id} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
+                        <BookItem internalID={item.id} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
                     </div>
                 )
             })}
@@ -63,7 +63,7 @@ function LibraryPane() {
             {state.books?.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem internalID={item.id} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
+                        <BookItem internalID={item.id} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
                     </div>
                 )
             })}
@@ -74,7 +74,7 @@ function LibraryPane() {
             {state.books?.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem internalID={item.id} showProgress={false}  title={item.title} isbn={item.isbn} author={item.author} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}  />
+                        <BookItem internalID={item.id} showProgress={false}  title={item.title} isbn={item.isbn} author={item.author} rating={item.rating} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}  />
                     </div>
                 )
             })}

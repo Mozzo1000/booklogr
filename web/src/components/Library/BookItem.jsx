@@ -1,8 +1,9 @@
 import React from 'react'
-import { Progress, Badge } from "flowbite-react";
+import { Progress, Badge, Rating } from "flowbite-react";
 import { Link } from 'react-router-dom';
 import UpdateReadingStatusButton from '../UpdateReadingStatusButton';
 import ActionsBookLibraryButton from '../ActionsBookLibraryButton';
+import BookRating from './BookRating';
 
 function BookItem(props) {
     return (
@@ -23,16 +24,19 @@ function BookItem(props) {
                     <Progress className="mb-3" progress={Math.round((100 * props.currentPage) / props.totalPages)} size="md" labelProgress textLabel="Reading progress" labelText textLabelPosition="outside" progressLabelPosition="outside" />
                     <div className='flex flex-row items-center'>
                         <div className="grow">
-                            <UpdateReadingStatusButton totalPages={props.totalPages} id={props.internalID} title={props.title} onSucess={props.onReadingStatusChanged}/>
+                            <UpdateReadingStatusButton totalPages={props.totalPages} id={props.internalID} title={props.title} rating={props.rating} onSucess={props.onReadingStatusChanged}/>
                         </div>
                         <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged}/>
                     </div>
                     </>
                 }
                 {!props.showProgress && props.showOptions &&
-                    <div className="flex flex-row-reverse">
-                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged}/>
-                    </div>
+                    <>
+                        <BookRating id={props.internalID} title={props.title} rating={props.rating}/>
+                        <div className="flex flex-row-reverse">
+                            <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged}/>
+                        </div>
+                    </>
                 }
             </div>
         </div>
@@ -43,6 +47,6 @@ BookItem.defaultProps = {
     showProgress: true,
     showOptions: true,
     showReadingStatusBadge: false,
-  }
+}
 
 export default BookItem
