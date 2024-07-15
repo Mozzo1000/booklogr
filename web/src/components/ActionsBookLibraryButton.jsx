@@ -6,7 +6,7 @@ import { FaEllipsisVertical } from "react-icons/fa6";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { RiErrorWarningLine } from "react-icons/ri";
 
-function ChangeBookLibraryButton(props) {
+function ActionsBookLibraryButton(props) {
     const [status, setStatus] = useState();
     const [removalConfModal, setRemovalConfModal] = useState();
     const toast = useToast(4000);
@@ -95,4 +95,4 @@ function ChangeBookLibraryButton(props) {
     )
 }
 
-export default ChangeBookLibraryButton
+export default ActionsBookLibraryButton

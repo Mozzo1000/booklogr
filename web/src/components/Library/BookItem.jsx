@@ -2,7 +2,7 @@ import React from 'react'
 import { Progress, Badge } from "flowbite-react";
 import { Link } from 'react-router-dom';
 import UpdateReadingStatusButton from '../UpdateReadingStatusButton';
-import ChangeBookLibraryButton from '../ChangeBookLibraryButton';
+import ActionsBookLibraryButton from '../ActionsBookLibraryButton';
 
 function BookItem(props) {
     return (
@@ -25,13 +25,13 @@ function BookItem(props) {
                         <div className="grow">
                             <UpdateReadingStatusButton totalPages={props.totalPages} id={props.internalID} title={props.title} onSucess={props.onReadingStatusChanged}/>
                         </div>
-                        <ChangeBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged}/>
+                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged}/>
                     </div>
                     </>
                 }
                 {!props.showProgress && props.showOptions &&
                     <div className="flex flex-row-reverse">
-                        <ChangeBookLibraryButton id={props.internalID} onSucess={props.onReadingStatusChanged}/>
+                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged}/>
                     </div>
                 }
             </div>
