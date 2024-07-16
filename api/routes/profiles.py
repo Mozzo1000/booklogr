@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
-from api.models import Profile, ProfileSchema
+from flask_jwt_extended import jwt_required, get_jwt
+from api.models import Profile, ProfileSchema, Notes, Books
 from api.decorators import required_params
 
 profiles_endpoint = Blueprint('profiles', __name__)
@@ -9,7 +9,7 @@ profiles_endpoint = Blueprint('profiles', __name__)
 def get_profile(display_name):
     profile_schema = ProfileSchema()
     
-    profile = Profile.query.filter(Profile.display_name==display_name, Profile.visibility=="public").first()
+    profile = Profile.query.join(Profile.books).join(Books.notes).filter(Profile.display_name==display_name, Profile.visibility=="public", Notes.visibility=="public").first()
     if profile:
         return jsonify(profile_schema.dump(profile))
 

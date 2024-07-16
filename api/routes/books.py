@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
-from api.models import Books, BooksSchema
+from api.models import Books, BooksSchema, NotesSchema, Notes
 from api.decorators import required_params
 
 books_endpoint = Blueprint('books', __name__)
@@ -98,3 +98,26 @@ def remove_book(id):
                     "error": "Not found",
                     "message": f"No book with ID: {id} was found"
         }), 404
+    
+@books_endpoint.route("/v1/books/<id>/notes", methods=["GET"])
+@jwt_required()
+def get_notes_for_book(id):
+    claim_id = get_jwt()["id"]
+    notes_schema = NotesSchema(many=True)
+    book = Books.query.filter(Books.owner_id==claim_id, Books.id==id).first()
+    if book:
+        return jsonify(notes_schema.dump(book.notes))
+    else:
+        return jsonify({
+                        "error": "Not found",
+                        "message": "No notes found"
+        }), 404
+
+
+@required_params("content")
+@books_endpoint.route("/v1/books/<id>/notes", methods=["POST"])
+@jwt_required()
+def add_book_note(id):
+    new_note = Notes(book_id=id, content=request.json["content"])
+    new_note.save_to_db()
+    return jsonify({'message': 'Note created'}), 200
