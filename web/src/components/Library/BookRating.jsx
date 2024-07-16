@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Modal, Rating, Button, RangeSlider, TextInput  } from 'flowbite-react'
+import { Modal, Rating, Button, RangeSlider, TextInput, Tooltip  } from 'flowbite-react'
 import useToast from '../../toast/useToast';
 import BooksService from '../../services/books.service';
 
@@ -35,16 +35,29 @@ function BookRating(props) {
         }
     }
 
+    const rating = () => {
+        return (
+            <Rating size={props.size} onClick={() => handleOpenModal()} className={`${!props.disableGiveRating ? "hover:bg-gray-100 hover:cursor-pointer":""} w-fit`}>
+                <Rating.Star filled={Math.floor(props.rating) >= 1 ? true : false} />
+                <Rating.Star filled={Math.floor(props.rating) >= 2 ? true : false} />
+                <Rating.Star filled={Math.floor(props.rating) >= 3 ? true : false} />
+                <Rating.Star filled={Math.floor(props.rating) >= 4 ? true : false} />
+                <Rating.Star filled={Math.floor(props.rating) >= 5 ? true : false} />
+                <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">{props.rating}</p>
+            </Rating>
+        )
+    }
+
     return (
         <>
-        <Rating size={props.size} onClick={() => handleOpenModal()} className={`${!props.disableGiveRating ? "hover:bg-gray-100 hover:cursor-pointer":""} w-fit`}>
-            <Rating.Star filled={Math.floor(props.rating) >= 1 ? true : false} />
-            <Rating.Star filled={Math.floor(props.rating) >= 2 ? true : false} />
-            <Rating.Star filled={Math.floor(props.rating) >= 3 ? true : false} />
-            <Rating.Star filled={Math.floor(props.rating) >= 4 ? true : false} />
-            <Rating.Star filled={Math.floor(props.rating) >= 5 ? true : false} />
-            <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">{props.rating}</p>
-        </Rating>
+        {props.disableGiveRating ? (
+            rating()
+        ): (
+            <Tooltip content={props.disableGiveRating ? undefined : "Give a rating"}>
+                {rating()}
+            </Tooltip>
+        )}
+        
         <Modal show={openModal} onClose={() => setOpenModal(false)}>
             <Modal.Header>Rate book</Modal.Header>
             <Modal.Body>

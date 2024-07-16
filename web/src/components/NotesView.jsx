@@ -1,4 +1,4 @@
-import { Button, Modal, ListGroup, Dropdown, TextInput, Textarea  } from 'flowbite-react'
+import { Button, Modal, ListGroup, Dropdown, TextInput, Textarea, Tooltip  } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
 import BooksService from '../services/books.service';
 import { RiStickyNoteLine } from "react-icons/ri";
@@ -169,14 +169,18 @@ function NotesView(props) {
                             <div className="flex flex-row justify-end gap-4">
                                 {!creationMode && props.allowEditing && notes?.length > 0 ? (
                                     <>
-                                    <Dropdown color="gray" label={<RiEyeLine className="h-5 w-5"/>}>
-                                        <Dropdown.Header>Change visibility</Dropdown.Header>
-                                        <Dropdown.Item onClick={() => changeVisibility("hidden")}>Hidden</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => changeVisibility("public")}>Public</Dropdown.Item>
-                                    </Dropdown>
-                                    <Button color="failure" onClick={() => setRemovalConfModal(true)}>
-                                        <RiDeleteBin6Line className="h-5 w-5" />
-                                    </Button>
+                                    <Tooltip content="Change note visibility">
+                                        <Dropdown color="gray" label={<RiEyeLine className="h-5 w-5"/>}>
+                                            <Dropdown.Header>Change visibility</Dropdown.Header>
+                                            <Dropdown.Item onClick={() => changeVisibility("hidden")}>Hidden</Dropdown.Item>
+                                            <Dropdown.Item onClick={() => changeVisibility("public")}>Public</Dropdown.Item>
+                                        </Dropdown>
+                                    </Tooltip>
+                                    <Tooltip content="Remove note">
+                                        <Button color="failure" onClick={() => setRemovalConfModal(true)}>
+                                            <RiDeleteBin6Line className="h-5 w-5" />
+                                        </Button>
+                                    </Tooltip>
                                     </>
                                 ): (
                                     (creationMode &&

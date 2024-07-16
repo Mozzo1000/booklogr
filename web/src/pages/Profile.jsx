@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import ProfileService from '../services/profile.service';
-import { Button, TextInput, Label, Badge, Modal, Select, Popover, Avatar } from "flowbite-react";
+import { Button, TextInput, Label, Badge, Modal, Select, Popover, Avatar, Tooltip } from "flowbite-react";
 import useToast from '../toast/useToast';
 import BookItem from '../components/Library/BookItem';
 import PaneTabView from '../components/Library/PaneTabView';
@@ -184,7 +184,9 @@ function Profile() {
                             }
                         </div>
                         {currentUser &&
-                            <Button outline color="light" pill onClick={() => setOpenSettingsModal(true)}><RiSettings4Line className="h-6 w-6"/></Button>
+                            <Tooltip content="Profile settings">
+                                <Button outline color="light" pill onClick={() => setOpenSettingsModal(true)}><RiSettings4Line className="h-6 w-6"/></Button>
+                            </Tooltip>
                         }                        
                     </div>
                     <div className="flex flex-row gap-16 pt-12 justify-around">
