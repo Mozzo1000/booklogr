@@ -1,10 +1,49 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow, fields
+from flask_marshmallow import Marshmallow, fields 
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from marshmallow import post_dump
 db = SQLAlchemy()
 ma = Marshmallow()
+
+
+class Notes(db.Model):
+    __tablename__ = "notes"
+    id = db.Column(db.Integer, primary_key=True)
+    book_id = db.Column(db.Integer, db.ForeignKey("books.id"))
+    content = db.Column(db.String, nullable=False)
+    visibility = db.Column(db.String, default="hidden")
+    created_on = db.Column(db.DateTime, server_default=db.func.now())
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+class NotesSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Notes
+
+class NotesPublicOnlySchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Notes
+    
+    SKIP_VALUES = set([None])
+
+    @post_dump
+    def remove_hidden_notes(self, data, **kwargs):
+        print(data["visibility"])
+        if data["visibility"] == "hidden":
+            print(data)
+            return
+        else:
+            return {
+                key: value for key, value in data.items()
+                if value not in self.SKIP_VALUES
+        }
 
 
 class Profile(db.Model):
@@ -31,6 +70,7 @@ class Books(db.Model):
     total_pages = db.Column(db.Integer)
     rating = db.Column(db.Numeric(precision=3, scale=2), nullable=True)
     owner_id = db.Column(db.Integer, db.ForeignKey("profiles.owner_id"))
+    notes = db.relationship("Notes", backref="books")
 
     def save_to_db(self):
         db.session.add(self)
@@ -44,8 +84,13 @@ class BooksSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Books
 
+class BooksPublicOnlySchema(ma.SQLAlchemyAutoSchema):
+    notes = ma.Nested(NotesPublicOnlySchema(many=True))
+    class Meta:
+        model = Books
+
 class ProfileSchema(ma.SQLAlchemyAutoSchema):
-    books = ma.List(ma.Nested(BooksSchema(only=("author", "description", "current_page", "total_pages", "reading_status", "title", "isbn", "rating"))))
+    books = ma.List(ma.Nested(BooksPublicOnlySchema(only=("author", "description", "current_page", "total_pages", "reading_status", "title", "isbn", "rating", "notes"))))
     num_books_read = ma.Method("get_num_books_read")
     num_books_reading = ma.Method("get_num_books_currently_reading")
     num_books_tbr = ma.Method("get_num_books_to_be_read")
