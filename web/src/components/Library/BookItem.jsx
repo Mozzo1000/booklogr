@@ -5,6 +5,7 @@ import UpdateReadingStatusButton from '../UpdateReadingStatusButton';
 import ActionsBookLibraryButton from '../ActionsBookLibraryButton';
 import BookRating from './BookRating';
 import Skeleton from 'react-loading-skeleton'
+import NotesIcon from '../NotesIcon';
 
 function BookItem(props) {
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -30,13 +31,20 @@ function BookItem(props) {
                         <div className="grow">
                             <UpdateReadingStatusButton totalPages={props.totalPages} id={props.internalID} title={props.title} rating={props.rating} onSucess={props.onReadingStatusChanged}/>
                         </div>
-                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged}/>
+                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged} allowNoteEditing={props.allowNoteEditing}/>
                     </div>
                     </>
                 }
+                <div className="flex flex-row justify-between">
                 {props.showRating &&
                     <BookRating id={props.internalID} title={props.title} rating={props.rating} disableGiveRating={props.disableGiveRating} />
                 }
+                {props.showNotes &&
+                    (props.notes > 0 &&
+                        <NotesIcon id={props.internalID} notes={props.notes} overrideNotes={props.overrideNotes} allowNoteEditing={props.allowNoteEditing}/>
+                    )
+                }
+                </div>
                 {!props.showProgress && props.showOptions &&
                     <div className="flex flex-row-reverse">
                         <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged}/>
@@ -53,6 +61,9 @@ BookItem.defaultProps = {
     showReadingStatusBadge: false,
     showRating: true,
     disableGiveRating: false,
+    showNotes:true,
+    overrideNotes: undefined,
+    allowNoteEditing: true,
 }
 
 export default BookItem

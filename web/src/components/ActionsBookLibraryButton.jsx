@@ -94,9 +94,13 @@ function ActionsBookLibraryButton(props) {
             </div>
             </Modal.Body>
         </Modal>
-        <NotesView id={props.id} open={openNotesModal} close={setOpenNotesModal} />
+        <NotesView id={props.id} open={openNotesModal} close={setOpenNotesModal} allowEditing={props.allowNoteEditing}/>
         </>
     )
+}
+
+ActionsBookLibraryButton.defaultProps = {
+    allowNoteEditing: true,
 }
 
 export default ActionsBookLibraryButton

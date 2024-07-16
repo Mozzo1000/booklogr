@@ -17,22 +17,28 @@ function NotesView(props) {
     const toast = useToast(4000);
 
     function getNotes() {
-        BooksService.notes(props.id).then(
-            response => {
-                setNotes(response.data)
-                setSelectedNote(response.data[0])
-                console.log(response.data)
-            },
-            error => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-                toast("error", resMessage);
-            }
-        )
+        if(props.overrideNotes) {
+            setNotes(props.overrideNotes)
+            setSelectedNote(props.overrideNotes[0])
+            console.log(props.overrideNotes)
+        } else {
+            BooksService.notes(props.id).then(
+                response => {
+                    setNotes(response.data)
+                    setSelectedNote(response.data[0])
+                    console.log(response.data)
+                },
+                error => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                    toast("error", resMessage);
+                }
+            )
+        }
     }
 
     useEffect(() => {
@@ -112,6 +118,7 @@ function NotesView(props) {
                         <ListGroup className="w-full">
                             {notes?.map((item) => {
                                 return (
+                                    (item?.id &&
                                     <ListGroup.Item active={item.id == selectedNote.id} icon={RiStickyNoteLine} onClick={() => setSelectedNote(item)}>
                                         <div className="flex flex-col gap-2 items-start">
                                             <div>
@@ -122,10 +129,13 @@ function NotesView(props) {
                                             </div>
                                         </div>
                                     </ListGroup.Item>
+                                    )
                                 )
                             })}
                         </ListGroup>
-                        <Button color="gray" onClick={() => setCreationMode(true)}>Add</Button>
+                        {props.allowEditing &&
+                            <Button color="gray" onClick={() => setCreationMode(true)}>Add</Button>
+                        }
                         </div>
                     </div>
                     ):(
@@ -157,7 +167,7 @@ function NotesView(props) {
                                 )}
                             </div>
                             <div className="flex flex-row justify-end gap-4">
-                                {!creationMode && notes?.length > 0 ? (
+                                {!creationMode && props.allowEditing && notes?.length > 0 ? (
                                     <>
                                     <Dropdown color="gray" label={<RiEyeLine className="h-5 w-5"/>}>
                                         <Dropdown.Header>Change visibility</Dropdown.Header>
@@ -205,6 +215,12 @@ function NotesView(props) {
         </Modal>
         </>
     )
+}
+
+
+NotesView.defaultProps = {
+    overrideNotes: undefined,
+    allowEditing: true,
 }
 
 export default NotesView
