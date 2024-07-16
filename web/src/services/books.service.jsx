@@ -25,9 +25,19 @@ const remove = (id) => {
     return axios.delete(API_URL + "v1/books/" + id, { headers: authHeader() });
 };
 
+const notes = (id) => {
+    return axios.get(API_URL + "v1/books/" + id + "/notes", { headers: authHeader() })
+};
+
+const addNote = (id, data) => {
+    return axios.post(API_URL + "v1/books/" + id + "/notes", data, { headers: authHeader() })
+};
+
 export default {
     add,
     get,
     edit,
     remove,
+    notes,
+    addNote,
 };
