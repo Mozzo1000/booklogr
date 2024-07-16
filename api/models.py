@@ -35,9 +35,7 @@ class NotesPublicOnlySchema(ma.SQLAlchemyAutoSchema):
 
     @post_dump
     def remove_hidden_notes(self, data, **kwargs):
-        print(data["visibility"])
         if data["visibility"] == "hidden":
-            print(data)
             return
         else:
             return {
@@ -81,19 +79,37 @@ class Books(db.Model):
         db.session.commit()
 
 class BooksSchema(ma.SQLAlchemyAutoSchema):
+    num_notes = ma.Method("get_num_notes")
     class Meta:
         model = Books
+
+    def get_num_notes(self, obj):
+        query = Notes.query.filter(Notes.book_id==obj.id).count()
+        if query:
+            return query
+        else:
+            return 0
 
 class BooksPublicOnlySchema(ma.SQLAlchemyAutoSchema):
     notes = ma.Nested(NotesPublicOnlySchema(many=True))
+    num_notes = ma.Method("get_num_notes")
     class Meta:
         model = Books
 
+    def get_num_notes(self, obj):
+        print(obj)
+        query = Notes.query.filter(Notes.book_id==obj.id, Notes.visibility=="public").count()
+        if query:
+            return query
+        else:
+            return 0
+
 class ProfileSchema(ma.SQLAlchemyAutoSchema):
-    books = ma.List(ma.Nested(BooksPublicOnlySchema(only=("author", "description", "current_page", "total_pages", "reading_status", "title", "isbn", "rating", "notes"))))
+    books = ma.List(ma.Nested(BooksPublicOnlySchema(only=("author", "description", "current_page", "total_pages", "reading_status", "title", "isbn", "rating", "notes", "num_notes"))))
     num_books_read = ma.Method("get_num_books_read")
     num_books_reading = ma.Method("get_num_books_currently_reading")
     num_books_tbr = ma.Method("get_num_books_to_be_read")
+    
 
     def get_num_books_read(self, obj):
         query = Books.query.filter(Books.owner_id==obj.owner_id, Books.reading_status=="Read").count()
