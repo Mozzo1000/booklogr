@@ -30,6 +30,8 @@ Optionally you can also display your library proudly to the public, sharing it w
 * Add books to predefined lists, reading, already read and to be read.
 * Keep track of what page you are on with your current book.
 * Have a public profile of your library available to all.
+* Rate you read books with 0.5-5 stars.
+* Take short notes on the books you read.
 
 ## Development
 See [development instructions](https://github.com/Mozzo1000/booklogr/wiki/Development) on the wiki to get started.
