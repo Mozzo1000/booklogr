@@ -1,15 +1,32 @@
 # docker-compose.yml
 services:
-    issue-db:
+    booklogr-db:
         container_name: "booklogr-db"
         image: "postgres" # use latest official postgres version
         ports:
             - 5432:5432  
         restart: always
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
         env_file:
             - .env
         volumes:
             - booklogr:/var/lib/postgresql/db-data/ # persist data even if container shuts down
+
+    booklogr-api:
+        container_name: "booklogr-api"
+        build: .
+        image: booklogr-api
+        depends_on:
+            booklogr-db:
+              condition: service_healthy
+        env_file:
+            - .env
+        ports:
+            - 5002:5000
 
     auth-db:
         container_name: "auth-server-db"
