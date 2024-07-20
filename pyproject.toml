@@ -18,6 +18,7 @@ flask-marshmallow = "0.15.0"
 flask-sqlalchemy = "3.1.1"
 marshmallow-sqlalchemy = "0.29.0"
 Flask-Migrate = "4.0.5"
+gunicorn = "^22.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "7.4.3"
