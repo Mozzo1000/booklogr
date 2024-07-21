@@ -26,18 +26,20 @@ function WelcomeModal() {
     )
     
     useEffect(() => {
-      getProfileData()
+        if (localStorage.getItem("show_welcome_screen") != "false") {
+            getProfileData()
+        }
     }, [])
     
 
-    /* Note: this is checks if a profile exists or not, at the moment it will indicate if a welcome screen will show or not.
-    * This will unfortuantly run every time the user goes to the /library page. Maybe we should store some value in the local storage
-    * so it does not do a network request every time?
+    /* Note: this is checks if a profile exists or not, at the moment this indicates if a welcome screen should be shown.
+    * if the user already has gone through the setup then a localstorage item will be set to indicate this instead.
     */
     const getProfileData = () => {
         ProfileService.get().then(
             response => {
                 setShowWelcomeScreen(false);
+                localStorage.setItem("show_welcome_screen", false);
             },
             error => {
                 if (error.response) {
@@ -55,6 +57,7 @@ function WelcomeModal() {
             response => {
                 toast("success", response.data.message);
                 setContentIndex(1);
+                localStorage.setItem("show_welcome_screen", false);
             },
             error => {
                 const resMessage =
