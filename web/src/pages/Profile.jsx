@@ -16,8 +16,6 @@ import { RiEyeLine } from "react-icons/ri";
 
 function Profile() {
     const [data, setData] = useState();
-    const [noProfile, setNoProfile] = useState();
-    const [createDisplayName, setCreateDisplayName] = useState();
     const [readingStatusFilter, setReadingStatusFilter] = useState("All");
 
     const [openSettingsModal, setOpenSettingsModal] = useState(false);
@@ -57,7 +55,6 @@ function Profile() {
             ProfileService.get_by_display_name(name).then(
                 response => {
                     setData(response.data)
-                    setNoProfile(false);
                     setDisplayName(response.data.display_name);
                     setProfileVisiblity(response.data.visibility)
                 },
@@ -82,37 +79,18 @@ function Profile() {
             response => {
                 console.log(response.data)
                 setData(response.data)
-                setNoProfile(false);
                 setDisplayName(response.data.display_name);
                 setProfileVisiblity(response.data.visibility)
             },
             error => {
-                if (error.response) {
-                    console.log(error.response.status)
-                    if (error.response.status == 404) {
-                        setNoProfile(true);
-                    }
-                }
-            }
-        )
-    }
-
-    const handleCreateProfile = (e) => {
-        e.preventDefault();
-        ProfileService.create({"display_name": createDisplayName}).then(
-            response => {
-                toast("success", response.data.message);
-                getProfileData();
-            },
-            error => {
                 const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
+                  (error.response &&
+                      error.response.data &&
+                      error.response.data.message) ||
+                  error.message ||
+                  error.toString();
                 toast("error", resMessage);
-            }
+              }
         )
     }
 
@@ -149,28 +127,7 @@ function Profile() {
 
 
     return (
-        <div className="container mx-auto">
-            
-            <Modal show={noProfile}>
-                <Modal.Body>
-                    <form className="flex flex-col gap-4" onSubmit={handleCreateProfile}>
-                        <div className="format lg:format-lg">
-                            <h3>Create profile</h3>
-                            <p>A profile is used to publicly display your library and what you are currently reading.</p>
-                            <p>Your display name will be used to link to your profile page. Display name and visibility of your profile page can be changed at any time.</p>
-                        </div>
-                        <div>
-                            <div className="mb-2 block">
-                                <Label htmlFor="displayname" value="Display name" />
-                            </div>
-                            <TextInput id="displayname" type="text" required value={createDisplayName} onChange={(e) => setCreateDisplayName(e.target.value)} />
-                        </div>         
-                        <Button type="submit" disabled={!createDisplayName}>Create</Button>
-                        <Button color="light" onClick={() => navigate("/library")}>Cancel</Button>
-                    </form>
-                </Modal.Body>
-            </Modal>
-            
+        <div className="container mx-auto">          
             {data &&
                 <div>
                     <div className="flex flex-row justify-between">
