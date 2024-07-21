@@ -13,7 +13,7 @@
     <a href="https://github.com/Mozzo1000/booklogr/wiki"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href=""><s>View Demo</s></a>
+    <a href="https://demo.booklogr.app">View Demo</a>
     <a href="https://github.com/Mozzo1000/booklogr/issues">Report Bug</a>
     <a href="https://github.com/Mozzo1000/booklogr/issues">Request Feature</a>
   </p>
