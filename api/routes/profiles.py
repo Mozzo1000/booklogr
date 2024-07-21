@@ -47,9 +47,14 @@ def create_profile():
                     "error": "Conflict",
                     "message": "Profile already exists"
         }), 409
-
+    
+        
     else:
-        new_profile = Profile(owner_id=claim_id, display_name=request.json["display_name"])
+        visibility = "hidden"
+        if "visibility" in request.json:
+            if "hidden" or "public" in request.json["visibility"]:
+                visibility = request.json["visibility"]
+        new_profile = Profile(owner_id=claim_id, display_name=request.json["display_name"], visibility=visibility)
         new_profile.save_to_db()
         return jsonify({'message': 'Profile created'}), 200
 
