@@ -26,6 +26,11 @@ Optionally you can also display your library proudly to the public, sharing it w
 
 <img src="web/public/feature_section_01.png" />
 
+
+> [!IMPORTANT]
+> * This project is under **active** development.
+> * Expect bugs and breaking changes.
+
 ## ✨Features
 * Easily look up books by title or isbn. Powered by [OpenLibrary](https://openlibrary.org/)
 * Add books to predefined lists, reading, already read and to be read.
