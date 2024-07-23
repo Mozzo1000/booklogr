@@ -9,8 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 - Welcome screen on first login.
 - Basic framework for handling long running background tasks.
-- API validation for editing current page.
+- API validation for editing current page, rating and status.
 - "No results found" text added when there are no results when searching.
+- Error text is now shown when trying to give a higher rating than 5 or lower than 0.
+- Error text is now shown when trying to set a current page higher than the books total page or lower than 0.
 
 ### Fixed
 - Reading progress percentage no longer shown as over 100% if current page exceeded total pages on a book.
@@ -19,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Number of pages shown on a book page now shows 0 instead of a loading bar if there is no data from OpenLibrary.
 - Book covers will now fallback to a static "cover not found" image instead of endlessly showing a loading bar.
 - Search results now uses the same loading animation as everything else.
+- Reading status buttons in book action menu now has icons.
 
 ### Removed
 - Profile creation on profile page. Instead the user will create it's profile in the newly added welcome screen.
