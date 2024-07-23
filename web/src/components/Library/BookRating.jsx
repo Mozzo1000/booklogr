@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, Rating, Button, RangeSlider, TextInput, Tooltip  } from 'flowbite-react'
 import useToast from '../../toast/useToast';
 import BooksService from '../../services/books.service';
@@ -6,6 +6,9 @@ import BooksService from '../../services/books.service';
 function BookRating(props) {
     const [openModal, setOpenModal] = useState(false);
     const [rangeValue, setRangeValue] = useState(props.rating ? props.rating : 0);
+    const [ratingErrorText, setRatingErrorText] = useState();
+    const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
+
     const toast = useToast(4000);
 
     const handleRateBook = () => {
@@ -34,6 +37,19 @@ function BookRating(props) {
             setOpenModal(true)
         }
     }
+
+    useEffect(() => {
+        if (rangeValue > 5) {
+            setRatingErrorText("Rating cannot be more than 5");
+            setSaveButtonDisabled(true);
+        } else if (rangeValue < 0) {
+            setRatingErrorText("Rating cannot be less than 0.");
+            setSaveButtonDisabled(true);
+        } else {
+            setRatingErrorText();
+            setSaveButtonDisabled(false);
+        }
+      }, [rangeValue])
 
     const rating = () => {
         return (
@@ -64,15 +80,20 @@ function BookRating(props) {
                 <p>How many stars would you like to give <strong>{props.title}</strong>?</p>
                 <div className="flex flex-row items-center gap-4">
                     <div className="basis-10/12">
-                    <   RangeSlider min={0} max={5} step={0.5} value={rangeValue} onChange={(e) => setRangeValue(e.target.value)}/>
+                        <RangeSlider min={0} max={5} step={0.5} value={rangeValue} onChange={(e) => setRangeValue(e.target.value)}/>
                     </div>
                     <div className="basis-2/12">
-                        <TextInput type="number" min={0} max={5} step={0.5} value={rangeValue} onChange={(e) => setRangeValue(e.target.value)}/>
+                        <TextInput type="number" min={0} max={5} step={0.5} value={rangeValue} onChange={(e) => setRangeValue(e.target.value)} color={ratingErrorText ? 'failure' : 'gray'} />
+                        
                     </div>
+                    
                 </div>
+                <span className="text-red-600 text-sm">
+                            {ratingErrorText}
+                        </span>
             </Modal.Body>
             <Modal.Footer>
-            <Button onClick={() => handleRateBook()}>Save</Button>
+            <Button onClick={() => handleRateBook()} disabled={saveButtonDisabled}>Save</Button>
             <Button color="gray" onClick={() => setOpenModal(false)}>
                 Close
             </Button>
