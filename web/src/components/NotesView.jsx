@@ -20,13 +20,11 @@ function NotesView(props) {
         if(props.overrideNotes) {
             setNotes(props.overrideNotes)
             setSelectedNote(props.overrideNotes[0])
-            console.log(props.overrideNotes)
         } else {
             BooksService.notes(props.id).then(
                 response => {
                     setNotes(response.data)
                     setSelectedNote(response.data[0])
-                    console.log(response.data)
                 },
                 error => {
                     const resMessage =

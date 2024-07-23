@@ -23,7 +23,6 @@ function SearchBar(props) {
             response => {
             let newArray = []
             for (let i = 0; i < response.data.docs.length; i++) {
-                console.log(response.data.docs[i].title)
                 newArray.push({id: i, name: response.data.docs[i].title, isbn: response.data.docs[i].isbn[0]})
             }
             setSuggestions(newArray); // Assuming the API returns an array of suggestions*/

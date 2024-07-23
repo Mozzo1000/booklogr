@@ -14,14 +14,12 @@ function GoogleLoginButton(props) {
         flow: 'auth-code',
         ux_mode: 'popup',
         onSuccess: (codeResponse) => {
-            console.log(codeResponse.code)
             AuthService.loginGoogle(codeResponse.code).then(
             response => {
                 setLoading(false);
                 navigate("/")
             },
             error => {
-                console.log(error.response)
                 setLoading(false);
             }
         )

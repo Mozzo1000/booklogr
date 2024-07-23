@@ -21,12 +21,10 @@ function BookDetails() {
         OpenLibraryService.get(id).then(
             response => {
                 setData(response.data["docs"][0]);
-                console.log(response.data)
                 setLoading(false);
 
                 OpenLibraryService.getWorks(response.data["docs"][0].key).then(
                     response => {
-                        console.log(response.data)
                         if (response.data.description) {
                             if (response.data.description.value) {
                                 setDescription(response.data.description.value)

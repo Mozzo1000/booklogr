@@ -18,8 +18,6 @@ function ActionsBookLibraryButton(props) {
     const toast = useToast(4000);
 
     const changeStatus = (statusChangeTo) => {
-        console.log(props.id)
-        console.log(statusChangeTo)
         BooksService.edit(props.id, {status: statusChangeTo}).then(
             response => {
                 toast("success", response.data.message);

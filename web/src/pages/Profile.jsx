@@ -77,7 +77,6 @@ function Profile() {
     const getProfileData = () => {
         ProfileService.get().then(
             response => {
-                console.log(response.data)
                 setData(response.data)
                 setDisplayName(response.data.display_name);
                 setProfileVisiblity(response.data.visibility)

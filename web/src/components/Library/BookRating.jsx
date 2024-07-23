@@ -32,7 +32,6 @@ function BookRating(props) {
     }
 
     const handleOpenModal = () => {
-        console.log(props.disableGiveRating)
         if(!props.disableGiveRating) {
             setOpenModal(true)
         }

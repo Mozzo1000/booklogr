@@ -34,9 +34,7 @@ function LibraryPane() {
     const getBooks = (status) => {
         BooksService.get(status).then(
             response => {
-                //setBooks(response.data)
                 dispatch({type: actionTypes.BOOKS, books: response.data})
-                console.log(response.data)
             }
         )
     }
