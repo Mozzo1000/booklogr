@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="320"
+   height="500"
+   viewBox="0 0 84.666662 132.29167"
+   version="1.1"
+   id="svg1"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       d="M 25.161173,94.952107 V 69.193908 c 0,-3.161335 2.56279,-5.724053 5.724053,-5.724053 h 26.712275 c 1.053803,0 1.907993,0.854263 1.907993,1.907993 v 34.344317 c 0,1.053805 -0.85419,1.908005 -1.907993,1.908005 H 31.839224 c -3.688203,0 -6.678051,-2.989855 -6.678051,-6.678063 z m 30.528263,2.862068 V 92.090117 H 31.839224 c -1.580669,0 -2.86199,1.2814 -2.86199,2.86199 0,1.580598 1.281321,2.862068 2.86199,2.862068 z M 28.977234,88.916667 c 0.867386,-0.41177 1.837753,-0.64253 2.86199,-0.64253 H 55.689436 V 67.285843 h -24.80421 c -1.053731,0 -1.907992,0.854263 -1.907992,1.908065 z"
+       id="path1"
+       style="stroke-width:1.90802" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:'Libre Baskerville';-inkscape-font-specification:'Libre Baskerville';text-align:center;text-anchor:middle;fill:#1a1a1a;stroke-width:3;stroke-linejoin:round"
+       x="42.333332"
+       y="39.391182"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="font-weight:normal;font-size:7.76111px;text-align:center;text-anchor:middle;fill:#1a1a1a;stroke-width:3"
+         x="42.333332"
+         y="39.391182">BOOK COVER</tspan><tspan
+         sodipodi:role="line"
+         style="font-weight:normal;font-size:7.76111px;text-align:center;text-anchor:middle;fill:#1a1a1a;stroke-width:3"
+         x="42.333332"
+         y="49.092567"
+         id="tspan2">NOT AVAILABLE</tspan></text>
+  </g>
+</svg>

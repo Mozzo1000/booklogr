@@ -7,6 +7,7 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import useToast from '../toast/useToast';
 import { Helmet } from 'react-helmet-async';
+import { Img } from 'react-image'
 
 function BookDetails() {
     let { id } = useParams();
@@ -61,9 +62,11 @@ function BookDetails() {
         <div className="pt-10 lg:pt-20 pb-10">
             <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4 justify-items-stretch	">
                 <div className="lg:row-span-2 mx-auto">
-                    {!imageLoaded && <Skeleton count={1} width={320} height={500} borderRadius={0} inline={true}/>}
-                    <img className="hidden shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + id + "-L.jpg?default=false"} onLoad={(e) => (setImageLoaded(true), e.target.style.display="block")} alt=""></img>
-                </div>
+                    <Img className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + id + "-L.jpg?default=false"} 
+                        loader={<Skeleton count={1} width={320} height={500} borderRadius={0} inline={true}/>}
+                        unloader={<img src="/fallback-cover.svg"/>}
+                    />
+                    </div>
                 <div>
                     <article className="format">
                         <h2>{data?.title || <Skeleton />}</h2>
