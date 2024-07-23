@@ -64,7 +64,12 @@ def edit_book(id):
     book = Books.query.filter(Books.owner_id==claim_id, Books.id==id).first()
     if request.json:
         if "current_page" in request.json:
-            book.current_page = request.json["current_page"]
+            if int(request.json["current_page"]) <= book.total_pages:
+                book.current_page = request.json["current_page"]
+            else:
+                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. The current page is greater than total pages."}), 422 
+            if int(request.json["current_page"]) < 0:
+                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. The current page can't be less than 0."}), 422 
         if "status" in request.json:
             # We should ideally do some validation here to ensure that the status being recieved matches
             # what we can to save in the column, ie "Currently reading", "To be read" or "Read", case sensitive.

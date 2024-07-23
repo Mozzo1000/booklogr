@@ -1,4 +1,4 @@
-import React, { useState }  from 'react'
+import React, { useState, useEffect }  from 'react'
 import { Button, TextInput, Modal } from 'flowbite-react'
 import { RiBookOpenLine } from "react-icons/ri";
 import BooksService from '../services/books.service';
@@ -13,6 +13,9 @@ function UpdateReadingStatusButton(props) {
     const [openFinishModal, setOpenFinishModal] = useState(false);
 
     const [updatedProgress, setUpdatedProgress] = useState();
+    const [progressErrorText, setPasswordErrorText] = useState();
+    const [updateButtonDisabled, setUpdateButtonDisabled] = useState(false);
+
     const toast = useToast(4000);
 
     const updateProgress = () => {
@@ -24,6 +27,19 @@ function UpdateReadingStatusButton(props) {
             }
         )
     }
+
+    useEffect(() => {
+        if (updatedProgress > props.totalPages) {
+            setPasswordErrorText("Current page cannot be greater than total pages.");
+            setUpdateButtonDisabled(true);
+        } else if (updatedProgress < 0) {
+            setPasswordErrorText("Current page cannot be less than 0.");
+            setUpdateButtonDisabled(true);
+        } else {
+            setPasswordErrorText();
+            setUpdateButtonDisabled(false);
+        }
+      }, [updatedProgress])
     
     const setFinished = () => {
         BooksService.edit(props.id, {current_page: props.totalPages, status: "Read"}).then(
@@ -45,13 +61,17 @@ function UpdateReadingStatusButton(props) {
                     <p className="flex items-center gap-2">{<RiBookOpenLine />} {props.title}</p>
                     <div className="flex items-center gap-2">
                         <p>I am on page</p>
-                        <TextInput className=""sizing="sm" value={updatedProgress} onChange={(e) => setUpdatedProgress(e.target.value)} />
+                        <TextInput sizing="sm" value={updatedProgress} onChange={(e) => setUpdatedProgress(e.target.value)} color={progressErrorText ? 'failure' : 'gray'}/>
                         <p>out of {props.totalPages}</p>
+                        
                     </div>
+                    <span className="text-red-600 text-sm">
+                        {progressErrorText}
+                    </span>
                 </div>
                 </Modal.Body>
                 <Modal.Footer>
-                <Button onClick={() => updateProgress()}>Update</Button>
+                <Button onClick={() => updateProgress()} disabled={updateButtonDisabled}>Update</Button>
                 <Button color="gray" onClick={() => setOpenModal(false)}> Cancel </Button>
                 <Button color="gray" onClick={() => setFinished()}>Set as finished</Button>
                 </Modal.Footer>
