@@ -162,10 +162,10 @@ function Profile() {
                         <Button color="gray" onClick={() => setReadingStatusFilter("To be read")}>To be read ({data.num_books_tbr || 0})</Button>
                     </Button.Group>
                     <PaneTabView>
-                    {filteredBooks.map((item) => {
+                    {filteredBooks.map((item, i) => {
                         return (
-                            <div key={0}>
-                                <BookItem internalID={0} disableGiveRating={true} showReadingStatusBadge={true} showOptions={false} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} readingStatus={item.reading_status} rating={item.rating} notes={item.num_notes} allowNoteEditing={false} overrideNotes={item.notes}/>
+                            <div key={i}>
+                                <BookItem internalID={i} disableGiveRating={true} showReadingStatusBadge={true} showOptions={false} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} readingStatus={item.reading_status} rating={item.rating} notes={item.num_notes} allowNoteEditing={false} overrideNotes={item.notes}/>
                             </div>
                         )
                     })}
