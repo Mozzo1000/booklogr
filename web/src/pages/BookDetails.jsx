@@ -6,6 +6,7 @@ import AddToReadingListButtton from '../components/AddToReadingListButton';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import useToast from '../toast/useToast';
+import { Helmet } from 'react-helmet-async';
 
 function BookDetails() {
     let { id } = useParams();
@@ -48,6 +49,13 @@ function BookDetails() {
     }, [])
 
     return (
+        <>
+        <Helmet>
+            <meta property="og:title" content={data?.title} />
+            <meta property="og:description" content={"by " + data?.author_name} />
+            <meta property="og:image" content={"https://covers.openlibrary.org/b/isbn/" + id + "-L.jpg?default=false"} />
+            <meta property="og:url" content={window.location.href} />
+        </Helmet>
         <div className="pt-10 lg:pt-20 pb-10">
             <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4 justify-items-stretch	">
                 <div className="lg:row-span-2 mx-auto">
@@ -71,6 +79,7 @@ function BookDetails() {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 
