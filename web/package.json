@@ -17,6 +17,7 @@
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
     "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.5",
     "react-json-tree": "^0.18.0",
     "react-loading-skeleton": "^3.4.0",
     "react-router-dom": "^6.22.3"
