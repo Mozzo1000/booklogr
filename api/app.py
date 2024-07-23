@@ -7,6 +7,7 @@ from api.models import db, ma
 from api.routes.books import books_endpoint
 from api.routes.profiles import profiles_endpoint
 from api.routes.notes import notes_endpoint
+from api.routes.tasks import tasks_endpoint
 
 app = Flask(__name__)
 CORS(app)
@@ -20,6 +21,7 @@ jwt = JWTManager(app)
 app.register_blueprint(books_endpoint)
 app.register_blueprint(profiles_endpoint)
 app.register_blueprint(notes_endpoint)
+app.register_blueprint(tasks_endpoint)
 
 @app.route("/")
 def index():
