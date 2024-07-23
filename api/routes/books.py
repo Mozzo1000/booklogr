@@ -71,11 +71,18 @@ def edit_book(id):
             if int(request.json["current_page"]) < 0:
                 return jsonify({"error": "Unprocessable entity", "message": "Can't process change. The current page can't be less than 0."}), 422 
         if "status" in request.json:
-            # We should ideally do some validation here to ensure that the status being recieved matches
-            # what we can to save in the column, ie "Currently reading", "To be read" or "Read", case sensitive.
-            book.reading_status = request.json["status"]
+            if request.json["status"] in ("Currently reading", "To be read", "Read"):
+                book.reading_status = request.json["status"]
+            else: 
+                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Status needs to be either 'Currently reading', 'To be read' or 'Read' (case sensitive)"}), 422 
+
         if "rating" in request.json:
-            book.rating = request.json["rating"]
+            if 0 <= float(request.json["rating"]) <= 5:
+                book.rating = request.json["rating"]
+            elif int(request.json["rating"]) > 5:
+                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating can't be more than 5."}), 422 
+            elif int(request.json["rating"]) < 0:
+                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating can't be less than 0."}), 422 
     else:
         return jsonify({
                     "error": "Bad request",
