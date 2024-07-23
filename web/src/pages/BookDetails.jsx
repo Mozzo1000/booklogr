@@ -13,6 +13,7 @@ function BookDetails() {
     const [data, setData] = useState();
     const [description, setDescription] = useState();
     const [imageLoaded, setImageLoaded] = useState(false);
+    const [loading, setLoading] = useState(true);
     const toast = useToast(4000);
 
     useEffect(() => {
@@ -20,6 +21,7 @@ function BookDetails() {
             response => {
                 setData(response.data["docs"][0]);
                 console.log(response.data)
+                setLoading(false);
 
                 OpenLibraryService.getWorks(response.data["docs"][0].key).then(
                     response => {
@@ -67,7 +69,14 @@ function BookDetails() {
                         <h2>{data?.title || <Skeleton />}</h2>
                         <p className="lead">by {data?.author_name?.[0] || <Skeleton className="w-1/2" />}</p>
                         <p>{description || <Skeleton count={4.5}/>}</p>
-                        <p><span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">Pages</span> {data?.number_of_pages_median || <Skeleton width={50} />}</p>
+                        <p>
+                            <span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">Pages</span> 
+                            {loading ? (
+                                <Skeleton width={50} />
+                            ): (
+                                data?.number_of_pages_median || 0
+                            )}
+                        </p>
                         <p><span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">ISBN</span> {id}</p>
                     </article>
                 </div>
