@@ -7,6 +7,25 @@ db = SQLAlchemy()
 ma = Marshmallow()
 
 
+class Tasks(db.Model):
+    __tablename__ = "tasks"
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String)
+    data = db.Column(db.String)
+    status = db.Column(db.String, default="fresh")
+    worker = db.Column(db.String, nullable=True)
+    created_on = db.Column(db.DateTime, server_default=db.func.now())
+    updated_on = db.Column(db.DateTime, nullable=True)
+    created_by = db.Column(db.Integer)
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+class TasksSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Tasks
+
 class Notes(db.Model):
     __tablename__ = "notes"
     id = db.Column(db.Integer, primary_key=True)
