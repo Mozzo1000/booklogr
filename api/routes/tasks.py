@@ -8,7 +8,7 @@ import time
 tasks_endpoint = Blueprint('tasks', __name__)
 
 def _notify_workers(id):
-    db.session.execute(text(f"NOTIFY workers_channel, '{id}';"))
+    db.session.execute(text(f"NOTIFY task_created, '{id}';"))
     db.session.commit()
 
 @tasks_endpoint.route("/v1/tasks/<id>", methods=["GET"])
