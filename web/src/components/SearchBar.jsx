@@ -12,6 +12,7 @@ import { Img } from 'react-image'
 function SearchBar(props) {
     const [searchTerm, setSearchTerm] = useState('');
     const [suggestions, setSuggestions] = useState([{id: 0, name: ""}]);
+    const [noSuggestionsFound, setNoSuggestionsFound] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showList, setShowList] = useState(false);
     const loadingPlaceholder = [0,1,2,3,4,5]
@@ -28,9 +29,11 @@ function SearchBar(props) {
             setSuggestions(newArray); // Assuming the API returns an array of suggestions*/
             setLoading(false);
             setShowList(true);
+            setNoSuggestionsFound(false)
 
             if (response.data.num_found == 0) {
                 setSuggestions()
+                setNoSuggestionsFound(true)
             }
 
             },
@@ -104,6 +107,15 @@ function SearchBar(props) {
                         )
                     })
                 )}
+                {noSuggestionsFound &&
+                <div className="flex flex-col justify-center items-center text-center gap-4 pb-8">
+                    <RiSearch2Line size={96}/>
+                    <div className="format lg:format-lg">
+                        <h2>No results found</h2>
+                        <p>Try searching for a different title or isbn.</p>
+                    </div>
+                </div>
+                }
             </div>
             {props.showAttribution &&
                 <p className="format pt-2 ml-2 text-xs text-gray-500 font">Search powered by <a href="https://openlibrary.org" target="_blank">OpenLibrary</a></p>
