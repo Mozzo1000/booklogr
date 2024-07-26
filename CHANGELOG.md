@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - "No results found" text added when there are no results when searching.
 - Error text is now shown when trying to give a higher rating than 5 or lower than 0.
 - Error text is now shown when trying to set a current page higher than the books total page or lower than 0.
+- Add CSV export worker and API routes
 
 ### Fixed
 - Reading progress percentage no longer shown as over 100% if current page exceeded total pages on a book.
