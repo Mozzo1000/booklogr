@@ -14,9 +14,10 @@ def _notify_workers(id):
 @tasks_endpoint.route("/v1/tasks/<id>", methods=["GET"])
 @jwt_required()
 def get_task(id):
+    claim = get_jwt()["id"]
     task_schema = TasksSchema()
     
-    task = Tasks.query.filter(id==id).first()
+    task = Tasks.query.filter(Tasks.id==id, Tasks.created_by==claim).first()
     if task:
         return jsonify(task_schema.dump(task))
 
