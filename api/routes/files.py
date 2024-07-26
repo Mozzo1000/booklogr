@@ -26,7 +26,7 @@ def download_file(filename):
 def get_files():
     claim_id = get_jwt()["id"]
     file_schema = FilesSchema(many=True)
-    files = Files.query.filter(Files.owner_id==claim_id).all()
+    files = Files.query.filter(Files.owner_id==claim_id).order_by(Files.created_at.desc()).all()
 
     if files:
         return file_schema.dump(files)
