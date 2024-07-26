@@ -9,6 +9,7 @@ packages = [{include = "src"}]
 [tool.poetry.dependencies]
 python = "^3.12"
 psycopg2 = "^2.9.9"
+python-dotenv = "^1.0.1"
 
 
 [build-system]
