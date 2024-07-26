@@ -6,6 +6,17 @@ from marshmallow import post_dump
 db = SQLAlchemy()
 ma = Marshmallow()
 
+class Files(db.Model):
+    __tablename__ = "files"
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String)
+    owner_id = db.Column(db.Integer)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+
+class FilesSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Files
+        fields = ("id", "filename", "created_at",)
 
 class Tasks(db.Model):
     __tablename__ = "tasks"
@@ -25,6 +36,7 @@ class Tasks(db.Model):
 class TasksSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Tasks
+
 
 class Notes(db.Model):
     __tablename__ = "notes"
