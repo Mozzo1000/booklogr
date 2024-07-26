@@ -1,12 +1,15 @@
 import React from 'react'
 import FileList from './FileList'
+import RequestData from './RequestData'
 
 function DataTab() {
   return (
-    <div>DataTab
-        <div className="grid grid-cols-2 grid-rows-1 gap-4">
-            <div >1</div>
-            <div >
+    <div>
+        <div className="grid grid-cols-3 grid-rows-1 gap-4">
+            <div>
+                <RequestData />
+            </div>
+            <div className="col-span-2">
                 <FileList />
             </div>
         </div>
