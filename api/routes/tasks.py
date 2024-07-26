@@ -36,7 +36,7 @@ def create_task():
     new_task.save_to_db()
     _notify_workers(new_task.id)
 
-    return jsonify({'message': 'Task created.'}), 200
+    return jsonify({'message': 'Task created.', "task_id": new_task.id}), 200
 
 
 @tasks_endpoint.route("/v1/tasks/<id>/retry", methods=["POST"])
