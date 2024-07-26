@@ -68,7 +68,7 @@ function FileList() {
                         return (
                             <Table.Row key={item.id}>
                                 <Table.Cell>{item.filename}</Table.Cell>
-                                <Table.Cell>{item.created_at}</Table.Cell>
+                                <Table.Cell>{new Date(item.created_at).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false})}</Table.Cell>
                                 
                                 <Table.Cell><Button onClick={() => downloadFile(item.filename)}>Download</Button></Table.Cell>
                             </Table.Row>
