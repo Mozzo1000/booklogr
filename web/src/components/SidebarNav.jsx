@@ -10,6 +10,7 @@ import { RiSideBarLine } from "react-icons/ri";
 import { RiSideBarFill  } from "react-icons/ri";
 import { RiSearch2Line } from "react-icons/ri";
 import { RiLoginBoxLine } from "react-icons/ri";
+import { RiSettings4Line } from "react-icons/ri";
 
 const customTheme = {
   root: {
@@ -39,6 +40,9 @@ function SidebarNav() {
                   <Sidebar.ItemGroup>
                     <Sidebar.Item as={Link} to="/library" active={location.pathname == "/library"} icon={RiBook2Line}>My Library</Sidebar.Item>
                     <Sidebar.Item as={Link} to="/profile" active={location.pathname == "/profile"} icon={RiUser3Line }>Profile</Sidebar.Item>
+
+                    <Sidebar.Item as={Link} to="/settings" active={location.pathname == "/settings"} icon={RiSettings4Line}>Settings</Sidebar.Item>
+
                     {AuthService.getCurrentUser() ? ( 
                       <Sidebar.Item href="" onClick={() => (AuthService.logout(), navigate("/"))} icon={RiLogoutBoxLine}>Logout</Sidebar.Item>
                     ):(

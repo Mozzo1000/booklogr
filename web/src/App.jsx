@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import AuthService from "./services/auth.service";
 import SidebarNav from "./components/SidebarNav";
 import Verify from "./pages/Verify";
+import Settings from "./pages/Settings";
 
 function PrivateRoute({ children }) {
   const auth = AuthService.getCurrentUser()
@@ -39,6 +40,7 @@ function App() {
             <Route path="books/:id" element={<BookDetails />} />
             <Route exact path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
             <Route path="profile/:name" element={<Profile />} />
+            <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
 
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
