@@ -128,7 +128,6 @@ class BooksPublicOnlySchema(ma.SQLAlchemyAutoSchema):
         model = Books
 
     def get_num_notes(self, obj):
-        print(obj)
         query = Notes.query.filter(Notes.book_id==obj.id, Notes.visibility=="public").count()
         if query:
             return query
