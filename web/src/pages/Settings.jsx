@@ -12,7 +12,7 @@ function Settings() {
             <article className="format lg:format-lg pb-2">
                 <h2>Settings</h2>
             </article>
-            <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} style="underline" className="pt-1">
+            <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">
                 <Tabs.Item title="Account" icon={RiAccountCircleLine }>
                     <AccountTab />
                 </Tabs.Item>

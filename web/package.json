@@ -12,7 +12,7 @@
   "dependencies": {
     "@react-oauth/google": "^0.12.1",
     "axios": "^1.6.8",
-    "flowbite-react": "^0.7.5",
+    "flowbite-react": "^0.10.1",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",

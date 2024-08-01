@@ -44,7 +44,7 @@ function LibraryPane() {
         <article className="format lg:format-lg pb-2">
             <h2>My Library</h2>
         </article>
-        <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} style="underline" className="pt-1">
+        <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">
         <Tabs.Item active title="Currently reading" icon={RiBookOpenLine}>
         <PaneTabView>
             {state.books?.map((item) => {
