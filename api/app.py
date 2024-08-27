@@ -9,10 +9,13 @@ from api.routes.profiles import profiles_endpoint
 from api.routes.notes import notes_endpoint
 from api.routes.tasks import tasks_endpoint
 from api.routes.files import files_endpoint
+from flasgger import Swagger
 
 app = Flask(__name__)
 CORS(app)
+
 app.config.from_object(Config)
+swagger = Swagger(app)
 
 db.init_app(app)
 ma.init_app(app)
