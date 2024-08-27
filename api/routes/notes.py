@@ -7,6 +7,25 @@ notes_endpoint = Blueprint('notes', __name__)
 @notes_endpoint.route("/v1/notes/<id>", methods=["DELETE"])
 @jwt_required()
 def remove_note(id):
+    """
+        Delete note
+        ---
+        tags:
+            - Notes
+        parameters:
+            - name: id
+              in: path
+              type: integer
+              required: true
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Note removed successfully.
+
+          404:
+            description: No note found.
+    """
     claim_id = get_jwt()["id"]
     note = Notes.query.join(Books, Books.id==Notes.book_id).filter(Books.owner_id==claim_id, Notes.id==id).first()
     if note:
@@ -22,6 +41,29 @@ def remove_note(id):
 @notes_endpoint.route("/v1/notes/<id>", methods=["PATCH"])
 @jwt_required()
 def edit_note(id):
+    """
+        Edit note
+        ---
+        tags:
+            - Notes
+        parameters:
+            - name: id
+              in: path
+              type: integer
+              required: true
+            - name: visibility
+              in: body
+              type: string
+              required: true
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Note changed sucessfully.
+
+          500:
+            description: Unknown error.
+    """
     claim_id = get_jwt()["id"]
     note = Notes.query.join(Books, Books.id==Notes.book_id).filter(Books.owner_id==claim_id, Notes.id==id).first()
     if request.json:
