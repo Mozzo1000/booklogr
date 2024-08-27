@@ -39,6 +39,11 @@ Optionally you can also display your library proudly to the public, sharing it w
 * Rate you read books with 0.5-5 stars.
 * Take short notes on the books you read.
 
+## 🖥 Install
+BookLogr is made to be self-hosted and run on your own hardware.
+
+See [how to install with Docker](https://github.com/Mozzo1000/booklogr/wiki/Install-with-Docker) to get started.
+
 ## 🛠️Development
 See [development instructions](https://github.com/Mozzo1000/booklogr/wiki/Development) on the wiki to get started.
 
