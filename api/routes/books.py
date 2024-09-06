@@ -8,6 +8,22 @@ books_endpoint = Blueprint('books', __name__)
 @books_endpoint.route("/v1/books", methods=["GET"])
 @jwt_required()
 def get_books():
+    """
+        Get books in list
+        ---
+        tags:
+            - Books
+        parameters:
+            - name: status
+              in: query
+              type: string
+              required: false
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Returns books in list
+    """
     claim_id = get_jwt()["id"]
     query_status = request.args.get("status")
     books_schema = BooksSchema(many=True)
