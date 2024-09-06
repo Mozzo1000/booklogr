@@ -8,6 +8,24 @@ files_endpoint = Blueprint('files', __name__)
 @files_endpoint.route("/v1/files/<filename>", methods=["GET"])
 @jwt_required()
 def download_file(filename):
+    """
+        Download file
+        ---
+        tags:
+            - Files
+        parameters:
+            - name: filename
+              in: path
+              type: string
+              required: true
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Returns file.
+          500:
+            description: Unknown error occurred.
+    """
     claim_id = get_jwt()["id"]
     file = Files.query.filter(Files.filename==filename, Files.owner_id==claim_id).first()
 
@@ -24,6 +42,19 @@ def download_file(filename):
 @files_endpoint.route("/v1/files", methods=["GET"])
 @jwt_required()
 def get_files():
+    """
+        Get list of files
+        ---
+        tags:
+            - Files
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Returns list of files.
+          404:
+            description: No files could be found.
+    """
     claim_id = get_jwt()["id"]
     file_schema = FilesSchema(many=True)
     files = Files.query.filter(Files.owner_id==claim_id).order_by(Files.created_at.desc()).all()
