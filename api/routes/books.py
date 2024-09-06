@@ -21,13 +21,48 @@ def get_books():
 @books_endpoint.route("/v1/books", methods=["POST"])
 @jwt_required()
 def add_book():
-    """    
-    title = db.Column(db.String)
-    isbn = db.Column(db.Integer)
-    description = db.Column(db.String)
-    reading_status = db.Column(db.String)
-    current_page = db.Column(db.Integer)
-    total_pages = db.Column(db.Integer)
+    """
+        Add book to list
+        ---
+        tags:
+            - Books
+        parameters:
+            - name: title
+              in: body
+              type: string
+              required: true
+            - name: isbn
+              in: body
+              type: string
+              required: true
+            - name: author
+              in: body
+              type: string
+              required: false
+            - name: description
+              in: body
+              type: string
+              required: false
+            - name: reading_status
+              in: body
+              type: string
+              required: false
+              default: To be read
+            - name: current_page
+              in: body
+              type: integer
+              required: false
+              default: 0
+            - name: total_pages
+              in: body
+              type: integer
+              required: false
+              default: 0
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Book added to list.
     """
 
     claim_id = get_jwt()["id"]
@@ -60,6 +95,40 @@ def add_book():
 @books_endpoint.route("/v1/books/<id>", methods=["PATCH"])
 @jwt_required()
 def edit_book(id):
+    """
+        Edit book
+        ---
+        tags:
+            - Books
+        parameters:
+            - name: id
+              in: path
+              description: ID of book (NOT ISBN)
+              type: integer
+              required: true
+            - name: current_page
+              in: body
+              type: string
+              required: false
+            - name: status
+              in: body
+              type: string
+              required: false
+            - name: rating
+              in: body
+              type: number
+              required: false
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Book changed successfully.
+          409:
+            description: Recieved no JSON in body.
+          500:
+            description: Unknown error occurred.
+    """
+    
     claim_id = get_jwt()["id"]
     book = Books.query.filter(Books.owner_id==claim_id, Books.id==id).first()
     if request.json:
@@ -100,6 +169,25 @@ def edit_book(id):
 @books_endpoint.route("/v1/books/<id>", methods=["DELETE"])
 @jwt_required()
 def remove_book(id):
+    """
+        Remove book from list
+        ---
+        tags:
+            - Books
+        parameters:
+            - name: id
+              in: path
+              description: ID of book (NOT ISBN)
+              type: integer
+              required: true
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Book removed successfully.
+          404:
+            description: Could not find any book with the supplied ID.
+    """
     claim_id = get_jwt()["id"]
     book = Books.query.filter(Books.owner_id==claim_id, Books.id==id).first()
     if book:
@@ -114,6 +202,25 @@ def remove_book(id):
 @books_endpoint.route("/v1/books/<id>/notes", methods=["GET"])
 @jwt_required()
 def get_notes_for_book(id):
+    """
+        Get notes from book
+        ---
+        tags:
+            - Books
+        parameters:
+            - name: id
+              in: path
+              description: ID of book (NOT ISBN)
+              type: integer
+              required: true
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Returns notes attached to the book.
+          404:
+            description: Notes could not be found.
+    """
     claim_id = get_jwt()["id"]
     notes_schema = NotesSchema(many=True)
     book = Books.query.filter(Books.owner_id==claim_id, Books.id==id).first()
@@ -130,6 +237,28 @@ def get_notes_for_book(id):
 @books_endpoint.route("/v1/books/<id>/notes", methods=["POST"])
 @jwt_required()
 def add_book_note(id):
+    """
+        Add note to book
+        ---
+        tags:
+            - Books
+        parameters:
+            - name: id
+              in: path
+              description: ID of book (NOT ISBN)
+              type: integer
+              required: true
+            - name: content
+              in: body
+              description: Content of the note
+              type: string
+              required: true
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Note created.
+    """
     new_note = Notes(book_id=id, content=request.json["content"])
     new_note.save_to_db()
     return jsonify({'message': 'Note created'}), 200
