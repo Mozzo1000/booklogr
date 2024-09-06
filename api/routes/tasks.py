@@ -14,6 +14,24 @@ def _notify_workers(id):
 @tasks_endpoint.route("/v1/tasks/<id>", methods=["GET"])
 @jwt_required()
 def get_task(id):
+    """
+        Get tasks
+        ---
+        tags:
+            - Tasks
+        parameters:
+            - name: id
+              in: path
+              type: integer
+              required: true
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Returns information about the task.
+          404:
+            description: Task could not be found.
+    """
     claim = get_jwt()["id"]
     task_schema = TasksSchema()
     
@@ -31,6 +49,26 @@ def get_task(id):
 @jwt_required()
 @required_params("type", "data")
 def create_task():
+    """
+        Create task
+        ---
+        tags:
+            - Tasks
+        parameters:
+            - name: type
+              in: body
+              type: string
+              required: true
+            - name: data
+              in: body
+              type: string
+              required: true
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Task created.
+    """
     claim_id = get_jwt()["id"]
 
     new_task = Tasks(type=request.json["type"], data=str(request.json["data"]), created_by=claim_id)
@@ -43,6 +81,24 @@ def create_task():
 @tasks_endpoint.route("/v1/tasks/<id>/retry", methods=["POST"])
 @jwt_required()
 def retry_task(id):
+    """
+        Create task
+        ---
+        tags:
+            - Tasks
+        parameters:
+            - name: id
+              in: path
+              type: integer
+              required: true
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Task set to be retried.
+          404:
+            description: Could not find task.
+    """
     task = Tasks.query.filter(id==id).first()
     
     if task:
