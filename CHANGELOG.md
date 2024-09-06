@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2024-09-06
+
 ### Added
 - Welcome screen on first login.
 - Basic framework for handling long running background tasks.
@@ -13,10 +15,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - "No results found" text added when there are no results when searching.
 - Error text is now shown when trying to give a higher rating than 5 or lower than 0.
 - Error text is now shown when trying to set a current page higher than the books total page or lower than 0.
-- Add CSV export worker and API routes
+- Add CSV export functionality
+- Account settings page (no working functionality yet)
 
 ### Fixed
 - Reading progress percentage no longer shown as over 100% if current page exceeded total pages on a book.
+- Search results will now only show books that have a corresponing ISBN. Without this would cause the search results to show up empty and endlessly load.
 
 ### Changed
 - Number of pages shown on a book page now shows 0 instead of a loading bar if there is no data from OpenLibrary.
