@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
+### Fixed
+- The navigation menu now disappears correctly after login and sidebar/mobile navigation will be visible without requiring a refresh of the page.
+
+### Changed
+- The provided docker-compose does no longer require a locally built `auth-server` image. Instead it pulls the image from Docker Hub. The users database is now also stored in sqlite instead of postgres, eliminating the need for a secondary postgres server container.
+
 
 ## [1.1.0] - 2024-09-06
 
