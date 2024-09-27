@@ -68,26 +68,26 @@ function SidebarNav() {
             <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
                 <Link to="/library" className="inline-flex flex-col pt-2">
                   <button type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                      <RiBook2Line className={`w-5 h-5 mb-2 group-hover:text-blue-600 ${location.pathname == "/library" ? "text-blue-600" : "text-gray-500"}`}/>
-                      <span className={`text-sm dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 ${location.pathname == "/library" ? "text-blue-600" : "text-gray-500"}`}>Library</span>
+                      <RiBook2Line className={`w-5 h-5 mb-2 group-hover:text-[#0891B2] ${location.pathname == "/library" ? "text-[#0891B2]" : "text-gray-500"}`}/>
+                      <span className={`text-sm dark:text-gray-400 group-hover:text-[#0891B2] dark:group-hover:text-blue-500 ${location.pathname == "/library" ? "text-[#0891B2]" : "text-gray-500"}`}>Library</span>
                   </button>
                 </Link>
                 
                 <button type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800" onClick={() => setOpenSearchModal(true)}>
-                    <RiSearch2Line className="w-5 h-5 mb-2 text-gray-500 group-hover:text-blue-600"/>
-                    <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Search</span>
+                    <RiSearch2Line className="w-5 h-5 mb-2 text-gray-500 group-hover:text-[#0891B2]"/>
+                    <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-[#0891B2] dark:group-hover:text-blue-500">Search</span>
                 </button>
 
                 <Link to="/profile" className="inline-flex flex-col pt-2">
                   <button type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                      <RiUser3Line className={`w-5 h-5 mb-2 group-hover:text-blue-600 ${location.pathname == "/profile" ? "text-blue-600" : "text-gray-500"}`}/>
-                      <span className={`text-sm dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 ${location.pathname == "/profile" ? "text-blue-600" : "text-gray-500"}`}>Profile</span>
+                      <RiUser3Line className={`w-5 h-5 mb-2 group-hover:text-[#0891B2] ${location.pathname == "/profile" ? "text-[#0891B2]" : "text-gray-500"}`}/>
+                      <span className={`text-sm dark:text-gray-400 group-hover:text-[#0891B2] dark:group-hover:text-blue-500 ${location.pathname == "/profile" ? "text-[#0891B2]" : "text-gray-500"}`}>Profile</span>
                   </button>
                 </Link>
                 <Link to="/settings" className="inline-flex flex-col pt-2">
                   <button type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                      <RiSettings4Line className={`w-5 h-5 mb-2 group-hover:text-blue-600 ${location.pathname == "/settings" ? "text-blue-600" : "text-gray-500"}`}/>
-                      <span className={`text-sm dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 ${location.pathname == "/settings" ? "text-blue-600" : "text-gray-500"}`}>Settings</span>
+                      <RiSettings4Line className={`w-5 h-5 mb-2 group-hover:text-[#0891B2] ${location.pathname == "/settings" ? "text-[#0891B2]" : "text-gray-500"}`}/>
+                      <span className={`text-sm dark:text-gray-400 group-hover:text-[#0891B2] dark:group-hover:text-blue-500 ${location.pathname == "/settings" ? "text-[#0891B2]" : "text-gray-500"}`}>Settings</span>
                   </button>
                 </Link>
             </div>
