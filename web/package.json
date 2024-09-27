@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@react-oauth/google": "^0.12.1",
-    "axios": "1.7.3",
+    "axios": "1.7.7",
     "flowbite-react": "0.10.1",
     "lodash": "^4.17.21",
     "react": "18.3.1",
@@ -20,10 +20,10 @@
     "react-helmet-async": "^2.0.5",
     "react-image": "^4.1.0",
     "react-loading-skeleton": "^3.4.0",
-    "react-router-dom": "6.26.0"
+    "react-router-dom": "6.26.2"
   },
   "devDependencies": {
-    "@types/react": "18.3.3",
+    "@types/react": "18.3.10",
     "@types/react-dom": "18.3.0",
     "@vitejs/plugin-react": "4.3.1",
     "autoprefixer": "^10.4.19",
@@ -33,7 +33,7 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "flowbite-typography": "^1.0.3",
     "postcss": "^8.4.38",
-    "tailwindcss": "3.4.7",
-    "vite": "5.3.5"
+    "tailwindcss": "3.4.13",
+    "vite": "5.4.8"
   }
 }
