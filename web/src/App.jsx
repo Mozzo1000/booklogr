@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation} from "react-router-dom";
 import BookDetails from "./pages/BookDetails";
 import Library from "./pages/Library";
 import Home from "./pages/Home";
@@ -20,6 +20,8 @@ function PrivateRoute({ children }) {
 }
 
 function App() {
+  let location = useLocation();
+
   return (
     <div className="min-h-screen">
     <div className="flex flex-row">
@@ -29,8 +31,11 @@ function App() {
       </div>
       }
       <div className="mx-auto pt-10 basis-full">
+
         {!AuthService.getCurrentUser() &&
-          <NavigationMenu />
+          location.pathname != "/library"  &&
+            <NavigationMenu />
+        
         }
         <Routes>
           <Route path="/">
