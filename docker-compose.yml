@@ -18,15 +18,14 @@ services:
 
     booklogr-api:
         container_name: "booklogr-api"
-        build: .
-        image: booklogr-api
+        image: mozzo/booklogr:latest
         depends_on:
             booklogr-db:
               condition: service_healthy
         env_file:
             - .env
         ports:
-            - 5002:5000
+            - 5000:5000
 
     auth-api:
         container_name: "auth-server-api"
