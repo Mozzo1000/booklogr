@@ -89,7 +89,7 @@ function SearchBar(props) {
                                             <Skeleton count={1} height={100} width={"60%"} />
                                     </div>
                                     <div className="col-start-2">
-                                        <Skeleton count={2} width={850} />
+                                        <Skeleton count={2} width={"100%"} />
                                     </div>
                                 </div>
                                 <hr/>
