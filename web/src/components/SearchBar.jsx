@@ -8,6 +8,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { RiSearch2Line } from "react-icons/ri";
 import ESCIcon from "./ESCIcon";
 import { Img } from 'react-image'
+import { RiErrorWarningLine } from "react-icons/ri";
 
 function SearchBar(props) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -16,6 +17,8 @@ function SearchBar(props) {
     const [loading, setLoading] = useState(false);
     const [showList, setShowList] = useState(false);
     const loadingPlaceholder = [0,1,2,3,4,5]
+    const [onError, setOnError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState();
   
     const fetchSuggestions = (searchTerm) => {
       if (searchTerm) {
@@ -32,6 +35,9 @@ function SearchBar(props) {
             setShowList(true);
             setNoSuggestionsFound(false)
 
+            setOnError(false);
+            setErrorMessage();
+
             if (response.data.num_found == 0) {
                 setSuggestions()
                 setNoSuggestionsFound(true)
@@ -39,7 +45,10 @@ function SearchBar(props) {
 
             },
             error => {
-                console.error('Error fetching suggestions:', error);
+                setLoading(false);
+                setOnError(true);
+                setErrorMessage(error.code)
+                console.error('Error fetching suggestions:', error.code);
             }
         )
         }
@@ -57,6 +66,8 @@ function SearchBar(props) {
         if (e.target.value) {
             setLoading(true);
             setShowList(true);
+            setOnError(false);
+            setErrorMessage();
             fetchSuggestions(e.target.value)
         }
     }
@@ -114,6 +125,16 @@ function SearchBar(props) {
                     <div className="format lg:format-lg">
                         <h2>No results found</h2>
                         <p>Try searching for a different title or isbn.</p>
+                    </div>
+                </div>
+                }
+                {onError &&
+                <div className="flex flex-col justify-center items-center text-center gap-4 pb-8">
+                    <RiErrorWarningLine size={96}/>
+                    <div className="format lg:format-lg">
+                        <h2>Something went wrong</h2>
+                        <p>Try again later.<p className="text-xs">{errorMessage}. <a href={"https://github.com/Mozzo1000/booklogr/wiki/Error-messages#" + String(errorMessage).toLowerCase()}>Learn more</a></p></p>
+                        
                     </div>
                 </div>
                 }
