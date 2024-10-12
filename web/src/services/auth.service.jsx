@@ -1,6 +1,17 @@
 import axios from "axios";
+import globalRouter from "../GlobalRouter";
 
 const API_URL = import.meta.env.VITE_AUTH_API_URL;
+
+axios.interceptors.response.use(response => {
+    return response;
+ }, error => {
+   if (error.response.status === 401) {
+    logout();
+    globalRouter.navigate("/login")
+   }
+   return error;
+ });
 
 const register = (email, name, password) => {
     return axios.post(API_URL + "/v1/register", {

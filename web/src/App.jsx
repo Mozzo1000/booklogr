@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useLocation} from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, useNavigate} from "react-router-dom";
 import BookDetails from "./pages/BookDetails";
 import Library from "./pages/Library";
 import Home from "./pages/Home";
@@ -13,6 +13,7 @@ import AuthService from "./services/auth.service";
 import SidebarNav from "./components/SidebarNav";
 import Verify from "./pages/Verify";
 import Settings from "./pages/Settings";
+import globalRouter from "./GlobalRouter";
 
 function PrivateRoute({ children }) {
   const auth = AuthService.getCurrentUser()
@@ -20,6 +21,9 @@ function PrivateRoute({ children }) {
 }
 
 function App() {
+  const navigate = useNavigate();
+  globalRouter.navigate = navigate;
+
   let location = useLocation();
 
   return (
