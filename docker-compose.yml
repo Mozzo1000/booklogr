@@ -40,6 +40,17 @@ services:
         ports:
             - 5001:5000
 
+    booklogr-web:
+        container_name: "booklogr-web"
+        image: mozzo/booklogr-web:latest
+        environment:
+            - BL_API_ENDPOINT=http://localhost:5000/ # CHANGE THIS TO POINT TO THE EXTERNAL ADRESS THE USER CAN ACCESS
+            - BL_AUTH_ENDPOINT=http://localhost:5001 # CHANGE THIS TO POINT TO THE EXTERNAL ADRESS THE USER CAN ACCESS
+            - BL_GOOGLE_ID=XXX.apps.googleusercontent.com # CHANGE THIS TO YOUR OWN GOOGLE ID
+            - BL_DISABLE_HOMEPAGE=true
+        ports:
+            - 5150:80
+
 volumes:
     booklogr:
     auth-server:
