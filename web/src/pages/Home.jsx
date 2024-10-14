@@ -8,7 +8,7 @@ import AuthService from '../services/auth.service';
 function Home() {
     let navigate = useNavigate();
     useEffect(() => {
-        if(import.meta.env.VITE_DISABLE_HOMEPAGE === "true") {
+        if(String(import.meta.env.VITE_DISABLE_HOMEPAGE).toLowerCase() === "true") {
             return navigate("/library")
         }
         if(AuthService.getCurrentUser()) {
