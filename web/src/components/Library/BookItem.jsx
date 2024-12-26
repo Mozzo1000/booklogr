@@ -10,7 +10,7 @@ import { Img } from 'react-image'
 
 function BookItem(props) {
     const [imageLoaded, setImageLoaded] = useState(false);
-
+    console.log(props)
     return (
         <div className="min-h-full flex flex-col bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-md dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                 <Img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-24 md:rounded-none md:rounded-s-lg" src={"https://covers.openlibrary.org/b/isbn/" + props.isbn + "-L.jpg?default=false"} 
@@ -48,7 +48,7 @@ function BookItem(props) {
                     )
                 }
                 </div>
-                {!props.showProgress && props.showOptions &&
+                {props.showOptions &&
                     <div className="flex flex-row-reverse">
                         <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged}/>
                     </div>
