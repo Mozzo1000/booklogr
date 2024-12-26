@@ -13,13 +13,16 @@ function FileList() {
                 setFiles(response.data);
             },
             error => {
-              const resMessage =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
-              toast("error", resMessage);
+                if (error.response.status != 404) {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                    console.log(error)
+                    toast("error", resMessage);
+                }
             }
         )
     }, [])
@@ -63,8 +66,7 @@ function FileList() {
                     <Table.HeadCell>Action</Table.HeadCell>
                 </Table.Head>
                 <Table.Body>
-                    {files &&
-                    files.map((item) => {
+                    {files?.map((item) => {
                         return (
                             <Table.Row key={item.id}>
                                 <Table.Cell>{item.filename}</Table.Cell>
@@ -74,6 +76,7 @@ function FileList() {
                             </Table.Row>
                         )
                     })
+                    
                 }
                 </Table.Body>
             </Table>
