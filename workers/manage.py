@@ -70,6 +70,8 @@ def process_task(data, cursor):
     print(data)
     if data["type"] == "csv_export":
         CSVWorker(cursor).pickup_task(data["id"], data)
+    elif data["type"] == "json_export":
+        JSONWorker(cursor).pickup_task(data["id"], data)
 
 if __name__ == '__main__':
     main()

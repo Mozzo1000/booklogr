@@ -11,6 +11,8 @@ function RequestData() {
         let taskType;
         if (dataFormat == "csv") {
             taskType = "csv_export"
+        }else if (dataFormat == "json") {
+            taskType = "json_export"
         }
         TasksService.create(taskType, {}).then(
             response => {
@@ -41,6 +43,7 @@ function RequestData() {
                     </div>
                     <Select id="data-format" required value={dataFormat} onChange={(e) => setDataFormat(e.target.value)}>
                         <option value="csv">CSV</option>
+                        <option value="json">JSON</option>
                     </Select>
                 </div>
                 <Button onClick={() => requestData()}>Request data</Button>
