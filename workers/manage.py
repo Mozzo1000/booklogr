@@ -7,6 +7,7 @@ import os
 
 from src.export_csv import CSVWorker
 from src.export_json import JSONWorker
+from src.export_html import HTMLWorker
 
 def main():
     load_dotenv()
@@ -72,6 +73,8 @@ def process_task(data, cursor):
         CSVWorker(cursor).pickup_task(data["id"], data)
     elif data["type"] == "json_export":
         JSONWorker(cursor).pickup_task(data["id"], data)
+    elif data["type"] == "html_export":
+        HTMLWorker(cursor).pickup_task(data["id"], data)
 
 if __name__ == '__main__':
     main()
