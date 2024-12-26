@@ -4,10 +4,12 @@ import { RiAccountCircleLine } from "react-icons/ri";
 import { RiDatabase2Line } from "react-icons/ri";
 import DataTab from '../components/Data/DataTab';
 import AccountTab from '../components/AccountTab';
+import AnimatedLayout from '../AnimatedLayout';
 
 function Settings() {
     const [activeTab, setActiveTab] = useState(0);
     return (
+        <AnimatedLayout>
         <div className="container mx-auto ">
             <article className="format lg:format-lg pb-2">
                 <h2>Settings</h2>
@@ -22,6 +24,7 @@ function Settings() {
                 </Tabs.Item>
             </Tabs>
         </div>
+        </AnimatedLayout>
     )
 }
 

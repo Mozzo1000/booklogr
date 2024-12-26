@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import FeatureSection from '../components/FeatureSection';
 import CTA from '../components/CTA';
 import AuthService from '../services/auth.service';
+import AnimatedLayout from '../AnimatedLayout';
 
 function Home() {
     let navigate = useNavigate();
@@ -18,6 +19,7 @@ function Home() {
     
 
     return (
+        <AnimatedLayout>
         <div className="min-h-screen flex flex-col justify-between">
         <section className="md:bg-[length:100%] h-screen bg-no-repeat bg-bottom bg-wave-pattern">
             <div className="grid max-w-screen-xl px-4 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
@@ -36,6 +38,7 @@ function Home() {
         <FeatureSection />
         <CTA />
         </div>
+        </AnimatedLayout>
     )
 }
 

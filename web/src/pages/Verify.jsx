@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation} from 'react-router-dom';
 import AuthService from "../services/auth.service";
 import { useToast } from '../toast/useToast';
+import AnimatedLayout from '../AnimatedLayout';
 
 function Verify() {
     const [code, setCode] = useState();
@@ -42,6 +43,7 @@ function Verify() {
     }; 
 
     return (
+        <AnimatedLayout>
         <section>
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto">
                 <Card>
@@ -69,6 +71,7 @@ function Verify() {
                 </Card>
             </div >
         </section >
+        </AnimatedLayout>
     )
 }
 

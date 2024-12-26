@@ -8,6 +8,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import useToast from '../toast/useToast';
 import { Helmet } from 'react-helmet-async';
 import { Img } from 'react-image'
+import AnimatedLayout from '../AnimatedLayout';
 
 function BookDetails() {
     let { id } = useParams();
@@ -50,7 +51,7 @@ function BookDetails() {
     }, [])
 
     return (
-        <>
+        <AnimatedLayout>
         <Helmet>
             <meta property="og:title" content={data?.title} />
             <meta property="og:description" content={"by " + data?.author_name} />
@@ -89,7 +90,7 @@ function BookDetails() {
                 </div>
             </div>
         </div>
-        </>
+        </AnimatedLayout>
     )
 }
 

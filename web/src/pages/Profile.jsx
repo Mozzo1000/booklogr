@@ -13,6 +13,7 @@ import { RiBook2Line } from "react-icons/ri";
 import { RiBookOpenLine } from "react-icons/ri";
 import { RiBookmarkLine } from "react-icons/ri";
 import { RiEyeLine } from "react-icons/ri";
+import AnimatedLayout from '../AnimatedLayout';
 
 function Profile() {
     const [data, setData] = useState();
@@ -126,6 +127,7 @@ function Profile() {
 
 
     return (
+        <AnimatedLayout>
         <div className="container mx-auto">          
             {data &&
                 <div>
@@ -208,8 +210,8 @@ function Profile() {
                     </Link>
                 </div>
             }
-
         </div>
+        </AnimatedLayout>
     )
 }
 

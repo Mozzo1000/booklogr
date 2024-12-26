@@ -14,6 +14,7 @@ import SidebarNav from "./components/SidebarNav";
 import Verify from "./pages/Verify";
 import Settings from "./pages/Settings";
 import globalRouter from "./GlobalRouter";
+import { AnimatePresence } from "framer-motion";
 
 function PrivateRoute({ children }) {
   const auth = AuthService.getCurrentUser()
@@ -41,22 +42,24 @@ function App() {
             <NavigationMenu />
         
         }
-        <Routes>
-          <Route path="/">
-            <Route index element={<Home/>} />
-       
-            <Route path="library" element={<PrivateRoute><Library /></PrivateRoute>} />
-            <Route path="books/:id" element={<BookDetails />} />
-            <Route exact path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-            <Route path="profile/:name" element={<Profile />} />
-            <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
+        <AnimatePresence mode='wait'>
+          <Routes location={location} key={location.pathname}>
+            <Route path="/">
+              <Route index element={<Home/>} />
+        
+              <Route path="library" element={<PrivateRoute><Library /></PrivateRoute>} />
+              <Route path="books/:id" element={<BookDetails />} />
+              <Route exact path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+              <Route path="profile/:name" element={<Profile />} />
+              <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
 
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="verify" element={<Verify />} />
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
+              <Route path="verify" element={<Verify />} />
 
-          </Route>
-        </Routes>
+            </Route>
+          </Routes>
+        </AnimatePresence>
       </div>
     </div>
     <Footer />

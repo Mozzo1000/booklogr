@@ -6,6 +6,7 @@ import { RiMailLine } from "react-icons/ri";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { RiUser3Line } from "react-icons/ri";
 import useToast from '../toast/useToast';
+import AnimatedLayout from '../AnimatedLayout';
 
 function Register() {
     const [email, setEmail] = useState("");
@@ -61,40 +62,42 @@ function Register() {
 
 
   return (
-    <div className="flex flex-col justify-center items-center gap-6">
-      <div className="format lg:format-lg">
-        <h2>Register an account</h2>
-      </div>
-      <Card>
-        <form className="flex flex-col gap-4" onSubmit={handleRegistration}>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="email1" value="Your email" />
-            </div>
-            <TextInput id="email1" type="email" icon={RiMailLine} placeholder="name@example.com" required value={email} onChange={e => setEmail(e.target.value)}/>
-          </div>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="name" value="Your name" />
-            </div>
-            <TextInput id="name" type="text" icon={RiUser3Line} required value={name} onChange={e => setName(e.target.value)}/>
-          </div>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="password1" value="Your password" />
-            </div>
-            <TextInput id="password1" type="password" icon={RiLockPasswordLine} required value={password} onChange={e => setPassword(e.target.value)} />
-          </div>
-          <div>
-            <div className="mb-2 block">
-                <Label htmlFor="password2" value="Confirm your password" />
+    <AnimatedLayout>
+      <div className="flex flex-col justify-center items-center gap-6">
+        <div className="format lg:format-lg">
+          <h2>Register an account</h2>
+        </div>
+        <Card>
+          <form className="flex flex-col gap-4" onSubmit={handleRegistration}>
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="email1" value="Your email" />
               </div>
-              <TextInput id="password2" type="password" icon={RiLockPasswordLine} required value={passwordConf} onChange={e => setPasswordConf(e.target.value)} color={passwordErrorText ? 'failure' : 'gray'} helperText={passwordErrorText} />
-          </div>
-          <Button type="submit" disabled={registerButtonDisabled} >Register</Button>
-        </form>
-      </Card>
-    </div>
+              <TextInput id="email1" type="email" icon={RiMailLine} placeholder="name@example.com" required value={email} onChange={e => setEmail(e.target.value)}/>
+            </div>
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="name" value="Your name" />
+              </div>
+              <TextInput id="name" type="text" icon={RiUser3Line} required value={name} onChange={e => setName(e.target.value)}/>
+            </div>
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="password1" value="Your password" />
+              </div>
+              <TextInput id="password1" type="password" icon={RiLockPasswordLine} required value={password} onChange={e => setPassword(e.target.value)} />
+            </div>
+            <div>
+              <div className="mb-2 block">
+                  <Label htmlFor="password2" value="Confirm your password" />
+                </div>
+                <TextInput id="password2" type="password" icon={RiLockPasswordLine} required value={passwordConf} onChange={e => setPasswordConf(e.target.value)} color={passwordErrorText ? 'failure' : 'gray'} helperText={passwordErrorText} />
+            </div>
+            <Button type="submit" disabled={registerButtonDisabled} >Register</Button>
+          </form>
+        </Card>
+      </div>
+    </AnimatedLayout>
   )
 }
 
