@@ -5,19 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
+
+## [1.2.0] - 2024-12-27
 ### Added
 - Docker images for the API and web frontend. https://hub.docker.com/repository/docker/mozzo/booklogr-web and https://hub.docker.com/repository/docker/mozzo/booklogr
 - Search now shows an error message when failing to retrieve results from OpenLibrary.
+- Small transition when switching pages.
+- Option to export data in JSON and HTML format.
+- Worker management CLI tool.
+- Quotes with page numbers can now be added.
+- Event sharing - automatically post to Mastodon when finished reading a book.
 
 ### Fixed
 - The navigation menu now disappears correctly after login and sidebar/mobile navigation will be visible without requiring a refresh of the page.
 - Public profile not returning any information if there where no public notes in any books.
 - 401 errors now redirect you back to the login page. This normally happens when the JWT token has expired.
+- Error toast being shown on settings page when no exports files where available.
 
 ### Changed
 - The provided docker-compose does no longer require a locally built `auth-server` image. Instead it pulls the image from Docker Hub. The users database is now also stored in sqlite instead of postgres, eliminating the need for a secondary postgres server container.
 - The API is now available as a prebuilt docker image. The provided docker-compose has been changed to reflect this instead of building locally.
 - Changed the color of the mobile navigation bar buttons to better match the styling of other similar elements.
+- The layout in data tab on the settings page is now responsive. 
+- Notes in the web interface has now been renamed to Notes & Quotes, to accomadate the new quotes feature.
 
 ## [1.1.0] - 2024-09-06
 
