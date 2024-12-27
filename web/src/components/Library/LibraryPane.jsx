@@ -50,7 +50,7 @@ function LibraryPane() {
             {state.books?.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem internalID={item.id} showNotes={false} showRating={false} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
+                        <BookItem internalID={item.id} allowNoteEditing={true} showNotes={false} showRating={false} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
                     </div>
                 )
             })}
@@ -61,7 +61,7 @@ function LibraryPane() {
             {state.books?.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem internalID={item.id} showProgress={false} showOptions title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
+                        <BookItem internalID={item.id} showNotes allowNoteEditing={true} showProgress={false} showOptions title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
                     </div>
                 )
             })}
@@ -72,7 +72,7 @@ function LibraryPane() {
             {state.books?.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem internalID={item.id} showProgress={false} showOptions showRating title={item.title} isbn={item.isbn} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}  />
+                        <BookItem internalID={item.id} showNotes allowNoteEditing={true} showProgress={false} showOptions showRating title={item.title} isbn={item.isbn} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}  />
                     </div>
                 )
             })}

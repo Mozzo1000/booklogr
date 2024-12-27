@@ -50,7 +50,7 @@ function BookItem(props) {
                 </div>
                 {props.showOptions &&
                     <div className="flex flex-row-reverse">
-                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged}/>
+                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged} allowNoteEditing={props.allowNoteEditing}/>
                     </div>
                 }
             </div>
