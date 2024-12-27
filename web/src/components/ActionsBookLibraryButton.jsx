@@ -71,7 +71,7 @@ function ActionsBookLibraryButton(props) {
             <Dropdown.Item onClick={() => (clickDropItem("Read"))}><RiBook2Line size={18} className="mr-1"/>Read</Dropdown.Item>
             <Dropdown.Divider />
 
-            <Dropdown.Item onClick={() => setOpenNotesModal(true)}><RiStickyNoteLine size={18} className="mr-1"/>Notes</Dropdown.Item>
+            <Dropdown.Item onClick={() => setOpenNotesModal(true)}><RiStickyNoteLine size={18} className="mr-1"/>Notes & Quotes</Dropdown.Item>
             <Dropdown.Item onClick={() => setRemovalConfModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />Remove</Dropdown.Item>
         </Dropdown>
 
