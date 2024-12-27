@@ -43,6 +43,7 @@ class Notes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey("books.id"))
     content = db.Column(db.String, nullable=False)
+    quote_page = db.Column(db.Integer, nullable=True)
     visibility = db.Column(db.String, default="hidden")
     created_on = db.Column(db.DateTime, server_default=db.func.now())
 
