@@ -11,6 +11,13 @@ def _notify_workers(id):
     db.session.execute(text(f"NOTIFY task_created, '{id}';"))
     db.session.commit()
 
+def _create_task(type, data, created_by):
+    new_task = Tasks(type=type, data=data, created_by=created_by)
+    new_task.save_to_db()
+    _notify_workers(new_task.id)
+    return new_task
+
+
 @tasks_endpoint.route("/v1/tasks/<id>", methods=["GET"])
 @jwt_required()
 def get_task(id):
@@ -70,10 +77,7 @@ def create_task():
             description: Task created.
     """
     claim_id = get_jwt()["id"]
-
-    new_task = Tasks(type=request.json["type"], data=str(request.json["data"]), created_by=claim_id)
-    new_task.save_to_db()
-    _notify_workers(new_task.id)
+    new_task =_create_task(request.json["type"], str(request.json["data"], claim_id))
 
     return jsonify({'message': 'Task created.', "task_id": new_task.id}), 200
 
