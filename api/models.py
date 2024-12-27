@@ -165,3 +165,22 @@ class ProfileSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Profile()
         fields = ("id", "display_name", "visibility", "books", "num_books_read", "num_books_reading", "num_books_tbr",)
+
+
+class UserSettings(db.Model):
+    __tablename__ = "user_settings"
+    id = db.Column(db.Integer, primary_key=True)
+    owner_id = db.Column(db.Integer, unique=True)
+    send_book_events = db.Column(db.Boolean, default=False)
+    mastodon_url = db.Column(db.String, nullable=True)
+    mastodon_access_token = db.Column(db.String, nullable=True)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_on = db.Column(db.DateTime, nullable=True)
+
+    def save_to_db(self):
+            db.session.add(self)
+            db.session.commit()
+    
+class UserSettingsSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = UserSettings
