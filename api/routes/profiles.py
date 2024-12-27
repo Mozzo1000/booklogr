@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt
-from api.models import Profile, ProfileSchema, Notes, Books
+from api.models import Profile, ProfileSchema, Notes, Books, UserSettings
 from api.decorators import required_params
 
 profiles_endpoint = Blueprint('profiles', __name__)
@@ -108,7 +108,9 @@ def create_profile():
             if "hidden" or "public" in request.json["visibility"]:
                 visibility = request.json["visibility"]
         new_profile = Profile(owner_id=claim_id, display_name=request.json["display_name"], visibility=visibility)
+        new_user_settings = UserSettings(owner_id=claim_id)
         new_profile.save_to_db()
+        new_user_settings.save_to_db()
         return jsonify({'message': 'Profile created'}), 200
 
 @profiles_endpoint.route("/v1/profiles", methods=["PATCH"])
