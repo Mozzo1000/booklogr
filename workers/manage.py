@@ -8,6 +8,7 @@ import os
 from src.export_csv import CSVWorker
 from src.export_json import JSONWorker
 from src.export_html import HTMLWorker
+from src.post_mastodon import MastodonWorker
 
 def main():
     load_dotenv()
@@ -68,13 +69,14 @@ def handle_notify(conn, cursor):
             process_task(fetched, cursor)
 
 def process_task(data, cursor):
-    print(data)
     if data["type"] == "csv_export":
         CSVWorker(cursor).pickup_task(data["id"], data)
     elif data["type"] == "json_export":
         JSONWorker(cursor).pickup_task(data["id"], data)
     elif data["type"] == "html_export":
         HTMLWorker(cursor).pickup_task(data["id"], data)
+    elif data["type"] == "share_book_event":
+        MastodonWorker(cursor).pickup_task(data["id"], data)
 
 if __name__ == '__main__':
     main()
