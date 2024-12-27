@@ -34,7 +34,7 @@ services:
         volumes:
             - auth_db_vol:/app/instance
         environment:
-            DATABASE_URL: "sqlite:///users.db" # CHANGE THIS FOR USE IN PRODUCTION! Needs to be the same as the credentials in auth-db
+            DATABASE_URL: "sqlite:///users.db"
         env_file:
             - .env
         ports:
