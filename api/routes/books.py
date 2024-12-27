@@ -3,6 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings
 from api.decorators import required_params
 from api.routes.tasks import _create_task
+import json
 
 books_endpoint = Blueprint('books', __name__)
 
@@ -162,7 +163,7 @@ def edit_book(id):
 
                 if UserSettings.query.filter(UserSettings.owner_id==claim_id, UserSettings.send_book_events==True).first():
                   if book.reading_status == "Read":
-                    _create_task("share_book_event", str({"title": book.title, "reading_status": book.reading_status}), claim_id)
+                    _create_task("share_book_event", json.dumps({"title": book.title, "author": book.author, "reading_status": book.reading_status}), claim_id)
 
             else: 
                 return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Status needs to be either 'Currently reading', 'To be read' or 'Read' (case sensitive)"}), 422 
