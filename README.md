@@ -37,7 +37,8 @@ Optionally you can also display your library proudly to the public, sharing it w
 * Keep track of what page you are on with your current book.
 * Have a public profile of your library available to all.
 * Rate you read books with 0.5-5 stars.
-* Take short notes on the books you read.
+* Take short notes and quotes on the books you read.
+* Automatically share your progress to Mastodon.
 
 ## 🖥 Install
 BookLogr is made to be self-hosted and run on your own hardware.
