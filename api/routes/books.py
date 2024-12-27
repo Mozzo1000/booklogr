@@ -282,6 +282,9 @@ def add_book_note(id):
           200:
             description: Note created.
     """
-    new_note = Notes(book_id=id, content=request.json["content"])
+    page = None
+    if "quote_page" in request.json:
+        page = request.json["quote_page"]
+    new_note = Notes(book_id=id, content=request.json["content"], quote_page=page)
     new_note.save_to_db()
     return jsonify({'message': 'Note created'}), 200
