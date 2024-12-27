@@ -29,7 +29,6 @@ function NotesView(props) {
                 response => {
                     setNotes(response.data)
                     setSelectedNote(response.data[0])
-                    console.log(response.data)
                 },
                 error => {
                     const resMessage =
@@ -115,6 +114,7 @@ function NotesView(props) {
 
     const listNotes = (item) => {
         return (
+            item &&
             <ListGroup.Item active={item.id == selectedNote.id} icon={RiStickyNoteLine} onClick={() => (setSelectedNote(item), setCreationMode(false), setQuoteCreationMode(false))}>
                 <div className="flex flex-col gap-2 items-start">
                     <div>
@@ -160,13 +160,13 @@ function NotesView(props) {
                                             item?.quote_page && (
                                                 listNotes(item)
                                         )
-                                    ): filter == "notes" ? (
-                                        !item?.quote_page && (
+                                        ): filter == "notes" ? (
+                                            !item?.quote_page && (
+                                                listNotes(item)
+                                            )
+                                        ): (
                                             listNotes(item)
                                         )
-                                    ): (
-                                        listNotes(item)
-                                    )
                                     )
                                 )
                             })}
