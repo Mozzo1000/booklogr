@@ -11,6 +11,7 @@ python = "^3.12"
 psycopg2 = "^2.9.9"
 python-dotenv = "^1.0.1"
 jinja2 = "^3.1.5"
+mastodon-py = "^1.8.1"
 
 
 [build-system]
