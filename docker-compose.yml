@@ -29,7 +29,7 @@ services:
 
     auth-api:
         container_name: "auth-server-api"
-        image: mozzo/auth-server:1.0.0
+        image: mozzo/auth-server:1.1.0
         restart: always
         volumes:
             - auth_db_vol:/app/instance
