@@ -48,6 +48,7 @@ services:
             - BL_AUTH_ENDPOINT=http://localhost:5001 # CHANGE THIS TO POINT TO THE EXTERNAL ADRESS THE USER CAN ACCESS
             - BL_GOOGLE_ID=XXX.apps.googleusercontent.com # CHANGE THIS TO YOUR OWN GOOGLE ID
             - BL_DISABLE_HOMEPAGE=true
+            - BL_DEMO_MODE=false
         ports:
             - 5150:80
 
