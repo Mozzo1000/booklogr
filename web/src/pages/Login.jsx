@@ -39,7 +39,7 @@ function Login() {
         <div className="format lg:format-lg">
           <h2>Login to your account</h2>
         </div>
-        {import.meta.env.VITE_DEMO_MODE === "true" ? (
+        {String(import.meta.env.VITE_DEMO_MODE).toLowerCase() === "true" ? ( 
           <div className="text-center">
             <p className="text-lg font-bold">This is a demo of BookLogr</p>
             <p>Some features are <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://github.com/Mozzo1000/booklogr/blob/main/demo/README.md">disabled.</a></p>
@@ -48,9 +48,10 @@ function Login() {
             <ul>Email: demo@booklogr.app</ul>
             <ul>Password: demo</ul>
           </div>
-        ): (
+        ):(
           <GoogleLoginButton />
         )}
+
         <Card>
           <form className="flex flex-col gap-4" onSubmit={handleLogin}>
             <div>
