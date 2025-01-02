@@ -12,7 +12,7 @@ from src.post_mastodon import MastodonWorker
 
 def main():
     load_dotenv()
-    conn = psycopg2.connect(host="localhost", dbname=os.getenv("POSTGRES_DB"), user=os.getenv("POSTGRES_USER"), password=os.getenv("POSTGRES_PASSWORD"))
+    conn = psycopg2.connect(os.getenv("DATABASE_URL"))
     conn.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
     cursor = conn.cursor(cursor_factory=RealDictCursor)
     
