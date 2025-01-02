@@ -1,3 +1,5 @@
 __pycache__
 .env
 export_data
+auth_db_vol
+booklogr
