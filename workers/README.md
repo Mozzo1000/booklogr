@@ -21,3 +21,10 @@ Run `manage.py clear` to clear the queue of any tasks that have not started any 
 In the event of the listener not picking up on tasks in time you can manually run all tasks that are backlogged.
 
 Run `manage.py backlog` to start processing the backlog. 
+
+
+## Relevant environment variables
+MASTO_URL
+MASTO_ACCESS
+EXPORT_FOLDER
+DATABASE_URL
