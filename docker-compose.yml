@@ -18,7 +18,7 @@ services:
 
     booklogr-api:
         container_name: "booklogr-api"
-        image: mozzo/booklogr:latest
+        image: mozzo/booklogr:v1.3.0
         depends_on:
             booklogr-db:
               condition: service_healthy
@@ -42,7 +42,7 @@ services:
 
     booklogr-web:
         container_name: "booklogr-web"
-        image: mozzo/booklogr-web:latest
+        image: mozzo/booklogr-web:v1.3.0
         environment:
             - BL_API_ENDPOINT=http://localhost:5000/ # CHANGE THIS TO POINT TO THE EXTERNAL ADRESS THE USER CAN ACCESS
             - BL_AUTH_ENDPOINT=http://localhost:5001 # CHANGE THIS TO POINT TO THE EXTERNAL ADRESS THE USER CAN ACCESS
@@ -54,7 +54,7 @@ services:
 
     booklogr-worker:
         container_name: "booklogr-worker"
-        image: mozzo/booklogr-worker:latest
+        image: mozzo/booklogr-worker:v1.3.0
         depends_on:
             booklogr-db:
               condition: service_healthy
