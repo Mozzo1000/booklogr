@@ -1,14 +1,11 @@
 name: Build and Publish Web
 
 on:
-  push:
-    tags:
-      - 'v*'
   workflow_dispatch:
     inputs:
       version:
         description: 'New docker (WEB) build version'
-        required: false
+        required: true
         default: "latest"
         type: string
 
