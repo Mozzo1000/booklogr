@@ -14,7 +14,7 @@ services:
         env_file:
             - .env
         volumes:
-            - booklogr:/var/lib/postgresql/db-data/ # persist data even if container shuts down
+            - ./booklogr:/var/lib/postgresql/data # persist data even if container shuts down
 
     booklogr-api:
         container_name: "booklogr-api"
@@ -32,7 +32,7 @@ services:
         image: mozzo/auth-server:1.1.1
         restart: always
         volumes:
-            - auth_db_vol:/app/instance
+            - ./auth_db_vol:/app/instance
         environment:
             DATABASE_URL: "sqlite:///users.db"
         env_file:
@@ -54,5 +54,4 @@ services:
 
 volumes:
     booklogr:
-    auth-server:
     auth_db_vol:
