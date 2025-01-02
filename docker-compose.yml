@@ -4,7 +4,7 @@ services:
         container_name: "booklogr-db"
         image: "postgres" # use latest official postgres version
         ports:
-            - 5432:5432  
+            - 5432:5432
         restart: always
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
@@ -51,6 +51,15 @@ services:
             - BL_DEMO_MODE=false
         ports:
             - 5150:80
+
+    booklogr-worker:
+        container_name: "booklogr-worker"
+        image: mozzo/booklogr-worker:latest
+        depends_on:
+            booklogr-db:
+              condition: service_healthy
+        env_file:
+            - .env
 
 volumes:
     booklogr:
