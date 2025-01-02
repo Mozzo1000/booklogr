@@ -77,7 +77,7 @@ def create_task():
             description: Task created.
     """
     claim_id = get_jwt()["id"]
-    new_task =_create_task(request.json["type"], str(request.json["data"], claim_id))
+    new_task =_create_task(str(request.json["type"]), str(request.json["data"]), claim_id)
 
     return jsonify({'message': 'Task created.', "task_id": new_task.id}), 200
 
