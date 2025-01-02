@@ -19,6 +19,7 @@ class MastodonWorker:
         
         self.share_book(data)
         self.cursor.execute(f"UPDATE tasks SET status='success', updated_on='{time.strftime('%Y-%m-%d %H:%M:%S')}' WHERE id={id}")
+        print(f"[{self.WORKER_ID}] - Task completed.")
 
 
     def share_book(self, data):

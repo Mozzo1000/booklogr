@@ -22,6 +22,7 @@ def main():
 
     
     if args.OPTION == "listen":
+        print("Listening for events..")
         cursor.execute(f"LISTEN task_created;")
         while True:
             handle_notify(conn, cursor)
@@ -66,9 +67,11 @@ def handle_notify(conn, cursor):
         cursor.execute(f"SELECT * FROM tasks WHERE id={id}")
         fetched = cursor.fetchone()
         if fetched:
+            print("Found task to process")
             process_task(fetched, cursor)
 
 def process_task(data, cursor):
+    print(f"Processing task with type {data['type']}")
     if data["type"] == "csv_export":
         CSVWorker(cursor).pickup_task(data["id"], data)
     elif data["type"] == "json_export":

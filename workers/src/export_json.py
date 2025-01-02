@@ -21,6 +21,7 @@ class JSONWorker:
         
         self.create_json(data["created_by"])
         self.cursor.execute(f"UPDATE tasks SET status='success', updated_on='{time.strftime('%Y-%m-%d %H:%M:%S')}' WHERE id={id}")
+        print(f"[{self.WORKER_ID}] - Task completed.")
 
 
     def create_json(self, owner_id):
