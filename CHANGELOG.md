@@ -3,8 +3,21 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
-
 ## [Unreleased]
+
+## [1.3.0] - 2025-01-02
+### Added
+- Docker image for background worker
+
+### Fixed
+- Tasks not being able to be created.
+- Incorrect volume paths in provided `docker-compose.yml` file for postgres and auth-server services.
+
+### Changed
+- Account settings now have a more responsive layout.
+- Worker management CLI now connects to the database via environment variable `DATABASE_URL`
+- Updated `auth-server` to version 1.1.1 in the provided `docker-compose.yml` file
+- Demo mode is now enabled with environment variables instead of requiring building from source.
 
 ## [1.2.0] - 2024-12-27
 ### Added
