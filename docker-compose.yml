@@ -52,15 +52,6 @@ services:
         ports:
             - 5150:80
 
-    booklogr-worker:
-        container_name: "booklogr-worker"
-        image: mozzo/booklogr-worker:v1.3.0
-        depends_on:
-            booklogr-db:
-              condition: service_healthy
-        env_file:
-            - .env
-
 volumes:
     booklogr:
     auth_db_vol:
