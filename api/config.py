@@ -1,10 +1,12 @@
 import os
+from datetime import timedelta
 
 class Config:
     CSRF_ENABLED = True
     SECRET_KEY = os.environ.get("AUTH_SECRET_KEY", "this-really-needs-to-be-changed")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL", "postgresql://admin:password@localhost/booklogr")
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=5)
     SWAGGER = {
         "openapi": "3.0.0",
         "info": {
