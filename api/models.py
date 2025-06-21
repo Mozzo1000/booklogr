@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow, fields 
+from flask_marshmallow import Marshmallow
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 from marshmallow import post_dump
@@ -139,7 +139,17 @@ class BooksPublicOnlySchema(ma.SQLAlchemyAutoSchema):
         else:
             return 0
 
-class ProfileSchema(ma.SQLAlchemyAutoSchema):
+class ProfileSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = Profile()
+        load_instance = True
+        fields = ("id", "display_name", "visibility", "books", "num_books_read", "num_books_reading", "num_books_tbr",)
+
+    id = ma.Integer()
+    display_name = ma.String()
+    visibility = ma.String()
+    
+    books = db.relationship("Books", backref='profiles')
     books = ma.List(ma.Nested(BooksPublicOnlySchema(only=("author", "description", "current_page", "total_pages", "reading_status", "title", "isbn", "rating", "notes", "num_notes"))))
     num_books_read = ma.Method("get_num_books_read")
     num_books_reading = ma.Method("get_num_books_currently_reading")
@@ -166,12 +176,7 @@ class ProfileSchema(ma.SQLAlchemyAutoSchema):
             return query
         else:
             return None
-    
-    class Meta:
-        model = Profile()
-        fields = ("id", "display_name", "visibility", "books", "num_books_read", "num_books_reading", "num_books_tbr",)
-
-
+ 
 class UserSettings(db.Model):
     __tablename__ = "user_settings"
     id = db.Column(db.Integer, primary_key=True)
