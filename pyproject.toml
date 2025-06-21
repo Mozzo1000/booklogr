@@ -9,19 +9,20 @@ packages = [{include = "api"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Flask = "3.0.3"
+Flask = "3.1.1"
 python-dotenv = "1.0.1"
 Flask-JWT-Extended = "4.6.0"
 flask-cors = "5.0.0"
 psycopg2 = "2.9.9"
-flask-marshmallow = "1.2.1"
+flask-marshmallow = "1.3.0"
 flask-sqlalchemy = "3.1.1"
-marshmallow-sqlalchemy = "1.1.0"
+marshmallow-sqlalchemy = "1.4.2"
 Flask-Migrate = "4.0.7"
 gunicorn = "23.0.0"
 flasgger = "0.9.7.1"
 requests = "^2.32.3"
 mastodon-py = "2.0.1"
+marshmallow = "4.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "7.4.3"
