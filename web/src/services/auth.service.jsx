@@ -1,7 +1,7 @@
 import axios from "axios";
 import globalRouter from "../GlobalRouter";
 
-const API_URL = import.meta.env.VITE_AUTH_API_URL;
+const API_URL = import.meta.env.VITE_API_ENDPOINT;
 
 
 axios.interceptors.response.use((response) => {
