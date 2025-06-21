@@ -21,6 +21,7 @@ Flask-Migrate = "4.0.7"
 gunicorn = "23.0.0"
 flasgger = "0.9.7.1"
 requests = "^2.32.3"
+mastodon-py = "2.0.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "7.4.3"
