@@ -13,6 +13,7 @@ from api.routes.settings import settings_endpoint
 from flasgger import Swagger
 from api.auth.auth_route import auth_endpoint
 from api.auth.user_route import user_endpoint
+from api.commands.tasks import tasks_command
 
 app = Flask(__name__)
 CORS(app)
@@ -24,6 +25,8 @@ db.init_app(app)
 ma.init_app(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
+
+app.register_blueprint(tasks_command)
 
 app.register_blueprint(books_endpoint)
 app.register_blueprint(profiles_endpoint)
