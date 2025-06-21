@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-oauth/google": "^0.12.1",
+    "@react-oauth/google": "0.12.2",
     "axios": "1.7.9",
     "flowbite-react": "0.10.2",
     "framer-motion": "^11.15.0",
