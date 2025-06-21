@@ -3,6 +3,24 @@ import React, {useState } from 'react'
 import TasksService from '../../services/tasks.service'
 import useToast from '../../toast/useToast';
 
+const customThemeSelect = {
+    base: "flex",
+    field: {
+        base: "relative w-full",
+        icon: {
+        base: "pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3",
+        svg: "h-5 w-5 text-gray-500 dark:text-gray-400",
+        },
+        select: {
+        base: "block w-full appearance-none border bg-arrow-down-icon bg-[length:0.75em_0.75em] bg-[position:right_12px_center] bg-no-repeat pr-10 focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50",
+        withIcon: {
+            on: "pl-10",
+            off: "",
+        }
+    },
+  }
+}
+
 function RequestData() {
     const [dataFormat, setDataFormat] = useState("csv")
     const toast = useToast(4000);
@@ -43,7 +61,7 @@ function RequestData() {
                     <div className="mb-2 block">
                         <Label htmlFor="data-format">Choose data format</Label>
                     </div>
-                        <Select className='bg-none' id="data-format" required value={dataFormat} onChange={(e) => setDataFormat(e.target.value)}>
+                        <Select theme={customThemeSelect} className='bg-none' id="data-format" required value={dataFormat} onChange={(e) => setDataFormat(e.target.value)}>
                         <option value="csv">CSV</option>
                         <option value="json">JSON</option>
                         <option value="html">HTML</option>
