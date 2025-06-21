@@ -13,7 +13,7 @@
   "dependencies": {
     "@react-oauth/google": "0.12.2",
     "@tailwindcss/postcss": "^4.1.10",
-    "axios": "1.7.9",
+    "axios": "^1.10.0",
     "flowbite-react": "0.11.8",
     "framer-motion": "^11.15.0",
     "lodash": "^4.17.21",
