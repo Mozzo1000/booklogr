@@ -27,19 +27,6 @@ services:
         ports:
             - 5000:5000
 
-    auth-api:
-        container_name: "auth-server-api"
-        image: mozzo/auth-server:1.1.1
-        restart: always
-        volumes:
-            - ./auth_db_vol:/app/instance
-        environment:
-            DATABASE_URL: "sqlite:///users.db"
-        env_file:
-            - .env
-        ports:
-            - 5001:5000
-
     booklogr-web:
         container_name: "booklogr-web"
         image: mozzo/booklogr-web:v1.3.0
