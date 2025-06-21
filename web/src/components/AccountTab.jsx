@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Avatar, Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { RiMailLine } from "react-icons/ri";
+import { HR } from "flowbite-react";
 
 function AccountTab() {
     const [disableSaveButton, setDisableSaveButton] = useState(true);
@@ -19,7 +20,7 @@ function AccountTab() {
                 
             </div>
             
-            <hr />
+            <HR />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="format lg:format-lg">
@@ -30,7 +31,7 @@ function AccountTab() {
                 </div>
             </div>
 
-            <hr />
+            <HR />
 
             <div className="grid grid-cols-1 md:grid-cols-3">
                 <div className="format lg:format-lg">
@@ -38,17 +39,17 @@ function AccountTab() {
                 </div>
                 <div className="flex flex-col gap-4">
                     <div>
-                        <Label htmlFor="password1" value="Old password" />
+                        <Label htmlFor="password1">Old password</Label>
                         <TextInput id="password1" type="password" />
                     </div>
 
                     <div >
-                        <Label htmlFor="password2" value="New password" />
+                        <Label htmlFor="password2" value="New password">New password</Label>
                         <TextInput id="password2" type="password" />
                     </div>
 
                     <div>
-                        <Label htmlFor="password3" value="Confirm new password" />
+                        <Label htmlFor="password3" value="Confirm new password">Confirm new password</Label>
                         <TextInput id="password3" type="password" />
                     </div>
 

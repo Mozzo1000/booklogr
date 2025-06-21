@@ -7,33 +7,37 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "flowbite-react patch"
   },
   "dependencies": {
     "@react-oauth/google": "0.12.2",
+    "@tailwindcss/postcss": "^4.1.10",
     "axios": "1.7.9",
-    "flowbite-react": "0.10.2",
+    "flowbite-react": "0.11.8",
     "framer-motion": "^11.15.0",
     "lodash": "^4.17.21",
     "react": "19.1.0",
     "react-confetti": "6.4.0",
     "react-dom": "19.1.0",
+    "react-icons": "^5.5.0",
     "react-image": "^4.1.0",
     "react-loading-skeleton": "^3.5.0",
     "react-router-dom": "7.6.2"
   },
   "devDependencies": {
-    "@types/react": "19.0.2",
-    "@types/react-dom": "19.0.2",
+    "@tailwindcss/vite": "^4.1.10",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "4.5.2",
-    "autoprefixer": "^10.4.20",
+    "autoprefixer": "10.4.21",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.3",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.16",
-    "flowbite-typography": "^1.0.5",
-    "postcss": "^8.4.49",
-    "tailwindcss": "3.4.17",
+    "flowbite-typography": "1.0.5",
+    "postcss": "8.5.6",
+    "tailwindcss": "^4.1.10",
     "vite": "6.3.5"
   }
 }

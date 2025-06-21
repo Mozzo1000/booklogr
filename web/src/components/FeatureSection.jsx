@@ -6,7 +6,7 @@ function FeatureSection() {
     <>
     {/* First section */}
     <section className="bg-[#0891B2]">
-      <div class="grid grid-cols-1 md:grid-cols-2 max-w-screen-xl py-8 mx-auto gap-12 lg:grid-cols-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 max-w-(--breakpoint-xl) py-8 mx-auto gap-12 lg:grid-cols-12">
           {/* First feature */}
           <div class="lg:mt-0 lg:col-span-5 order-1 p-4">
               <img src="/feature_section_01.png" alt="Library picture" className="shadow-2xl"/>
@@ -39,8 +39,8 @@ function FeatureSection() {
 
 
     {/* Second section */}
-    <section className="bg-[#08B27E] text-center md:bg-[length:100%] bg-no-repeat bg-top bg-wave-02-pattern ">
-      <div class="grid grid-cols-1 lg:grid-cols-2 max-w-screen-xl h-screen mx-auto gap-12 justify-center items-center">
+    <section className="bg-[#08B27E] text-center md:bg-size-[100%] bg-no-repeat bg-top bg-wave-02-pattern ">
+      <div class="grid grid-cols-1 lg:grid-cols-2 max-w-(--breakpoint-xl) h-screen mx-auto gap-12 justify-center items-center">
         <div>
             <div class="flex justify-center mb-2">
                     <RiOpenSourceLine className="text-white h-12 w-12" />

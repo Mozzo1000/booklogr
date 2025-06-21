@@ -3,6 +3,7 @@ import { Popover, Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { RiQuestionLine } from "react-icons/ri";
 import UserSettingsServices from '../services/userSettings.service';
 import useToast from '../toast/useToast';
+import { HR } from "flowbite-react";
 
 function MastodonTab() {
     const [userSettings, setUserSettings] = useState();
@@ -97,7 +98,7 @@ function MastodonTab() {
                 </div>
             </div>
 
-            <hr />
+            <HR />
 
             <div className="grid grid-cols-1 md:grid-cols-3">
                 <div className="flex flex-row gap-2">
@@ -112,12 +113,12 @@ function MastodonTab() {
                 </div>
                 <div className="flex flex-col gap-4">
                     <div>
-                        <Label htmlFor="mastodon_instance" value="Mastodon instance" />
+                        <Label htmlFor="mastodon_instance">Mastodon instance</Label>
                         <TextInput id="mastodon_instance" type="text" placeholder='https://mastodon.social' value={mastodonInstance} onChange={(e) => (setMastodonInstance(e.target.value), setDisableSaveButton(!e.target.value))}/>
                     </div>
 
                     <div >
-                        <Label htmlFor="mastodon_access" value="Access token" />
+                        <Label htmlFor="mastodon_access">Access token</Label>
                         <TextInput id="mastodon_access" type="text" value={mastodonAccess} onChange={(e) => (setMastodonAccess(e.target.value), setDisableSaveButton(!e.target.value))}/>
                     </div>
                 </div>

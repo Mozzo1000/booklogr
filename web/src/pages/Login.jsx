@@ -56,13 +56,13 @@ function Login() {
           <form className="flex flex-col gap-4" onSubmit={handleLogin}>
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="email1" value="Your email" />
+                <Label htmlFor="email1">Email</Label>
               </div>
               <TextInput id="email1" type="email" icon={RiMailLine} placeholder="name@example.com" required value={username} onChange={e => setUsername(e.target.value)}/>
             </div>
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="password1" value="Your password" />
+                <Label htmlFor="password1">Password</Label>
               </div>
               <TextInput id="password1" type="password" icon={RiLockPasswordLine} required value={password} onChange={e => setPassword(e.target.value)} />
             </div>

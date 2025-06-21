@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Button } from "flowbite-react";
+import { Table, TableHead, TableHeadCell, TableBody, TableCell, TableRow, Button } from "flowbite-react";
 import FilesService from '../../services/files.service';
 import useToast from '../../toast/useToast';
 
@@ -60,25 +60,25 @@ function FileList() {
         <div>
             <h2 className="format lg:format-lg">Available exports</h2>
             <Table>
-                <Table.Head>
-                    <Table.HeadCell>Filename</Table.HeadCell>
-                    <Table.HeadCell>Created</Table.HeadCell>
-                    <Table.HeadCell>Action</Table.HeadCell>
-                </Table.Head>
-                <Table.Body>
+                <TableHead>
+                    <TableHeadCell>Filename</TableHeadCell>
+                    <TableHeadCell>Created</TableHeadCell>
+                    <TableHeadCell>Action</TableHeadCell>
+                </TableHead>
+                <TableBody>
                     {files?.map((item) => {
                         return (
-                            <Table.Row key={item.id}>
-                                <Table.Cell>{item.filename}</Table.Cell>
-                                <Table.Cell>{new Date(item.created_at).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false})}</Table.Cell>
+                            <TableRow key={item.id}>
+                                <TableCell>{item.filename}</TableCell>
+                                <TableCell>{new Date(item.created_at).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false})}</TableCell>
                                 
-                                <Table.Cell><Button onClick={() => downloadFile(item.filename)}>Download</Button></Table.Cell>
-                            </Table.Row>
+                                <TableCell><Button onClick={() => downloadFile(item.filename)}>Download</Button></TableCell>
+                            </TableRow>
                         )
                     })
                     
                 }
-                </Table.Body>
+                </TableBody>
             </Table>
         </div>
     )

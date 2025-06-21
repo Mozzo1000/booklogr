@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, Rating, Button, RangeSlider, TextInput, Tooltip  } from 'flowbite-react'
+import { Modal, ModalFooter, ModalBody, ModalHeader, Rating, RatingStar, Button, RangeSlider, TextInput, Tooltip } from 'flowbite-react'
 import useToast from '../../toast/useToast';
 import BooksService from '../../services/books.service';
 
@@ -53,11 +53,11 @@ function BookRating(props) {
     const rating = () => {
         return (
             <Rating size={props.size} onClick={() => handleOpenModal()} className={`${!props.disableGiveRating ? "hover:bg-gray-100 hover:cursor-pointer":""} w-fit`}>
-                <Rating.Star filled={Math.floor(props.rating) >= 1 ? true : false} />
-                <Rating.Star filled={Math.floor(props.rating) >= 2 ? true : false} />
-                <Rating.Star filled={Math.floor(props.rating) >= 3 ? true : false} />
-                <Rating.Star filled={Math.floor(props.rating) >= 4 ? true : false} />
-                <Rating.Star filled={Math.floor(props.rating) >= 5 ? true : false} />
+                <RatingStar filled={Math.floor(props.rating) >= 1 ? true : false} />
+                <RatingStar filled={Math.floor(props.rating) >= 2 ? true : false} />
+                <RatingStar filled={Math.floor(props.rating) >= 3 ? true : false} />
+                <RatingStar filled={Math.floor(props.rating) >= 4 ? true : false} />
+                <RatingStar filled={Math.floor(props.rating) >= 5 ? true : false} />
                 <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">{props.rating}</p>
             </Rating>
         )
@@ -74,8 +74,8 @@ function BookRating(props) {
         )}
         
         <Modal show={openModal} onClose={() => setOpenModal(false)}>
-            <Modal.Header>Rate book</Modal.Header>
-            <Modal.Body>
+            <ModalHeader className="border-gray-200">Rate book</ModalHeader>
+            <ModalBody>
                 <p>How many stars would you like to give <strong>{props.title}</strong>?</p>
                 <div className="flex flex-row items-center gap-4">
                     <div className="basis-10/12">
@@ -90,13 +90,13 @@ function BookRating(props) {
                 <span className="text-red-600 text-sm">
                             {ratingErrorText}
                         </span>
-            </Modal.Body>
-            <Modal.Footer>
+            </ModalBody>
+            <ModalFooter>
             <Button onClick={() => handleRateBook()} disabled={saveButtonDisabled}>Save</Button>
             <Button color="gray" onClick={() => setOpenModal(false)}>
                 Close
             </Button>
-            </Modal.Footer>
+            </ModalFooter>
         </Modal>
         </>
     )

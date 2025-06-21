@@ -41,9 +41,9 @@ function RequestData() {
                 </div>
                 <div>
                     <div className="mb-2 block">
-                        <Label htmlFor="data-format" value="Choose data format" />
+                        <Label htmlFor="data-format">Choose data format</Label>
                     </div>
-                    <Select id="data-format" required value={dataFormat} onChange={(e) => setDataFormat(e.target.value)}>
+                        <Select className='bg-none' id="data-format" required value={dataFormat} onChange={(e) => setDataFormat(e.target.value)}>
                         <option value="csv">CSV</option>
                         <option value="json">JSON</option>
                         <option value="html">HTML</option>

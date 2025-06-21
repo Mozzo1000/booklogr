@@ -71,25 +71,25 @@ function Register() {
           <form className="flex flex-col gap-4" onSubmit={handleRegistration}>
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="email1" value="Your email" />
+                <Label htmlFor="email1">Email</Label>
               </div>
               <TextInput id="email1" type="email" icon={RiMailLine} placeholder="name@example.com" required value={email} onChange={e => setEmail(e.target.value)}/>
             </div>
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="name" value="Your name" />
+                <Label htmlFor="name">Your name</Label>
               </div>
               <TextInput id="name" type="text" icon={RiUser3Line} required value={name} onChange={e => setName(e.target.value)}/>
             </div>
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="password1" value="Your password" />
+                <Label htmlFor="password1">Password</Label>
               </div>
               <TextInput id="password1" type="password" icon={RiLockPasswordLine} required value={password} onChange={e => setPassword(e.target.value)} />
             </div>
             <div>
               <div className="mb-2 block">
-                  <Label htmlFor="password2" value="Confirm your password" />
+                  <Label htmlFor="password2">Confirm password</Label>
                 </div>
                 <TextInput id="password2" type="password" icon={RiLockPasswordLine} required value={passwordConf} onChange={e => setPasswordConf(e.target.value)} color={passwordErrorText ? 'failure' : 'gray'} helperText={passwordErrorText} />
             </div>

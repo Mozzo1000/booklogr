@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import ProfileService from '../services/profile.service';
-import { Button, TextInput, Label, Badge, Modal, Select, Popover, Avatar, Tooltip } from "flowbite-react";
+import { Button, ButtonGroup, TextInput, Label, Badge, Modal, ModalHeader, ModalBody, Select, Popover, Avatar, Tooltip } from "flowbite-react";
 import useToast from '../toast/useToast';
 import BookItem from '../components/Library/BookItem';
 import PaneTabView from '../components/Library/PaneTabView';
@@ -143,7 +143,7 @@ function Profile() {
                         </div>
                         {currentUser &&
                             <Tooltip content="Profile settings">
-                                <Button outline color="light" pill onClick={() => setOpenSettingsModal(true)}><RiSettings4Line className="h-6 w-6"/></Button>
+                                <Button className="hover:cursor-pointer" outline color="light" pill onClick={() => setOpenSettingsModal(true)}><RiSettings4Line className="h-6 w-6"/></Button>
                             </Tooltip>
                         }                        
                     </div>
@@ -156,12 +156,12 @@ function Profile() {
                         <hr className="w-full h-px my-8 bg-gray-200 border-0" />
                         <span className="absolute font-medium text-gray-900 -translate-x-1/3 bg-white ">All books</span>
                     </div>
-                    <Button.Group className="pb-4">
-                        <Button color="gray" onClick={() => setReadingStatusFilter("All")}>All ({data.books.length})</Button>
-                        <Button color="gray" onClick={() => setReadingStatusFilter("Read")}>Read ({data.num_books_read || 0})</Button>
-                        <Button color="gray" onClick={() => setReadingStatusFilter("Currently reading")}>Currently reading ({data.num_books_reading || 0})</Button>
-                        <Button color="gray" onClick={() => setReadingStatusFilter("To be read")}>To be read ({data.num_books_tbr || 0})</Button>
-                    </Button.Group>
+                    <ButtonGroup className="pb-4">
+                        <Button color="alternative" onClick={() => setReadingStatusFilter("All")}>All ({data.books.length})</Button>
+                        <Button color="alternative" onClick={() => setReadingStatusFilter("Read")}>Read ({data.num_books_read || 0})</Button>
+                        <Button color="alternative" onClick={() => setReadingStatusFilter("Currently reading")}>Currently reading ({data.num_books_reading || 0})</Button>
+                        <Button color="alternative" onClick={() => setReadingStatusFilter("To be read")}>To be read ({data.num_books_tbr || 0})</Button>
+                    </ButtonGroup>
                     <PaneTabView>
                     {filteredBooks.map((item, i) => {
                         return (
@@ -172,28 +172,32 @@ function Profile() {
                     })}
                     </PaneTabView>
                     <Modal dismissible show={openSettingsModal} onClose={() => setOpenSettingsModal(false)}>
-                        <Modal.Header>Update profile</Modal.Header>
-                        <Modal.Body>
+                        <ModalHeader className="border-gray-200">Update profile</ModalHeader>
+                        <ModalBody>
                             <form className="flex flex-col gap-4" onSubmit={handleUpdateProfile}>
-                                <div className="mb-2 block">
-                                    <div className="flex flex-row gap-2 items-center">
-                                    <Label htmlFor="displayname" value="Display name" />
-                                    <Popover trigger="hover" content={displayNamePopoverContent}>
-                                        <span><RiQuestionLine /></span>
-                                    </Popover>
+                                <div>
+                                    <div className="mb-2 block">
+                                        <div className="flex flex-row gap-2 items-center">
+                                        <Label htmlFor="displayname">Display name</Label>
+                                        <Popover trigger="hover" content={displayNamePopoverContent}>
+                                            <span><RiQuestionLine /></span>
+                                        </Popover>
+                                        </div>
                                     </div>
+                                    <TextInput id="displayname" type="text" required value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
                                 </div>
-                                <TextInput id="displayname" type="text" required value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
-                                <div className="mb-2 block">
-                                    <Label htmlFor="visiblity" value="Visiblity" />
+                                <div>
+                                    <div className="mb-2 block">
+                                        <Label htmlFor="visiblity">Visibility</Label>
+                                    </div>
+                                    <Select id="visiblity" required value={profileVisiblity} onChange={(e) => setProfileVisiblity(e.target.value)}>
+                                        <option value="hidden">Hidden</option>
+                                        <option value="public">Public</option>
+                                    </Select>
                                 </div>
-                                <Select id="visiblity" required value={profileVisiblity} onChange={(e) => setProfileVisiblity(e.target.value)}>
-                                    <option value="hidden">Hidden</option>
-                                    <option value="public">Public</option>
-                                </Select>
                                 <Button type="submit">Update</Button>
                             </form>
-                        </Modal.Body>
+                        </ModalBody>
                     </Modal>
                 </div>
                 

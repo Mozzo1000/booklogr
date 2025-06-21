@@ -21,8 +21,8 @@ function Home() {
     return (
         <AnimatedLayout>
         <div className="min-h-screen flex flex-col justify-between">
-        <section className="md:bg-[length:100%] h-screen bg-no-repeat bg-bottom bg-wave-pattern">
-            <div className="grid max-w-screen-xl px-4 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+        <section className="md:bg-size-[100%] h-screen bg-no-repeat bg-bottom bg-wave-pattern">
+            <div className="grid max-w-(--breakpoint-xl) px-4 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
                 <div className="mr-auto place-self-center lg:col-span-7">
                     <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl">Keep Track of Your Reading Journey</h1>
                     <p className="max-w-2xl mb-6 text-black lg:mb-8 md:text-lg lg:text-xl">Track your reading progress and share your library with friends using BookLogr.</p>

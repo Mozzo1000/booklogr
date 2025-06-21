@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Tabs } from "flowbite-react";
+import { Tabs, TabItem} from "flowbite-react";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { RiDatabase2Line } from "react-icons/ri";
 import DataTab from '../components/Data/DataTab';
@@ -16,16 +16,16 @@ function Settings() {
             <article className="format lg:format-lg pb-2">
                 <h2>Settings</h2>
             </article>
-            <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">
-                <Tabs.Item title="Account" icon={RiAccountCircleLine }>
+            <Tabs aria-label="Tabs with underline"  onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">
+                <TabItem title="Account" icon={RiAccountCircleLine }>
                     <AccountTab />
-                </Tabs.Item>
-                <Tabs.Item title="Mastodon" icon={RiMastodonLine}>
+                </TabItem>
+                <TabItem title="Mastodon" icon={RiMastodonLine}>
                     <MastodonTab />
-                </Tabs.Item>
-                <Tabs.Item title="Data" icon={RiDatabase2Line }>
+                </TabItem>
+                <TabItem title="Data" icon={RiDatabase2Line }>
                     <DataTab />
-                </Tabs.Item>
+                </TabItem>
             </Tabs>
         </div>
         </AnimatedLayout>

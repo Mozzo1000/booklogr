@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar } from 'flowbite-react'
+import { Navbar, NavbarBrand, NavbarToggle, NavbarCollapse, NavbarLink } from 'flowbite-react'
 import { Link, useLocation } from 'react-router-dom';
 
 const customThemeNav = {
@@ -20,24 +20,24 @@ function NavigationMenu() {
         <>
           <div className="pb-10">
           <Navbar theme={customThemeNav}>
-            <Navbar.Brand as={Link} to="/">
+            <NavbarBrand as={Link} to="/">
               <img src="/icon.svg" className="mr-3 h-6 sm:h-9" alt="Logo" />
               <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">BookLogr</span>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-            <Navbar.Collapse>
+            </NavbarBrand>
+            <NavbarToggle />
+            <NavbarCollapse>
               {import.meta.env.VITE_DISABLE_HOMEPAGE === "false" &&
-                <Navbar.Link as={Link} to="/" active={location.pathname == "/"}>
+                <NavbarLink as={Link} to="/" active={location.pathname == "/"}>
                   Home
-                </Navbar.Link>
+                </NavbarLink>
               }
-              <Navbar.Link as={Link} to="/login" active={location.pathname == "/login"}>
+              <NavbarLink as={Link} to="/login" active={location.pathname == "/login"}>
                 Login
-              </Navbar.Link>
-              <Navbar.Link as={Link} to="/register" active={location.pathname == "/register"}>
+              </NavbarLink>
+              <NavbarLink as={Link} to="/register" active={location.pathname == "/register"}>
                 Register
-              </Navbar.Link>
-            </Navbar.Collapse>
+              </NavbarLink>
+            </NavbarCollapse>
           </Navbar>
           </div>
         </>

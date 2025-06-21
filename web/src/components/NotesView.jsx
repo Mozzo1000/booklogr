@@ -1,4 +1,4 @@
-import { Button, Modal, ListGroup, Dropdown, TextInput, Textarea, Tooltip, HR  } from 'flowbite-react'
+import { Button, ButtonGroup, Modal, ModalHeader, ModalBody, ListGroup, ListGroupItem, Dropdown, DropdownHeader, DropdownItem, TextInput, Textarea, Tooltip  } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
 import BooksService from '../services/books.service';
 import { RiStickyNoteLine } from "react-icons/ri";
@@ -115,7 +115,7 @@ function NotesView(props) {
     const listNotes = (item) => {
         return (
             item &&
-            <ListGroup.Item active={item.id == selectedNote.id} icon={RiStickyNoteLine} onClick={() => (setSelectedNote(item), setCreationMode(false), setQuoteCreationMode(false))}>
+            <ListGroupItem active={item.id == selectedNote.id} icon={RiStickyNoteLine} onClick={() => (setSelectedNote(item), setCreationMode(false), setQuoteCreationMode(false))}>
                 <div className="flex flex-col gap-2 items-start">
                     <div>
                         {new Date(item.created_on).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'})}
@@ -134,24 +134,24 @@ function NotesView(props) {
                         </div>
                     </div>
                 </div>
-            </ListGroup.Item>
+            </ListGroupItem>
         )
     };
     
     return (
         <>
         <Modal size={"5xl"} position={"top-center"} show={props.open} onClose={() => props.close(false)}>
-        <Modal.Header>Notes & Quotes</Modal.Header>
-            <Modal.Body>
+        <ModalHeader className="border-gray-200">Notes & Quotes</ModalHeader>
+            <ModalBody>
                 <div className="grid grid-cols-3 gap-4">
                 {notes?.length > 0 ? (
                     <div>
                         <div className="flex flex-col gap-4">
-                        <Button.Group>
-                            <Button color="gray" onClick={(e) => setFilter("all")} className={`${filter == "all" ? 'text-cyan-700' : 'text-gray-900'}`}>All</Button>
-                            <Button color="gray" onClick={(e) => setFilter("notes")} className={`${filter == "notes" ? 'text-cyan-700' : 'text-gray-900'}`}>Notes</Button>
-                            <Button color="gray" onClick={(e) => setFilter("quotes")} className={`${filter == "quotes" ? 'text-cyan-700' : 'text-gray-900'}`}>Quotes</Button>
-                        </Button.Group>
+                        <ButtonGroup>
+                            <Button color="alternative" onClick={(e) => setFilter("all")} className={`${filter == "all" ? 'text-cyan-700' : 'text-gray-900'}`}>All</Button>
+                            <Button color="alternative" onClick={(e) => setFilter("notes")} className={`${filter == "notes" ? 'text-cyan-700' : 'text-gray-900'}`}>Notes</Button>
+                            <Button color="alternative" onClick={(e) => setFilter("quotes")} className={`${filter == "quotes" ? 'text-cyan-700' : 'text-gray-900'}`}>Quotes</Button>
+                        </ButtonGroup>
                         <ListGroup className="w-full">
                             {notes?.map((item) => {
                                 return (
@@ -173,8 +173,8 @@ function NotesView(props) {
                         </ListGroup>
                         {props.allowEditing &&
                             <div className="flex flex-row gap-2 justify-between">
-                                <Button color="gray" onClick={() => (setCreationMode(true), setQuoteCreationMode(false))}>Add note</Button>
-                                <Button color="gray" onClick={() => (setCreationMode(true), setQuoteCreationMode(true))}>Add quote</Button>
+                                <Button color="alternative" onClick={() => (setCreationMode(true), setQuoteCreationMode(false))}>Add note</Button>
+                                <Button color="alternative" onClick={() => (setCreationMode(true), setQuoteCreationMode(true))}>Add quote</Button>
                             </div>
                         }
                         </div>
@@ -233,14 +233,14 @@ function NotesView(props) {
                                 {!creationMode && props.allowEditing && notes?.length > 0 ? (
                                     <>
                                     <Tooltip content="Change visibility">
-                                        <Dropdown color="gray" label={<RiEyeLine className="h-5 w-5"/>}>
-                                            <Dropdown.Header>Change visibility</Dropdown.Header>
-                                            <Dropdown.Item onClick={() => changeVisibility("hidden")}>Hidden</Dropdown.Item>
-                                            <Dropdown.Item onClick={() => changeVisibility("public")}>Public</Dropdown.Item>
+                                        <Dropdown color="alternative" label={<RiEyeLine className="h-5 w-5"/>}>
+                                            <DropdownHeader>Change visibility</DropdownHeader>
+                                            <DropdownItem onClick={() => changeVisibility("hidden")}>Hidden</DropdownItem>
+                                            <DropdownItem onClick={() => changeVisibility("public")}>Public</DropdownItem>
                                         </Dropdown>
                                     </Tooltip>
                                     <Tooltip content="Remove">
-                                        <Button color="failure" onClick={() => setRemovalConfModal(true)}>
+                                        <Button className="hover:cursor-pointer" color="failure" onClick={() => setRemovalConfModal(true)}>
                                             <RiDeleteBin6Line className="h-5 w-5" />
                                         </Button>
                                     </Tooltip>
@@ -257,13 +257,13 @@ function NotesView(props) {
                         </div>
                     </div>
                 </div>
-            </Modal.Body>
+            </ModalBody>
         </Modal>
 
         {/* REMOVE NOTE CONFIRMATION DIALOG */}
         <Modal show={removalConfModal} size="md" onClose={() => setRemovalConfModal(false)} popup>
-        <Modal.Header />
-            <Modal.Body>
+        <ModalHeader />
+            <ModalBody>
             <div className="text-center">
                 <RiErrorWarningLine className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
                 <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
@@ -278,7 +278,7 @@ function NotesView(props) {
                 </Button>
                 </div>
             </div>
-            </Modal.Body>
+            </ModalBody>
         </Modal>
         </>
     )

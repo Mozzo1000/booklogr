@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import useToast from '../toast/useToast';
 import ProfileService from '../services/profile.service';
-import { Button, TextInput, Label, Modal, Popover, Select } from "flowbite-react";
+import { Button, TextInput, Label, Modal, ModalHeader, ModalBody, ModalFooter, Popover, Select } from "flowbite-react";
 import { RiQuestionLine } from "react-icons/ri";
 
 function WelcomeModal() {
@@ -80,7 +80,7 @@ function WelcomeModal() {
         <>
         {showWelcomeScreen &&
             <Modal show={showWelcomeScreen}>
-                <Modal.Body>
+                <ModalBody>
                     {contentIndex == 0 &&
                     <form className="flex flex-col gap-4" onSubmit={handleCreateProfile}>
                         <div className="format lg:format-lg">
@@ -89,7 +89,7 @@ function WelcomeModal() {
                         </div>
                         <div>
                             <div className="mb-2 flex flex-row gap-2 items-center">
-                                <Label htmlFor="displayname" value="Display name" />
+                                <Label htmlFor="displayname">Display name</Label>
                                 <Popover trigger="hover" content={displayNamePopoverContent}>
                                     <span><RiQuestionLine /></span>
                                 </Popover>
@@ -97,7 +97,7 @@ function WelcomeModal() {
                             <TextInput id="displayname" type="text" required value={createDisplayName} onChange={(e) => setCreateDisplayName(e.target.value)} />
                             <br />
                             <div className="mb-2 block">
-                                <Label htmlFor="visiblity" value="Visiblity" />
+                                <Label htmlFor="visiblity">Visibility</Label>
                             </div>
                             <Select id="visiblity" required value={profileVisibility} onChange={(e) => setProfileVisibility(e.target.value)}>
                                 <option value="hidden">Hidden</option>
@@ -114,7 +114,7 @@ function WelcomeModal() {
                             <Button onClick={() => setShowWelcomeScreen(false)}>Close</Button>
                         </div>
                     }
-                </Modal.Body>
+                </ModalBody>
             </Modal>
         }
         </>

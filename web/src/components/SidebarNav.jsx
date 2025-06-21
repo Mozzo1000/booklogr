@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import SearchBar from './SearchBar'
-import { Sidebar, Modal } from 'flowbite-react'
+import { Sidebar, SidebarLogo, SidebarItem, SidebarItemGroup, SidebarItems, Modal, ModalBody} from "flowbite-react";
 import { Link, useLocation } from 'react-router-dom';
 import AuthService from '../services/auth.service';
 import { RiBook2Line } from "react-icons/ri";
@@ -14,11 +14,11 @@ import { RiSettings4Line } from "react-icons/ri";
 
 const customTheme = {
   root: {
-    inner: "h-full overflow-y-auto overflow-x-hidden rounded bg-[#FDFCF7] py-4 px-3 dark:bg-gray-800 border-r",
+    inner: "h-full overflow-y-auto overflow-x-hidden rounded bg-[#FDFCF7] py-4 px-3 dark:bg-gray-800 border-r border-gray-200",
   }
 };
 
-function SidebarNav() {
+export default function SidebarNav() {
     const [sidebarState, setSidebarState] = useState(true);
     const [openSearchModal, setOpenSearchModal] = useState(false);
     let location = useLocation();
@@ -26,41 +26,41 @@ function SidebarNav() {
     return (
         <>
         <Sidebar collapsed={sidebarState} theme={customTheme} className="hidden md:block">
-          <Sidebar.Logo as={Link} href="/" img="/icon.svg" className="mr-3 h-6 sm:h-8" alt="Logo">
+          <SidebarLogo as={Link} href="/" img="/icon.svg" className="mr-3 h-6 sm:h-8" alt="Logo">
             <span className="self-center whitespace-nowrap text-xl dark:text-white font-[800]">BookLogr</span>
-          </Sidebar.Logo>
-            <Sidebar.Items>
-                  <Sidebar.ItemGroup>
+          </SidebarLogo>
+            <SidebarItems>
+                  <SidebarItemGroup>
                     {sidebarState ? (
-                      <Sidebar.Item icon={RiSearch2Line} onClick={() => setOpenSearchModal(true)}>Search</Sidebar.Item>
+                      <SidebarItem icon={RiSearch2Line} onClick={() => setOpenSearchModal(true)}>Search</SidebarItem>
                     ) :( 
-                    <Sidebar.Item><SearchBar showAttribution={false}></SearchBar></Sidebar.Item>
+                    <SidebarItem><SearchBar showAttribution={false}></SearchBar></SidebarItem>
                     )}
-                  </Sidebar.ItemGroup>
-                  <Sidebar.ItemGroup>
-                    <Sidebar.Item as={Link} to="/library" active={location.pathname == "/library"} icon={RiBook2Line}>My Library</Sidebar.Item>
-                    <Sidebar.Item as={Link} to="/profile" active={location.pathname == "/profile"} icon={RiUser3Line }>Profile</Sidebar.Item>
+                  </SidebarItemGroup>
+                  <SidebarItemGroup>
+                    <SidebarItem as={Link} to="/library" active={location.pathname == "/library"} icon={RiBook2Line}>My Library</SidebarItem>
+                    <SidebarItem as={Link} to="/profile" active={location.pathname == "/profile"} icon={RiUser3Line }>Profile</SidebarItem>
 
-                    <Sidebar.Item as={Link} to="/settings" active={location.pathname == "/settings"} icon={RiSettings4Line}>Settings</Sidebar.Item>
+                    <SidebarItem as={Link} to="/settings" active={location.pathname == "/settings"} icon={RiSettings4Line}>Settings</SidebarItem>
 
                     {AuthService.getCurrentUser() ? ( 
-                      <Sidebar.Item href="" onClick={() => (AuthService.logout(), navigate("/"))} icon={RiLogoutBoxLine}>Logout</Sidebar.Item>
+                      <SidebarItem href="" onClick={() => (AuthService.logout(), navigate("/"))} icon={RiLogoutBoxLine}>Logout</SidebarItem>
                     ):(
                       <Link to="/login">
-                        <Sidebar.Item href="" icon={RiLoginBoxLine}>Login</Sidebar.Item>
+                        <SidebarItem href="" icon={RiLoginBoxLine}>Login</SidebarItem>
                       </Link>
                     )}
-                </Sidebar.ItemGroup>
-                <Sidebar.ItemGroup>
-                  <Sidebar.Item icon={sidebarState ? RiSideBarFill : RiSideBarLine  } onClick={() => setSidebarState(!sidebarState)}>
+                </SidebarItemGroup>
+                <SidebarItemGroup>
+                  <SidebarItem icon={sidebarState ? RiSideBarFill : RiSideBarLine  } onClick={() => setSidebarState(!sidebarState)}>
                     {sidebarState ? (
                       <span>Expand</span>
                     ): (
                       <span>Collapse</span>
                     )}
-                  </Sidebar.Item>
-                </Sidebar.ItemGroup>
-            </Sidebar.Items>
+                  </SidebarItem>
+                </SidebarItemGroup>
+            </SidebarItems>
         </Sidebar>
 
         {/* Mobile bottom navigation bar */}
@@ -95,12 +95,10 @@ function SidebarNav() {
         
         {/* Modal for search */}
         <Modal dismissible show={openSearchModal} onClose={() => setOpenSearchModal(false)} position={"top-center"} size="md">
-            <Modal.Body>
+            <ModalBody>
                 <SearchBar absolute={false} hideESCIcon={false}/>
-            </Modal.Body>
+            </ModalBody>
         </Modal>
         </>
     )
 }
-
-export default SidebarNav

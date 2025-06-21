@@ -9,6 +9,7 @@ import { RiSearch2Line } from "react-icons/ri";
 import ESCIcon from "./ESCIcon";
 import { Img } from 'react-image'
 import { RiErrorWarningLine } from "react-icons/ri";
+import { HR } from "flowbite-react";
 
 function SearchBar(props) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -92,7 +93,7 @@ function SearchBar(props) {
                                         <Skeleton count={2} width={"100%"} />
                                     </div>
                                 </div>
-                                <hr/>
+                                <HR />
                             </div>
                         )
                     })
@@ -114,7 +115,7 @@ function SearchBar(props) {
                                     </Link>
                                 </div>
                             </div>
-                            <hr/>
+                            <HR />
                             </div>
                         )
                     })

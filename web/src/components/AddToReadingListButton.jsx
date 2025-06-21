@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Modal, Label, TextInput, Select} from "flowbite-react";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, TextInput, Select} from "flowbite-react";
 import BooksService from '../services/books.service';
 import useToast from '../toast/useToast';
 
@@ -56,37 +56,42 @@ function AddToReadingListButton(props) {
         <div>
             <Button onClick={() => setOpenModal(true)}>Add to list</Button>
             <Modal show={openModal} onClose={() => setOpenModal(false)}>
-                <Modal.Header>Add book to list</Modal.Header>
-                <Modal.Body>
+                <ModalHeader className="border-gray-200">Add book to list</ModalHeader>
+                <ModalBody>
                     <div className="space-y-6">
                         <p className="text-base leading-relaxed text-gray-500">Book title: {props.data?.title}</p>
                         <p className="text-base leading-relaxed text-gray-500">ISBN: {props.isbn}</p>
-                        <div className="mb-2 block">
-                            <Label htmlFor="readingStatus" value="Reading Status" />
+                        <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="readingStatus">Reading Status</Label>
+                            </div>
+                            <Select id="readingStatus" required value={readingStatus} onChange={(e) => setReadingStatus(e.target.value)}>
+                                <option>To be read</option>
+                                <option>Currently reading</option>
+                                <option>Read</option>
+                            </Select>
                         </div>
-                        <Select id="readingStatus" required value={readingStatus} onChange={(e) => setReadingStatus(e.target.value)}>
-                            <option>To be read</option>
-                            <option>Currently reading</option>
-                            <option>Read</option>
-                        </Select>
 
-                        <div className="mb-2 block">
-                            <Label htmlFor="currentPage" value="Current page" />
+                        <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="currentPage">Current page</Label>
+                            </div>
+                            <TextInput id="currentPage" type="text" placeholder="0" value={currentPage} onChange={(e) => setCurrentPage(e.target.value)} />
                         </div>
-                        <TextInput id="currentPage" type="text" placeholder="0" value={currentPage} onChange={(e) => setCurrentPage(e.target.value)} />
-
-                        <div className="mb-2 block">
-                            <Label htmlFor="totalPages" value="Total pages" />
+                        <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="totalPages">Total pages</Label>
+                            </div>
+                            <TextInput id="totalPages" type="text" placeholder="0" value={totalPages} onChange={(e) => setTotalPages(e.target.value)} />
                         </div>
-                        <TextInput id="totalPages" type="text" placeholder="0" value={totalPages} onChange={(e) => setTotalPages(e.target.value)} />
                     </div>
-                </Modal.Body>
-                <Modal.Footer>
+                </ModalBody>
+                <ModalFooter>
                 <Button onClick={() => handleSave()}>Save</Button>
                 <Button color="gray" onClick={() => setOpenModal(false)}>
                     Close
                 </Button>
-                </Modal.Footer>
+                </ModalFooter>
             </Modal>
         </div>
     )

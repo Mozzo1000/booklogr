@@ -55,14 +55,14 @@ function Verify() {
                         {!email &&
                         <div>
                             <div className="mb-2 block">
-                                <Label htmlFor="email1" value="Email" />
+                                <Label htmlFor="email1">Email</Label>
                             </div>
                             <TextInput id="email1" type="email" placeholder="name@company.com" required={true} value={email} onChange={e => setEmail(e.target.value)} />
                         </div>
                         }
                         <div>
                             <div className="mb-2 block">
-                                <Label htmlFor="code1" value="Verification code" />
+                                <Label htmlFor="code1">Verification code</Label>
                             </div>
                             <TextInput minLength="8" maxLength="8" id="code1" type="text" placeholder="ABCD1234" required={true} value={code} onChange={e => setCode(e.target.value)} />
                         </div>

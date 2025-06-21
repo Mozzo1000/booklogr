@@ -1,5 +1,5 @@
 import React, { useState, useEffect }  from 'react'
-import { Button, TextInput, Modal } from 'flowbite-react'
+import { Button, TextInput, Modal, ModalHeader, ModalBody, ModalFooter } from 'flowbite-react'
 import { RiBookOpenLine } from "react-icons/ri";
 import BooksService from '../services/books.service';
 import useToast from '../toast/useToast';
@@ -55,8 +55,8 @@ function UpdateReadingStatusButton(props) {
         <>
             <Button color="light" pill size="sm" onClick={() => setOpenModal(true)}>Update progress</Button>
             <Modal size="lg" show={openModal} onClose={() => setOpenModal(false)}>
-            <Modal.Header>Update reading progress</Modal.Header>
-                <Modal.Body>
+            <ModalHeader className="border-gray-200">Update reading progress</ModalHeader>
+                <ModalBody>
                 <div className="space-y-6">
                     <p className="flex items-center gap-2">{<RiBookOpenLine />} {props.title}</p>
                     <div className="flex items-center gap-2">
@@ -69,17 +69,17 @@ function UpdateReadingStatusButton(props) {
                         {progressErrorText}
                     </span>
                 </div>
-                </Modal.Body>
-                <Modal.Footer>
+                </ModalBody>
+                <ModalFooter>
                 <Button onClick={() => updateProgress()} disabled={updateButtonDisabled}>Update</Button>
                 <Button color="gray" onClick={() => setOpenModal(false)}> Cancel </Button>
                 <Button color="gray" onClick={() => setFinished()}>Set as finished</Button>
-                </Modal.Footer>
+                </ModalFooter>
             </Modal>
 
             <Modal show={openFinishModal} onClose={() => (setOpenFinishModal(false), props.onSucess())} popup>
-                <Modal.Header />
-                <Modal.Body>
+                <ModalHeader />
+                <ModalBody>
                     <Confetti width={"640"} height={386} recycle={false} />
                     <div className="flex flex-col items-center justify-center text-center gap-2">
                         <img src={"/medal.svg"} width={140} height={140}/>
@@ -93,13 +93,13 @@ function UpdateReadingStatusButton(props) {
                             <BookRating size={"lg"} id={props.id} title={props.title} rating={props.rating} />
                         </div>
                     </div>
-                </Modal.Body>
-                <Modal.Footer className="flex justify-center gap-4">
+                </ModalBody>
+                <ModalFooter className="flex justify-center gap-4">
                     <Button as={Link} to={"https://mastodonshare.com/?text=I just finished reading " + props.title  + " 📖&url=https://booklogr.app/books/" + props.id} target='_blank'>
                         <RiMastodonFill className="mr-2 h-5 w-5" />
                         Share on Mastodon
                     </Button>
-                </Modal.Footer>
+                </ModalFooter>
             </Modal>
         </>
     )
