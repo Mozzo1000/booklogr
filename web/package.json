@@ -15,7 +15,7 @@
     "@tailwindcss/postcss": "^4.1.10",
     "axios": "^1.10.0",
     "flowbite-react": "0.11.8",
-    "framer-motion": "^11.15.0",
+    "framer-motion": "^12.18.1",
     "lodash": "^4.17.21",
     "react": "19.1.0",
     "react-confetti": "6.4.0",
