@@ -13,6 +13,10 @@ class Files(db.Model):
     owner_id = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
 class FilesSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Files
