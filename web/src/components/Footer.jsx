@@ -1,9 +1,15 @@
-import { Footer as FFooter, FooterCopyright } from 'flowbite-react';
+import { Footer as FFooter, FooterCopyright, FooterLink, FooterLinkGroup, FooterIcon } from 'flowbite-react';
+import { IoLogoGithub } from "react-icons/io";
 
 function Footer() {
   return (
     <FFooter container className="bg-transparent sticky top-[100vh] z-10 border-none shadow-none ">
-      <FooterCopyright href="https://andreasbackstrom.se" by="Andreas Backström" year={2024} />
+      <div className="w-full sm:flex sm:items-center sm:justify-between">
+        <span></span>
+        <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
+          <FooterIcon target="_blank" href="https://github.com/Mozzo1000/booklogr" icon={IoLogoGithub}/>
+        </div>
+     </div>
     </FFooter>
   )
 }
