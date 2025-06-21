@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { debounce } from 'lodash';
 import { TextInput } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { RiSearch2Line } from "react-icons/ri";
@@ -20,7 +20,8 @@ function SearchBar(props) {
     const loadingPlaceholder = [0,1,2,3,4,5]
     const [onError, setOnError] = useState(false);
     const [errorMessage, setErrorMessage] = useState();
-  
+    let navigate = useNavigate();
+
     const fetchSuggestions = (searchTerm) => {
       if (searchTerm) {
         axios.get(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchTerm)}&limit=10&offset=0&fields=title,isbn`).then(
@@ -109,7 +110,7 @@ function SearchBar(props) {
                                     />
                                 </div>
                                 <div className="col-start-2">
-                                    <Link to={"/books/" + data.isbn} onClick={() => showList(false)}>
+                                    <Link to={"/books/" + data.isbn} onClick={(e) => (props.onNavigate(), navigate("/books/" + data.isbn))}>
                                         <p>{data.name}</p>
                                         {data.isbn}
                                     </Link>
