@@ -15,10 +15,9 @@
     "flowbite-react": "0.10.2",
     "framer-motion": "^11.15.0",
     "lodash": "^4.17.21",
-    "react": "19.0.0",
-    "react-confetti": "^6.1.0",
-    "react-dom": "19.0.0",
-    "react-helmet-async": "^2.0.5",
+    "react": "19.1.0",
+    "react-confetti": "6.4.0",
+    "react-dom": "19.1.0",
     "react-image": "^4.1.0",
     "react-loading-skeleton": "^3.5.0",
     "react-router-dom": "7.1.1"
