@@ -143,7 +143,7 @@ function Profile() {
                         </div>
                         {currentUser &&
                             <Tooltip content="Profile settings">
-                                <Button className="hover:cursor-pointer" outline color="light" pill onClick={() => setOpenSettingsModal(true)}><RiSettings4Line className="h-6 w-6"/></Button>
+                                <Button className="hover:cursor-pointer" color="light" pill onClick={() => setOpenSettingsModal(true)}><RiSettings4Line className="h-6 w-6"/></Button>
                             </Tooltip>
                         }                        
                     </div>
