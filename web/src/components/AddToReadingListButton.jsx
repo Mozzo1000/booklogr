@@ -48,7 +48,7 @@ function AddToReadingListButton(props) {
     }
 
     useEffect(() => {
-      setTotalPages(props.data?.number_of_pages)
+      setTotalPages(props.data?.number_of_pages_median)
     }, [props.data])
     
 
