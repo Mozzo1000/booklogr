@@ -7,10 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 ### Fixed
+- Total pages are now correctly filled in automatically when adding book to list.
 
 ### Changed
 - Background tasks now run as a separate thread within the API.
 - Authentication endpoints now reside under the api namespace.
+- Add to list button on book page now allows for updating progress and changing which reading list the book is in. It also checks if a book is already in a list and dynamically changes behaviour accordingly.
 
 ### Removed
 - `auth-server` have been completely removed as a dependency.
