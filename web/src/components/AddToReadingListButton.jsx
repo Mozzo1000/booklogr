@@ -6,6 +6,8 @@ import UpdateReadingStatusButton from './UpdateReadingStatusButton';
 import { RiBook2Line } from "react-icons/ri";
 import { RiBookOpenLine } from "react-icons/ri";
 import { RiBookmarkLine } from "react-icons/ri";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import RemoveBookModal from './RemoveBookModal';
 
 function AddToReadingListButton(props) {
     const [readingStatus, setReadingStatus] = useState();
@@ -13,6 +15,7 @@ function AddToReadingListButton(props) {
     const [totalPages, setTotalPages] = useState();
     const [openModalReading, setOpenModalReading] = useState(false);
     const [readID, setReadID] = useState();
+    const [openRemoveModal, setOpenRemoveModal] = useState();
     const toast = useToast(4000);
 
     const handleSave = (status, current_page) => {
@@ -123,6 +126,10 @@ function AddToReadingListButton(props) {
         editRead("Read", totalPages);
     }
     
+    const handleBookRemoval = () => {
+        setReadingStatus(undefined);
+    }
+
     return (
         <div>
             <Modal show={openModalReading} onClose={() => setOpenModalReading(false)}>
@@ -168,6 +175,7 @@ function AddToReadingListButton(props) {
                                 <DropdownHeader ><span className="block text-sm opacity-50">Want to read</span></DropdownHeader>
                                 <DropdownDivider />
                                 <DropdownItem icon={RiBook2Line} onClick={() => handleSetReadingRead() }>Read</DropdownItem>
+                                <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />Remove</DropdownItem>
                             </>;
                         } else if (readingStatus === "Currently reading") {
                             return <>
@@ -175,12 +183,13 @@ function AddToReadingListButton(props) {
                                 <DropdownDivider />
                                 <DropdownItem icon={RiBookmarkLine} onClick={() => handleSetReadingToBeRead() }>Want to read</DropdownItem>
                                 <DropdownItem icon={RiBook2Line} onClick={() => handleSetReadingRead() }>Read</DropdownItem>
+                                <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />Remove</DropdownItem>
                             </>;
                         } else if (readingStatus === "Read") {
                             return <>
                                 <DropdownItem icon={RiBookmarkLine} onClick={() => handleSetReadingToBeRead() }>Want to read</DropdownItem>
                                 <DropdownItem icon={RiBookOpenLine} onClick={() => handleSetReadingCurrentlyReading() }>Currently reading</DropdownItem>
-
+                                <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />Remove</DropdownItem>
                             </>;
                         }else {
                             return <>
@@ -192,8 +201,7 @@ function AddToReadingListButton(props) {
                     
                 </Dropdown>
             </ButtonGroup>
-
-
+            <RemoveBookModal id={readID} open={openRemoveModal} close={setOpenRemoveModal} onSuccess={handleBookRemoval}/>
         </div>
     )
 }
