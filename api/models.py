@@ -114,6 +114,11 @@ class Books(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+class BooksStatusSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Books
+        fields = ("id", "reading_status",)
+
 class BooksSchema(ma.SQLAlchemyAutoSchema):
     num_notes = ma.Method("get_num_notes")
     class Meta:

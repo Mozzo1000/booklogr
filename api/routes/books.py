@@ -1,11 +1,25 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
-from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings
+from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings, BooksStatusSchema
 from api.decorators import required_params
 from api.routes.tasks import _create_task
 import json
 
 books_endpoint = Blueprint('books', __name__)
+
+@books_endpoint.route("/v1/books/<isbn>", methods=["GET"])
+@jwt_required()
+def get_book_reading_status(isbn):
+    claim_id = get_jwt()["id"]
+    book = Books.query.filter(Books.owner_id==claim_id, Books.isbn==isbn).first()
+    books_status_schema = BooksStatusSchema(many=False)
+    if book:
+        return jsonify(books_status_schema.dump(book))
+    else:
+        return jsonify({
+                    "error": "Not found",
+                    "message": f"No book with isbn {isbn} found in any reading list."
+        }), 404
 
 @books_endpoint.route("/v1/books", methods=["GET"])
 @jwt_required()
