@@ -31,11 +31,9 @@ function App() {
     <div className="min-h-screen">
     <div className="flex flex-row">
       {AuthService.getCurrentUser() &&
-      <div className="basis-1/12">
         <SidebarNav />
-      </div>
       }
-      <div className="mx-auto pt-10 basis-full">
+      <div className="container mx-auto p-4 sm:p-8 md:p-16">
 
         {!AuthService.getCurrentUser() &&
           location.pathname != "/library"  &&
