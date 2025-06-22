@@ -77,7 +77,7 @@ function BookDetails() {
                 </div>
                 <div className="lg:col-start-2 lg:row-start-2">
                     <div className="flex flex-row gap-4 ">
-                        <AddToReadingListButtton isbn={id} data={data} />
+                        <AddToReadingListButtton isbn={id} data={data} description={description} />
                         <OpenLibraryButton isbn={id} />
                     </div>
                 </div>

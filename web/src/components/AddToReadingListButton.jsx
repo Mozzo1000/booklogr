@@ -20,8 +20,8 @@ function AddToReadingListButton(props) {
         arr.title = props.data?.title;
         arr.isbn = props.isbn;
         arr.author = props.data?.author_name?.[0]; //Authors object from the API can have more than one object inside.. fix this later by flattening and getting a list of all authors names.
-        if (props.data?.description) {
-            arr.description = props.data?.description;
+        if (props.description) {
+            arr.description = props.description;
         }
         if (readingStatus) {
             arr.reading_status = readingStatus;
@@ -85,6 +85,7 @@ function AddToReadingListButton(props) {
     useEffect(() => {
       setTotalPages(props.data?.number_of_pages_median)
       updateReadStatus();
+      console.log(props.data)
     }, [props.data])
 
     const updateReadStatus = () => {
