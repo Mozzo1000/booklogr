@@ -88,7 +88,7 @@ function AddToReadingListButton(props) {
                 </ModalBody>
                 <ModalFooter>
                 <Button onClick={() => handleSave()}>Save</Button>
-                <Button color="gray" onClick={() => setOpenModal(false)}>
+                <Button color="alternative" onClick={() => setOpenModal(false)}>
                     Close
                 </Button>
                 </ModalFooter>
