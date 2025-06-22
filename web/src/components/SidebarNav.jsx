@@ -34,7 +34,7 @@ export default function SidebarNav() {
                     {sidebarState ? (
                       <SidebarItem icon={RiSearch2Line} onClick={() => setOpenSearchModal(true)}>Search</SidebarItem>
                     ) :( 
-                    <SidebarItem><SearchBar showAttribution={false}></SearchBar></SidebarItem>
+                    <SidebarItem><SearchBar hideESCIcon={true} showAttribution={false}></SearchBar></SidebarItem>
                     )}
                   </SidebarItemGroup>
                   <SidebarItemGroup>
