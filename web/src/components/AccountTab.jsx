@@ -6,7 +6,7 @@ import { HR } from "flowbite-react";
 function AccountTab() {
     const [disableSaveButton, setDisableSaveButton] = useState(true);
     return (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col">
             <div className="flex flex-row justify-end">
                 <Button disabled={disableSaveButton}>Save</Button>
             </div>
