@@ -10,6 +10,25 @@ books_endpoint = Blueprint('books', __name__)
 @books_endpoint.route("/v1/books/<isbn>", methods=["GET"])
 @jwt_required()
 def get_book_reading_status(isbn):
+    """
+        Check if book (by isbn) is already in a list.
+        ---
+        tags:
+            - Books
+        parameters:
+            - name: isbn
+              in: path
+              description: ISBN of book
+              type: integer
+              required: true
+        security:
+            - bearerAuth: []         
+        responses:
+          200:
+            description: Returns book id and what list it is in.
+          404:
+            description: Returns error and message, no book found in any reading list.
+    """
     claim_id = get_jwt()["id"]
     book = Books.query.filter(Books.owner_id==claim_id, Books.isbn==isbn).first()
     books_status_schema = BooksStatusSchema(many=False)
