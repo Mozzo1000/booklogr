@@ -3,6 +3,9 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, TextInput, S
 import BooksService from '../services/books.service';
 import useToast from '../toast/useToast';
 import UpdateReadingStatusButton from './UpdateReadingStatusButton';
+import { RiBook2Line } from "react-icons/ri";
+import { RiBookOpenLine } from "react-icons/ri";
+import { RiBookmarkLine } from "react-icons/ri";
 
 function AddToReadingListButton(props) {
     const [readingStatus, setReadingStatus] = useState();
@@ -147,13 +150,13 @@ function AddToReadingListButton(props) {
             <ButtonGroup outline>
                 {(() => {
                     if (readingStatus === "To be read") {
-                        return <Button onClick={() => handleSetReadingCurrentlyReading()}>Currently reading</Button>;
+                        return <Button onClick={() => handleSetReadingCurrentlyReading()}><RiBookOpenLine className="mr-2 h-5 w-5" />Currently reading</Button>;
                     } else if (readingStatus === "Currently reading") {
                         return <UpdateReadingStatusButton totalPages={totalPages} id={readID} title={props.data?.title} rating={0} buttonStyle={"alternative"}/>
                     } else if (readingStatus === "Read") {
-                        return <Button disabled>Read</Button>;
+                        return <Button disabled><RiBook2Line className="mr-2 h-5 w-5" />Read</Button>;
                     }else {
-                        return <Button onClick={() => handleSetReadingToBeRead()}>Want to read</Button>;
+                        return <Button onClick={() => handleSetReadingToBeRead()}><RiBookmarkLine className="mr-2 h-5 w-5" />Want to read</Button>;
                     }
                 })()}
         
@@ -161,27 +164,27 @@ function AddToReadingListButton(props) {
                     {(() => {
                         if (readingStatus === "To be read") {
                             return <>
-                                <DropdownHeader><span className="block text-sm opacity-50">Want to read</span></DropdownHeader>
+                                <DropdownHeader ><span className="block text-sm opacity-50">Want to read</span></DropdownHeader>
                                 <DropdownDivider />
-                                <DropdownItem onClick={() => handleSetReadingRead() }>Read</DropdownItem>
+                                <DropdownItem icon={RiBook2Line} onClick={() => handleSetReadingRead() }>Read</DropdownItem>
                             </>;
                         } else if (readingStatus === "Currently reading") {
                             return <>
                                 <DropdownHeader><span className="block text-sm opacity-50">Currently reading</span></DropdownHeader>
                                 <DropdownDivider />
-                                <DropdownItem onClick={() => handleSetReadingToBeRead() }>Want to read</DropdownItem>
-                                <DropdownItem onClick={() => handleSetReadingRead() }>Read</DropdownItem>
+                                <DropdownItem icon={RiBookmarkLine} onClick={() => handleSetReadingToBeRead() }>Want to read</DropdownItem>
+                                <DropdownItem icon={RiBook2Line} onClick={() => handleSetReadingRead() }>Read</DropdownItem>
                             </>;
                         } else if (readingStatus === "Read") {
                             return <>
-                                <DropdownItem onClick={() => handleSetReadingToBeRead() }>Want to read</DropdownItem>
-                                <DropdownItem onClick={() => handleSetReadingCurrentlyReading() }>Currently reading</DropdownItem>
+                                <DropdownItem icon={RiBookmarkLine} onClick={() => handleSetReadingToBeRead() }>Want to read</DropdownItem>
+                                <DropdownItem icon={RiBookOpenLine} onClick={() => handleSetReadingCurrentlyReading() }>Currently reading</DropdownItem>
 
                             </>;
                         }else {
                             return <>
-                                <DropdownItem onClick={() => handleSetReadingCurrentlyReading()}>Currently reading</DropdownItem>
-                                <DropdownItem onClick={() => handleSetReadingRead()}>Read</DropdownItem>
+                                <DropdownItem icon={RiBookOpenLine} onClick={() => handleSetReadingCurrentlyReading()}>Currently reading</DropdownItem>
+                                <DropdownItem icon={RiBook2Line} onClick={() => handleSetReadingRead()}>Read</DropdownItem>
                             </>;
                         }
                     })()}
