@@ -33,6 +33,10 @@ const addNote = (id, data) => {
     return axios.post(API_URL + "v1/books/" + id + "/notes", data, { headers: authHeader() })
 };
 
+const status = (isbn) => {
+    return axios.get(API_URL + "v1/books/" + isbn, {headers: authHeader() })
+}
+
 export default {
     add,
     get,
@@ -40,4 +44,5 @@ export default {
     remove,
     notes,
     addNote,
+    status,
 };
