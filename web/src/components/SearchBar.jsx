@@ -112,7 +112,7 @@ function SearchBar(props) {
                                 <div className="col-start-2">
                                     <Link to={"/books/" + data.isbn} onClick={(e) => (props.onNavigate(), navigate("/books/" + data.isbn))}>
                                         <p>{data.name}</p>
-                                        {data.isbn}
+                                        <p className="text-gray-500">{data.isbn}</p>
                                     </Link>
                                 </div>
                             </div>
