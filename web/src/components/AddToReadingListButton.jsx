@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, TextInput, Select} from "flowbite-react";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, TextInput, Select, ButtonGroup, Dropdown, DropdownItem, DropdownHeader, DropdownDivider} from "flowbite-react";
 import BooksService from '../services/books.service';
 import useToast from '../toast/useToast';
+import UpdateReadingStatusButton from './UpdateReadingStatusButton';
 
 function AddToReadingListButton(props) {
-    const [openModal, setOpenModal] = useState(false);
     const [readingStatus, setReadingStatus] = useState();
-    const [currentPage, setCurrentPage] = useState();
+    const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState();
+    const [openModalReading, setOpenModalReading] = useState(false);
+    const [readID, setReadID] = useState();
     const toast = useToast(4000);
 
-    const handleSave = () => {
+    const handleSave = (status, current_page) => {
         var arr = {}
         arr.title = props.data?.title;
         arr.isbn = props.isbn;
@@ -30,10 +32,17 @@ function AddToReadingListButton(props) {
             arr.total_pages = totalPages;
         }
 
+        if (status) {
+            arr.reading_status = status;
+        }
+        if (current_page) {
+            arr.current_page = current_page;
+        }
+
         BooksService.add(arr).then(
             response => {
                 toast("success", response.data.message);
-                setOpenModal(false);
+                updateReadStatus();
             },
             error => {
               const resMessage =
@@ -47,52 +56,140 @@ function AddToReadingListButton(props) {
         )
     }
 
+    const editRead = (status, current_page) => {
+        setOpenModalReading(false);
+        if (!status) {
+            status = readingStatus;
+        }
+        if (!current_page) {
+            current_page = currentPage;
+        }
+        if (readID) {
+            BooksService.edit(readID, {"status": status, "current_page": current_page}).then(
+                response => {
+                    setReadingStatus(status);
+                    toast("success", response.data.message);
+                    setOpenModalReading(false);
+                }
+            )
+        } else {
+            setReadingStatus(status);
+            setCurrentPage(current_page);
+            handleSave(status, current_page);
+        }
+    }
+
     useEffect(() => {
       setTotalPages(props.data?.number_of_pages_median)
+      updateReadStatus();
     }, [props.data])
-    
 
+    const updateReadStatus = () => {
+        BooksService.status(props.isbn).then(
+            response => {
+                setReadingStatus(response.data.reading_status)
+                setReadID(response.data.id);
+            },
+            error => {
+              const resMessage =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+              if (error.response.status != 404) {
+                toast("error", resMessage);
+              }
+            }
+        )
+    }
+    
+    const handleSetReadingToBeRead = () => {
+        setReadingStatus("To be read");
+        editRead("To be read");
+    }
+
+    const handleSetReadingCurrentlyReading = () => {
+        setReadingStatus("Currently reading")
+        setOpenModalReading(true);
+    }
+    const handleSetReadingRead = () => {
+        setReadingStatus("Read");
+        setCurrentPage(totalPages);
+        editRead("Read", totalPages);
+    }
+    
     return (
         <div>
-            <Button onClick={() => setOpenModal(true)}>Add to list</Button>
-            <Modal show={openModal} onClose={() => setOpenModal(false)}>
-                <ModalHeader className="border-gray-200">Add book to list</ModalHeader>
+            <Modal show={openModalReading} onClose={() => setOpenModalReading(false)}>
+                <ModalHeader className="border-gray-200">Add {props.data?.title} to currently reading</ModalHeader>
                 <ModalBody>
                     <div className="space-y-6">
-                        <p className="text-base leading-relaxed text-gray-500">Book title: {props.data?.title}</p>
-                        <p className="text-base leading-relaxed text-gray-500">ISBN: {props.isbn}</p>
                         <div>
-                            <div className="mb-2 block">
-                                <Label htmlFor="readingStatus">Reading Status</Label>
+                            <div className="mb-2 block ">
+                                <Label className="font-bold" htmlFor="currentPage">Progress</Label>
                             </div>
-                            <Select id="readingStatus" required value={readingStatus} onChange={(e) => setReadingStatus(e.target.value)}>
-                                <option>To be read</option>
-                                <option>Currently reading</option>
-                                <option>Read</option>
-                            </Select>
-                        </div>
-
-                        <div>
-                            <div className="mb-2 block">
-                                <Label htmlFor="currentPage">Current page</Label>
+                            <div className="flex items-center gap-2">
+                                <TextInput id="currentPage" type="text" placeholder="0" value={currentPage} onChange={(e) => setCurrentPage(e.target.value)} />
+                                <p>out of {totalPages} pages</p>
                             </div>
-                            <TextInput id="currentPage" type="text" placeholder="0" value={currentPage} onChange={(e) => setCurrentPage(e.target.value)} />
-                        </div>
-                        <div>
-                            <div className="mb-2 block">
-                                <Label htmlFor="totalPages">Total pages</Label>
-                            </div>
-                            <TextInput id="totalPages" type="text" placeholder="0" value={totalPages} onChange={(e) => setTotalPages(e.target.value)} />
                         </div>
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                <Button onClick={() => handleSave()}>Save</Button>
-                <Button color="alternative" onClick={() => setOpenModal(false)}>
+                <Button onClick={() => editRead()}>Save</Button>
+                <Button color="alternative" onClick={() => setOpenModalReading(false)}>
                     Close
                 </Button>
                 </ModalFooter>
             </Modal>
+
+            <ButtonGroup outline>
+                {(() => {
+                    if (readingStatus === "To be read") {
+                        return <Button onClick={() => handleSetReadingCurrentlyReading()}>Currently reading</Button>;
+                    } else if (readingStatus === "Currently reading") {
+                        return <UpdateReadingStatusButton totalPages={totalPages} id={readID} title={props.data?.title} rating={0} buttonStyle={"alternative"}/>
+                    } else if (readingStatus === "Read") {
+                        return <Button disabled>Read</Button>;
+                    }else {
+                        return <Button onClick={() => handleSetReadingToBeRead()}>Want to read</Button>;
+                    }
+                })()}
+        
+                <Dropdown>
+                    {(() => {
+                        if (readingStatus === "To be read") {
+                            return <>
+                                <DropdownHeader><span className="block text-sm opacity-50">Want to read</span></DropdownHeader>
+                                <DropdownDivider />
+                                <DropdownItem onClick={() => handleSetReadingRead() }>Read</DropdownItem>
+                            </>;
+                        } else if (readingStatus === "Currently reading") {
+                            return <>
+                                <DropdownHeader><span className="block text-sm opacity-50">Currently reading</span></DropdownHeader>
+                                <DropdownDivider />
+                                <DropdownItem onClick={() => handleSetReadingToBeRead() }>Want to read</DropdownItem>
+                                <DropdownItem onClick={() => handleSetReadingRead() }>Read</DropdownItem>
+                            </>;
+                        } else if (readingStatus === "Read") {
+                            return <>
+                                <DropdownItem onClick={() => handleSetReadingToBeRead() }>Want to read</DropdownItem>
+                                <DropdownItem onClick={() => handleSetReadingCurrentlyReading() }>Currently reading</DropdownItem>
+
+                            </>;
+                        }else {
+                            return <>
+                                <DropdownItem onClick={() => handleSetReadingCurrentlyReading()}>Currently reading</DropdownItem>
+                                <DropdownItem onClick={() => handleSetReadingRead()}>Read</DropdownItem>
+                            </>;
+                        }
+                    })()}
+                    
+                </Dropdown>
+            </ButtonGroup>
+
+
         </div>
     )
 }

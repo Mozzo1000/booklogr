@@ -53,7 +53,11 @@ function UpdateReadingStatusButton(props) {
 
     return (
         <>
-            <Button color="light" pill size="sm" onClick={() => setOpenModal(true)}>Update progress</Button>
+            {props.buttonStyle == "alternative" ? (
+                <Button onClick={() => setOpenModal(true)}>Update progress</Button>
+            ) :(
+                <Button color="light" pill size="sm" onClick={() => setOpenModal(true)}>Update progress</Button>
+            )}
             <Modal size="lg" show={openModal} onClose={() => setOpenModal(false)}>
             <ModalHeader className="border-gray-200">Update reading progress</ModalHeader>
                 <ModalBody>
@@ -72,8 +76,8 @@ function UpdateReadingStatusButton(props) {
                 </ModalBody>
                 <ModalFooter>
                 <Button onClick={() => updateProgress()} disabled={updateButtonDisabled}>Update</Button>
-                <Button color="gray" onClick={() => setOpenModal(false)}> Cancel </Button>
-                <Button color="gray" onClick={() => setFinished()}>Set as finished</Button>
+                <Button color="alternative" onClick={() => setOpenModal(false)}>Cancel</Button>
+                <Button color="alternative" onClick={() => setFinished()}>Set as finished</Button>
                 </ModalFooter>
             </Modal>
 
