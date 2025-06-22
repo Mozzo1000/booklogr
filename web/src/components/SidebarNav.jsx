@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import SearchBar from './SearchBar'
-import { Sidebar, SidebarLogo, SidebarItem, SidebarItemGroup, SidebarItems, Modal, ModalBody} from "flowbite-react";
+import { Sidebar, SidebarLogo, SidebarItem, SidebarItemGroup, SidebarItems, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import { Link, useLocation } from 'react-router-dom';
 import AuthService from '../services/auth.service';
 import { RiBook2Line } from "react-icons/ri";
@@ -94,8 +94,9 @@ export default function SidebarNav() {
         </div>
         
         {/* Modal for search */}
-        <Modal dismissible show={openSearchModal} onClose={() => setOpenSearchModal(false)} position={"top-center"} size="md">
+        <Modal dismissible show={openSearchModal} onClose={() => setOpenSearchModal(false)} position={"top-center"}>
             <ModalBody>
+                <ModalHeader className='md:hidden border-b-0 pb-1 pt-0'></ModalHeader>  
                 <SearchBar absolute={false} hideESCIcon={false} onNavigate={() =>setOpenSearchModal(false)}/>
             </ModalBody>
         </Modal>
