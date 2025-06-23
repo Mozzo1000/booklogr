@@ -25,7 +25,8 @@ def get_profile(display_name):
     """
     profile_schema = ProfileSchema()
     
-    profile = Profile.query.join(Profile.books).join(Books.notes).filter(Profile.display_name==display_name, Profile.visibility=="public").first()
+    profile = Profile.query.outerjoin(Profile.books).outerjoin(Books.notes).filter(Profile.display_name==display_name, Profile.visibility=="public").first()
+
     if profile:
         return jsonify(profile_schema.dump(profile))
 
