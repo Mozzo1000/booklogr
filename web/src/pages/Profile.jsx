@@ -125,6 +125,13 @@ function Profile() {
         }
     }
 
+    function formatVisibility(value) {
+        const visibilityMap = {
+            hidden: 'private',
+            public: 'public'
+        };
+        return visibilityMap[value] || value;
+    }
 
     return (
         <AnimatedLayout>
@@ -138,7 +145,7 @@ function Profile() {
                             <h1 >{data.display_name}</h1>
                         </div>
                             {currentUser &&
-                                <Badge icon={RiEyeLine} >{data.visibility}</Badge>
+                                <Badge icon={RiEyeLine} >{formatVisibility(data.visibility)}</Badge>
                             }
                         </div>
                         {currentUser &&
@@ -191,7 +198,7 @@ function Profile() {
                                         <Label htmlFor="visiblity">Visibility</Label>
                                     </div>
                                     <Select id="visiblity" required value={profileVisiblity} onChange={(e) => setProfileVisiblity(e.target.value)}>
-                                        <option value="hidden">Hidden</option>
+                                        <option value="hidden">Private</option>
                                         <option value="public">Public</option>
                                     </Select>
                                 </div>
