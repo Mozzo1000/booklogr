@@ -117,7 +117,7 @@ class Books(db.Model):
 class BooksStatusSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Books
-        fields = ("id", "reading_status",)
+        fields = ("id", "reading_status", "current_page",)
 
 class BooksSchema(ma.SQLAlchemyAutoSchema):
     num_notes = ma.Method("get_num_notes")
