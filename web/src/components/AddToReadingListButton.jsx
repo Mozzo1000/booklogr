@@ -93,8 +93,9 @@ function AddToReadingListButton(props) {
     const updateReadStatus = () => {
         BooksService.status(props.isbn).then(
             response => {
-                setReadingStatus(response.data.reading_status)
+                setReadingStatus(response.data.reading_status);
                 setReadID(response.data.id);
+                setCurrentPage(response.data.current_page);
             },
             error => {
               const resMessage =
@@ -159,7 +160,7 @@ function AddToReadingListButton(props) {
                     if (readingStatus === "To be read") {
                         return <Button onClick={() => handleSetReadingCurrentlyReading()}><RiBookOpenLine className="mr-2 h-5 w-5" />Currently reading</Button>;
                     } else if (readingStatus === "Currently reading") {
-                        return <UpdateReadingStatusButton totalPages={totalPages} id={readID} title={props.data?.title} rating={0} buttonStyle={"alternative"}/>
+                        return <UpdateReadingStatusButton currentPage={currentPage} totalPages={totalPages} id={readID} title={props.data?.title} rating={0} buttonStyle={"alternative"} onSucess={updateReadStatus}/>
                     } else if (readingStatus === "Read") {
                         return <Button disabled><RiBook2Line className="mr-2 h-5 w-5" />Read</Button>;
                     }else {
