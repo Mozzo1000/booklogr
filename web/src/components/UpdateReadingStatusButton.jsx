@@ -12,7 +12,7 @@ function UpdateReadingStatusButton(props) {
     const [openModal, setOpenModal] = useState(false);
     const [openFinishModal, setOpenFinishModal] = useState(false);
 
-    const [updatedProgress, setUpdatedProgress] = useState();
+    const [updatedProgress, setUpdatedProgress] = useState(0);
     const [progressErrorText, setPasswordErrorText] = useState();
     const [updateButtonDisabled, setUpdateButtonDisabled] = useState(false);
 

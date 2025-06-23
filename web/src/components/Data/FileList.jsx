@@ -86,9 +86,11 @@ function FileList(props) {
             <h2 className="format lg:format-lg">Available exports ({files?.length})</h2>
             <Table striped>
                 <TableHead>
-                    <TableHeadCell>Filename</TableHeadCell>
-                    <TableHeadCell>Created</TableHeadCell>
-                    <TableHeadCell>Action</TableHeadCell>
+                    <TableRow>
+                        <TableHeadCell>Filename</TableHeadCell>
+                        <TableHeadCell>Created</TableHeadCell>
+                        <TableHeadCell>Action</TableHeadCell>
+                    </TableRow>
                 </TableHead>
                 <TableBody>
                     {files?.map((item) => {

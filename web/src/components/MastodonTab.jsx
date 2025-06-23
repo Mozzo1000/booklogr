@@ -7,9 +7,9 @@ import { HR } from "flowbite-react";
 
 function MastodonTab() {
     const [userSettings, setUserSettings] = useState();
-    const [eventSharing, setEventSharing] = useState();
-    const [mastodonInstance, setMastodonInstance] = useState();
-    const [mastodonAccess, setMastodonAccess] = useState();
+    const [eventSharing, setEventSharing] = useState("");
+    const [mastodonInstance, setMastodonInstance] = useState("");
+    const [mastodonAccess, setMastodonAccess] = useState("");
     const [disableSaveButton, setDisableSaveButton] = useState(true);
     const toast = useToast(4000);
 
@@ -114,12 +114,12 @@ function MastodonTab() {
                 <div className="flex flex-col gap-4">
                     <div>
                         <Label htmlFor="mastodon_instance">Mastodon instance</Label>
-                        <TextInput id="mastodon_instance" type="text" placeholder='https://mastodon.social' value={mastodonInstance} onChange={(e) => (setMastodonInstance(e.target.value), setDisableSaveButton(!e.target.value))}/>
+                        <TextInput id="mastodon_instance" type="text" placeholder='https://mastodon.social' onChange={(e) => (setMastodonInstance(e.target.value), setDisableSaveButton(!e.target.value))}/>
                     </div>
 
                     <div >
                         <Label htmlFor="mastodon_access">Access token</Label>
-                        <TextInput id="mastodon_access" type="text" value={mastodonAccess} onChange={(e) => (setMastodonAccess(e.target.value), setDisableSaveButton(!e.target.value))}/>
+                        <TextInput id="mastodon_access" type="text" onChange={(e) => (setMastodonAccess(e.target.value), setDisableSaveButton(!e.target.value))}/>
                     </div>
                 </div>
             </div>
