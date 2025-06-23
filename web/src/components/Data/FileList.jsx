@@ -41,7 +41,7 @@ function FileList(props) {
                             error.response.data.message) ||
                         error.message ||
                         error.toString();
-                    console.log(error)
+                    console.error(error);
                     toast("error", resMessage);
                 }
             }

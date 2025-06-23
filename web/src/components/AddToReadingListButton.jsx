@@ -88,7 +88,6 @@ function AddToReadingListButton(props) {
     useEffect(() => {
       setTotalPages(props.data?.number_of_pages_median)
       updateReadStatus();
-      console.log(props.data)
     }, [props.data])
 
     const updateReadStatus = () => {

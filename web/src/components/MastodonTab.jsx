@@ -28,7 +28,7 @@ function MastodonTab() {
                             error.response.data.message) ||
                         error.message ||
                         error.toString();
-                    console.log(error)
+                    console.error(error);
                     toast("error", resMessage);
                 }
             }
@@ -51,7 +51,7 @@ function MastodonTab() {
                             error.response.data.message) ||
                         error.message ||
                         error.toString();
-                    console.log(error)
+                    console.error(error);
                     toast("error", resMessage);
                 }
             }

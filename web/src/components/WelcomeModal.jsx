@@ -41,7 +41,6 @@ function WelcomeModal() {
                 if (response.status == 404) {
                     setShowWelcomeScreen(true);
                 } else {
-                    console.log(response)
                     setShowWelcomeScreen(false);
                     localStorage.setItem("show_welcome_screen", false);
                 }
