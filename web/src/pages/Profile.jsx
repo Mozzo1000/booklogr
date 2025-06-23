@@ -110,6 +110,7 @@ function Profile() {
                 response => {
                     toast("success", response.data.message);
                     setOpenSettingsModal(false);
+                    getProfileData();
                 },
                 error => {
                     const resMessage =
