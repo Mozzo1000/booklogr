@@ -240,7 +240,7 @@ function NotesView(props) {
                                         </Dropdown>
                                     </Tooltip>
                                     <Tooltip content="Remove">
-                                        <Button className="hover:cursor-pointer" color="failure" onClick={() => setRemovalConfModal(true)}>
+                                        <Button className="hover:cursor-pointer" color="red" onClick={() => setRemovalConfModal(true)}>
                                             <RiDeleteBin6Line className="h-5 w-5" />
                                         </Button>
                                     </Tooltip>
@@ -270,10 +270,10 @@ function NotesView(props) {
                 Are you sure you want to remove this note?
                 </h3>
                 <div className="flex justify-center gap-4">
-                <Button color="failure" onClick={() => removeNote()}>
+                <Button color="red" onClick={() => removeNote()}>
                     {"Yes, I'm sure"}
                 </Button>
-                <Button color="gray" onClick={() => setRemovalConfModal(false)}>
+                <Button color="light" onClick={() => setRemovalConfModal(false)}>
                     {"No, cancel"}
                 </Button>
                 </div>
