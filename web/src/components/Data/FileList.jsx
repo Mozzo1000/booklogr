@@ -2,15 +2,36 @@ import React, { useState, useEffect } from 'react'
 import { Table, TableHead, TableHeadCell, TableBody, TableCell, TableRow, Button } from "flowbite-react";
 import FilesService from '../../services/files.service';
 import useToast from '../../toast/useToast';
+import { useInterval } from '../../useInterval';
 
-function FileList() {
+function FileList(props) {
     const [files, setFiles] = useState();
+    const [refreshInterval, setRefreshInterval] = useState(null);
     const toast = useToast(4000);
 
     useEffect(() => {
+        if (props.refresh) {
+            setRefreshInterval(2000);
+        }
+    }, [props.refresh])
+
+
+    useEffect(() => {
+        getFiles();
+    }, [])
+
+    const getFiles = () => {
+        const oldFiles = files;
         FilesService.getAll().then(
             response => {
                 setFiles(response.data);
+                if (refreshInterval) {
+                    if (JSON.stringify(oldFiles) != JSON.stringify(response.data)) {
+                        toast("success", "Exported file is now available for download")
+                        props.refreshComplete();
+                        setRefreshInterval(null);
+                    }
+                }
             },
             error => {
                 if (error.response.status != 404) {
@@ -25,7 +46,11 @@ function FileList() {
                 }
             }
         )
-    }, [])
+    }
+
+    useInterval(() => {
+        getFiles();
+    }, refreshInterval)
     
     const downloadFile = (filename) => {
         FilesService.get(filename).then(
@@ -58,8 +83,8 @@ function FileList() {
 
     return (
         <div>
-            <h2 className="format lg:format-lg">Available exports</h2>
-            <Table>
+            <h2 className="format lg:format-lg">Available exports ({files?.length})</h2>
+            <Table striped>
                 <TableHead>
                     <TableHeadCell>Filename</TableHeadCell>
                     <TableHeadCell>Created</TableHeadCell>

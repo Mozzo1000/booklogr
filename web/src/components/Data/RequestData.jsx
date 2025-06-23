@@ -21,7 +21,7 @@ const customThemeSelect = {
   }
 }
 
-function RequestData() {
+function RequestData(props) {
     const [dataFormat, setDataFormat] = useState("csv")
     const toast = useToast(4000);
 
@@ -37,6 +37,7 @@ function RequestData() {
         TasksService.create(taskType, {}).then(
             response => {
                 toast("success", response.data.message);
+                props.onRequest();
             },
             error => {
               const resMessage =
