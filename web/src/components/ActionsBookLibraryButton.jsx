@@ -10,11 +10,15 @@ import { RiBook2Line } from "react-icons/ri";
 import { RiBookOpenLine } from "react-icons/ri";
 import { RiBookmarkLine } from "react-icons/ri";
 import RemoveBookModal from './RemoveBookModal';
+import EditBookModal from './Library/EditBookModal';
+import { RiBallPenLine } from "react-icons/ri";
 
 function ActionsBookLibraryButton(props) {
     const [status, setStatus] = useState();
     const [openNotesModal, setOpenNotesModal] = useState();
     const [openRemoveModal, setOpenRemoveModal] = useState();
+    const [openEditBookModal, setOpenEditBookModal] = useState();
+
     const toast = useToast(4000);
 
     const changeStatus = (statusChangeTo) => {
@@ -52,11 +56,13 @@ function ActionsBookLibraryButton(props) {
             <DropdownDivider />
 
             <DropdownItem onClick={() => setOpenNotesModal(true)}><RiStickyNoteLine size={18} className="mr-1"/>Notes & Quotes</DropdownItem>
+            <DropdownItem onClick={() => setOpenEditBookModal(true)}><RiBallPenLine size={18} className="mr-1"/>Edit book</DropdownItem>
             <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />Remove</DropdownItem>
         </Dropdown>
         
         <NotesView id={props.id} open={openNotesModal} close={setOpenNotesModal} allowEditing={props.allowNoteEditing}/>
         <RemoveBookModal id={props.id} open={openRemoveModal} close={setOpenRemoveModal} onSuccess={props.onSuccess}/>
+        <EditBookModal id={props.id} totalPages={props.totalPages} open={openEditBookModal} close={setOpenEditBookModal} onSuccess={props.onSuccess} />
         </>
     )
 }
