@@ -5,25 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 ### Added
-- The search bar will now show a close button when used on smaller screens.
+- The search bar now displays a close button on smaller screens.
+- The web interface now includes the ability to edit the total number of pages through the newly added 'Edit Book' option.
+- A loading spinner is now shown while waiting for the export file to finish processing.
   
 ### Fixed
 - Total pages are now correctly filled in automatically when adding book to list.
-- Book description is now being saved correctly.
-- Pages now have a little padding on the right side on smaller screens.
-- Removed the ESC icon from the search bar on the navbar.
-- Public profile is now accessable even when there is no notes.
-- Fixed NaN being shown when current page and total pages are 0 on Book card. #27
+- Book descriptions are now being saved properly.
+- Pages now include slight padding on the right side for smaller screens.
+- Public profiles are now accessible even when no notes are present.
+- Resolved issue where "NaN" appeared when both the current page and total pages were set to 0 on the book card. #27
 
 ### Changed
 - Background tasks now run as a separate thread within the API.
-- Authentication endpoints now reside under the api namespace.
-- Add to list button on book page now allows for updating progress and changing which reading list the book is in. It also checks if a book is already in a list and dynamically changes behaviour accordingly.
-- Updating progress will now show the page you were previously on instead of being empty.
+- Authentication endpoints have been moved under the `/api` namespace.
+- The "Add to List" button on the book page now allows users to update progress and change which reading list the book belongs to. It also detects if a book is already in a list and adjusts its behavior accordingly.
+- When updating progress, the previous page number is now displayed instead of being left blank.
+- Exported files are now generated using UTF-8 encoding.
 
 ### Removed
-- `auth-server` have been completely removed as a dependency.
-- Docker image for background workers
+- The `auth-server` has been completely removed as a dependency.
+- The Docker image for background workers has been removed.
+- Removed the ESC icon from the search bar in the navbar.
 
 
 ## [1.3.0] - 2025-01-02
