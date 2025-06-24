@@ -176,7 +176,7 @@ def create_html(claim_id):
     template = env.get_template("book_template_export.html")
     output = template.render(data=books)
 
-    with open(os.path.join(os.getenv("EXPORT_FOLDER"), filename), "w", newline="") as f:
+    with open(os.path.join(os.getenv("EXPORT_FOLDER"), filename), "w", newline="", encoding="utf-8") as f:
         f.write(output)
     new_file = Files(filename=filename, owner_id=claim_id)
     new_file.save_to_db()
@@ -201,7 +201,7 @@ def create_json(claim_id):
     random_string = "".join(random.choice(string.ascii_letters + string.digits) for _ in range(8))
     filename = f"export_{datetime.now().strftime("%y%m%d")}_{random_string}.json"
 
-    with open(os.path.join(os.getenv("EXPORT_FOLDER"), filename), "w", newline="") as f:
+    with open(os.path.join(os.getenv("EXPORT_FOLDER"), filename), "w", newline="", encoding="utf-8") as f:
         f.write(json.dumps(book_list))
     new_file = Files(filename=filename, owner_id=claim_id)
     new_file.save_to_db()
@@ -212,7 +212,7 @@ def create_csv(claim_id):
     random_string = "".join(random.choice(string.ascii_letters + string.digits) for _ in range(8))
     filename = f"export_{datetime.now().strftime("%y%m%d")}_{random_string}.csv"
 
-    with open(os.path.join(os.getenv("EXPORT_FOLDER"), filename), "w", newline="") as f:
+    with open(os.path.join(os.getenv("EXPORT_FOLDER"), filename), "w", newline="", encoding="utf-8") as f:
         csvwriter = csv.writer(f, delimiter=",")
         csvwriter.writerow(["title", "isbn", "description", "reading_status", "current_page", "total_pages", "author", "rating"])
         for b in books:
