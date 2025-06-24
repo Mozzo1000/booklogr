@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, TableHead, TableHeadCell, TableBody, TableCell, TableRow, Button } from "flowbite-react";
+import { Table, TableHead, TableHeadCell, TableBody, TableCell, TableRow, Button, Spinner} from "flowbite-react";
 import FilesService from '../../services/files.service';
 import useToast from '../../toast/useToast';
 import { useInterval } from '../../useInterval';
@@ -7,10 +7,12 @@ import { useInterval } from '../../useInterval';
 function FileList(props) {
     const [files, setFiles] = useState();
     const [refreshInterval, setRefreshInterval] = useState(null);
+    const [loading, setLoading] = useState(false);
     const toast = useToast(4000);
 
     useEffect(() => {
         if (props.refresh) {
+            setLoading(true);
             setRefreshInterval(2000);
         }
     }, [props.refresh])
@@ -30,6 +32,7 @@ function FileList(props) {
                         toast("success", "Exported file is now available for download")
                         props.refreshComplete();
                         setRefreshInterval(null);
+                        setLoading(false);
                     }
                 }
             },
@@ -83,7 +86,12 @@ function FileList(props) {
 
     return (
         <div>
+            <div className="flex flex-row gap-4">
             <h2 className="format lg:format-lg">Available exports ({files?.length})</h2>
+                {loading &&
+                    <Spinner />
+                }
+            </div>
             <Table striped>
                 <TableHead>
                     <TableRow>
