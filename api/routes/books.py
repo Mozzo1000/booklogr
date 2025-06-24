@@ -189,7 +189,12 @@ def edit_book(id):
             else:
                 return jsonify({"error": "Unprocessable entity", "message": "Can't process change. The current page is greater than total pages."}), 422 
             if int(request.json["current_page"]) < 0:
-                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. The current page can't be less than 0."}), 422 
+                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. The current page can't be less than 0."}), 422
+        if "total_pages" in request.json:
+            if isinstance(request.json["total_pages"], int):
+                book.total_pages = request.json["total_pages"]
+            else:
+                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Total pages must be an integer."}), 422
         if "status" in request.json:
             if request.json["status"] in ("Currently reading", "To be read", "Read"):
                 book.reading_status = request.json["status"]
