@@ -4,7 +4,7 @@ import ProfileService from '../services/profile.service';
 import { Button, TextInput, Label, Modal, ModalHeader, ModalBody, ModalFooter, Popover, Select } from "flowbite-react";
 import { RiQuestionLine } from "react-icons/ri";
 
-function WelcomeModal() {
+function WelcomeModal(props) {
 
     const [showWelcomeScreen, setShowWelcomeScreen] = useState();
     const [createDisplayName, setCreateDisplayName] = useState();
@@ -30,6 +30,12 @@ function WelcomeModal() {
             getProfileData()
         }
     }, [])
+
+    useEffect(() => {
+        if (props.show) {
+            getProfileData()
+        }
+    }, [props.show])
     
 
     /* Note: this is checks if a profile exists or not, at the moment this indicates if a welcome screen should be shown.
@@ -62,6 +68,7 @@ function WelcomeModal() {
                 toast("success", response.data.message);
                 setContentIndex(1);
                 localStorage.setItem("show_welcome_screen", false);
+                props.onProfileCreate();
             },
             error => {
                 const resMessage =

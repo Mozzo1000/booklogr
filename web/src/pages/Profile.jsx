@@ -14,6 +14,7 @@ import { RiBookOpenLine } from "react-icons/ri";
 import { RiBookmarkLine } from "react-icons/ri";
 import { RiEyeLine } from "react-icons/ri";
 import AnimatedLayout from '../AnimatedLayout';
+import WelcomeModal from '../components/WelcomeModal';
 
 function Profile() {
     const [data, setData] = useState();
@@ -23,6 +24,8 @@ function Profile() {
     const [displayName, setDisplayName] = useState();
     const [profileVisiblity, setProfileVisiblity] = useState();
     const [profileNotFound, setProfileNotFound] = useState(false);
+
+    const [showWelcomeModal, setShowWelcomeScreen] = useState(false);
 
     const toast = useToast(4000);
     let { name } = useParams();
@@ -90,6 +93,10 @@ function Profile() {
                   error.message ||
                   error.toString();
                 toast("error", resMessage);
+                if (error.response.status == 404) {
+                    localStorage.setItem("show_welcome_screen", true);
+                    setShowWelcomeScreen(true);
+                }
               }
         )
     }
@@ -223,6 +230,7 @@ function Profile() {
                 </div>
             }
         </div>
+        <WelcomeModal show={showWelcomeModal} onProfileCreate={() => getProfileData()}/>
         </AnimatedLayout>
     )
 }
