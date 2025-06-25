@@ -33,12 +33,13 @@ Optionally you can also display your library proudly to the public, sharing it w
 
 ## ✨Features
 * Easily look up books by title or isbn. Powered by [OpenLibrary](https://openlibrary.org/)
-* Add books to predefined lists, reading, already read and to be read.
-* Keep track of what page you are on with your current book.
-* Have a public profile of your library available to all.
-* Rate you read books with 0.5-5 stars.
-* Take short notes and quotes on the books you read.
-* Automatically share your progress to Mastodon.
+* Add books to predefined lists: _Reading_, _Already Read_ and _To Be Read_.
+* Track your current page in the book you are reading.
+* Share a public profile of your library with others.
+* Rate books you have read using a 0.5 to 5-star scale.
+* Take short notes and save quotes from the books you read.
+* Automatically share your reading progress to Mastodon.
+* Export your data in multiple formats, including CSV, JSON, and HTML.
 
 ## 🖥 Install
 BookLogr is made to be self-hosted and run on your own hardware.
