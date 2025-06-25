@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - The search bar now displays a close button on smaller screens.
 - The web interface now includes the ability to edit the total number of pages through the newly added 'Edit Book' option.
 - A loading spinner is now shown while waiting for the export file to finish processing.
+- Books can now be imported from BookLogrs own CSV format or Goodreads.
   
 ### Fixed
 - Total pages are now correctly filled in automatically when adding book to list.
@@ -22,7 +23,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - The "Add to List" button on the book page now allows users to update progress and change which reading list the book belongs to. It also detects if a book is already in a list and adjusts its behavior accordingly.
 - When updating progress, the previous page number is now displayed instead of being left blank.
 - Exported files are now generated using UTF-8 encoding.
-
+- The welcome screen now appears on both the home screen and the profile page if no profile was previously created
+- The provided example `.env` file now works out of the box with the included `docker-compose` setup, as the `DATABASE_URL` has been updated to point to the database container instead of localhost.
+  
 ### Removed
 - The `auth-server` has been completely removed as a dependency.
 - The Docker image for background workers has been removed.
