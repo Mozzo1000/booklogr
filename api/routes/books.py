@@ -1,9 +1,11 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
-from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings, BooksStatusSchema
+from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings, BooksStatusSchema, Profile, db
 from api.decorators import required_params
 from api.routes.tasks import _create_task
 import json
+from sqlalchemy.exc import IntegrityError
+from psycopg2.errors import ForeignKeyViolation
 
 books_endpoint = Blueprint('books', __name__)
 
@@ -136,11 +138,21 @@ def add_book():
     if "total_pages" in request.json:
         total_pages = request.json["total_pages"]
 
-    
-    new_book = Books(owner_id=claim_id, title=request.json["title"], isbn=request.json["isbn"], 
-                     description=description, reading_status=reading_status, 
-                     current_page=current_page, total_pages=total_pages, author=author)
-    new_book.save_to_db()
+    try:
+      new_book = Books(owner_id=claim_id, title=request.json["title"], isbn=request.json["isbn"], 
+                      description=description, reading_status=reading_status, 
+                      current_page=current_page, total_pages=total_pages, author=author)
+      new_book.save_to_db()
+    except IntegrityError as e:
+        db.session.rollback()
+        if isinstance(e.orig, ForeignKeyViolation):
+            prof = Profile.query.filter_by(owner_id=claim_id).first()
+            if prof is None:
+              return jsonify({
+                  'error': 'Foreign key violation',
+                  'message': 'A profile does not exist. Please create one before trying to add a book.'
+              }), 409
+        
     return jsonify({'message': 'Book added to list.'}), 200
 
 @books_endpoint.route("/v1/books/<id>", methods=["PATCH"])
