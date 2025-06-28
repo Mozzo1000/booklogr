@@ -1,24 +1,19 @@
-import React, { useState, useEffect, useRef }  from 'react'
-import { Button, TextInput, Modal, ModalHeader, ModalBody, ModalFooter, Label, TabItem, Tabs  } from 'flowbite-react'
-import { RiBookOpenLine } from "react-icons/ri";
+import React, { useState }  from 'react'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'flowbite-react'
 import BooksService from '../services/books.service';
 import useToast from '../toast/useToast';
 import Confetti from 'react-confetti'
 import { RiMastodonFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import BookRating from './Library/BookRating';
-import { RiPercentLine } from "react-icons/ri";
+import UpdateReadingStatusView from './UpdateReadingStatusView';
 
 function UpdateReadingStatusButton(props) {
     const [openModal, setOpenModal] = useState(false);
     const [openFinishModal, setOpenFinishModal] = useState(false);
 
     const [updatedProgress, setUpdatedProgress] = useState(props.currentPage || 0);
-    const [percentage, setPercentage] = useState(0);
-    const [progressErrorText, setPasswordErrorText] = useState();
     const [updateButtonDisabled, setUpdateButtonDisabled] = useState(false);
-    const tabsRef = useRef(null);
-    const [activeTab, setActiveTab] = useState(0);
 
     const toast = useToast(4000);
 
@@ -31,20 +26,6 @@ function UpdateReadingStatusButton(props) {
             }
         )
     }
-
-    useEffect(() => {
-        setPercentage(((updatedProgress / props.totalPages) * 100).toFixed(0));
-        if (updatedProgress > props.totalPages) {
-            setPasswordErrorText("Current page cannot be greater than total pages.");
-            setUpdateButtonDisabled(true);
-        } else if (updatedProgress < 0) {
-            setPasswordErrorText("Current page cannot be less than 0.");
-            setUpdateButtonDisabled(true);
-        } else {
-            setPasswordErrorText();
-            setUpdateButtonDisabled(false);
-        }
-      }, [updatedProgress])
     
     const setFinished = () => {
         BooksService.edit(props.id, {current_page: props.totalPages, status: "Read"}).then(
@@ -54,16 +35,7 @@ function UpdateReadingStatusButton(props) {
                 setOpenFinishModal(true);
             }
         )
-    }
-
-    useEffect(() => {
-      if (activeTab == 0) {
-        localStorage.setItem("use_percentage_book_read", false)
-      }else if (activeTab == 1) {
-        localStorage.setItem("use_percentage_book_read", true)
-      }
-    }, [activeTab])
-    
+    }    
 
     return (
         <>
@@ -75,26 +47,13 @@ function UpdateReadingStatusButton(props) {
             <Modal size="lg" show={openModal} onClose={() => setOpenModal(false)}>
             <ModalHeader className="border-gray-200">Update reading progress</ModalHeader>
                 <ModalBody>
-                <div className="space-y-6">
-                    <p className="flex items-center gap-2">How far are you in<p className="font-bold">{props.title}</p> ?</p>
-                    <div className="overflow-x-auto">
-                        <Tabs variant="fullWidth" ref={tabsRef} onActiveTabChange={(tab) => setActiveTab(tab)}>
-                            <TabItem title="Pages" icon={RiBookOpenLine}>
-                                <Label className="mb-0 block" htmlFor="input_page">Current page</Label>
-                                <TextInput id="input_page" type="number" value={updatedProgress} onChange={(e) => setUpdatedProgress(e.target.value)} color={progressErrorText ? 'failure' : 'gray'}/>
-                                <p className="pt-2 text-gray-500 text-sm">Progress: {percentage}%</p>
-                            </TabItem>
-                            <TabItem active={localStorage.getItem("use_percentage_book_read") === "true"} title="Percentage" icon={RiPercentLine}>
-                                <Label className="mb-0 block" htmlFor="input_perc">Percentage complete</Label>
-                                <TextInput id="input_perc" type="number" value={percentage} onChange={(e) => setUpdatedProgress(Math.round((e.target.value / 100) * props.totalPages))} color={progressErrorText ? 'failure' : 'gray'}/>
-                                <p className="pt-2 text-gray-500 text-sm">Current page: {updatedProgress} of {props.totalPages}</p>
-                            </TabItem>
-                        </Tabs>
-                        <p className="text-red-600 text-sm">
-                            {progressErrorText}
-                        </p>
-                    </div>
-                </div>
+                    <UpdateReadingStatusView title={props.title} totalPages={props.totalPages} 
+                        onNoProgressError={() => setUpdateButtonDisabled(false)}
+                        onProgressLesserError={() => setUpdateButtonDisabled(true)}
+                        onProgressGreaterError={() => setUpdateButtonDisabled(true)}
+                        updatedProgress={updatedProgress}
+                        setUpdatedProgress={setUpdatedProgress}
+                    />
                 </ModalBody>
                 <ModalFooter>
                     <Button onClick={() => updateProgress()} disabled={updateButtonDisabled}>Update</Button>
