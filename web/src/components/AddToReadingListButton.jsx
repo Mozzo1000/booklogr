@@ -8,6 +8,7 @@ import { RiBookOpenLine } from "react-icons/ri";
 import { RiBookmarkLine } from "react-icons/ri";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import RemoveBookModal from './RemoveBookModal';
+import UpdateReadingStatusView from './UpdateReadingStatusView';
 
 function AddToReadingListButton(props) {
     const [readingStatus, setReadingStatus] = useState();
@@ -135,17 +136,10 @@ function AddToReadingListButton(props) {
             <Modal show={openModalReading} onClose={() => setOpenModalReading(false)}>
                 <ModalHeader className="border-gray-200">Add {props.data?.title} to currently reading</ModalHeader>
                 <ModalBody>
-                    <div className="space-y-6">
-                        <div>
-                            <div className="mb-2 block ">
-                                <Label className="font-bold" htmlFor="currentPage">Progress</Label>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <TextInput id="currentPage" type="text" placeholder="0" value={currentPage} onChange={(e) => setCurrentPage(e.target.value)} />
-                                <p>out of {totalPages} pages</p>
-                            </div>
-                        </div>
-                    </div>
+                    <UpdateReadingStatusView title={props.data?.title} totalPages={totalPages} 
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                    />
                 </ModalBody>
                 <ModalFooter>
                 <Button onClick={() => editRead()}>Save</Button>

@@ -51,8 +51,8 @@ function UpdateReadingStatusButton(props) {
                         onNoProgressError={() => setUpdateButtonDisabled(false)}
                         onProgressLesserError={() => setUpdateButtonDisabled(true)}
                         onProgressGreaterError={() => setUpdateButtonDisabled(true)}
-                        updatedProgress={updatedProgress}
-                        setUpdatedProgress={setUpdatedProgress}
+                        currentPage={updatedProgress}
+                        setCurrentPage={setUpdatedProgress}
                     />
                 </ModalBody>
                 <ModalFooter>

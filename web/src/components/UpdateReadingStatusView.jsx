@@ -3,25 +3,25 @@ import { Tabs, TabItem, Label, TextInput } from 'flowbite-react'
 import { RiPercentLine } from "react-icons/ri";
 import { RiBookOpenLine } from "react-icons/ri";
 
-function UpdateReadingStatusView(props) {
+function UpdateReadingStatusView({title, currentPage, setCurrentPage, totalPages, onNoProgressError = ()=> {}, onProgressLesserError = ()=> {}, onProgressGreaterError = ()=> {}}) {
     const [percentage, setPercentage] = useState(0);
     const [progressErrorText, setPasswordErrorText] = useState();
     const tabsRef = useRef(null);
     const [activeTab, setActiveTab] = useState(0);
 
     useEffect(() => {
-        setPercentage(((props.updatedProgress / props.totalPages) * 100).toFixed(0));
-        if (props.updatedProgress > props.totalPages) {
+        setPercentage(((currentPage / totalPages) * 100).toFixed(0));
+        if (currentPage > totalPages) {
             setPasswordErrorText("Current page cannot be greater than total pages.");
-            props.onProgressGreaterError();
-        } else if (props.updatedProgress < 0) {
+            onProgressGreaterError();
+        } else if (currentPage < 0) {
             setPasswordErrorText("Current page cannot be less than 0.");
-            props.onProgressLesserError();
+            onProgressLesserError();
         } else {
             setPasswordErrorText();
-            props.onNoProgressError();
+            onNoProgressError();
         }
-    }, [props.updatedProgress])
+    }, [currentPage])
 
     useEffect(() => {
         if (activeTab == 0) {
@@ -33,18 +33,18 @@ function UpdateReadingStatusView(props) {
 
     return (
         <div className="space-y-6">
-            <p className="flex items-center gap-2">How far are you in<p className="font-bold">{props.title}</p> ?</p>
+            <p className="flex items-center gap-2">How far are you in<p className="font-bold">{title}</p> ?</p>
             <div className="overflow-x-auto">
                 <Tabs variant="fullWidth" ref={tabsRef} onActiveTabChange={(tab) => setActiveTab(tab)}>
                     <TabItem title="Pages" icon={RiBookOpenLine}>
                         <Label className="mb-0 block" htmlFor="input_page">Current page</Label>
-                        <TextInput id="input_page" type="number" value={props.updatedProgress} onChange={(e) => props.setUpdatedProgress(e.target.value)} color={progressErrorText ? 'failure' : 'gray'}/>
+                        <TextInput id="input_page" type="number" value={currentPage} onChange={(e) => setCurrentPage(e.target.value)} color={progressErrorText ? 'failure' : 'gray'}/>
                         <p className="pt-2 text-gray-500 text-sm">Progress: {percentage}%</p>
                     </TabItem>
                     <TabItem active={localStorage.getItem("use_percentage_book_read") === "true"} title="Percentage" icon={RiPercentLine}>
                         <Label className="mb-0 block" htmlFor="input_perc">Percentage complete</Label>
-                        <TextInput id="input_perc" type="number" value={percentage} onChange={(e) => props.setUpdatedProgress(Math.round((e.target.value / 100) * props.totalPages))} color={progressErrorText ? 'failure' : 'gray'}/>
-                        <p className="pt-2 text-gray-500 text-sm">Current page: {props.updatedProgress} of {props.totalPages}</p>
+                        <TextInput id="input_perc" type="number" value={percentage} onChange={(e) => setCurrentPage(Math.round((e.target.value / 100) * totalPages))} color={progressErrorText ? 'failure' : 'gray'}/>
+                        <p className="pt-2 text-gray-500 text-sm">Current page: {currentPage} of {totalPages}</p>
                     </TabItem>
                 </Tabs>
                 <p className="text-red-600 text-sm">
