@@ -184,7 +184,7 @@ function NotesView(props) {
                         <div className="col-span-3">
                             <div className="grid grid-cols-1 grid-rows-3 place-items-center justify-center items-center text-center">
                                 <RiStickyNoteLine size={96}/>
-                                <div className="format lg:format-lg">
+                                <div className="format lg:format-lg dark:format-invert">
                                     <h2>No notes found</h2>
                                     <p>There does not seem to be any notes or quotes for this book.</p>
                                 </div>
@@ -212,7 +212,7 @@ function NotesView(props) {
                                     </div>
                                 ):(
                                     <>
-                                    <div className="format lg:format-lg">
+                                    <div className="format lg:format-lg dark:format-invert">
                                         {quoteCreationMode ? (
                                             <p>Add quote</p>
                                         ): (

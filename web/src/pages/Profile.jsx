@@ -149,7 +149,7 @@ function Profile() {
                     <div className="flex flex-row justify-between">
                         <div className="flex items-center gap-4">
                             <Avatar rounded />
-                        <div className="format lg:format-lg">
+                        <div className="format lg:format-lg dark:format-invert">
                             <h1 >{data.display_name}</h1>
                         </div>
                             {currentUser &&
@@ -215,12 +215,11 @@ function Profile() {
                         </ModalBody>
                     </Modal>
                 </div>
-                
             }
 
             {profileNotFound &&
                 <div className="flex flex-col min-h-screen justify-center items-center text-center gap-4">
-                    <div className="format lg:format-lg">
+                    <div className="format lg:format-lg dark:format-invert">
                         <h1>No profile found</h1>
                         <p>We could not find a profile with that name. Either the profile does not exist or it is set to hidden.</p>
                     </div>

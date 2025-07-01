@@ -54,7 +54,7 @@ function RequestData(props) {
     return (
         <Card>
             <div className="flex flex-col gap-4 justify-center">
-                <div className="format lg:format-lg">
+                <div className="format lg:format-lg dark:format-invert">
                     <h3>Request data</h3>
                     <p>You can request a copy of all your data. Once the request has finished, the data will be displayed in the "Available exports" table for you to download.</p>
                 </div>

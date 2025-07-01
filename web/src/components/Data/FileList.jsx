@@ -87,7 +87,7 @@ function FileList(props) {
     return (
         <div>
             <div className="flex flex-row gap-4">
-            <h2 className="format lg:format-lg">Available exports ({files?.length || 0})</h2>
+            <h2 className="format lg:format-lg dark:format-invert">Available exports ({files?.length || 0})</h2>
                 {loading &&
                     <Spinner />
                 }

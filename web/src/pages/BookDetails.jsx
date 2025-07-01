@@ -60,7 +60,7 @@ function BookDetails() {
                     />
                     </div>
                 <div>
-                    <article className="format">
+                    <article className="format dark:format-invert">
                         <h2>{data?.title || <Skeleton />}</h2>
                         <p className="lead">by {data?.author_name?.[0] || <Skeleton className="w-1/2" />}</p>
                         <p>{description || <Skeleton count={4.5}/>}</p>

@@ -23,7 +23,7 @@ function AccountTab() {
             <HR />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="format lg:format-lg">
+                <div className="format lg:format-lg dark:format-invert">
                     <h4>Email</h4>
                 </div>
                 <div>
@@ -34,7 +34,7 @@ function AccountTab() {
             <HR />
 
             <div className="grid grid-cols-1 md:grid-cols-3">
-                <div className="format lg:format-lg">
+                <div className="format lg:format-lg dark:format-invert">
                     <h4 >Change password</h4>
                 </div>
                 <div className="flex flex-col gap-4">

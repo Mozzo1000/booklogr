@@ -68,7 +68,7 @@ function UpdateReadingStatusButton(props) {
                     <Confetti width={"640"} height={386} recycle={false} />
                     <div className="flex flex-col items-center justify-center text-center gap-2">
                         <img src={"/medal.svg"} width={140} height={140}/>
-                        <div className="format lg:format-lg">
+                        <div className="format lg:format-lg dark:format-invert">
                             <h2>Congratulations!</h2>
                             <p>On finishing reading <strong>{props.title}</strong></p>
                             

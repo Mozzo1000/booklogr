@@ -124,7 +124,7 @@ function SearchBar(props) {
                 {noSuggestionsFound &&
                 <div className="flex flex-col justify-center items-center text-center gap-4 pb-8">
                     <RiSearch2Line size={96}/>
-                    <div className="format lg:format-lg">
+                    <div className="format lg:format-lg dark:format-invert">
                         <h2>No results found</h2>
                         <p>Try searching for a different title or isbn.</p>
                     </div>
@@ -133,7 +133,7 @@ function SearchBar(props) {
                 {onError &&
                 <div className="flex flex-col justify-center items-center text-center gap-4 pb-8">
                     <RiErrorWarningLine size={96}/>
-                    <div className="format lg:format-lg">
+                    <div className="format lg:format-lg dark:format-invert">
                         <h2>Something went wrong</h2>
                         <p>Try again later.<p className="text-xs">{errorMessage}. <a href={"https://github.com/Mozzo1000/booklogr/wiki/Error-messages#" + String(errorMessage).toLowerCase()}>Learn more</a></p></p>
                         
@@ -142,7 +142,7 @@ function SearchBar(props) {
                 }
             </div>
             {props.showAttribution &&
-                <p className="format pt-2 ml-2 text-xs text-gray-500 font">Search powered by <a href="https://openlibrary.org" target="_blank">OpenLibrary</a></p>
+                <p className="format dark:format-invert pt-2 ml-2 text-xs text-gray-500 font">Search powered by <a href="https://openlibrary.org" target="_blank">OpenLibrary</a></p>
             }
         </div>
     )

@@ -36,7 +36,7 @@ function Login() {
   return (
     <AnimatedLayout>
       <div className="flex flex-col justify-center items-center gap-6">
-        <div className="format lg:format-lg">
+        <div className="format lg:format-lg dark:format-invert">
           <h2>Login to your account</h2>
         </div>
         {String(import.meta.env.VITE_DEMO_MODE).toLowerCase() === "true" ? ( 

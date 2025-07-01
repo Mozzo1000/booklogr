@@ -80,7 +80,7 @@ function MastodonTab() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="format lg:format-lg">
+                <div className="format lg:format-lg dark:format-invert">
                     <h4>Share events</h4>
                 </div>
                 <div>
@@ -102,7 +102,7 @@ function MastodonTab() {
 
             <div className="grid grid-cols-1 md:grid-cols-3">
                 <div className="flex flex-row gap-2">
-                    <div className="format lg:format-lg">
+                    <div className="format lg:format-lg dark:format-invert">
                         <h4 >Mastodon account</h4>
                     </div>
                     <div>
