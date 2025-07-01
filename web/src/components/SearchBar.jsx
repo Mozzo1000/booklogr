@@ -10,6 +10,7 @@ import ESCIcon from "./ESCIcon";
 import { Img } from 'react-image'
 import { RiErrorWarningLine } from "react-icons/ri";
 import { HR } from "flowbite-react";
+import { useThemeMode } from 'flowbite-react';
 
 function SearchBar(props) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -21,6 +22,7 @@ function SearchBar(props) {
     const [onError, setOnError] = useState(false);
     const [errorMessage, setErrorMessage] = useState();
     let navigate = useNavigate();
+    const theme = useThemeMode();
 
     const fetchSuggestions = (searchTerm) => {
       if (searchTerm) {
@@ -107,7 +109,8 @@ function SearchBar(props) {
                                 <div className="row-span-2">
                                     <Img className="object-contain h-24 w-24" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn + "-S.jpg?default=false"} 
                                         loader={<Skeleton count={1} width={100} height={"100%"} borderRadius={0} inline={true}/>}
-                                        unloader={<img className="object-contain h-24 w-24" src="/fallback-cover.svg"/>}
+                                        unloader={theme.mode == "dark" && <img className="object-contain h-24 w-24" src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img className="object-contain h-24 w-24" src="/fallback-cover.svg"/>}
+
                                     />
                                 </div>
                                 <div className="col-start-2">
