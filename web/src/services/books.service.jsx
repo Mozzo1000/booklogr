@@ -7,9 +7,9 @@ const add = (data) => {
     return axios.post(API_URL + "v1/books", data, { headers: authHeader() })
 };
 
-const get = (status) => {
+const get = (status, page) => {
     if (status) {
-        return axios.get(API_URL + "v1/books?status=" + status, { headers: authHeader() })
+        return axios.get(API_URL + "v1/books?status=" + status + "&offset=" + page, { headers: authHeader() })
 
     } else {
         return axios.get(API_URL + "v1/books", { headers: authHeader() })

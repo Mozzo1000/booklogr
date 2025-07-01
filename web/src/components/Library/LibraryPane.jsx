@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react'
 import BookItem from './BookItem'
-import { Tabs } from "flowbite-react";
+import { Tabs, Pagination } from "flowbite-react";
 import BooksService from '../../services/books.service';
 import PaneTabView from './PaneTabView';
 import reducer, { initialState, actionTypes } from '../../useLibraryReducer';
@@ -11,11 +11,12 @@ import { RiBookmarkLine } from "react-icons/ri";
 function LibraryPane() {
     const [activeTab, setActiveTab] = useState(0);
     const [state, dispatch] = useReducer(reducer, initialState);
-
-    
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const onPageChange = (page) => setPage(page);
     useEffect(() => {
-        
         getBooks(translateTabsToStatus());
+        setPage(1);
         
     }, [activeTab])
 
@@ -32,12 +33,18 @@ function LibraryPane() {
     }
 
     const getBooks = (status) => {
-        BooksService.get(status).then(
+        BooksService.get(status, page).then(
             response => {
                 dispatch({type: actionTypes.BOOKS, books: response.data})
+                setTotalPages(response.data.meta.total_pages)
             }
         )
     }
+
+    useEffect(() => {
+      getBooks(translateTabsToStatus())
+    }, [page])
+    
 
     return (
         <>
@@ -47,7 +54,7 @@ function LibraryPane() {
         <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">
         <Tabs.Item active title="Currently reading" icon={RiBookOpenLine}>
         <PaneTabView>
-            {state.books?.map((item) => {
+            {state.books?.items.map((item) => {
                 return (
                     <div key={item.id}>
                         <BookItem internalID={item.id} allowNoteEditing={true} showNotes={false} showRating={false} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
@@ -58,7 +65,7 @@ function LibraryPane() {
         </Tabs.Item>
         <Tabs.Item title="To be read" icon={RiBookmarkLine}>
             <PaneTabView>
-            {state.books?.map((item) => {
+            {state.books?.items.map((item) => {
                 return (
                     <div key={item.id}>
                         <BookItem internalID={item.id} showNotes allowNoteEditing={true} showProgress={false} showOptions title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
@@ -69,7 +76,7 @@ function LibraryPane() {
         </Tabs.Item>
         <Tabs.Item title="Read" icon={RiBook2Line}>
             <PaneTabView>
-            {state.books?.map((item) => {
+            {state.books?.items.map((item) => {
                 return (
                     <div key={item.id}>
                         <BookItem internalID={item.id} showNotes allowNoteEditing={true} showProgress={false} showOptions showRating title={item.title} isbn={item.isbn} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}  />
@@ -79,7 +86,9 @@ function LibraryPane() {
             </PaneTabView>
         </Tabs.Item>
         </Tabs>
-        {state.books?.length <= 0 &&
+        <Pagination currentPage={page} totalPages={totalPages} onPageChange={onPageChange} showIcons />
+
+        {state.books?.items.length <= 0 &&
             <div className="flex flex-col justify-center items-center text-center gap-4 pt-8">
                 <RiBook2Line size={96}/>
                 <div className="format lg:format-lg">

@@ -61,14 +61,28 @@ def get_books():
           200:
             description: Returns books in list
     """
+
+    limit = 25
+    offset = request.args.get('offset', 1, type=int)
+    if request.args.get("limit"):
+        limit = request.args.get("limit")
+
     claim_id = get_jwt()["id"]
     query_status = request.args.get("status")
     books_schema = BooksSchema(many=True)
     if query_status:
-        books = Books.query.filter(Books.owner_id==claim_id, Books.reading_status==query_status).all()
+        books = Books.query.filter(Books.owner_id==claim_id, Books.reading_status==query_status).paginate(page=offset, per_page=limit, error_out=False)
     else:
-        books = Books.query.filter(Books.owner_id==claim_id).all()
-    return jsonify(books_schema.dump(books))
+        books = Books.query.filter(Books.owner_id==claim_id).paginate(page=offset, per_page=limit, error_out=False)
+    return jsonify({"items": books_schema.dump(books.items), "meta": {
+            "page": books.page,
+            "per_page": books.per_page,
+            "total_items": books.total,
+            "total_pages": books.pages,
+            "has_next": books.has_next,
+            "has_prev": books.has_prev,
+            "offset": (books.page - 1) * books.per_page
+        }})
 
 @required_params("title", "isbn")
 @books_endpoint.route("/v1/books", methods=["POST"])
