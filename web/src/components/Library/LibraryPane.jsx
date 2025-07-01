@@ -86,7 +86,9 @@ function LibraryPane() {
             </PaneTabView>
         </Tabs.Item>
         </Tabs>
-        <Pagination currentPage={page} totalPages={totalPages} onPageChange={onPageChange} showIcons />
+        <div className="flex flex-row justify-center pt-8">
+            <Pagination currentPage={page} totalPages={totalPages} onPageChange={onPageChange} showIcons />
+        </div>
 
         {state.books?.items.length <= 0 &&
             <div className="flex flex-col justify-center items-center text-center gap-4 pt-8">
