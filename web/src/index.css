@@ -8,9 +8,14 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
-html {
+html, body  {
     font-family: "Libre Baskerville", system-ui, sans-serif;
     font-weight: 400;
-    background-color: #FDFCF7;
+    @apply bg-[#FDFCF7]
 }
+
+.dark html, .dark body {
+    @apply bg-[#121212]
+}
+
 }
