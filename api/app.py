@@ -15,6 +15,8 @@ from api.auth.auth_route import auth_endpoint
 from api.auth.user_route import user_endpoint
 from api.commands.tasks import tasks_command
 from api.commands.user import user_command
+from pathlib import Path
+import tomllib
 
 app = Flask(__name__)
 CORS(app)
@@ -42,7 +44,13 @@ app.register_blueprint(user_endpoint)
 
 @app.route("/")
 def index():
+    version = "unknown"
+    pyproject_toml_file = Path(__file__).parent.parent / "pyproject.toml"
+    print(pyproject_toml_file)
+    if pyproject_toml_file.exists() and pyproject_toml_file.is_file():
+        with open(pyproject_toml_file, "rb") as f:
+            version = tomllib.load(f)["tool"]["poetry"]["version"]
     return {
-        "name": "minimal-reading-api",
-        "version": "1.0.0"
+        "name": "booklogr-api",
+        "version": version
     }
