@@ -183,7 +183,7 @@ function NotesView(props) {
                         (!creationMode &&
                         <div className="col-span-3">
                             <div className="grid grid-cols-1 grid-rows-3 place-items-center justify-center items-center text-center">
-                                <RiStickyNoteLine size={96}/>
+                                <RiStickyNoteLine size={96} className="dark:text-white"/>
                                 <div className="format lg:format-lg dark:format-invert">
                                     <h2>No notes found</h2>
                                     <p>There does not seem to be any notes or quotes for this book.</p>
@@ -203,11 +203,11 @@ function NotesView(props) {
                                     <div className="flex flex-col gap-2">
                                         {selectedNote?.quote_page &&
                                             <div>
-                                                <p>Page: {selectedNote?.quote_page}</p>
+                                                <p className="format dark:format-invert">Page: {selectedNote?.quote_page}</p>
                                             </div>
                                         }
                                         <div>
-                                            {selectedNote?.content}
+                                            <p className="dark:text-white">{selectedNote?.content}</p>
                                         </div>
                                     </div>
                                 ):(
@@ -222,7 +222,7 @@ function NotesView(props) {
                                     <Textarea required autoFocus rows={6} value={newNote} onChange={(e) => setNewNote(e.target.value)}/>
                                     {quoteCreationMode &&
                                         <div className="flex flex-col gap-2">
-                                            <p>Page:</p>
+                                            <p className="format dark:format-invert">Page:</p>
                                             <TextInput  type='number' required value={newQuotePage} onChange={(e) => setNewQuotePage(e.target.value)}/>
                                         </div>
                                     }
