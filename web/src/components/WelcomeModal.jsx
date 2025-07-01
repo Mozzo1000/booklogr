@@ -89,7 +89,7 @@ function WelcomeModal(props) {
                 <ModalBody>
                     {contentIndex == 0 &&
                     <form className="flex flex-col gap-4" onSubmit={handleCreateProfile}>
-                        <div className="format lg:format-lg">
+                        <div className="format lg:format-lg dark:format-invert">
                             <h3>Welcome! 🎉</h3>
                             <p>We are so happy to have you here! To get started tracking all the books you are reading you first need to choose a display name.</p>
                         </div>
@@ -97,7 +97,7 @@ function WelcomeModal(props) {
                             <div className="mb-2 flex flex-row gap-2 items-center">
                                 <Label htmlFor="displayname">Display name</Label>
                                 <Popover trigger="hover" content={displayNamePopoverContent}>
-                                    <span><RiQuestionLine /></span>
+                                    <span><RiQuestionLine className="dark:text-white" /></span>
                                 </Popover>
                             </div>
                             <TextInput id="displayname" type="text" required value={createDisplayName} onChange={(e) => setCreateDisplayName(e.target.value)} />
@@ -114,7 +114,7 @@ function WelcomeModal(props) {
                     </form>
                     }
                     {contentIndex == 1 &&
-                        <div className="format lg:format-lg flex flex-col items-center text-center">
+                        <div className="format lg:format-lg dark:format-invert flex flex-col items-center text-center">
                             <h3>You are all set!</h3>
                             <p>Why don't you start by adding some of your favorites books to your lists? It's super simple!</p>
                             <Button onClick={() => setShowWelcomeScreen(false)}>Close</Button>

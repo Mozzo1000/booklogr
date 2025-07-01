@@ -46,7 +46,7 @@ function ActionsBookLibraryButton(props) {
 
     return (
         <>
-        <Dropdown label="" dismissOnClick={false} renderTrigger={() => <span className="hover:cursor-pointer"><FaEllipsisVertical /></span>}>
+        <Dropdown label="" dismissOnClick={false} renderTrigger={() => <span className="hover:cursor-pointer"><FaEllipsisVertical className="dark:text-white"/></span>}>
             <DropdownHeader>
                 <span className="block text-sm font-bold">Reading status</span>
             </DropdownHeader>

@@ -13,7 +13,7 @@ function Settings() {
     return (
         <AnimatedLayout>
         <div className="container mx-auto ">
-            <article className="format lg:format-lg pb-2">
+            <article className="format lg:format-lg pb-2 dark:format-invert">
                 <h2>Settings</h2>
             </article>
             <Tabs aria-label="Tabs with underline"  onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">

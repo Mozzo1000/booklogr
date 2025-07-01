@@ -64,7 +64,7 @@ function Register() {
   return (
     <AnimatedLayout>
       <div className="flex flex-col justify-center items-center gap-6">
-        <div className="format lg:format-lg">
+        <div className="format lg:format-lg dark:format-invert">
           <h2>Register an account</h2>
         </div>
         <Card>

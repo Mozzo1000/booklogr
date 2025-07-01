@@ -8,6 +8,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import useToast from '../toast/useToast';
 import { Img } from 'react-image'
 import AnimatedLayout from '../AnimatedLayout';
+import { useThemeMode } from 'flowbite-react';
 
 function BookDetails() {
     let { id } = useParams();
@@ -15,6 +16,7 @@ function BookDetails() {
     const [description, setDescription] = useState();
     const [imageLoaded, setImageLoaded] = useState(false);
     const [loading, setLoading] = useState(true);
+    const theme = useThemeMode();
     const toast = useToast(4000);
 
     useEffect(() => {
@@ -56,11 +58,11 @@ function BookDetails() {
                 <div className="lg:row-span-2 mx-auto">
                     <Img className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + id + "-L.jpg?default=false"} 
                         loader={<Skeleton count={1} width={320} height={500} borderRadius={0} inline={true}/>}
-                        unloader={<img src="/fallback-cover.svg"/>}
+                        unloader={theme.mode == "dark" && <img src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img src="/fallback-cover.svg"/>}
                     />
                     </div>
                 <div>
-                    <article className="format">
+                    <article className="format dark:format-invert">
                         <h2>{data?.title || <Skeleton />}</h2>
                         <p className="lead">by {data?.author_name?.[0] || <Skeleton className="w-1/2" />}</p>
                         <p>{description || <Skeleton count={4.5}/>}</p>

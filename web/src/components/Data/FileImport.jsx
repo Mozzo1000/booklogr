@@ -41,7 +41,7 @@ function FileImport() {
     return (
         <Card>
             <div className="flex flex-col gap-4 justify-center">
-                <div className="format lg:format-lg">
+                <div className="format lg:format-lg dark:format-invert">
                     <h3>Import books</h3>
                     <p></p>
                 </div>

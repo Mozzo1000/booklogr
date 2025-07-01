@@ -10,6 +10,7 @@ import ESCIcon from "./ESCIcon";
 import { Img } from 'react-image'
 import { RiErrorWarningLine } from "react-icons/ri";
 import { HR } from "flowbite-react";
+import { useThemeMode } from 'flowbite-react';
 
 function SearchBar(props) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -21,6 +22,7 @@ function SearchBar(props) {
     const [onError, setOnError] = useState(false);
     const [errorMessage, setErrorMessage] = useState();
     let navigate = useNavigate();
+    const theme = useThemeMode();
 
     const fetchSuggestions = (searchTerm) => {
       if (searchTerm) {
@@ -81,7 +83,7 @@ function SearchBar(props) {
     return (
         <div>
             <TextInput icon={RiSearch2Line} rightIcon={props.hideESCIcon ? "" : ESCIcon} id="search" type="text" placeholder="Search for a book" onChange={(e) => (debouncedChangeHandler(e), setSearchTerm(e.target.value))} value={searchTerm} />
-            <div className={`${showList? "block": "hidden"} ${props.absolute? "absolute max-w-md": "relative"} z-10 bg-white pt-10 overflow-y-auto max-h-96 min-w-28 min-h-28`}>
+            <div className={`${showList? "block": "hidden"} ${props.absolute? "absolute max-w-md": "relative"} z-10 bg-white pt-10 overflow-y-auto max-h-96 min-w-28 min-h-28 dark:bg-inherit`}>
                 {loading ? (
                      loadingPlaceholder.map(function() {
                         return (
@@ -98,6 +100,7 @@ function SearchBar(props) {
                             </div>
                         )
                     })
+                    
                 ): (
                     suggestions?.map(function(data) {
                         return (
@@ -106,13 +109,16 @@ function SearchBar(props) {
                                 <div className="row-span-2">
                                     <Img className="object-contain h-24 w-24" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn + "-S.jpg?default=false"} 
                                         loader={<Skeleton count={1} width={100} height={"100%"} borderRadius={0} inline={true}/>}
-                                        unloader={<img className="object-contain h-24 w-24" src="/fallback-cover.svg"/>}
+                                        unloader={theme.mode == "dark" && <img className="object-contain h-24 w-24" src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img className="object-contain h-24 w-24" src="/fallback-cover.svg"/>}
+
                                     />
                                 </div>
                                 <div className="col-start-2">
                                     <Link to={"/books/" + data.isbn} onClick={(e) => (props.onNavigate(), navigate("/books/" + data.isbn))}>
-                                        <p>{data.name}</p>
-                                        <p className="text-gray-500">{data.isbn}</p>
+                                        <div className="format lg:format-lg dark:format-invert">
+                                            <p>{data.name}</p>
+                                            <p className="text-gray-500">{data.isbn}</p>
+                                        </div>
                                     </Link>
                                 </div>
                             </div>
@@ -123,8 +129,8 @@ function SearchBar(props) {
                 )}
                 {noSuggestionsFound &&
                 <div className="flex flex-col justify-center items-center text-center gap-4 pb-8">
-                    <RiSearch2Line size={96}/>
-                    <div className="format lg:format-lg">
+                    <RiSearch2Line size={96} className="dark:text-white"/>
+                    <div className="format lg:format-lg dark:format-invert">
                         <h2>No results found</h2>
                         <p>Try searching for a different title or isbn.</p>
                     </div>
@@ -132,8 +138,8 @@ function SearchBar(props) {
                 }
                 {onError &&
                 <div className="flex flex-col justify-center items-center text-center gap-4 pb-8">
-                    <RiErrorWarningLine size={96}/>
-                    <div className="format lg:format-lg">
+                    <RiErrorWarningLine size={96} className="dark:text-white"/>
+                    <div className="format lg:format-lg dark:format-invert">
                         <h2>Something went wrong</h2>
                         <p>Try again later.<p className="text-xs">{errorMessage}. <a href={"https://github.com/Mozzo1000/booklogr/wiki/Error-messages#" + String(errorMessage).toLowerCase()}>Learn more</a></p></p>
                         
@@ -142,7 +148,7 @@ function SearchBar(props) {
                 }
             </div>
             {props.showAttribution &&
-                <p className="format pt-2 ml-2 text-xs text-gray-500 font">Search powered by <a href="https://openlibrary.org" target="_blank">OpenLibrary</a></p>
+                <p className="format dark:format-invert pt-2 ml-2 text-xs text-gray-500 font">Search powered by <a href="https://openlibrary.org" target="_blank">OpenLibrary</a></p>
             }
         </div>
     )

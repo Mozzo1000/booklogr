@@ -49,7 +49,7 @@ function EditBookModal(props) {
                         <div className="flex flex-row gap-2 items-center">
                             <Label htmlFor="editTotalPages">Total pages</Label>
                             <Popover trigger="hover" content={displayPopoverContent}>
-                                <span><RiQuestionLine /></span>
+                                <span><RiQuestionLine className="dark:text-white"/></span>
                             </Popover>
                         </div>
                         <TextInput id="editTotalPages" type="number" value={totalPages} onChange={(e) => setTotalPages(e.target.value)} />

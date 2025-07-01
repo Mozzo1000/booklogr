@@ -33,18 +33,18 @@ function UpdateReadingStatusView({title, currentPage, setCurrentPage, totalPages
 
     return (
         <div className="space-y-6">
-            <p className="flex items-center gap-2">How far are you in<p className="font-bold">{title}</p> ?</p>
+            <p className="flex items-center gap-2 dark:text-white">How far are you in<p className="font-bold">{title}</p> ?</p>
             <div className="overflow-x-auto">
                 <Tabs variant="fullWidth" ref={tabsRef} onActiveTabChange={(tab) => setActiveTab(tab)}>
                     <TabItem title="Pages" icon={RiBookOpenLine}>
                         <Label className="mb-0 block" htmlFor="input_page">Current page</Label>
                         <TextInput id="input_page" type="number" value={currentPage} onChange={(e) => setCurrentPage(e.target.value)} color={progressErrorText ? 'failure' : 'gray'}/>
-                        <p className="pt-2 text-gray-500 text-sm">Progress: {percentage}%</p>
+                        <p className="pt-2 text-gray-500 text-sm dark:text-gray-400">Progress: {percentage}%</p>
                     </TabItem>
                     <TabItem active={localStorage.getItem("use_percentage_book_read") === "true"} title="Percentage" icon={RiPercentLine}>
                         <Label className="mb-0 block" htmlFor="input_perc">Percentage complete</Label>
                         <TextInput id="input_perc" type="number" value={percentage} onChange={(e) => setCurrentPage(Math.round((e.target.value / 100) * totalPages))} color={progressErrorText ? 'failure' : 'gray'}/>
-                        <p className="pt-2 text-gray-500 text-sm">Current page: {currentPage} of {totalPages}</p>
+                        <p className="pt-2 text-gray-500 text-sm dark:text-gray-400">Current page: {currentPage} of {totalPages}</p>
                     </TabItem>
                 </Tabs>
                 <p className="text-red-600 text-sm">

@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const customThemeNav = {
   root: {
-    base: "bg-[#FDFCF7] px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4",
+    base: "bg-[#FDFCF7] dark:bg-[#121212] px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4",
   },
   link: {
     active: {

@@ -149,7 +149,7 @@ function Profile() {
                     <div className="flex flex-row justify-between">
                         <div className="flex items-center gap-4">
                             <Avatar rounded />
-                        <div className="format lg:format-lg">
+                        <div className="format lg:format-lg dark:format-invert">
                             <h1 >{data.display_name}</h1>
                         </div>
                             {currentUser &&
@@ -163,13 +163,13 @@ function Profile() {
                         }                        
                     </div>
                     <div className="flex flex-row gap-16 pt-12 justify-around">
-                        <BookStatsCard icon={<RiBook2Line className="w-8 h-8"/>} number={data.num_books_read || 0} text="Read"/>
-                        <BookStatsCard icon={<RiBookOpenLine className="w-8 h-8"/>} number={data.num_books_reading || 0} text="Reading"/>
-                        <BookStatsCard icon={<RiBookmarkLine className="w-8 h-8"/>} number={data.num_books_tbr || 0} text="To Be Read"/>
+                        <BookStatsCard icon={<RiBook2Line className="w-8 h-8 dark:text-white"/>} number={data.num_books_read || 0} text="Read"/>
+                        <BookStatsCard icon={<RiBookOpenLine className="w-8 h-8 dark:text-white"/>} number={data.num_books_reading || 0} text="Reading"/>
+                        <BookStatsCard icon={<RiBookmarkLine className="w-8 h-8 dark:text-white"/>} number={data.num_books_tbr || 0} text="To Be Read"/>
                     </div>
                     <div className="inline-flex items-center justify-center w-full">
                         <hr className="w-full h-px my-8 bg-gray-200 border-0" />
-                        <span className="absolute font-medium text-gray-900 -translate-x-1/3 bg-white ">All books</span>
+                        <span className="absolute font-medium text-gray-900 -translate-x-1/3 bg-white dark:bg-[#121212] dark:text-white ">All books</span>
                     </div>
                     <ButtonGroup className="pb-4">
                         <Button color="alternative" onClick={() => setReadingStatusFilter("All")}>All ({data.books.length})</Button>
@@ -195,7 +195,7 @@ function Profile() {
                                         <div className="flex flex-row gap-2 items-center">
                                         <Label htmlFor="displayname">Display name</Label>
                                         <Popover trigger="hover" content={displayNamePopoverContent}>
-                                            <span><RiQuestionLine /></span>
+                                            <span><RiQuestionLine className="dark:text-white"/></span>
                                         </Popover>
                                         </div>
                                     </div>
@@ -215,12 +215,11 @@ function Profile() {
                         </ModalBody>
                     </Modal>
                 </div>
-                
             }
 
             {profileNotFound &&
                 <div className="flex flex-col min-h-screen justify-center items-center text-center gap-4">
-                    <div className="format lg:format-lg">
+                    <div className="format lg:format-lg dark:format-invert">
                         <h1>No profile found</h1>
                         <p>We could not find a profile with that name. Either the profile does not exist or it is set to hidden.</p>
                     </div>
