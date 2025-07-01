@@ -14,7 +14,7 @@ import { RiSettings4Line } from "react-icons/ri";
 
 const customTheme = {
   root: {
-    inner: "h-full overflow-y-auto overflow-x-hidden rounded bg-transparent dark:bg-transparent py-4 px-3 dark:bg-gray-800 border-r border-gray-200",
+    inner: "h-full overflow-y-auto overflow-x-hidden rounded bg-transparent dark:bg-transparent py-4 px-3 border-r border-gray-200 dark:border-gray-700",
   }
 };
 
