@@ -9,7 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - The web interface now includes the ability to edit the total number of pages through the newly added 'Edit Book' option.
 - A loading spinner is now shown while waiting for the export file to finish processing.
 - Books can now be imported from BookLogrs own CSV format or Goodreads.
-  
+- Reading progress can now be entered as a percentage in addition to page number.
+- Added pagination support when retrieving books from the api.
+- Web interface now includes pagination controls on the library page for easier navigation.
+
 ### Fixed
 - Total pages are now correctly filled in automatically when adding book to list.
 - Book descriptions are now being saved properly.
