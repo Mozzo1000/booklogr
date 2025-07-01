@@ -107,7 +107,7 @@ function MastodonTab() {
                     </div>
                     <div>
                         <Popover trigger="hover" content={displayPopoverContent}>
-                            <span><RiQuestionLine /></span>
+                            <span><RiQuestionLine className="dark:text-white"/></span>
                         </Popover>
                     </div>
                 </div>

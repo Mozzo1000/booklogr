@@ -97,7 +97,7 @@ function WelcomeModal(props) {
                             <div className="mb-2 flex flex-row gap-2 items-center">
                                 <Label htmlFor="displayname">Display name</Label>
                                 <Popover trigger="hover" content={displayNamePopoverContent}>
-                                    <span><RiQuestionLine /></span>
+                                    <span><RiQuestionLine className="dark:text-white" /></span>
                                 </Popover>
                             </div>
                             <TextInput id="displayname" type="text" required value={createDisplayName} onChange={(e) => setCreateDisplayName(e.target.value)} />

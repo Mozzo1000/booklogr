@@ -195,7 +195,7 @@ function Profile() {
                                         <div className="flex flex-row gap-2 items-center">
                                         <Label htmlFor="displayname">Display name</Label>
                                         <Popover trigger="hover" content={displayNamePopoverContent}>
-                                            <span><RiQuestionLine /></span>
+                                            <span><RiQuestionLine className="dark:text-white"/></span>
                                         </Popover>
                                         </div>
                                     </div>
