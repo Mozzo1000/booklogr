@@ -1,5 +1,6 @@
 import { Footer as FFooter, FooterCopyright, FooterLink, FooterLinkGroup, FooterIcon } from 'flowbite-react';
 import { IoLogoGithub } from "react-icons/io";
+import { DarkThemeToggle } from "flowbite-react";
 
 function Footer() {
   return (
@@ -9,6 +10,7 @@ function Footer() {
         <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
           <FooterIcon target="_blank" href="https://github.com/Mozzo1000/booklogr" icon={IoLogoGithub}/>
         </div>
+        <DarkThemeToggle />
      </div>
     </FFooter>
   )
