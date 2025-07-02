@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+
+## [1.4.0] - 2025-07-02
 ### Added
 - The search bar now displays a close button on smaller screens.
 - The web interface now includes the ability to edit the total number of pages through the newly added 'Edit Book' option.
@@ -12,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Reading progress can now be entered as a percentage in addition to page number.
 - Added pagination support when retrieving books from the api.
 - Web interface now includes pagination controls on the library page for easier navigation.
+- Dark mode.
+- The version number is now displayed in the footer.
 
 ### Fixed
 - Total pages are now correctly filled in automatically when adding book to list.
@@ -28,6 +32,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Exported files are now generated using UTF-8 encoding.
 - The welcome screen now appears on both the home screen and the profile page if no profile was previously created
 - The provided example `.env` file now works out of the box with the included `docker-compose` setup, as the `DATABASE_URL` has been updated to point to the database container instead of localhost.
+- Search results now display the authors name.
   
 ### Removed
 - The `auth-server` has been completely removed as a dependency.
