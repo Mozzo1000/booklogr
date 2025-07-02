@@ -17,6 +17,7 @@ from api.commands.tasks import tasks_command
 from api.commands.user import user_command
 from pathlib import Path
 import tomllib
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -28,6 +29,9 @@ db.init_app(app)
 ma.init_app(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
+
+if not os.path.exists(os.getenv("EXPORT_FOLDER")):
+    os.makedirs(os.getenv("EXPORT_FOLDER"))
 
 app.register_blueprint(tasks_command)
 app.register_blueprint(user_command)
