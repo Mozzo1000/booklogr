@@ -26,12 +26,17 @@ function SearchBar(props) {
 
     const fetchSuggestions = (searchTerm) => {
       if (searchTerm) {
-        axios.get(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchTerm)}&limit=10&offset=0&fields=title,isbn`).then(
+        axios.get(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchTerm)}&limit=10&offset=0&fields=title,isbn,author_name,key&lang=en`).then(
             response => {
             let newArray = []
             for (let i = 0; i < response.data.docs.length; i++) {
                 if (response.data.docs[i].isbn) {
-                    newArray.push({id: i, name: response.data.docs[i].title, isbn: response.data.docs[i].isbn[0]})
+                    newArray.push({
+                        id: i, name: response.data.docs[i].title,
+                        isbn: response.data.docs[i].isbn[0], 
+                        author: response.data.docs[i].author_name[0],
+                        cover: response.data.docs[i].cover_i
+                    })
                 }
             }
             setSuggestions(newArray); // Assuming the API returns an array of suggestions*/
@@ -83,16 +88,16 @@ function SearchBar(props) {
     return (
         <div>
             <TextInput icon={RiSearch2Line} rightIcon={props.hideESCIcon ? "" : ESCIcon} id="search" type="text" placeholder="Search for a book" onChange={(e) => (debouncedChangeHandler(e), setSearchTerm(e.target.value))} value={searchTerm} />
-            <div className={`${showList? "block": "hidden"} ${props.absolute? "absolute max-w-md": "relative"} z-10 bg-white pt-10 overflow-y-auto max-h-96 min-w-28 min-h-28 dark:bg-inherit`}>
+            <div className={`${showList? "block": "hidden"} ${props.absolute? "absolute max-w-md": "relative"} z-10 bg-white pt-10 overflow-y-auto md:max-h-1/2 max-h-96 min-w-28 min-h-28 dark:bg-inherit`}>
                 {loading ? (
                      loadingPlaceholder.map(function() {
                         return (
                             <div>
-                                <div className="grid grid-cols-2 grid-rows-1 pt-2 pb-2">
-                                    <div className="row-span-2">
+                                <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4">
+                                    <div className="lg:row-span-2">
                                             <Skeleton count={1} height={100} width={"60%"} />
                                     </div>
-                                    <div className="col-start-2">
+                                    <div className="row-span-2">
                                         <Skeleton count={2} width={"100%"} />
                                     </div>
                                 </div>
@@ -104,26 +109,25 @@ function SearchBar(props) {
                 ): (
                     suggestions?.map(function(data) {
                         return (
-                            <div key={data.id}>
-                            <div className="grid grid-cols-2 grid-rows-1 pt-2 pb-2">
-                                <div className="row-span-2">
-                                    <Img className="object-contain h-24 w-24" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn + "-S.jpg?default=false"} 
-                                        loader={<Skeleton count={1} width={100} height={"100%"} borderRadius={0} inline={true}/>}
-                                        unloader={theme.mode == "dark" && <img className="object-contain h-24 w-24" src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img className="object-contain h-24 w-24" src="/fallback-cover.svg"/>}
+                            <Link key={data.id} to={"/books/" + data.isbn} onClick={(e) => (props.onNavigate(), navigate("/books/" + data.isbn))}>
+                                <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4">
+                                    <div className="lg:row-span-2 md:mx-auto">
+                                        <Img className="object-contain h-32" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn + "-M.jpg?default=false"} 
+                                            loader={<Skeleton count={1} width={100} height={"100%"} borderRadius={0} inline={true}/>}
+                                            unloader={theme.mode == "dark" && <img className="object-contain h-32" src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img className="object-contain h-32" src="/fallback-cover.svg"/>}
 
-                                    />
-                                </div>
-                                <div className="col-start-2">
-                                    <Link to={"/books/" + data.isbn} onClick={(e) => (props.onNavigate(), navigate("/books/" + data.isbn))}>
-                                        <div className="format lg:format-lg dark:format-invert">
-                                            <p>{data.name}</p>
-                                            <p className="text-gray-500">{data.isbn}</p>
+                                        />
+                                    </div>
+                                        <div className="row-span-2">
+                                            <div className="flex flex-col gap-1 dark:text-white">
+                                                <p className="font-bold lead">{data.name}</p>
+                                                <p className="font-semi">by {data.author}</p>
+                                                <p className="text-sm font-sans">ISBN: {data.isbn}</p>
+                                            </div>
                                         </div>
-                                    </Link>
                                 </div>
-                            </div>
-                            <HR />
-                            </div>
+                                <HR />
+                            </Link>
                         )
                     })
                 )}
