@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+### Added
+- Pressing CTRL+K will open the search bar.
+
+### Changed
+- The footer is now hidden on smaller screens.
+
+### Fixed
+- Mobile navigation bar now displays proper colors while in dark mode.
 
 ## [1.4.1] - 2025-07-03
 ### Added
