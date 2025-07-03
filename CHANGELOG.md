@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
+## [1.4.1] - 2025-07-03
+### Added
+- Support SQLite as alternative database
+
+### Changed
+- `AUTH_REQUIRE_VERIFICATION` env variable is now false by default.
+- `EXPORT_FOLDER` env variable now defaults to `./export_data` if not set.
+
+### Fixed
+- The google authorization endpoint no longer crashes if the ID and secret was not set.
+
 ## [1.4.0] - 2025-07-02
 ### Added
 - The search bar now displays a close button on smaller screens.
