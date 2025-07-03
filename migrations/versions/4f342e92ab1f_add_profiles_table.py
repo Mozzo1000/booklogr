@@ -28,7 +28,7 @@ def upgrade():
     sa.UniqueConstraint('owner_id')
     )
     with op.batch_alter_table('books', schema=None) as batch_op:
-        batch_op.create_foreign_key(None, 'profiles', ['owner_id'], ['owner_id'])
+        batch_op.create_foreign_key('fk_books_owner_id', 'profiles', ['owner_id'], ['owner_id'])
 
     # ### end Alembic commands ###
 

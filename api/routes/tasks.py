@@ -7,7 +7,7 @@ import time
 import threading
 import string
 import random
-from datetime import datetime
+from datetime import datetime, timezone
 import os
 import csv
 import json
@@ -25,12 +25,12 @@ def _create_task(type, data, created_by):
 def _start_background_task(app, task_id, claim):
     def start(task):
         task.status = "started"
-        task.updated_on = time.strftime('%Y-%m-%d %H:%M:%S')
+        task.updated_on = datetime.now(timezone.utc)
         task.save_to_db()
         print("Background task started")
     def finish(task):
         task.status = "success"
-        task.updated_on = time.strftime('%Y-%m-%d %H:%M:%S')
+        task.updated_on = datetime.now(timezone.utc)
         task.save_to_db()
         print("Background task finished")
 
@@ -147,7 +147,7 @@ def retry_task(id):
     
     if task:
         task.status = "fresh"
-        task.updated_on = time.strftime('%Y-%m-%d %H:%M:%S')
+        task.updated_on = datetime.now(timezone.utc)
         _start_background_task(current_app.app_context(), task.id, get_jwt()["id"])
         return jsonify({"message": "Task set to be retried."})
 

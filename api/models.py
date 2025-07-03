@@ -3,6 +3,8 @@ from flask_marshmallow import Marshmallow
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 from marshmallow import post_dump
+from datetime import datetime, timezone
+
 db = SQLAlchemy()
 ma = Marshmallow()
 
@@ -11,7 +13,7 @@ class Files(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String)
     owner_id = db.Column(db.Integer)
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     def save_to_db(self):
         db.session.add(self)
@@ -29,7 +31,7 @@ class Tasks(db.Model):
     data = db.Column(db.String)
     status = db.Column(db.String, default="fresh")
     worker = db.Column(db.String, nullable=True)
-    created_on = db.Column(db.DateTime, server_default=db.func.now())
+    created_on = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_on = db.Column(db.DateTime, nullable=True)
     created_by = db.Column(db.Integer)
 
@@ -49,7 +51,7 @@ class Notes(db.Model):
     content = db.Column(db.String, nullable=False)
     quote_page = db.Column(db.Integer, nullable=True)
     visibility = db.Column(db.String, default="hidden")
-    created_on = db.Column(db.DateTime, server_default=db.func.now())
+    created_on = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     def save_to_db(self):
         db.session.add(self)
@@ -189,7 +191,7 @@ class UserSettings(db.Model):
     send_book_events = db.Column(db.Boolean, default=False)
     mastodon_url = db.Column(db.String, nullable=True)
     mastodon_access_token = db.Column(db.String, nullable=True)
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_on = db.Column(db.DateTime, nullable=True)
 
     def save_to_db(self):

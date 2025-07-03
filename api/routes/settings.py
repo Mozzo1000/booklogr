@@ -3,6 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from api.models import UserSettings, UserSettingsSchema
 from api.decorators import required_params
 import time
+from datetime import datetime, timezone
 
 settings_endpoint = Blueprint('settings', __name__)
 
@@ -35,7 +36,7 @@ def edit_settings():
             if "mastodon_access_token" in request.json:
                 user_settings.mastodon_access_token = request.json["mastodon_access_token"]
             
-            user_settings.updated_on = time.strftime('%Y-%m-%d %H:%M:%S')
+            user_settings.updated_on = datetime.now(timezone.utc)
             user_settings.save_to_db()
             return jsonify({'message': 'User settings updated'}), 200
         else:
