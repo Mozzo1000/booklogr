@@ -15,11 +15,10 @@ def require_role(role):
         return decorator
     return wrapper
 
-def disable_route(value=False):
+def disable_route(value="False"):
     def wrapper(fn):
         @wraps(fn)
         def decorator(*args, **kwargs):
-            print(value)
             if value.lower() in ["true", "yes", "y"]:
                 return fn(*args, **kwargs)
             else:

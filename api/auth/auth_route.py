@@ -12,7 +12,7 @@ import requests
 auth_endpoint = Blueprint('auth', __name__)
 
 @auth_endpoint.route("/v1/register", methods=["POST"])
-@disable_route(os.environ.get("AUTH_ALLOW_REGISTRATION", True))
+@disable_route(os.environ.get("AUTH_ALLOW_REGISTRATION", "True"))
 def register():
     if not "email" or not "password" or not "name" in request.json:
         abort(422)
@@ -27,7 +27,7 @@ def register():
     try:
         new_user.save_to_db()
         user_id = User.find_by_email(request.json["email"]).id
-        if os.environ.get("AUTH_REQUIRE_VERIFICATION", False).lower() in ["true", "yes", "y"] :
+        if os.environ.get("AUTH_REQUIRE_VERIFICATION", "False").lower() in ["true", "yes", "y"] :
             new_verification = Verification(user_id=user_id, code=code, code_valid_until=(datetime.now() + timedelta(days=1)))
         else: 
             new_verification = Verification(user_id=user_id, status="verified", code=None, code_valid_until=None)
