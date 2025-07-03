@@ -30,8 +30,8 @@ ma.init_app(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
 
-if not os.path.exists(os.getenv("EXPORT_FOLDER")):
-    os.makedirs(os.getenv("EXPORT_FOLDER"))
+if not os.path.exists(app.config["EXPORT_FOLDER"]):
+    os.makedirs(app.config["EXPORT_FOLDER"])
 
 app.register_blueprint(tasks_command)
 app.register_blueprint(user_command)

@@ -7,6 +7,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL", "postgresql://admin:password@localhost/booklogr")
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=5)
+    EXPORT_FOLDER = os.environ.get("EXPORT_FOLDER", "export_data")
 
     ALLOWED_EXTENSIONS = {"csv"}
 

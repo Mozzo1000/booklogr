@@ -31,7 +31,7 @@ def download_file(filename):
     file = Files.query.filter(Files.filename==filename, Files.owner_id==claim_id).first()
 
     if file:
-        return send_from_directory(os.path.join(os.getcwd(), os.getenv("EXPORT_FOLDER")), filename, as_attachment=True)
+        return send_from_directory(os.path.join(os.getcwd(), current_app.config["EXPORT_FOLDER"]), filename, as_attachment=True)
     else:
          return jsonify({
                 "error": "Unkown error",
