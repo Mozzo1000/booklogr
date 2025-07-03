@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, abort
+from flask import Blueprint, request, jsonify, abort, current_app
 from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 jwt_required, get_jwt_identity, get_jwt)
 from api.auth.models import User, UserSchema, RevokedTokenModel, Verification
@@ -131,7 +131,9 @@ the user is verified (we could use the verified key that the OAuth response from
 @auth_endpoint.route("/v1/authorize/google", methods=['GET','POST'])
 def authorize_google():
     auth_code = request.get_json()['code']
-
+    
+    if not current_app.config["GOOGLE_CLIENT_ID"] and not current_app.config["GOOGLE_CLIENT_SECRET"]:
+        return jsonify({'message': 'Google login has not been properly setup.'}), 500
     data = {
         'code': auth_code,
         'client_id': os.getenv("GOOGLE_CLIENT_ID"),  # client ID from the credential at google developer console
