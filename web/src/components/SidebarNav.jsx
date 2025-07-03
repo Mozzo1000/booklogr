@@ -66,28 +66,28 @@ export default function SidebarNav() {
         {/* Mobile bottom navigation bar */}
         <div className="md:hidden fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600">
             <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
-                <Link to="/library" className={`inline-flex flex-col pt-2 hover:bg-gray-100 ${location.pathname == "/library" ? "bg-gray-100" : "bg-none"}`}>
-                  <button type="button" className="rounded-lg inline-flex flex-col items-center justify-center px-5 group">
-                      <RiBook2Line className="w-5 h-5 mb-2"/>
-                      <span className="text-sm dark:text-gray-400">Library</span>
+                <Link to="/library" className={`inline-flex flex-col pt-2 hover:bg-gray-100 dark:hover:bg-gray-800 ${location.pathname == "/library" ? "bg-gray-800" : "bg-none"}`}>
+                  <button type="button" className="rounded-lg inline-flex flex-col items-center justify-center px-5 dark:hover:bg-gray-800 group">
+                      <RiBook2Line className="w-5 h-5 mb-2 dark:text-white"/>
+                      <span className="text-sm dark:text-white">Library</span>
                   </button>
                 </Link>
                 
                 <button type="button" className="rounded-lg inline-flex flex-col items-center justify-center px-5 hover:bg-gray-100 dark:hover:bg-gray-800" onClick={() => setOpenSearchModal(true)}>
-                    <RiSearch2Line className="w-5 h-5 mb-2"/>
-                    <span className="text-sm dark:text-gray-400">Search</span>
+                    <RiSearch2Line className="w-5 h-5 mb-2 dark:text-white"/>
+                    <span className="text-sm dark:text-white">Search</span>
                 </button>
 
-                <Link to="/profile" className={`inline-flex flex-col pt-2 hover:bg-gray-100 ${location.pathname == "/profile" ? "bg-gray-100" : "bg-none"}`}>
+                <Link to="/profile" className={`inline-flex flex-col pt-2 hover:bg-gray-100 dark:hover:bg-gray-800 ${location.pathname == "/profile" ? "bg-gray-800" : "bg-none"}`}>
                   <button type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                      <RiUser3Line className="w-5 h-5 mb-2"/>
-                      <span className="text-sm dark:text-gray-400">Profile</span>
+                      <RiUser3Line className="w-5 h-5 mb-2 dark:text-white"/>
+                      <span className="text-sm dark:text-white">Profile</span>
                   </button>
                 </Link>
-                <Link to="/settings" className={`inline-flex flex-col pt-2 hover:bg-gray-100 ${location.pathname == "/settings" ? "bg-gray-100" : "bg-none"}`}>
-                  <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
-                      <RiSettings4Line className="w-5 h-5 mb-2"/>
-                      <span className="text-sm dark:text-gray-400">Settings</span>
+                <Link to="/settings" className={`inline-flex flex-col pt-2 hover:bg-gray-100 dark:hover:bg-gray-800 ${location.pathname == "/settings" ? "bg-gray-800" : "bg-none"}`}>
+                  <button type="button" className="inline-flex flex-col items-center justify-center px-5 group dark:hover:bg-gray-800">
+                      <RiSettings4Line className="w-5 h-5 mb-2 dark:text-white"/>
+                      <span className="text-sm dark:text-white">Settings</span>
                   </button>
                 </Link>
             </div>
