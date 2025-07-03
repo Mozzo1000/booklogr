@@ -40,6 +40,7 @@ Optionally you can also display your library proudly to the public, sharing it w
 * Take short notes and save quotes from the books you read.
 * Automatically share your reading progress to Mastodon.
 * Export your data in multiple formats, including CSV, JSON, and HTML.
+* Supports SQLite (default) or PostgreSQL as databases.
 
 ## 🖥 Install
 BookLogr is made to be self-hosted and run on your own hardware.
