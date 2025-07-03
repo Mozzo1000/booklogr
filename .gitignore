@@ -3,3 +3,5 @@ __pycache__
 export_data
 auth_db_vol
 booklogr
+instance
+book.db
