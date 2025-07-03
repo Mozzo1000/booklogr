@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchBar from './SearchBar'
 import { Sidebar, SidebarLogo, SidebarItem, SidebarItemGroup, SidebarItems, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import { Link, useLocation } from 'react-router-dom';
@@ -22,6 +22,18 @@ export default function SidebarNav() {
     const [sidebarState, setSidebarState] = useState(true);
     const [openSearchModal, setOpenSearchModal] = useState(false);
     let location = useLocation();
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+        if (event.ctrlKey && event.key.toLowerCase() === 'k') {
+            event.preventDefault();
+            setOpenSearchModal(true);
+        }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
 
     return (
         <>
