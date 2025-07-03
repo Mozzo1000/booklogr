@@ -1,35 +1,17 @@
 # docker-compose.yml
 services:
-    booklogr-db:
-        container_name: "booklogr-db"
-        image: "postgres" # use latest official postgres version
-        ports:
-            - 5432:5432
-        restart: always
-        healthcheck:
-            test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
-            interval: 10s
-            timeout: 5s
-            retries: 5
-        env_file:
-            - .env
-        volumes:
-            - ./booklogr:/var/lib/postgresql/data # persist data even if container shuts down
-
     booklogr-api:
         container_name: "booklogr-api"
-        image: mozzo/booklogr:v1.4.0
-        depends_on:
-            booklogr-db:
-              condition: service_healthy
-        env_file:
-            - .env
+        image: mozzo/booklogr:v1.4.1
+        environment:
+            - DATABASE_URL=sqlite:///books.db
+            - AUTH_SECRET_KEY=this-really-needs-to-be-changed
         ports:
             - 5000:5000
 
     booklogr-web:
         container_name: "booklogr-web"
-        image: mozzo/booklogr-web:v1.4.0
+        image: mozzo/booklogr-web:v1.4.1
         environment:
             - BL_API_ENDPOINT=http://localhost:5000/ # CHANGE THIS TO POINT TO THE EXTERNAL ADRESS THE USER CAN ACCESS
             - BL_GOOGLE_ID=XXX.apps.googleusercontent.com # CHANGE THIS TO YOUR OWN GOOGLE ID
@@ -37,7 +19,3 @@ services:
             - BL_DEMO_MODE=false
         ports:
             - 5150:80
-
-volumes:
-    booklogr:
-    auth_db_vol:
