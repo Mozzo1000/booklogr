@@ -6,6 +6,7 @@ COPY migrations ./migrations
 COPY api ./api
 
 RUN pip install .
+ENV FLASK_APP api.app
 ENV FLASK_ENV production
 RUN chmod +x entrypoint.sh
 
