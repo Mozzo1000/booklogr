@@ -73,7 +73,9 @@ function EditionItem({data, selected_isbn}) {
                 {extractYear(data.publish_date) &&
                     <p className="text-sm">{extractYear(data.publish_date)}</p>
                 }
-                <Badge color="dark">{data.physical_format}</Badge>
+                {data.physical_format &&
+                    <Badge color="dark">{data.physical_format}</Badge>
+                }
                 
                 {data.languages?.map(function(lang) {
                     const code = lang.key.replace("/languages/", "");
@@ -83,7 +85,7 @@ function EditionItem({data, selected_isbn}) {
                     )
                 })}
             </div>
-            <p className="text-sm font-sans">Pages: {data.number_of_pages}</p>
+            <p className="text-sm font-sans">Pages: {data.number_of_pages || "N/A"}</p>
             <p className="text-sm font-sans">ISBN: {data.isbn_13[0]}</p>
             {data.isbn_13[0] === selected_isbn &&
                 <Badge color="success">Current Edition</Badge>
