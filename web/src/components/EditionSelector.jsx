@@ -64,9 +64,9 @@ function EditionSelector({work_id}) {
                     return (
                         data.isbn_13?.[0] && (
                             <Link to={"/books/" + data.isbn_13[0]} className="contents">
-                            <div className="flex w-full">
-                                <EditionItem data={data} />
-                            </div>
+                                <div className="flex w-full hover:bg-gray-100">
+                                    <EditionItem data={data} />
+                                </div>
                             </Link>
                         )
                     )
