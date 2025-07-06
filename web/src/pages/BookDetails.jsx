@@ -82,7 +82,7 @@ function BookDetails() {
                     <div className="flex flex-row gap-4 ">
                         <AddToReadingListButtton isbn={id} data={data} description={description} />
                         <OpenLibraryButton isbn={id} />
-                        <EditionSelector work_id={data?.key} />
+                        <EditionSelector work_id={data?.key} selected_isbn={id}/>
                     </div>
                 </div>
             </div>

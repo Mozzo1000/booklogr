@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import EditionItem from './EditionItem';
 import { RiExternalLinkLine } from "react-icons/ri";
 
-function EditionSelector({work_id}) {
+function EditionSelector({work_id, selected_isbn}) {
     const [editionList, setEditionList] = useState();
     const [openModal, setOpenModal] = useState(false);
     const toast = useToast(4000);
@@ -48,7 +48,7 @@ function EditionSelector({work_id}) {
                     return (
                         data.isbn_13?.[0] && (
                             <DropdownItem as={Link} to={"/books/" + data.isbn_13[0]} >
-                                <EditionItem data={data} />
+                                <EditionItem data={data} selected_isbn={selected_isbn}/>
                             </DropdownItem>
                         )
                         
@@ -65,7 +65,7 @@ function EditionSelector({work_id}) {
                         data.isbn_13?.[0] && (
                             <Link to={"/books/" + data.isbn_13[0]} className="contents">
                                 <div className="flex w-full hover:bg-gray-100">
-                                    <EditionItem data={data} />
+                                    <EditionItem data={data} selected_isbn={selected_isbn} />
                                 </div>
                             </Link>
                         )
