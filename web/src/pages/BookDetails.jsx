@@ -15,6 +15,7 @@ function BookDetails() {
     let { id } = useParams();
     const [data, setData] = useState();
     const [description, setDescription] = useState();
+    const [author, setAuthor] = useState();
     const [imageLoaded, setImageLoaded] = useState(false);
     const [loading, setLoading] = useState(true);
     const theme = useThemeMode();
@@ -23,14 +24,19 @@ function BookDetails() {
     useEffect(() => {
         OpenLibraryService.get(id).then(
             response => {
-                setData(response.data["docs"][0]);
+                setData(response.data);
                 setLoading(false);
 
-                OpenLibraryService.getWorks(response.data["docs"][0].key).then(
+                OpenLibraryService.getWorks(response.data.works[0].key).then(
                     response => {
                         if (response.data.description) {
                             if (response.data.description.value) {
                                 setDescription(response.data.description.value)
+                                OpenLibraryService.getAuthor(response.data.authors[0].author.key).then(
+                                    response => {
+                                        setAuthor(response.data.name)
+                                    }
+                                )
                             } else {
                                 setDescription(response.data.description)
                             }
@@ -39,6 +45,8 @@ function BookDetails() {
                         }
                     }
                 )
+
+                
             },
             error => {
                 const resMessage =
@@ -65,14 +73,14 @@ function BookDetails() {
                 <div>
                     <article className="format dark:format-invert">
                         <h2>{data?.title || <Skeleton />}</h2>
-                        <p className="lead">by {data?.author_name?.[0] || <Skeleton className="w-1/2" />}</p>
+                        <p className="lead">by {author || <Skeleton className="w-1/2" />}</p>
                         <p>{description || <Skeleton count={4.5}/>}</p>
                         <p>
                             <span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">Pages</span> 
                             {loading ? (
                                 <Skeleton width={50} />
                             ): (
-                                data?.number_of_pages_median || 0
+                                data?.number_of_pages || 0
                             )}
                         </p>
                         <p><span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">ISBN</span> {id}</p>
@@ -80,9 +88,9 @@ function BookDetails() {
                 </div>
                 <div className="lg:col-start-2 lg:row-start-2">
                     <div className="flex flex-row gap-4 ">
-                        <AddToReadingListButtton isbn={id} data={data} description={description} />
+                        <AddToReadingListButtton isbn={id} data={data} description={description} author={author}/>
                         <OpenLibraryButton isbn={id} />
-                        <EditionSelector work_id={data?.key} selected_isbn={id}/>
+                        <EditionSelector work_id={data?.works[0].key} selected_isbn={id}/>
                     </div>
                 </div>
             </div>

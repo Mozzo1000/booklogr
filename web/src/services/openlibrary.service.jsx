@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = "https://openlibrary.org";
 
 const get = (id) => {
-    return axios.get(API_URL + "/search.json?isbn=" + id + "&fields=key,title,author_name,number_of_pages_median,first_publish_year,cover_edition_key,isbn", { })
+    return axios.get(API_URL + "/isbn/" + id + ".json")
 };
 
 const getWorks = (id) => {
@@ -14,8 +14,13 @@ const getEditions = (work_id, limit=10, offset=0) => {
     return axios.get(API_URL + work_id + "/editions.json?limit=" + limit + "&offset=" + offset)
 }
 
+const getAuthor = (author_id) => {
+    return axios.get(API_URL + author_id + ".json")
+}
+
 export default {
     get,
     getWorks,
-    getEditions
+    getEditions,
+    getAuthor,
 };
