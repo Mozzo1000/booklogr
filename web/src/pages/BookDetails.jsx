@@ -9,6 +9,7 @@ import useToast from '../toast/useToast';
 import { Img } from 'react-image'
 import AnimatedLayout from '../AnimatedLayout';
 import { useThemeMode } from 'flowbite-react';
+import EditionSelector from '../components/EditionSelector';
 
 function BookDetails() {
     let { id } = useParams();
@@ -81,6 +82,7 @@ function BookDetails() {
                     <div className="flex flex-row gap-4 ">
                         <AddToReadingListButtton isbn={id} data={data} description={description} />
                         <OpenLibraryButton isbn={id} />
+                        <EditionSelector work_id={data?.key} />
                     </div>
                 </div>
             </div>
