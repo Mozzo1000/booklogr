@@ -10,7 +10,12 @@ const getWorks = (id) => {
     return axios.get(API_URL + id + ".json", { })
 }
 
+const getEditions = (work_id, limit=10, offset=0) => {
+    return axios.get(API_URL + work_id + "/editions.json?limit=" + limit + "&offset=" + offset)
+}
+
 export default {
     get,
     getWorks,
+    getEditions
 };
