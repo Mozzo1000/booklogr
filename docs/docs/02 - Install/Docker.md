@@ -36,7 +36,7 @@ curl --output .env "https://raw.githubusercontent.com/Mozzo1000/booklogr/refs/he
 
 ### Step 3 - Configure .env
 Set the environment variables as needed inside the `docker-compose.yml` file or edit the `.env` file (if using PostgreSQL).
-See [Environment variables](/Configuration/Environment-variables) for more information.
+See [Environment variables](/docs/Configuration/Environment-variables) for more information.
 The provided `docker-compose.yml` files have the minimum required environment variables set and should work out of the box.
 
 ### Step 4 - Start the containers
