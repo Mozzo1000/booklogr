@@ -32,7 +32,7 @@ function FeatureSection() {
           </div>
           <div class="place-self-center lg:col-span-7 order-6 p-4 md:p-0">
               <h2 class="text-white max-w-2xl mb-4 text-4xl font-semibold tracking-tight leading-none md:text-4xl xl:text-5xl">Look up your favorite book with ease</h2>
-              <p class="max-w-2xl mb-6 text-white lg:mb-8 md:text-md lg:text-lg">With search and catalog powered by <a className="link" href="https://openlibrary.org" target="_blank">OpenLibrary</a>, there are millions of books in our catalog with more added each day.</p>
+              <p class="max-w-2xl mb-6 text-white lg:mb-8 md:text-md lg:text-lg">With search and catalog powered by <a className="link" href="https://openlibrary.org" target="_blank">OpenLibrary</a>, there are millions of books to look up with more added each day.</p>
           </div>
       </div>
     </section>

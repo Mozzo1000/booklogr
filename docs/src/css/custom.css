@@ -1,0 +1,90 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  background-color: #fff;
+  --ifm-color-primary: #0891B2; /* Base cyan */
+  --ifm-color-primary-dark: #067c9b; /* Slightly darker */
+  --ifm-color-primary-darker: #056b86; /* More contrast */
+  --ifm-color-primary-darkest: #04556b; /* Deepest tone */
+  --ifm-color-primary-light: #0ba9cc; /* Slightly lighter */
+  --ifm-color-primary-lighter: #FDFCF7;
+  --ifm-color-primary-lightest: #a5e9f3;/* Very light, almost pastel */
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05);
+
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  background-color: #20201D;
+  --ifm-color-primary: #0891B2; 
+  --ifm-color-primary-dark: #155e75;
+  --ifm-color-primary-darker: #164e63;
+  --ifm-color-primary-darkest: #0f3a4a;
+  --ifm-color-primary-light: #22b8cf;
+  --ifm-color-primary-lighter: #67d4e3;
+  --ifm-color-primary-lightest: #b2ebf2;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.05);
+}
+
+/* typography.css */
+h1 {
+  font-size: 3rem;       /* 48px */
+  line-height: 1.2;      /* ~57.6px */
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2.25rem;    /* 36px */
+  line-height: 1.25;     /* ~45px */
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.875rem;   /* 30px */
+  line-height: 1.33;     /* ~40px */
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.5rem;     /* 24px */
+  line-height: 1.5;      /* 36px */
+  font-weight: 500;
+}
+
+h5 {
+  font-size: 1.25rem;    /* 20px */
+  line-height: 1.5;      /* 30px */
+  font-weight: 500;
+}
+
+h6 {
+  font-size: 1.125rem;   /* 18px */
+  line-height: 1.5;      /* 27px */
+  font-weight: 500;
+}
+
+p {
+  font-size: 1rem;       /* 16px */
+  line-height: 1.5;      /* 24px */
+}
+
+.center-both {
+  display: flex;
+  justify-content: center; /* horizontal */
+  align-items: center; /* vertical */
+  height: 200px; /* or any height */
+  text-align: center;
+}
+
+p.lead {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin: 20 0 20 0;
+}
