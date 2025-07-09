@@ -10,7 +10,7 @@
   <p align="center">
     A simple, self-hosted service to keep track of your personal library.
     <br />
-    <a href="https://github.com/Mozzo1000/booklogr/wiki"><strong>🗒️Explore the docs »</strong></a>
+    <a href="https://booklogr.app/docs/Getting%20started"><strong>🗒️Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://demo.booklogr.app">💻View Demo</a> |
@@ -45,7 +45,7 @@ Optionally you can also display your library proudly to the public, sharing it w
 ## 🖥 Install
 BookLogr is made to be self-hosted and run on your own hardware.
 
-See [how to install with Docker](https://github.com/Mozzo1000/booklogr/wiki/Install-with-Docker) to get started.
+Check out the [Getting Started guide](https://booklogr.app/docs/Getting%20started) for step-by-step instructions.
 
 ## 🛠️Development
 See [development instructions](https://github.com/Mozzo1000/booklogr/wiki/Development) on the wiki to get started.
