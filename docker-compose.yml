@@ -8,6 +8,8 @@ services:
             - AUTH_SECRET_KEY=this-really-needs-to-be-changed
         ports:
             - 5000:5000
+        volumes:
+            - ./data:/app/instance
 
     booklogr-web:
         container_name: "booklogr-web"
