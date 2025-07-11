@@ -24,7 +24,11 @@ function Register() {
         AuthService.register(email, name, password).then(
             response => {
               toast("success", response.data.message)
-              navigate("/verify", {state: {"email": email}})
+              if (response.data.status === "verified") {
+                navigate("/login", {state: {"email": email}})
+              }else if (response.data.status === "unverified") {
+                navigate("/verify", {state: {"email": email}})
+              }
             },
             error => {
               const resMessage =

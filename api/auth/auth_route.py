@@ -33,7 +33,7 @@ def register():
             new_verification = Verification(user_id=user_id, status="verified", code=None, code_valid_until=None)
         new_verification.save_to_db()
 
-        return jsonify({'message': 'Account with email {} was created'.format(request.json["email"])}), 201
+        return jsonify({'message': 'Account with email {} was created'.format(request.json["email"]), "status": new_verification.status}), 201
 
     except Exception as error:
         print(error)
