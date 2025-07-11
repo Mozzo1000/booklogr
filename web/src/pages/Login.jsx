@@ -14,6 +14,8 @@ function Login() {
     let navigate = useNavigate();
     const toast = useToast(8000);
 
+    const isValidGoogleID = /^[0-9]+-[a-z0-9]+\.apps\.googleusercontent\.com$/.test(import.meta.env.VITE_GOOGLE_CLIENT_ID);
+
     const handleLogin = (e) => {
         e.preventDefault();
         AuthService.login(username, password).then(
@@ -49,7 +51,8 @@ function Login() {
             <ul>Password: demo</ul>
           </div>
         ):(
-          <GoogleLoginButton />
+          import.meta.env.VITE_GOOGLE_CLIENT_ID &&
+            <GoogleLoginButton error={!isValidGoogleID}/>
         )}
 
         <Card>
