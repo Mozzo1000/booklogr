@@ -11,13 +11,14 @@ from api.routes.tasks import tasks_endpoint
 from api.routes.files import files_endpoint
 from api.routes.settings import settings_endpoint
 from flasgger import Swagger
-from api.auth.auth_route import auth_endpoint
+from api.auth.auth_route import auth_endpoint, mail
 from api.auth.user_route import user_endpoint
 from api.commands.tasks import tasks_command
 from api.commands.user import user_command
 from pathlib import Path
 import tomllib
 import os
+from flask_mail import Mail
 
 app = Flask(__name__)
 CORS(app)
@@ -29,6 +30,7 @@ db.init_app(app)
 ma.init_app(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
+mail.init_app(app)
 
 if not os.path.exists(app.config["EXPORT_FOLDER"]):
     os.makedirs(app.config["EXPORT_FOLDER"])

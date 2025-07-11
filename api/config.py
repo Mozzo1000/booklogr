@@ -11,6 +11,13 @@ class Config:
     GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
     GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
 
+    MAIL_SERVER = os.environ.get("MAIL_SERVER", None)
+    MAIL_PORT = os.environ.get("MAIL_PORT", 587)
+    MAIL_USE_TLS = os.environ.get("MAIL_USE_TLS", True)
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME", None)
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", None)
+    MAIL_DEFAULT_SENDER = os.environ.get("MAIL_SENDER", os.environ.get("MAIL_USERNAME"))
+
     ALLOWED_EXTENSIONS = {"csv"}
 
     SWAGGER = {

@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, abort, current_app
+from flask import Blueprint, request, jsonify, abort, current_app, render_template_string
 from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 jwt_required, get_jwt_identity, get_jwt)
 from api.auth.models import User, UserSchema, RevokedTokenModel, Verification
@@ -8,8 +8,10 @@ from datetime import datetime, timedelta
 import os
 from api.auth.decorators import disable_route
 import requests
+from flask_mail import Mail, Message
 
 auth_endpoint = Blueprint('auth', __name__)
+mail = Mail()
 
 @auth_endpoint.route("/v1/register", methods=["POST"])
 @disable_route(os.environ.get("AUTH_ALLOW_REGISTRATION", "True"))
@@ -29,6 +31,7 @@ def register():
         user_id = User.find_by_email(request.json["email"]).id
         if os.environ.get("AUTH_REQUIRE_VERIFICATION", "False").lower() in ["true", "yes", "y"] :
             new_verification = Verification(user_id=user_id, code=code, code_valid_until=(datetime.now() + timedelta(days=1)))
+            _send_verification_email(request.json["name"], request.json["email"], code)
         else: 
             new_verification = Verification(user_id=user_id, status="verified", code=None, code_valid_until=None)
         new_verification.save_to_db()
@@ -179,3 +182,71 @@ def authorize_google():
         return jsonify(json_output), 201
     elif current_user and current_user.status == "inactive":
         return jsonify({'message': 'Account has been inactivated, contact administrator for more information.'}), 403
+    
+
+def _send_verification_email(name, recipient_email, code):
+    msg = Message(
+        subject="Your BookLogr Verification Code",
+        recipients=[recipient_email],
+        html = render_template_string("""
+            <html>
+                <head>
+                    <style>
+                    body {
+                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                        background-color: #f9fafb;
+                        color: #374151;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .email-container {
+                        max-width: 600px;
+                        margin: 0 auto;
+                        background-color: #ffffff;
+                        border: 1px solid #e5e7eb;
+                        padding: 40px;
+                        border-radius: 8px;
+                    }
+                    .header {
+                        color: #0891b2;
+                        font-size: 24px;
+                        font-weight: bold;
+                        margin-bottom: 20px;
+                    }
+                    .message {
+                        font-size: 16px;
+                        line-height: 1.6;
+                    }
+                    .code-box {
+                        background-color: #e0f2f9;
+                        color: #0891b2;
+                        font-size: 20px;
+                        font-weight: bold;
+                        padding: 16px;
+                        text-align: center;
+                        border-radius: 6px;
+                        margin: 20px 0;
+                    }
+                    </style>
+                </head>
+                <body>
+                    <div class="email-container">
+                        <div class="header">Welcome to BookLogr</div>
+                        <div class="message">
+                            <p>Hi {{name}},</p>
+                            <p>To verify your account, please use the code below:</p>
+                            <div class="code-box">{{code}}</div>
+                            <p>This verification code is valid for 24 hours.</p>
+                        </div>
+                    </div>
+                </body>
+            </html>
+            """, name=name, code=code),
+        
+        body = f"""
+            Hi {name},
+            Your verification code is: {code}
+            This code is valid for 24 hours.
+            """
+    )
+    mail.send(msg)
