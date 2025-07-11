@@ -46,6 +46,19 @@ function GoogleLoginButton(props) {
         </Button>
     );
 
+    const displayPopoverContent = (
+        <div className="w-64 text-sm text-gray-500 dark:text-gray-400">
+            <div className="border-b border-gray-200 bg-gray-100 px-3 py-2 dark:border-gray-600 dark:bg-gray-700">
+                <h3 className="font-semibold text-gray-900 dark:text-white">Google Sign-In Disabled</h3>
+            </div>
+            <div className="px-3 py-2">
+                <p>The provided Google Client ID does not follow the expected format. If you are the person who installed BookLogr on this server, check your setup and update the ID to enable sign-in.
+                    <a target="_blank" href="https://booklogr.app/docs/Configuration/Google-sign-in" className="mt-2 inline-block text-blue-600 underline hover:text-blue-800">Learn more about setting up Google Sign-In</a>
+                </p>
+            </div>
+        </div>
+    )
+
     return (
         <>
         {loading ? (
@@ -54,7 +67,7 @@ function GoogleLoginButton(props) {
             </Button>
         ): (
             props.error ? (
-                <Popover placement='top' content={<div className="p-2 text-sm text-gray-500">Invalid Google Client ID.</div>} trigger="hover">
+                <Popover placement='top' content={displayPopoverContent} trigger="hover">
                     <div>
                         {googleButton}
                     </div>
