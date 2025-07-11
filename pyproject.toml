@@ -23,6 +23,7 @@ flasgger = "0.9.7.1"
 requests = "2.32.4"
 mastodon-py = "2.0.1"
 marshmallow = "4.0.0"
+flask-mail = "^0.10.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.4.1"
