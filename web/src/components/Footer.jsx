@@ -1,6 +1,7 @@
 import { Footer as FFooter, FooterCopyright, FooterLink, FooterLinkGroup, FooterIcon } from 'flowbite-react';
 import { IoLogoGithub } from "react-icons/io";
 import { DarkThemeToggle } from "flowbite-react";
+import LanguageSwitcher from './LanguageSwitcher';
 
 function Footer() {
   return (
@@ -10,7 +11,10 @@ function Footer() {
             <p className="format dark:format-invert text-xs">v{import.meta.env.VITE_APP_VERSION}</p>
             <FooterIcon target="_blank" href="https://github.com/Mozzo1000/booklogr" icon={IoLogoGithub}/>
         </div>
-        <DarkThemeToggle />
+        <div className="flex flex-row gap-4 justify-between">
+          <DarkThemeToggle />
+          <LanguageSwitcher />
+        </div>
      </div>
     </FFooter>
   )
