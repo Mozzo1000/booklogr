@@ -5,13 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 ### Added
-- Pressing CTRL+K will open the search bar.
+- Pressing `CTRL+K` now opens the search bar.
+- Users can now select a specific book edition from a list of available options.
+- Added documentation detailing the setup process for Google Sign-In.
+- Mail server can now be configured to send the verifiaction code to the new accounts email adress.
+- Support for multiple languages.
 
 ### Changed
-- The footer is now hidden on smaller screens.
+- Footer is now hidden on smaller screens.
+- The provided `docker-compose.yml` now persists the SQLite database by mounting it to the host.
+- Email verification no longer appears in the web app if the API env variable `AUTH_REQUIRE_VERIFICATION` is set to `false`. 
+- The "Sign in with Google" button is now hidden on the login page when `BL_GOOGLE_ID` is empty or not defined.
+- The "Sign in with Google" button is now disabled and displays an error when `BL_GOOGLE_ID` is incorrectly formatted.
 
 ### Fixed
-- Mobile navigation bar now displays proper colors while in dark mode.
+- Mobile navigation bar now correctly displays colors in dark mode.
 
 ## [1.4.1] - 2025-07-03
 ### Added
