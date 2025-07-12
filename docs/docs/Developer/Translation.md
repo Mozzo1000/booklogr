@@ -1,3 +1,50 @@
+# Translating BookLogr Into Your Language
+
+BookLogr supports localization through simple translation files. Each language has its own file stored in the project directory. This guide walks you through the steps to translate BookLogr into your preferred language.
+
+---
+
+## How to translate
+Language files are located in `web/src/locales`
+Each language has it's own subfolder named after their respective language code (e.g. `en` for English, `sv` for Swedish). Inside, you’ll find a `.json` file containing the translation keys and values.
+
+1. **Locate the Language File**
+   - Navigate to `web/src/locales/<language_code>/<language_code>.json`
+   - For example, English is stored at:  
+     `web/src/locales/en/en.json`
+2. **Edit the File**
+   - Each entry is structured as a key-value pair.
+   - **Translate only the value**, not the key.
+
+#### Example: Original English
+```json
+{
+    "reading_status": {
+    "read": "Read",
+    "currently_reading": "Currently reading",
+    "to_be_read": "To be read"
+    }
+}
+```
+
+#### Example: Translated to Swedish
+```json
+{
+  "reading_status": {
+    "read": "Läst",
+    "currently_reading": "Läser just nu",
+    "to_be_read": "Att läsa"
+  }
+}
+```
+:::warning
+Do **not** change the keys. These are used internally by the appplication and should not be modified or translated.
+:::
+
+To finish your translation contribution, the last thing you should do is commit your changes and open a pull request on the [projects GitHub page](https://github.com/mozzo1000/booklogr) so they can be merged into the project. That way, your work becomes part of the app’s official language support.
+
+---
+
 # Adding a new language
 
 This guide walks developers through the process of adding a new language to the BookLogr project.
