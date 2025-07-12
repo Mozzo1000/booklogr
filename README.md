@@ -51,7 +51,11 @@ Check out the [Getting Started guide](https://booklogr.app/docs/Getting%20starte
 See [development instructions](https://github.com/Mozzo1000/booklogr/wiki/Development) on the wiki to get started.
 
 ## 🙌Contributing
-All contributions are welcome!
+All contributions, from bug reports to feature requests and code submissions are welcome!
+
+If you’d like to contribute translations:
+- Visit our [translation guide](https://booklogr.app/docs/Developer/Translation) to get started.
+- Submit translations via pull request or get in touch through an issue.
 
 ## 🧾License
 This project is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full license text.
