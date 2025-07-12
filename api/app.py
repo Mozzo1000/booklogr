@@ -19,6 +19,9 @@ from pathlib import Path
 import tomllib
 import os
 from flask_mail import Mail
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
@@ -30,7 +33,19 @@ db.init_app(app)
 ma.init_app(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
-mail.init_app(app)
+
+if os.getenv("AUTH_REQUIRE_VERIFICATION", "false").lower() == "true":
+    app.config.update(
+        MAIL_SERVER = os.environ.get("MAIL_SERVER", None),
+        MAIL_PORT = os.environ.get("MAIL_PORT", 587),
+        MAIL_USE_TLS = os.environ.get("MAIL_USE_TLS", True),
+        MAIL_USERNAME = os.environ.get("MAIL_USERNAME", None),
+        MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", None),
+        MAIL_DEFAULT_SENDER = os.environ.get("MAIL_SENDER", os.environ.get("MAIL_USERNAME")),
+    )
+    mail.init_app(app)
+else:
+    mail = None
 
 if not os.path.exists(app.config["EXPORT_FOLDER"]):
     os.makedirs(app.config["EXPORT_FOLDER"])
