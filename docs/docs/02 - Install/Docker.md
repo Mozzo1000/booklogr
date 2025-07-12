@@ -103,3 +103,54 @@ sudo ln -s /etc/nginx/sites-available/booklogr /etc/nginx/sites-enabled/
 :::tip
 It is recommended to use an SSL certificate for all web services, especially if you are hosting BookLogr for external use.
 :::
+
+## Use traefik as reverse proxy
+:::warning
+This is a community provided setup for using traefik with BookLogr. This is not officially supported.  
+See [issue #23](https://github.com/Mozzo1000/booklogr/issues/23) for more information.
+:::
+```yml
+# docker-compose.yml
+services:
+    booklogr-api:
+        container_name: "booklogr-api"
+        image: mozzo/booklogr:v1.4.1
+        environment:
+            - DATABASE_URL=sqlite:///books.db
+            - AUTH_SECRET_KEY=ADD STRONG SECRET HERE
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.booklogr-api.entrypoints=https"
+            - "traefik.http.routers.booklogr-api.rule=Host(`booklogr-api.YOURDOMAIN.TLD`)"
+            - "traefik.http.routers.booklogr-api.tls=true"
+            - "traefik.http.routers.booklogr-api.tls.certresolver=YOURRESOLVER"
+            - "traefik.http.routers.booklogr-api.service=booklogr-api"
+            - "traefik.http.services.booklogr-api.loadbalancer.server.port=5000"
+            - "traefik.docker.network=proxy"
+        networks:
+        - proxy
+
+    booklogr-web:
+        container_name: "booklogr-web"
+        image: mozzo/booklogr-web:v1.4.1
+        environment:
+            - BL_API_ENDPOINT=https://booklogr-api.YOURDOMAIN.TLD/ 
+            - BL_GOOGLE_ID=XXX.apps.googleusercontent.com # CHANGE THIS TO YOUR OWN GOOGLE ID
+            - BL_DISABLE_HOMEPAGE=true
+            - BL_DEMO_MODE=false
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.booklogr.entrypoints=https"
+            - "traefik.http.routers.booklogr.rule=Host(`booklogr.YOURDOMAIN.TLD`)"
+            - "traefik.http.routers.booklogr.tls=true"
+            - "traefik.http.routers.booklogr.tls.certresolver=YOURRESOLVER"
+            - "traefik.http.routers.booklogr.service=booklogr"
+            - "traefik.http.services.booklogr.loadbalancer.server.port=80"
+            - "traefik.docker.network=proxy"
+        networks:
+            - proxy
+
+networks:
+    proxy:
+        external: true
+```
