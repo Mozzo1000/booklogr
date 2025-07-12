@@ -1,0 +1,7 @@
+{
+    "reading_status": {
+        "read": "Read",
+        "currently_reading": "Currently reading",
+        "to_be_read": "To be read"
+    }
+}

@@ -7,6 +7,7 @@ import reducer, { initialState, actionTypes } from '../../useLibraryReducer';
 import { RiBook2Line } from "react-icons/ri";
 import { RiBookOpenLine } from "react-icons/ri";
 import { RiBookmarkLine } from "react-icons/ri";
+import { useTranslation } from 'react-i18next';
 
 function LibraryPane() {
     const [activeTab, setActiveTab] = useState(0);
@@ -14,6 +15,9 @@ function LibraryPane() {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const onPageChange = (page) => setPage(page);
+
+    const { t, i18n } = useTranslation();
+
     useEffect(() => {
         getBooks(translateTabsToStatus());
         setPage(1);
@@ -54,7 +58,7 @@ function LibraryPane() {
             <h2>My Library</h2>
         </article>
         <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">
-        <Tabs.Item active title="Currently reading" icon={RiBookOpenLine}>
+        <Tabs.Item active title={t("reading_status.currently_reading")} icon={RiBookOpenLine}>
         <PaneTabView>
             {state.books?.items.map((item) => {
                 return (
@@ -65,7 +69,7 @@ function LibraryPane() {
             })}
             </PaneTabView>
         </Tabs.Item>
-        <Tabs.Item title="To be read" icon={RiBookmarkLine}>
+        <Tabs.Item title={t("reading_status.to_be_read")} icon={RiBookmarkLine}>
             <PaneTabView>
             {state.books?.items.map((item) => {
                 return (
@@ -76,7 +80,7 @@ function LibraryPane() {
             })}
             </PaneTabView>
         </Tabs.Item>
-        <Tabs.Item title="Read" icon={RiBook2Line}>
+        <Tabs.Item title={t("reading_status.read")} icon={RiBook2Line}>
             <PaneTabView>
             {state.books?.items.map((item) => {
                 return (

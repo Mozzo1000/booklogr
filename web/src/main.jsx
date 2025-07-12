@@ -5,6 +5,7 @@ import './index.css'
 import { BrowserRouter } from "react-router-dom";
 import { ToastProvider } from './toast/Context.jsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import './i18n';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
