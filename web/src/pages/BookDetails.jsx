@@ -10,6 +10,7 @@ import { Img } from 'react-image'
 import AnimatedLayout from '../AnimatedLayout';
 import { useThemeMode } from 'flowbite-react';
 import EditionSelector from '../components/EditionSelector';
+import { useTranslation, Trans } from 'react-i18next';
 
 function BookDetails() {
     let { id } = useParams();
@@ -20,6 +21,7 @@ function BookDetails() {
     const [loading, setLoading] = useState(true);
     const theme = useThemeMode();
     const toast = useToast(4000);
+    const { t } = useTranslation();
 
     useEffect(() => {
         OpenLibraryService.get(id).then(
@@ -41,7 +43,7 @@ function BookDetails() {
                                 setDescription(response.data.description)
                             }
                         } else {
-                            setDescription("No description found")
+                            setDescription(t("book.no_description_found"))
                         }
                     }
                 )
@@ -76,7 +78,7 @@ function BookDetails() {
                         <p className="lead">by {author || <Skeleton className="w-1/2" />}</p>
                         <p>{description || <Skeleton count={4.5}/>}</p>
                         <p>
-                            <span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">Pages</span> 
+                            <span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">{t("book.pages")}</span> 
                             {loading ? (
                                 <Skeleton width={50} />
                             ): (

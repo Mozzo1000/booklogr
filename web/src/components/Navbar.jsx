@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar, NavbarBrand, NavbarToggle, NavbarCollapse, NavbarLink } from 'flowbite-react'
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const customThemeNav = {
   root: {
@@ -15,6 +16,7 @@ const customThemeNav = {
 
 function NavigationMenu() {
     let location = useLocation();
+    const { t } = useTranslation();
 
     return (
         <>
@@ -28,14 +30,14 @@ function NavigationMenu() {
             <NavbarCollapse>
               {import.meta.env.VITE_DISABLE_HOMEPAGE === "false" &&
                 <NavbarLink as={Link} to="/" active={location.pathname == "/"}>
-                  Home
+                  {t("navigation.home")}
                 </NavbarLink>
               }
               <NavbarLink as={Link} to="/login" active={location.pathname == "/login"}>
-                Login
+                {t("forms.login")}
               </NavbarLink>
               <NavbarLink as={Link} to="/register" active={location.pathname == "/register"}>
-                Register
+                {t("forms.register")}
               </NavbarLink>
             </NavbarCollapse>
           </Navbar>

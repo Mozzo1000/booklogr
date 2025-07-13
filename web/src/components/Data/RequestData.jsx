@@ -2,6 +2,7 @@ import { Card, Button, Label, Select} from 'flowbite-react'
 import React, {useState } from 'react'
 import TasksService from '../../services/tasks.service'
 import useToast from '../../toast/useToast';
+import { useTranslation, Trans } from 'react-i18next';
 
 const customThemeSelect = {
     base: "flex",
@@ -24,6 +25,7 @@ const customThemeSelect = {
 function RequestData(props) {
     const [dataFormat, setDataFormat] = useState("csv")
     const toast = useToast(4000);
+    const { t } = useTranslation();
 
     const requestData = () => {
         let taskType;
@@ -55,12 +57,12 @@ function RequestData(props) {
         <Card>
             <div className="flex flex-col gap-4 justify-center">
                 <div className="format lg:format-lg dark:format-invert">
-                    <h3>Request data</h3>
-                    <p>You can request a copy of all your data. Once the request has finished, the data will be displayed in the "Available exports" table for you to download.</p>
+                    <h3>{t("settings.data.request_data.title")}</h3>
+                    <p>{t("settings.data.request_data.description")}</p>
                 </div>
                 <div>
                     <div className="mb-2 block">
-                        <Label htmlFor="data-format">Choose data format</Label>
+                        <Label htmlFor="data-format">{t("settings.data.request_data.format")}</Label>
                     </div>
                         <Select theme={customThemeSelect} className='bg-none' id="data-format" required value={dataFormat} onChange={(e) => setDataFormat(e.target.value)}>
                         <option value="csv">CSV</option>
@@ -68,7 +70,7 @@ function RequestData(props) {
                         <option value="html">HTML</option>
                     </Select>
                 </div>
-                <Button onClick={() => requestData()}>Request data</Button>
+                <Button onClick={() => requestData()}>{t("settings.data.request_data.title")}</Button>
             </div>
         </Card>
     )

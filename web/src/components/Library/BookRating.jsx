@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Modal, ModalFooter, ModalBody, ModalHeader, Rating, RatingStar, Button, RangeSlider, TextInput, Tooltip } from 'flowbite-react'
 import useToast from '../../toast/useToast';
 import BooksService from '../../services/books.service';
+import { useTranslation, Trans } from 'react-i18next';
 
 function BookRating(props) {
     const [openModal, setOpenModal] = useState(false);
@@ -10,6 +11,7 @@ function BookRating(props) {
     const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
 
     const toast = useToast(4000);
+    const { t } = useTranslation();
 
     const handleRateBook = () => {
         BooksService.edit(props.id, {rating: rangeValue}).then(
@@ -39,10 +41,10 @@ function BookRating(props) {
 
     useEffect(() => {
         if (rangeValue > 5) {
-            setRatingErrorText("Rating cannot be more than 5");
+            setRatingErrorText(t("book.rating.error.greater_than"));
             setSaveButtonDisabled(true);
         } else if (rangeValue < 0) {
-            setRatingErrorText("Rating cannot be less than 0.");
+            setRatingErrorText(t("book.rating.error.less_than"));
             setSaveButtonDisabled(true);
         } else {
             setRatingErrorText();
@@ -68,15 +70,23 @@ function BookRating(props) {
         {props.disableGiveRating ? (
             rating()
         ): (
-            <Tooltip content={props.disableGiveRating ? undefined : "Give a rating"}>
+            <Tooltip content={props.disableGiveRating ? undefined : t("book.rating.give")}>
                 {rating()}
             </Tooltip>
         )}
         
         <Modal show={openModal} onClose={() => setOpenModal(false)}>
-            <ModalHeader className="border-gray-200">Rate book</ModalHeader>
+            <ModalHeader className="border-gray-200">{t("book.rating.rate_book")}</ModalHeader>
             <ModalBody>
-                <p>How many stars would you like to give <strong>{props.title}</strong>?</p>
+                <p>
+                    <Trans i18nKey="book.rating.how_many_starts"
+                        components={{
+                            book_title: (
+                                <strong>{props.title}</strong>
+                            )
+                        }}
+                    />
+                </p>
                 <div className="flex flex-row items-center gap-4">
                     <div className="basis-10/12">
                         <RangeSlider min={0} max={5} step={0.5} value={rangeValue} onChange={(e) => setRangeValue(e.target.value)}/>
@@ -92,9 +102,9 @@ function BookRating(props) {
                         </span>
             </ModalBody>
             <ModalFooter>
-            <Button onClick={() => handleRateBook()} disabled={saveButtonDisabled}>Save</Button>
+            <Button onClick={() => handleRateBook()} disabled={saveButtonDisabled}>{t("forms.save")}</Button>
             <Button color="gray" onClick={() => setOpenModal(false)}>
-                Close
+                {t("forms.close")}
             </Button>
             </ModalFooter>
         </Modal>

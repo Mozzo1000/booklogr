@@ -11,6 +11,7 @@ import { RiSideBarFill  } from "react-icons/ri";
 import { RiSearch2Line } from "react-icons/ri";
 import { RiLoginBoxLine } from "react-icons/ri";
 import { RiSettings4Line } from "react-icons/ri";
+import { useTranslation } from 'react-i18next';
 
 const customTheme = {
   root: {
@@ -22,6 +23,7 @@ export default function SidebarNav() {
     const [sidebarState, setSidebarState] = useState(true);
     const [openSearchModal, setOpenSearchModal] = useState(false);
     let location = useLocation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -44,31 +46,31 @@ export default function SidebarNav() {
             <SidebarItems>
                   <SidebarItemGroup>
                     {sidebarState ? (
-                      <SidebarItem icon={RiSearch2Line} onClick={() => setOpenSearchModal(true)}>Search</SidebarItem>
+                      <SidebarItem icon={RiSearch2Line} onClick={() => setOpenSearchModal(true)}>{t("navigation.search")}</SidebarItem>
                     ) :( 
                     <SidebarItem><SearchBar hideESCIcon={true} showAttribution={false}></SearchBar></SidebarItem>
                     )}
                   </SidebarItemGroup>
                   <SidebarItemGroup>
-                    <SidebarItem as={Link} to="/library" active={location.pathname == "/library"} icon={RiBook2Line}>My Library</SidebarItem>
-                    <SidebarItem as={Link} to="/profile" active={location.pathname == "/profile"} icon={RiUser3Line }>Profile</SidebarItem>
+                    <SidebarItem as={Link} to="/library" active={location.pathname == "/library"} icon={RiBook2Line}>{t("navigation.library")}</SidebarItem>
+                    <SidebarItem as={Link} to="/profile" active={location.pathname == "/profile"} icon={RiUser3Line }>{t("navigation.profile")}</SidebarItem>
 
-                    <SidebarItem as={Link} to="/settings" active={location.pathname == "/settings"} icon={RiSettings4Line}>Settings</SidebarItem>
+                    <SidebarItem as={Link} to="/settings" active={location.pathname == "/settings"} icon={RiSettings4Line}>{t("navigation.settings")}</SidebarItem>
 
                     {AuthService.getCurrentUser() ? ( 
-                      <SidebarItem href="" onClick={() => (AuthService.logout(), navigate("/"))} icon={RiLogoutBoxLine}>Logout</SidebarItem>
+                      <SidebarItem href="" onClick={() => (AuthService.logout(), navigate("/"))} icon={RiLogoutBoxLine}>{t("navigation.logout")}</SidebarItem>
                     ):(
                       <Link to="/login">
-                        <SidebarItem href="" icon={RiLoginBoxLine}>Login</SidebarItem>
+                        <SidebarItem href="" icon={RiLoginBoxLine}>{t("forms.login")}</SidebarItem>
                       </Link>
                     )}
                 </SidebarItemGroup>
                 <SidebarItemGroup>
                   <SidebarItem icon={sidebarState ? RiSideBarFill : RiSideBarLine  } onClick={() => setSidebarState(!sidebarState)}>
                     {sidebarState ? (
-                      <span>Expand</span>
+                      <span>{t("navigation.expand")}</span>
                     ): (
-                      <span>Collapse</span>
+                      <span>{t("navigation.collapse")}</span>
                     )}
                   </SidebarItem>
                 </SidebarItemGroup>
@@ -81,25 +83,25 @@ export default function SidebarNav() {
                 <Link to="/library" className={`inline-flex flex-col pt-2 hover:bg-gray-100 dark:hover:bg-gray-800 ${location.pathname == "/library" ? "bg-gray-800" : "bg-none"}`}>
                   <button type="button" className="rounded-lg inline-flex flex-col items-center justify-center px-5 dark:hover:bg-gray-800 group">
                       <RiBook2Line className="w-5 h-5 mb-2 dark:text-white"/>
-                      <span className="text-sm dark:text-white">Library</span>
+                      <span className="text-sm dark:text-white">{t("navigation.library")}</span>
                   </button>
                 </Link>
                 
                 <button type="button" className="rounded-lg inline-flex flex-col items-center justify-center px-5 hover:bg-gray-100 dark:hover:bg-gray-800" onClick={() => setOpenSearchModal(true)}>
                     <RiSearch2Line className="w-5 h-5 mb-2 dark:text-white"/>
-                    <span className="text-sm dark:text-white">Search</span>
+                    <span className="text-sm dark:text-white">{t("navigation.search")}</span>
                 </button>
 
                 <Link to="/profile" className={`inline-flex flex-col pt-2 hover:bg-gray-100 dark:hover:bg-gray-800 ${location.pathname == "/profile" ? "bg-gray-800" : "bg-none"}`}>
                   <button type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
                       <RiUser3Line className="w-5 h-5 mb-2 dark:text-white"/>
-                      <span className="text-sm dark:text-white">Profile</span>
+                      <span className="text-sm dark:text-white">{t("navigation.profile")}</span>
                   </button>
                 </Link>
                 <Link to="/settings" className={`inline-flex flex-col pt-2 hover:bg-gray-100 dark:hover:bg-gray-800 ${location.pathname == "/settings" ? "bg-gray-800" : "bg-none"}`}>
                   <button type="button" className="inline-flex flex-col items-center justify-center px-5 group dark:hover:bg-gray-800">
                       <RiSettings4Line className="w-5 h-5 mb-2 dark:text-white"/>
-                      <span className="text-sm dark:text-white">Settings</span>
+                      <span className="text-sm dark:text-white">{t("navigation.settings")}</span>
                   </button>
                 </Link>
             </div>

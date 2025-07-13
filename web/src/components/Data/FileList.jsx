@@ -3,12 +3,14 @@ import { Table, TableHead, TableHeadCell, TableBody, TableCell, TableRow, Button
 import FilesService from '../../services/files.service';
 import useToast from '../../toast/useToast';
 import { useInterval } from '../../useInterval';
+import { useTranslation, Trans } from 'react-i18next';
 
 function FileList(props) {
     const [files, setFiles] = useState();
     const [refreshInterval, setRefreshInterval] = useState(null);
     const [loading, setLoading] = useState(false);
     const toast = useToast(4000);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (props.refresh) {
@@ -29,7 +31,7 @@ function FileList(props) {
                 setFiles(response.data);
                 if (refreshInterval) {
                     if (JSON.stringify(oldFiles) != JSON.stringify(response.data)) {
-                        toast("success", "Exported file is now available for download")
+                        toast("success", t("toast.file_available_download"))
                         props.refreshComplete();
                         setRefreshInterval(null);
                         setLoading(false);
@@ -87,7 +89,7 @@ function FileList(props) {
     return (
         <div>
             <div className="flex flex-row gap-4">
-            <h2 className="format lg:format-lg dark:format-invert">Available exports ({files?.length || 0})</h2>
+            <h2 className="format lg:format-lg dark:format-invert">{t("settings.data.files.available_exports")} ({files?.length || 0})</h2>
                 {loading &&
                     <Spinner />
                 }
@@ -95,9 +97,9 @@ function FileList(props) {
             <Table striped>
                 <TableHead>
                     <TableRow>
-                        <TableHeadCell>Filename</TableHeadCell>
-                        <TableHeadCell>Created</TableHeadCell>
-                        <TableHeadCell>Action</TableHeadCell>
+                        <TableHeadCell>{t("settings.data.files.filename")}</TableHeadCell>
+                        <TableHeadCell>{t("settings.data.files.created")}</TableHeadCell>
+                        <TableHeadCell>{t("settings.data.files.action")}</TableHeadCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -107,7 +109,7 @@ function FileList(props) {
                                 <TableCell>{item.filename}</TableCell>
                                 <TableCell>{new Date(item.created_at).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false})}</TableCell>
                                 
-                                <TableCell><Button onClick={() => downloadFile(item.filename)}>Download</Button></TableCell>
+                                <TableCell><Button onClick={() => downloadFile(item.filename)}>{t("forms.download")}</Button></TableCell>
                             </TableRow>
                         )
                     })

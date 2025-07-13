@@ -7,6 +7,7 @@ import { RiMastodonFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import BookRating from './Library/BookRating';
 import UpdateReadingStatusView from './UpdateReadingStatusView';
+import { useTranslation, Trans } from 'react-i18next';
 
 function UpdateReadingStatusButton(props) {
     const [openModal, setOpenModal] = useState(false);
@@ -16,6 +17,7 @@ function UpdateReadingStatusButton(props) {
     const [updateButtonDisabled, setUpdateButtonDisabled] = useState(false);
 
     const toast = useToast(4000);
+    const { t } = useTranslation();
 
     const updateProgress = () => {
         BooksService.edit(props.id, {current_page: updatedProgress}).then(
@@ -40,12 +42,12 @@ function UpdateReadingStatusButton(props) {
     return (
         <>
             {props.buttonStyle == "alternative" ? (
-                <Button onClick={() => setOpenModal(true)}>Update progress</Button>
+                <Button onClick={() => setOpenModal(true)}>{t("book.update_reading.update_progress")}</Button>
             ) :(
-                <Button color="light" pill size="sm" onClick={() => setOpenModal(true)}>Update progress</Button>
+                <Button color="light" pill size="sm" onClick={() => setOpenModal(true)}>{t("book.update_reading.update_progress")}</Button>
             )}
             <Modal size="lg" show={openModal} onClose={() => setOpenModal(false)}>
-            <ModalHeader className="border-gray-200">Update reading progress</ModalHeader>
+            <ModalHeader className="border-gray-200">{t("book.update_reading.update_reading_progress")}</ModalHeader>
                 <ModalBody>
                     <UpdateReadingStatusView title={props.title} totalPages={props.totalPages} 
                         onNoProgressError={() => setUpdateButtonDisabled(false)}
@@ -56,9 +58,9 @@ function UpdateReadingStatusButton(props) {
                     />
                 </ModalBody>
                 <ModalFooter>
-                    <Button onClick={() => updateProgress()} disabled={updateButtonDisabled}>Update</Button>
-                    <Button color="alternative" onClick={() => setOpenModal(false)}>Cancel</Button>
-                    <Button color="alternative" onClick={() => setFinished()}>Set as finished</Button>
+                    <Button onClick={() => updateProgress()} disabled={updateButtonDisabled}>{t("forms.update")}</Button>
+                    <Button color="alternative" onClick={() => setOpenModal(false)}>{t("forms.cancel")}</Button>
+                    <Button color="alternative" onClick={() => setFinished()}>{t("book.update_reading.set_as_finished")}</Button>
                 </ModalFooter>
             </Modal>
 
@@ -69,12 +71,19 @@ function UpdateReadingStatusButton(props) {
                     <div className="flex flex-col items-center justify-center text-center gap-2">
                         <img src={"/medal.svg"} width={140} height={140}/>
                         <div className="format lg:format-lg dark:format-invert">
-                            <h2>Congratulations!</h2>
-                            <p>On finishing reading <strong>{props.title}</strong></p>
-                            
+                            <h2>{t("book.update_reading.finished.title")}</h2>
+                            <p>
+                                <Trans i18nKey="book.update_reading.finished´.description"
+                                    components={{
+                                        link_to_info: (
+                                        <strong>{props.title}</strong>
+                                        )
+                                    }}
+                                />
+                            </p>                            
                         </div>
                         <div className="flex flex-col items-center">
-                            <p>Rate this book</p>
+                            <p>{t("book.rating.rate_this_book")}</p>
                             <BookRating size={"lg"} id={props.id} title={props.title} rating={props.rating} />
                         </div>
                     </div>
@@ -82,7 +91,7 @@ function UpdateReadingStatusButton(props) {
                 <ModalFooter className="flex justify-center gap-4">
                     <Button as={Link} to={"https://mastodonshare.com/?text=I just finished reading " + props.title  + " 📖&url=https://booklogr.app/books/" + props.id} target='_blank'>
                         <RiMastodonFill className="mr-2 h-5 w-5" />
-                        Share on Mastodon
+                        {t("book.share_mastodon")}
                     </Button>
                 </ModalFooter>
             </Modal>

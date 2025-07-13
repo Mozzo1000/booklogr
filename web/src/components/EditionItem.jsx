@@ -4,10 +4,11 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { Img } from 'react-image'
 import { Badge } from 'flowbite-react';
+import { useTranslation, Trans } from 'react-i18next';
 
 function EditionItem({data, selected_isbn}) {
     const theme = useThemeMode();
-    
+    const { t } = useTranslation();
     
     function extractYear(dateString) {
         if (!dateString) return null; // handle null
@@ -85,10 +86,10 @@ function EditionItem({data, selected_isbn}) {
                     )
                 })}
             </div>
-            <p className="text-sm font-sans">Pages: {data.number_of_pages || "N/A"}</p>
+            <p className="text-sm font-sans">{t("book.pages")}: {data.number_of_pages || "N/A"}</p>
             <p className="text-sm font-sans">ISBN: {data.isbn_13[0]}</p>
             {data.isbn_13[0] === selected_isbn &&
-                <Badge color="success">Current Edition</Badge>
+                <Badge color="success">{t("editions.current")}</Badge>
             }
 
         </div>

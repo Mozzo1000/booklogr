@@ -8,10 +8,12 @@ import Skeleton from 'react-loading-skeleton'
 import NotesIcon from '../NotesIcon';
 import { Img } from 'react-image'
 import { useThemeMode } from 'flowbite-react';
+import { useTranslation, Trans } from 'react-i18next';
 
 function BookItem(props) {
     const [imageLoaded, setImageLoaded] = useState(false);
     const theme = useThemeMode();
+    const { t } = useTranslation();
     
     return (
         <div className="min-h-full flex flex-col bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-md dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
@@ -24,7 +26,7 @@ function BookItem(props) {
                 <Link to={"/books/" + props.isbn} className="hover:underline">
                     <h5 className="mb-2 text font-bold tracking-tight text-gray-900 dark:text-white">{props.title}</h5>
                 </Link>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">by {props.author}</p>
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{t("book.by_author", {author: props.author})}</p>
 
                 {props.showReadingStatusBadge &&
                     <Badge color="gray" className="w-fit">{props.readingStatus}</Badge>
@@ -32,7 +34,7 @@ function BookItem(props) {
 
                 {props.showProgress &&
                     <>
-                    <Progress className="mb-3" progress={props.totalPages === 0 ? 0 : Math.round((100 * props.currentPage) / props.totalPages)} size="md" labelProgress textLabel="Reading progress" labelText textLabelPosition="outside" progressLabelPosition="outside" />
+                    <Progress className="mb-3" progress={props.totalPages === 0 ? 0 : Math.round((100 * props.currentPage) / props.totalPages)} size="md" labelProgress textLabel={t("book.update_reading.reading_progress")} labelText textLabelPosition="outside" progressLabelPosition="outside" />
                     <div className='flex flex-row items-center'>
                         <div className="grow">
                             <UpdateReadingStatusButton currentPage={props.currentPage} totalPages={props.totalPages} id={props.internalID} title={props.title} rating={props.rating} onSucess={props.onReadingStatusChanged}/>

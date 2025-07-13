@@ -7,6 +7,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { RiUser3Line } from "react-icons/ri";
 import useToast from '../toast/useToast';
 import AnimatedLayout from '../AnimatedLayout';
+import { useTranslation, Trans } from 'react-i18next';
 
 function Register() {
     const [email, setEmail] = useState("");
@@ -15,6 +16,7 @@ function Register() {
     const [passwordConf, setPasswordConf] = useState("");
     const [passwordErrorText, setPasswordErrorText] = useState();
     const [registerButtonDisabled, setRegisterButtonDisabled] = useState(true);
+    const { t } = useTranslation();
 
     let navigate = useNavigate();
     const toast = useToast(8000);
@@ -44,7 +46,7 @@ function Register() {
 
     useEffect(() => {
       if (passwordConf !== password) {
-          setPasswordErrorText("Passwords do not match");
+          setPasswordErrorText(t("form.password_no_match"));
           setRegisterButtonDisabled(true);
       }
       if (!password && !passwordConf) {
@@ -69,35 +71,35 @@ function Register() {
     <AnimatedLayout>
       <div className="flex flex-col justify-center items-center gap-6">
         <div className="format lg:format-lg dark:format-invert">
-          <h2>Register an account</h2>
+          <h2>{t("forms.register_title")}</h2>
         </div>
         <Card>
           <form className="flex flex-col gap-4" onSubmit={handleRegistration}>
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="email1">Email</Label>
+                <Label htmlFor="email1">{t("forms.email")}</Label>
               </div>
-              <TextInput id="email1" type="email" icon={RiMailLine} placeholder="name@example.com" required value={email} onChange={e => setEmail(e.target.value)}/>
+              <TextInput id="email1" type="email" icon={RiMailLine} placeholder={t("forms.email_placeholder")} required value={email} onChange={e => setEmail(e.target.value)}/>
             </div>
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="name">Your name</Label>
+                <Label htmlFor="name">{t("forms.name")}</Label>
               </div>
               <TextInput id="name" type="text" icon={RiUser3Line} required value={name} onChange={e => setName(e.target.value)}/>
             </div>
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="password1">Password</Label>
+                <Label htmlFor="password1">{t("forms.password")}</Label>
               </div>
               <TextInput id="password1" type="password" icon={RiLockPasswordLine} required value={password} onChange={e => setPassword(e.target.value)} />
             </div>
             <div>
               <div className="mb-2 block">
-                  <Label htmlFor="password2">Confirm password</Label>
+                  <Label htmlFor="password2">{t("forms.confirm_password")}</Label>
                 </div>
                 <TextInput id="password2" type="password" icon={RiLockPasswordLine} required value={passwordConf} onChange={e => setPasswordConf(e.target.value)} color={passwordErrorText ? 'failure' : 'gray'} helperText={passwordErrorText} />
             </div>
-            <Button type="submit" disabled={registerButtonDisabled} >Register</Button>
+            <Button type="submit" disabled={registerButtonDisabled} >{t("forms.register")}</Button>
           </form>
         </Card>
       </div>

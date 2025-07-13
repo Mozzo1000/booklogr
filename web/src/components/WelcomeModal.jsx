@@ -3,6 +3,7 @@ import useToast from '../toast/useToast';
 import ProfileService from '../services/profile.service';
 import { Button, TextInput, Label, Modal, ModalHeader, ModalBody, ModalFooter, Popover, Select } from "flowbite-react";
 import { RiQuestionLine } from "react-icons/ri";
+import { useTranslation } from 'react-i18next';
 
 function WelcomeModal(props) {
 
@@ -10,17 +11,17 @@ function WelcomeModal(props) {
     const [createDisplayName, setCreateDisplayName] = useState();
     const [profileVisibility, setProfileVisibility] = useState("hidden");
     const [contentIndex, setContentIndex] = useState(0);
+    const { t } = useTranslation();
 
     const toast = useToast(4000);
 
     const displayNamePopoverContent = (
         <div className="w-64 text-sm text-gray-500 dark:text-gray-400">
             <div className="border-b border-gray-200 bg-gray-100 px-3 py-2 dark:border-gray-600 dark:bg-gray-700">
-                <h3 className="font-semibold text-gray-900 dark:text-white">Help</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white">{t("help.title")}</h3>
             </div>
             <div className="px-3 py-2">
-                <p>A display name will be used on your profile page that lists all your books. A profile page can be private or public. Display name and visibility of the profile page can be changed at any time.</p>
-                <p>Your display name will also be used for a link to your profile page if you have set it to public.</p>
+                <p>{t("help.display_name_information")}</p>
             </div>
         </div>
     )
@@ -90,12 +91,12 @@ function WelcomeModal(props) {
                     {contentIndex == 0 &&
                     <form className="flex flex-col gap-4" onSubmit={handleCreateProfile}>
                         <div className="format lg:format-lg dark:format-invert">
-                            <h3>Welcome! 🎉</h3>
-                            <p>We are so happy to have you here! To get started tracking all the books you are reading you first need to choose a display name.</p>
+                            <h3>{t("onboarding.step_0.title")}</h3>
+                            <p>{t("onboarding.step_0.description")}</p>
                         </div>
                         <div>
                             <div className="mb-2 flex flex-row gap-2 items-center">
-                                <Label htmlFor="displayname">Display name</Label>
+                                <Label htmlFor="displayname">{t("forms.display_name")}</Label>
                                 <Popover trigger="hover" content={displayNamePopoverContent}>
                                     <span><RiQuestionLine className="dark:text-white" /></span>
                                 </Popover>
@@ -103,21 +104,21 @@ function WelcomeModal(props) {
                             <TextInput id="displayname" type="text" required value={createDisplayName} onChange={(e) => setCreateDisplayName(e.target.value)} />
                             <br />
                             <div className="mb-2 block">
-                                <Label htmlFor="visiblity">Visibility</Label>
+                                <Label htmlFor="visiblity">{t("forms.visibility_label")}</Label>
                             </div>
                             <Select id="visiblity" required value={profileVisibility} onChange={(e) => setProfileVisibility(e.target.value)}>
-                                <option value="hidden">Hidden</option>
-                                <option value="public">Public</option>
+                                <option value="hidden">{t("forms.visibility_hidden")}</option>
+                                <option value="public">{t("forms.visibility_public")}</option>
                             </Select>
                         </div>         
-                        <Button type="submit" disabled={!createDisplayName}>Next</Button>
+                        <Button type="submit" disabled={!createDisplayName}>{t("forms.next")}</Button>
                     </form>
                     }
                     {contentIndex == 1 &&
                         <div className="format lg:format-lg dark:format-invert flex flex-col items-center text-center">
-                            <h3>You are all set!</h3>
-                            <p>Why don't you start by adding some of your favorites books to your lists? It's super simple!</p>
-                            <Button onClick={() => setShowWelcomeScreen(false)}>Close</Button>
+                            <h3>{t("onboarding.step_1.title")}</h3>
+                            <p>{t("onboarding.step_1.description")}</p>
+                            <Button onClick={() => setShowWelcomeScreen(false)}>{t("forms.close")}</Button>
                         </div>
                     }
                 </ModalBody>

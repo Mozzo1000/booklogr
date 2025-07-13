@@ -4,10 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Popover } from 'flowbite-react';
 import AuthService from '../services/auth.service';
 import { Spinner } from 'flowbite-react';
+import { useTranslation, Trans } from 'react-i18next';
 
 function GoogleLoginButton(props) {
     let navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const { t } = useTranslation();
 
     const handleLoginGoogle = useGoogleLogin(
     {
@@ -38,7 +40,7 @@ function GoogleLoginButton(props) {
             <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
             <path fill="none" d="M0 0h48v48H0z"></path>
         </svg>
-        Sign in with Google
+        {t("forms.google_sign_in")}
         {props.error &&
 
             <span>⚠️</span>
@@ -49,11 +51,18 @@ function GoogleLoginButton(props) {
     const displayPopoverContent = (
         <div className="w-64 text-sm text-gray-500 dark:text-gray-400">
             <div className="border-b border-gray-200 bg-gray-100 px-3 py-2 dark:border-gray-600 dark:bg-gray-700">
-                <h3 className="font-semibold text-gray-900 dark:text-white">Google Sign-In Disabled</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white">{t("help.google_client_id_error.title")}</h3>
             </div>
             <div className="px-3 py-2">
-                <p>The provided Google Client ID does not follow the expected format. If you are the person who installed BookLogr on this server, check your setup and update the ID to enable sign-in.
-                    <a target="_blank" href="https://booklogr.app/docs/Configuration/Google-sign-in" className="mt-2 inline-block text-blue-600 underline hover:text-blue-800">Learn more about setting up Google Sign-In</a>
+
+                <p>
+                    <Trans i18nKey="help.google_client_id_error.description"
+                        components={{
+                            link_to_info: (
+                                <a target="_blank" href="https://booklogr.app/docs/Configuration/Google-sign-in" className="mt-2 inline-block text-blue-600 underline hover:text-blue-800" />
+                            )
+                    }}
+                    />
                 </p>
             </div>
         </div>

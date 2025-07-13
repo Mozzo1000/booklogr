@@ -6,11 +6,13 @@ import { RiBook2Line } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import EditionItem from './EditionItem';
 import { RiExternalLinkLine } from "react-icons/ri";
+import { useTranslation, Trans } from 'react-i18next';
 
 function EditionSelector({work_id, selected_isbn}) {
     const [editionList, setEditionList] = useState();
     const [openModal, setOpenModal] = useState(false);
     const toast = useToast(4000);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (work_id) {
@@ -34,10 +36,10 @@ function EditionSelector({work_id, selected_isbn}) {
 
     return (
         <>
-        <Dropdown dismissOnClick={true} label={<span className="inline-flex items-center gap-2"><RiBook2Line className="w-4 h-4" />Change edition</span>} color={"light"}>
+        <Dropdown dismissOnClick={true} label={<span className="inline-flex items-center gap-2"><RiBook2Line className="w-4 h-4" />{t("editions.change")}</span>} color={"light"}>
             <DropdownHeader>
                 <div className="flex flex-row justify-between items-center">
-                    <p className="text-xl">Editions ({editionList?.length || 0})</p>
+                    <p className="text-xl">{t("editions.title")} ({editionList?.length || 0})</p>
                     <Button color="light" onClick={()=>setOpenModal(true)}>
                         <RiExternalLinkLine className="h-6 w-6" />
                     </Button>
@@ -58,7 +60,7 @@ function EditionSelector({work_id, selected_isbn}) {
         </Dropdown>
 
         <Modal show={openModal} dismissible onClose={() => setOpenModal(false)}>
-            <ModalHeader className="border-0"><span className="text-2xl">Editions ({editionList?.length || 0})</span></ModalHeader>
+            <ModalHeader className="border-0"><span className="text-2xl">{t("editions.title")} ({editionList?.length || 0})</span></ModalHeader>
             <ModalBody>
                 {editionList?.map(function(data) {
                     return (

@@ -1,7 +1,239 @@
 {
+
+    "library": "My Library",
+
     "reading_status": {
+        "title": "Reading status",
         "read": "Read",
         "currently_reading": "Currently reading",
-        "to_be_read": "To be read"
+        "to_be_read": "To be read",
+        "all": "All",
+        "want_to_read": "Want to read"
+    },
+
+    "onboarding": {
+        "step_0": {
+            "title": "Welcome! 🎉",
+            "description": "We are so happy to have you here! To get started tracking all the books you are reading you first need to choose a display name."
+        },
+        "step_1": {
+            "title": "You are all set!",
+            "description": "Why don't you start by adding some of your favorites books to your lists? It's super simple!"
+        }
+    },
+
+    "forms": {
+        "next": "Next",
+        "previous": "Previous",
+        "close": "Close",
+        "update": "Update",
+        "save": "Save",
+        "upload_picture": "Upload picture",
+        "upload": "Upload",
+        "uploading": "Uploading...",
+        "remove": "Remove",
+        "display_name": "Display name",
+        "visibility_label": "Visibility",
+        "visibility_hidden": "Private",
+        "visibility_public": "Public",
+        "email": "Email",
+        "email_placeholder": "name@example.com",
+        "password": "Password",
+        "confirm_password": "Confirm password",
+        "name": "Your name",
+        "login": "Login",
+        "register": "Register",
+        "register_title": "Register an account",
+        "register_button": "Register new account",
+        "google_sign_in": "Sign in with Google",
+        "login_title": "Login to your account",
+        "password_no_match": "Passwords do not match",
+        "change_password": "Change password",
+        "old_password": "Old password",
+        "new_password": "New password",
+        "new_password_confirm": "Confirm new password",
+        "download": "Download",
+        "cancel": "Cancel"
+    },
+
+    "settings": {
+        "nav": {
+            "account": "Account",
+            "mastodon": "Mastodon",
+            "data": "Data"
+        },
+        "mastodon": {
+            "share_events": "Share events",
+            "enable_sharing": "Enable event sharing",
+            "enable_sharing_description": "This will enable BookLogr to listen for events such as when finishing a book and share it to social media.",
+            "instance": "Mastodon instance",
+            "access_token": "Access token",
+            "account": "Mastodon account"
+        },
+        "data": {
+            "request_data": {
+                "title": "Request data",
+                "description": "You can request a copy of all your data. Once the request has finished, the data will be displayed in the Available exports table for you to download.",
+                "format": "Choose data format"
+            },
+            "files": {
+                "available_exports": "Available exports",
+                "filename": "Filename",
+                "created": "Created",
+                "action": "Action"
+            },
+            "import_books": {
+                "title": "Import books",
+                "platform": "Platform",
+                "file": "File",
+                "add_duplicate_books": "Add duplicate books"
+            }
+        }
+    },
+
+    "toast": {
+        "file_available_download": "Exported file is now available for download"
+    },
+
+    "verification": {
+        "title": "Verify your account",
+        "verification_code_sent": "A verification code has been sent to <email_hidden />",
+        "verification_code": "Verification code",
+        "verify_button": "Verify"
+    },
+
+    "demo": {
+        "title": "This is a demo of BookLogr",
+        "description": "Some features are <link_to_info>disabled.</link_to_info>",
+        "description_login": "To login use,",
+        "email": "Email: {{email}}",
+        "password": "Password: {{password}}"
+    },
+
+    "search": {
+        "input_placeholder": "Search for a book",
+        "attribution": "Search powered by <link_to_info>OpenLibrary</link_to_info>",
+        "error_not_found": {
+            "title": "No results found",
+            "description": "Try searching for a different title or isbn."
+        },
+        "error_unknown": {
+            "title": "Something went wrong",
+            "description": "Try again later. <error_text>{{error}}. <link_to_info>Learn more</link_to_info></error_text>"
+        }
+    },
+
+    "book": {
+        "by_author": "by {{author}}",
+        "no_description_found": "No description found",
+        "pages": "Pages",
+        "add_to_reading": "Add {{book_title}} to currently reading",
+        "share_mastodon": "Share to Mastodon",
+        "total_pages": "Total pages",
+        "remove_confirmation": {
+            "title": "Are you sure you want to remove this book?",
+            "yes": "Yes, I'm sure",
+            "no": "No, cancel"
+        },
+        "update_reading": {
+            "update_progress": "Update progress",
+            "update_reading_progress": "Update reading progresss",
+            "reading_progress": "Reading progress",
+            "set_as_finished": "Set as finished",
+            "how_far": "How far are you in <book_title/> ?",
+            "current_page": "Current page",
+            "progress": "Progress: {{percentage}}%",
+            "percentage": "Percentage",
+            "percentage_complete": "Percentage complete",
+            "current_page_of": "Current page: {{current_page}} of {{total_pages}}",
+            "error": {
+                "greater_than": "Current page cannot be greater than total pages.",
+                "less_than": "Current page cannot be less than 0."
+            },
+            "finished": {
+                "title": "Congratulations!",
+                "description": "On finishing reading <book_title/>"
+            }
+        },
+        "rating": {
+            "give": "Give a rating",
+            "rate_book": "Rate book",
+            "how_many_starts": "How many stars would you like to give <book_title/> ?",
+            "rate_this_book": "Rate this book",
+            "error": {
+                "greater_than": "Rating cannot be more than 5",
+                "less_than": "Rating cannot be less than 0."
+            }
+        }
+        
+    },
+
+    "editions": {
+        "title": "Editions",
+        "change": "Change edition",
+        "current": "Current Edition"
+    },
+
+    "navigation": {
+        "search": "Search",
+        "profile": "Profile",
+        "settings": "Settings",
+        "logout": "Logout",
+        "expand": "Expand",
+        "collapse": "Collapse",
+        "library": "Library",
+        "home": "Home",
+        "go_home": "Go home"
+    },
+
+    "profile": {
+        "not_found_error": {
+            "title": "No profile found",
+            "description": "We could not find a profile with that name. Either the profile does not exist or it is set to private."
+        },
+        "stats": {
+            "read": "Read",
+            "reading": "Reading",
+            "to_be_read": "To Be Read"
+        },
+        "update_profile": "Update profile",
+        "all_books": "All books",
+        "profile_settings": "Profile settings"
+
+    },
+
+    "actions": {
+        "edit_book": "Edit book"
+    },
+
+    "notes": {
+        "title": "Notes & Quotes",
+        "open": "Open notes",
+        "note": "Note",
+        "quote": "Quote",
+        "notes": "Notes",
+        "quotes": "Quotes",
+        "add_note": "Add note",
+        "add_quote": "Add quote",
+        "no_notes_error": {
+            "title": "No notes found",
+            "description": "There does not seem to be any notes or quotes for this book."
+        }
+    },
+
+    "help": {
+        "title": "Help",
+        "display_name_information": "A display name will be used on your profile page that lists all your books. A profile page can be private or public. Display name and visibility of the profile page can be changed at any time. Your display name will also be used for a link to your profile page if you have set it to public.",
+        "display_name_change_information": "Changing your display name will also change the link to get to your public profile.",
+        "no_books_found": {
+            "title": "No books found",
+            "description": "There does not seem to be any books in this list. Use the search to find a book and add it to your list."
+        },
+        "google_client_id_error":{
+            "title":"Google Sign-In Disabled",
+            "description": "The provided Google Client ID does not follow the expected format. If you are the person who installed BookLogr on this server, check your setup and update the ID to enable sign-in.<link_to_info>Learn more about setting up Google Sign-In</link_to_info>"
+        },
+        "mastodon_account_information": "See <link_to_info>guide</link_to_info> for how to connect your Mastodon account to BookLogr.",
+        "number_of_pages_information": "The number of pages in the book you are reading."
     }
 }

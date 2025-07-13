@@ -55,7 +55,7 @@ function LibraryPane() {
     return (
         <>
         <article className="format lg:format-lg pb-2 dark:format-invert">
-            <h2>My Library</h2>
+            <h2>{t("library")}</h2>
         </article>
         <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">
         <Tabs.Item active title={t("reading_status.currently_reading")} icon={RiBookOpenLine}>
@@ -102,8 +102,8 @@ function LibraryPane() {
             <div className="flex flex-col justify-center items-center text-center gap-4 pt-8">
                 <RiBook2Line size={96} className="dark:text-white"/>
                 <div className="format lg:format-lg dark:format-invert">
-                    <h2>No books found</h2>
-                    <p>There does not seem to be any books in this list. Use the search to find a book and add it to your list.</p>
+                    <h2>{t("help.no_books_found.title")}</h2>
+                    <p>{t("help.no_books_found.description")}</p>
                 </div>
             </div>
         }

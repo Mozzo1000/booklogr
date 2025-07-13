@@ -12,6 +12,7 @@ import { RiBookmarkLine } from "react-icons/ri";
 import RemoveBookModal from './RemoveBookModal';
 import EditBookModal from './Library/EditBookModal';
 import { RiBallPenLine } from "react-icons/ri";
+import { useTranslation, Trans } from 'react-i18next';
 
 function ActionsBookLibraryButton(props) {
     const [status, setStatus] = useState();
@@ -20,6 +21,7 @@ function ActionsBookLibraryButton(props) {
     const [openEditBookModal, setOpenEditBookModal] = useState();
 
     const toast = useToast(4000);
+    const { t } = useTranslation();
 
     const changeStatus = (statusChangeTo) => {
         BooksService.edit(props.id, {status: statusChangeTo}).then(
@@ -48,16 +50,16 @@ function ActionsBookLibraryButton(props) {
         <>
         <Dropdown label="" dismissOnClick={false} renderTrigger={() => <span className="hover:cursor-pointer"><FaEllipsisVertical className="dark:text-white"/></span>}>
             <DropdownHeader>
-                <span className="block text-sm font-bold">Reading status</span>
+                <span className="block text-sm font-bold">{t("reading_status.title")}</span>
             </DropdownHeader>
-            <DropdownItem onClick={() => (clickDropItem("Currently reading"))}><RiBookOpenLine size={18} className="mr-1"/>Currently reading</DropdownItem>
-            <DropdownItem onClick={() => (clickDropItem("To be read"))}><RiBookmarkLine size={18} className="mr-1"/>To be read</DropdownItem>
-            <DropdownItem onClick={() => (clickDropItem("Read"))}><RiBook2Line size={18} className="mr-1"/>Read</DropdownItem>
+            <DropdownItem onClick={() => (clickDropItem("Currently reading"))}><RiBookOpenLine size={18} className="mr-1"/>{t("reading_status.currently_reading")}</DropdownItem>
+            <DropdownItem onClick={() => (clickDropItem("To be read"))}><RiBookmarkLine size={18} className="mr-1"/>{t("reading_status.to_be_read")}</DropdownItem>
+            <DropdownItem onClick={() => (clickDropItem("Read"))}><RiBook2Line size={18} className="mr-1"/>{t("reading_status.read")}</DropdownItem>
             <DropdownDivider />
 
-            <DropdownItem onClick={() => setOpenNotesModal(true)}><RiStickyNoteLine size={18} className="mr-1"/>Notes & Quotes</DropdownItem>
-            <DropdownItem onClick={() => setOpenEditBookModal(true)}><RiBallPenLine size={18} className="mr-1"/>Edit book</DropdownItem>
-            <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />Remove</DropdownItem>
+            <DropdownItem onClick={() => setOpenNotesModal(true)}><RiStickyNoteLine size={18} className="mr-1"/>{t("notes.title")}</DropdownItem>
+            <DropdownItem onClick={() => setOpenEditBookModal(true)}><RiBallPenLine size={18} className="mr-1"/>{t("actions.edit_book")}</DropdownItem>
+            <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
         </Dropdown>
         
         <NotesView id={props.id} open={openNotesModal} close={setOpenNotesModal} allowEditing={props.allowNoteEditing}/>
