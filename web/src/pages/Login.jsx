@@ -17,7 +17,7 @@ function Login() {
     const { t } = useTranslation();
 
     const isValidGoogleID = /^[0-9]+-[a-z0-9]+\.apps\.googleusercontent\.com$/.test(import.meta.env.VITE_GOOGLE_CLIENT_ID);
-
+  
     const handleLogin = (e) => {
         e.preventDefault();
         AuthService.login(username, password).then(
@@ -61,7 +61,7 @@ function Login() {
             <ul>{t("demo.password", {password: "demo"})}</ul>
           </div>
         ):(
-          import.meta.env.VITE_GOOGLE_CLIENT_ID &&
+          import.meta.env.VITE_GOOGLE_CLIENT_ID && import.meta.env.VITE_GOOGLE_CLIENT_ID !== "BL_GOOGLE_ID" &&
             <GoogleLoginButton error={!isValidGoogleID}/>
         )}
 
