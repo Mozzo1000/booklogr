@@ -221,6 +221,13 @@
         }
     },
 
+    "update": {
+        "version": "Version",
+        "new_version": "New version {{version}} available! 🎉",
+        "release_notes": "Release Notes",
+        "go_to_release": "Go to release page"
+    },
+
     "help": {
         "title": "Help",
         "display_name_information": "A display name will be used on your profile page that lists all your books. A profile page can be private or public. Display name and visibility of the profile page can be changed at any time. Your display name will also be used for a link to your profile page if you have set it to public.",
