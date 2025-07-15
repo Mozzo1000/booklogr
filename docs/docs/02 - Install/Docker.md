@@ -114,7 +114,7 @@ See [issue #23](https://github.com/Mozzo1000/booklogr/issues/23) for more inform
 services:
     booklogr-api:
         container_name: "booklogr-api"
-        image: mozzo/booklogr:v1.4.1
+        image: mozzo/booklogr:v1.5.0
         environment:
             - DATABASE_URL=sqlite:///books.db
             - AUTH_SECRET_KEY=ADD STRONG SECRET HERE
@@ -132,7 +132,7 @@ services:
 
     booklogr-web:
         container_name: "booklogr-web"
-        image: mozzo/booklogr-web:v1.4.1
+        image: mozzo/booklogr-web:v1.5.0
         environment:
             - BL_API_ENDPOINT=https://booklogr-api.YOURDOMAIN.TLD/ 
             - BL_GOOGLE_ID=XXX.apps.googleusercontent.com # CHANGE THIS TO YOUR OWN GOOGLE ID
