@@ -6,6 +6,8 @@ from api.routes.tasks import _create_task
 import json
 from sqlalchemy.exc import IntegrityError
 from psycopg2.errors import ForeignKeyViolation
+from datetime import datetime, timezone
+from api.utils import validate_date_string
 
 books_endpoint = Blueprint('books', __name__)
 
@@ -340,15 +342,32 @@ def add_book_note(id):
               description: Content of the note
               type: string
               required: true
+            - name: created_on
+              in: body
+              description: Date of note creation (optional)
+              type: string
+              required: false
         security:
-            - bearerAuth: []         
+            - bearerAuth: []
         responses:
           200:
             description: Note created.
     """
+
     page = None
+    created_on = datetime.now(timezone.utc)
     if "quote_page" in request.json:
         page = request.json["quote_page"]
-    new_note = Notes(book_id=id, content=request.json["content"], quote_page=page)
+    if "created_on" in request.json:
+      parsed = validate_date_string(request.json["created_on"])
+      if parsed:
+          created_on = parsed
+      else:
+           return jsonify({
+                "error": "Invalid date format.",
+                "message": "The date format is invalid. Accepted formats: 'YYYY-MM-DD', 'YYYY-MM-DD HH:MM:SS', or 'YYYY-MM-DD HH:MM:SS.ssssss'."
+            }), 422
+    
+    new_note = Notes(book_id=id, content=request.json["content"], quote_page=page, created_on=created_on)
     new_note.save_to_db()
     return jsonify({'message': 'Note created'}), 200
