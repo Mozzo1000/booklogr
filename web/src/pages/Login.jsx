@@ -43,7 +43,7 @@ function Login() {
         <div className="format lg:format-lg dark:format-invert">
           <h2>{t("forms.login_title")}</h2>
         </div>
-        {String(import.meta.env.VITE_DEMO_MODE).toLowerCase() === "true" ? ( 
+        {String(import.meta.env.VITE_DEMO_MODE).toLowerCase() === "true" &&
           <div className="text-center">
             <p className="text-lg font-bold">{t("demo.title")}</p>
             <p>
@@ -60,8 +60,11 @@ function Login() {
             <ul>{t("demo.email", {email: "demo@booklogr.app"})}</ul>
             <ul>{t("demo.password", {password: "demo"})}</ul>
           </div>
+        }
+
+        {typeof import.meta.env.VITE_GOOGLE_CLIENT_ID !== "string" || import.meta.env.VITE_GOOGLE_CLIENT_ID.trim() === "" ? (
+            <></>
         ):(
-          import.meta.env.VITE_GOOGLE_CLIENT_ID && import.meta.env.VITE_GOOGLE_CLIENT_ID !== "BL_GOOGLE_ID" &&
             <GoogleLoginButton error={!isValidGoogleID}/>
         )}
 
