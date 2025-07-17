@@ -59,26 +59,26 @@ function NotesItem({ id, content, visibility, page, date, allowEditing, onDelete
             <div className="flex flex-row items-center justify-between">
                 <div className="flex justify-start gap-2 items-center">
                     {getType() === t("notes.quote") ? (
-                        <RiDoubleQuotesR size={20} />
+                        <RiDoubleQuotesR size={20} className="dark:text-white"/>
                     ): (
-                        <RiStickyNoteLine size={20} />
+                        <RiStickyNoteLine size={20} className="dark:text-white"/>
                     )}
                     <Badge color="dark">{getType()}</Badge>
                     <Badge color="light">{formatVisibility(visibility)}</Badge>
                 </div>
                 {allowEditing &&
                     <div className="flex justify-end gap-2 items-center">
-                        <Button size="xs" color="light" outline className="hover:bg-gray-100" onClick={() => setOpenEditNote(true)}>
-                            <RiEditBoxLine  className="w-5 h-5" />
+                        <Button size="xs" color="light" outline className="hover:bg-gray-100 dark:hover:bg-gray-500" onClick={() => setOpenEditNote(true)}>
+                            <RiEditBoxLine  className="w-5 h-5 dark:text-white"/>
                         </Button>          
-                        <Button size="xs" color="light" outline className="hover:bg-gray-100" onClick={() => setRemovalConfModal(true)}>
+                        <Button size="xs" color="light" outline className="hover:bg-gray-100 dark:hover:bg-gray-500" onClick={() => setRemovalConfModal(true)}>
                             <RiDeleteBin6Line className="w-5 h-5 text-red-600" />
                         </Button>  
                     </div>
                 }
             </div>
             <div>
-                <p>{content}</p>
+                <p className="format dark:format-invert">{content}</p>
             </div>
             <div className="w-full flex flex-row items-center justify-between">
                 {page && page > 0 ? (
