@@ -157,7 +157,7 @@ class ProfileSchema(ma.SQLAlchemySchema):
     visibility = ma.String()
     
     books = db.relationship("Books", backref='profiles')
-    books = ma.List(ma.Nested(BooksPublicOnlySchema(only=("author", "description", "current_page", "total_pages", "reading_status", "title", "isbn", "rating", "notes", "num_notes"))))
+    books = ma.List(ma.Nested(BooksPublicOnlySchema(only=("id", "author", "description", "current_page", "total_pages", "reading_status", "title", "isbn", "rating", "notes", "num_notes"))))
     num_books_read = ma.Method("get_num_books_read")
     num_books_reading = ma.Method("get_num_books_currently_reading")
     num_books_tbr = ma.Method("get_num_books_to_be_read")
