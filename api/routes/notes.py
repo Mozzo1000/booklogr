@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt
 from api.models import Notes, NotesSchema, Books
+from api.utils import validate_date_string
 
 notes_endpoint = Blueprint('notes', __name__)
 
@@ -54,7 +55,22 @@ def edit_note(id):
             - name: visibility
               in: body
               type: string
-              required: true
+              required: false
+            - name: content
+              in: body
+              description: Note content
+              type: string
+              required: false
+            - name: quote_page
+              in: body
+              description: Page of the quote
+              type: integer
+              required: false
+            - name: created_on
+              in: body
+              description: Date of note creation (optional)
+              type: string
+              required: false
         security:
             - bearerAuth: []         
         responses:
@@ -69,6 +85,19 @@ def edit_note(id):
     if request.json:
         if "visibility" in request.json:
             note.visibility = request.json["visibility"]
+        if "content" in request.json:
+            note.content = request.json["content"]
+        if "quote_page" in request.json:
+            note.quote_page = request.json["quote_page"]
+        if "created_on" in request.json:
+          parsed = validate_date_string(request.json["created_on"])
+          if parsed:
+              note.created_on = parsed
+          else:
+              return jsonify({
+                    "error": "Invalid date format.",
+                    "message": "The date format is invalid. Accepted formats: 'YYYY-MM-DD', 'YYYY-MM-DD HH:MM:SS', or 'YYYY-MM-DD HH:MM:SS.ssssss'."
+                }), 422
     else:
         return jsonify({
                     "error": "Bad request",
