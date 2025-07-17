@@ -314,7 +314,7 @@ def get_notes_for_book(id):
     notes_schema = NotesSchema(many=True)
     book = Books.query.filter(Books.owner_id==claim_id, Books.id==id).first()
     if book:
-        return jsonify(notes_schema.dump(book.notes))
+        return jsonify(notes_schema.dump(sorted(book.notes, key=lambda x: x.created_on, reverse=True)))
     else:
         return jsonify({
                         "error": "Not found",
