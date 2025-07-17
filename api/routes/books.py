@@ -57,12 +57,24 @@ def get_books():
               in: query
               type: string
               required: false
+            - name: sort_by
+              in: query
+              type: string
+              description: Field to sort by (progress, added_date, title, author, rating, reading_status, isbn)
+              required: false
+            - name: order
+              in: query
+              type: string
+              description: Sorting order (asc or desc)
+              required: false
         security:
             - bearerAuth: []         
         responses:
           200:
             description: Returns books in list
     """
+    sort_fields = {"progress", "added_date", "title", "author", "rating", "reading_status", "isbn"}
+    order_fields = {"asc", "desc"}
 
     limit = 25
     offset = request.args.get('offset', 1, type=int)
@@ -71,11 +83,41 @@ def get_books():
 
     claim_id = get_jwt()["id"]
     query_status = request.args.get("status")
+    sort_by = request.args.get("sort_by", "title")
+    order = request.args.get("order", "asc")
+
+    if sort_by not in sort_fields:
+      return jsonify({
+                  'error': 'Invalid sort field',
+                  'message': 'Sort can be only one of the following fields: progress, added_date, title, author, rating, reading_status, isbn'
+              }), 400
+    
+    if order not in order_fields:
+      return jsonify({
+                  'error': 'Invalid order field',
+                  'message': 'Order can be only one of the following fields: asc, desc'
+              }), 400
+    
+  
     books_schema = BooksSchema(many=True)
+    books = Books.query.filter(Books.owner_id == claim_id)
+
     if query_status:
-        books = Books.query.filter(Books.owner_id==claim_id, Books.reading_status==query_status).paginate(page=offset, per_page=limit, error_out=False)
-    else:
-        books = Books.query.filter(Books.owner_id==claim_id).paginate(page=offset, per_page=limit, error_out=False)
+        books = books.filter(Books.reading_status==query_status)
+    
+    if sort_by in sort_fields:
+        if sort_by == "progress":
+          progress_calc = (Books.current_page * 100.0 / Books.total_pages).label('progress')
+          if order == "asc":
+            books = books.order_by(progress_calc.asc()).paginate(page=offset, per_page=limit, error_out=False)
+          else:
+              books = books.order_by(progress_calc.desc()).paginate(page=offset, per_page=limit, error_out=False)
+        else:
+          if order == "asc":
+            books = books.order_by(getattr(Books, sort_by).asc()).paginate(page=offset, per_page=limit, error_out=False)
+          else:
+            books = books.order_by(getattr(Books, sort_by).desc()).paginate(page=offset, per_page=limit, error_out=False)
+
     return jsonify({"items": books_schema.dump(books.items), "meta": {
             "page": books.page,
             "per_page": books.per_page,
