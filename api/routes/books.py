@@ -342,6 +342,11 @@ def add_book_note(id):
               description: Content of the note
               type: string
               required: true
+            - name: visibility
+              in: body
+              description: Visibility of the note (hidden or public)
+              type: string
+              required: false
             - name: created_on
               in: body
               description: Date of note creation (optional)
@@ -356,8 +361,17 @@ def add_book_note(id):
 
     page = None
     created_on = datetime.now(timezone.utc)
+    visibility = "hidden"
     if "quote_page" in request.json:
         page = request.json["quote_page"]
+    if "visibility" in request.json:
+        if "hidden" or "public" in request.json["visibility"]:
+          visibility = request.json["visibility"]
+        else:
+            return jsonify({
+                "error": "Invalid visibility",
+                "message": "The supplied visibility is invalid. It can be either hidden or public."
+            }), 422
     if "created_on" in request.json:
       parsed = validate_date_string(request.json["created_on"])
       if parsed:
@@ -368,6 +382,6 @@ def add_book_note(id):
                 "message": "The date format is invalid. Accepted formats: 'YYYY-MM-DD', 'YYYY-MM-DD HH:MM:SS', or 'YYYY-MM-DD HH:MM:SS.ssssss'."
             }), 422
     
-    new_note = Notes(book_id=id, content=request.json["content"], quote_page=page, created_on=created_on)
+    new_note = Notes(book_id=id, content=request.json["content"], quote_page=page, created_on=created_on, visibility=visibility)
     new_note.save_to_db()
     return jsonify({'message': 'Note created'}), 200
