@@ -15,6 +15,8 @@ import Verify from "./pages/Verify";
 import Settings from "./pages/Settings";
 import globalRouter from "./GlobalRouter";
 import { AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
+import { useThemeMode } from "flowbite-react";
 
 function PrivateRoute({ children }) {
   const auth = AuthService.getCurrentUser()
@@ -24,8 +26,19 @@ function PrivateRoute({ children }) {
 function App() {
   const navigate = useNavigate();
   globalRouter.navigate = navigate;
+  const mode = useThemeMode();
 
   let location = useLocation();
+
+  // Set the theme based on localStorage if it exists.
+  useEffect(() => {
+    if(localStorage.getItem("flowbite-theme-mode") === "dark") {
+      mode.setMode("dark");
+    } else if(localStorage.getItem("flowbite-theme-mode") === "light") {
+      mode.setMode("light");
+    }
+  }, []);
+
 
   return (
     <div className="min-h-screen">
