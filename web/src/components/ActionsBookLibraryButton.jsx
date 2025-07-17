@@ -62,7 +62,7 @@ function ActionsBookLibraryButton(props) {
             <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
         </Dropdown>
         
-        <NotesView id={props.id} open={openNotesModal} close={setOpenNotesModal} allowEditing={props.allowNoteEditing}/>
+        <NotesView id={props.id} open={openNotesModal} setOpen={setOpenNotesModal} allowEditing={props.allowNoteEditing}/>
         <RemoveBookModal id={props.id} open={openRemoveModal} close={setOpenRemoveModal} onSuccess={props.onSuccess}/>
         <EditBookModal id={props.id} totalPages={props.totalPages} open={openEditBookModal} close={setOpenEditBookModal} onSuccess={props.onSuccess} />
         </>

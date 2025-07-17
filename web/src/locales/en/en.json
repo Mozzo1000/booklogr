@@ -215,9 +215,27 @@
         "quotes": "Quotes",
         "add_note": "Add note",
         "add_quote": "Add quote",
+        "input_placeholder": "Write your {{type}} here...",
+        "page": "Page",
+        "edit": "Edit",
+        "page_number": "Page number",
+        "make_this_public": "Make this {{type}} public",
+        "no_both_error": {
+            "title": "No notes or quotes found",
+            "description": "There does not seem to be any notes or quotes for this book."
+        },
         "no_notes_error": {
             "title": "No notes found",
-            "description": "There does not seem to be any notes or quotes for this book."
+            "description": "There does not seem to be any notes for this book."
+        },
+        "no_quotes_error": {
+            "title": "No quotes found",
+            "description": "There does not seem to be any quotes for this book."
+        },
+        "remove_confirmation": {
+            "title": "Are you sure you want to remove this note?",
+            "yes": "Yes, I'm sure",
+            "no": "No, cancel"
         }
     },
 

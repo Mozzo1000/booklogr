@@ -49,7 +49,7 @@ function BookItem(props) {
                 }
                 {props.showNotes &&
                     (props.notes > 0 &&
-                        <NotesIcon id={props.internalID} notes={props.notes} overrideNotes={props.overrideNotes} allowNoteEditing={props.allowNoteEditing}/>
+                        <NotesIcon id={props.internalID} notes={props.notes} allowEditing={props.allowNoteEditing} overrideNotes={props.overrideNotes} />
                     )
                 }
                 </div>
@@ -70,7 +70,6 @@ BookItem.defaultProps = {
     showRating: true,
     disableGiveRating: false,
     showNotes:true,
-    overrideNotes: undefined,
     allowNoteEditing: true,
 }
 
