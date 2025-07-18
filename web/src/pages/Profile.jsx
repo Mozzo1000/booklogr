@@ -16,6 +16,8 @@ import { RiEyeLine } from "react-icons/ri";
 import AnimatedLayout from '../AnimatedLayout';
 import WelcomeModal from '../components/WelcomeModal';
 import { useTranslation, Trans } from 'react-i18next';
+import { RiListView } from "react-icons/ri";
+import { RiGalleryView } from "react-icons/ri";
 
 function Profile() {
     const [data, setData] = useState();
@@ -25,6 +27,7 @@ function Profile() {
     const [displayName, setDisplayName] = useState();
     const [profileVisiblity, setProfileVisiblity] = useState();
     const [profileNotFound, setProfileNotFound] = useState(false);
+    const [view, setView] = useState(localStorage.getItem("library_view") ? localStorage.getItem("library_view") : "gallery");
 
     const [showWelcomeModal, setShowWelcomeScreen] = useState(false);
 
@@ -143,6 +146,11 @@ function Profile() {
         return visibilityMap[value] || value;
     }
 
+    const changeView = (changeToView) => {
+        setView(changeToView);
+        localStorage.setItem("library_view", changeToView);
+    }
+
     return (
         <AnimatedLayout>
         <div className="container mx-auto">          
@@ -173,18 +181,28 @@ function Profile() {
                         <hr className="w-full h-px my-8 bg-gray-200 border-0" />
                         <span className="absolute font-medium text-gray-900 -translate-x-1/3 bg-white dark:bg-[#121212] dark:text-white ">{t("profile.all_books")}</span>
                     </div>
-                    <ButtonGroup className="pb-4">
-                        <Button color="alternative" onClick={() => setReadingStatusFilter("All")}>{t("reading_status.all")} ({data.books.length})</Button>
-                        <Button color="alternative" onClick={() => setReadingStatusFilter("Read")}>{t("reading_status.read")} ({data.num_books_read || 0})</Button>
-                        <Button color="alternative" onClick={() => setReadingStatusFilter("Currently reading")}>{t("reading_status.currently_reading")} ({data.num_books_reading || 0})</Button>
-                        <Button color="alternative" onClick={() => setReadingStatusFilter("To be read")}>{t("reading_status.to_be_read")} ({data.num_books_tbr || 0})</Button>
-                    </ButtonGroup>
-                    <PaneTabView>
+                    <div className="flex flex-row justify-between">
+                        <ButtonGroup className="pb-4">
+                            <Button color="alternative" onClick={() => setReadingStatusFilter("All")}>{t("reading_status.all")} ({data.books.length})</Button>
+                            <Button color="alternative" onClick={() => setReadingStatusFilter("Read")}>{t("reading_status.read")} ({data.num_books_read || 0})</Button>
+                            <Button color="alternative" onClick={() => setReadingStatusFilter("Currently reading")}>{t("reading_status.currently_reading")} ({data.num_books_reading || 0})</Button>
+                            <Button color="alternative" onClick={() => setReadingStatusFilter("To be read")}>{t("reading_status.to_be_read")} ({data.num_books_tbr || 0})</Button>
+                        </ButtonGroup>
+                        <ButtonGroup>
+                            <Button size="sm" color={view === "gallery" ? "light" : "alternative"} onClick={() => changeView("gallery")}>
+                                <RiGalleryView className="w-6 h-6" />
+                            </Button>
+                            <Button size="sm" color={view === "list" ? "light" : "alternative"} onClick={() => changeView("list")}>
+                                <RiListView className="w-6 h-6" />
+                            </Button>
+                        </ButtonGroup>
+                    </div>
+                    <PaneTabView view={view}>
                     {filteredBooks.map((item, i) => {
                         console.log(item)
                         return (
                             <div key={i}>
-                                <BookItem internalID={item.id} showNotes showRating disableGiveRating={true} showReadingStatusBadge={true} showOptions={false} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} readingStatus={item.reading_status} rating={item.rating} notes={item.num_notes} allowNoteEditing={false} overrideNotes={item.notes}/>
+                                <BookItem internalID={item.id} view={view} showNotes showRating disableGiveRating={true} showReadingStatusBadge={true} showOptions={false} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} readingStatus={item.reading_status} rating={item.rating} notes={item.num_notes} allowNoteEditing={false} overrideNotes={item.notes}/>
                             </div>
                         )
                     })}
