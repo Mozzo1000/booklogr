@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react'
 import BookItem from './BookItem'
-import { Tabs, Pagination } from "flowbite-react";
+import { Tabs, Pagination, ButtonGroup, Button } from "flowbite-react";
 import BooksService from '../../services/books.service';
 import PaneTabView from './PaneTabView';
 import reducer, { initialState, actionTypes } from '../../useLibraryReducer';
@@ -8,12 +8,15 @@ import { RiBook2Line } from "react-icons/ri";
 import { RiBookOpenLine } from "react-icons/ri";
 import { RiBookmarkLine } from "react-icons/ri";
 import { useTranslation } from 'react-i18next';
+import { RiListView } from "react-icons/ri";
+import { RiGalleryView } from "react-icons/ri";
 
 function LibraryPane() {
     const [activeTab, setActiveTab] = useState(0);
     const [state, dispatch] = useReducer(reducer, initialState);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [view, setView] = useState(localStorage.getItem("library_view") ? localStorage.getItem("library_view") : "gallery");
     const onPageChange = (page) => setPage(page);
 
     const { t, i18n } = useTranslation();
@@ -51,41 +54,55 @@ function LibraryPane() {
       getBooks(translateTabsToStatus())
     }, [page])
     
+    const changeView = (changeToView) => {
+        setView(changeToView);
+        localStorage.setItem("library_view", changeToView);
+    }
 
     return (
         <>
-        <article className="format lg:format-lg pb-2 dark:format-invert">
-            <h2>{t("library")}</h2>
-        </article>
+        <div className="flex flex-row justify-between">
+            <article className="format lg:format-lg pb-2 dark:format-invert">
+                <h2>{t("library")}</h2>
+            </article>
+            <ButtonGroup>
+                <Button size="sm" color={view === "gallery" ? "light" : "alternative"} onClick={() => changeView("gallery")}>
+                    <RiGalleryView className="w-6 h-6" />
+                </Button>
+                <Button size="sm" color={view === "list" ? "light" : "alternative"} onClick={() => changeView("list")}>
+                    <RiListView className="w-6 h-6" />
+                </Button>
+            </ButtonGroup>
+        </div>
         <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">
         <Tabs.Item active title={t("reading_status.currently_reading")} icon={RiBookOpenLine}>
-        <PaneTabView>
+        <PaneTabView view={view} setView={setView}>
             {state.books?.items.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem internalID={item.id} allowNoteEditing={true} showNotes={false} showRating={false} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
+                        <BookItem internalID={item.id} view={view} allowNoteEditing={true} showNotes={false} showRating={false} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
                     </div>
                 )
             })}
             </PaneTabView>
         </Tabs.Item>
         <Tabs.Item title={t("reading_status.to_be_read")} icon={RiBookmarkLine}>
-            <PaneTabView>
+            <PaneTabView view={view} setView={setView}>
             {state.books?.items.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem internalID={item.id} showNotes allowNoteEditing={true} showProgress={false} showOptions title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
+                        <BookItem internalID={item.id} view={view} showNotes allowNoteEditing={true} showProgress={false} showOptions title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
                     </div>
                 )
             })}
             </PaneTabView>
         </Tabs.Item>
         <Tabs.Item title={t("reading_status.read")} icon={RiBook2Line}>
-            <PaneTabView>
+            <PaneTabView view={view} setView={setView}>
             {state.books?.items.map((item) => {
                 return (
                     <div key={item.id}>
-                        <BookItem internalID={item.id} showNotes allowNoteEditing={true} showProgress={false} showOptions showRating title={item.title} isbn={item.isbn} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}  />
+                        <BookItem internalID={item.id} view={view} showNotes allowNoteEditing={true} showProgress={false} showOptions showRating title={item.title} isbn={item.isbn} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}  />
                     </div>
                 )
             })}
