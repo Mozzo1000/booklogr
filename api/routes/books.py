@@ -23,8 +23,9 @@ def get_book_reading_status(isbn):
             - name: isbn
               in: path
               description: ISBN of book
-              type: integer
               required: true
+              schema:
+                type: integer
         security:
             - bearerAuth: []         
         responses:
@@ -55,16 +56,19 @@ def get_books():
         parameters:
             - name: status
               in: query
-              type: string
               required: false
+              schema:
+                type: string
             - name: sort_by
               in: query
-              type: string
+              schema:
+                type: string
               description: Field to sort by (progress, added_date, title, author, rating, reading_status, isbn)
               required: false
             - name: order
               in: query
-              type: string
+              schema:
+                type: string
               description: Sorting order (asc or desc)
               required: false
         security:
@@ -137,38 +141,44 @@ def add_book():
         ---
         tags:
             - Books
-        parameters:
-            - name: title
-              in: body
-              type: string
-              required: true
-            - name: isbn
-              in: body
-              type: string
-              required: true
-            - name: author
-              in: body
-              type: string
-              required: false
-            - name: description
-              in: body
-              type: string
-              required: false
-            - name: reading_status
-              in: body
-              type: string
-              required: false
-              default: To be read
-            - name: current_page
-              in: body
-              type: integer
-              required: false
-              default: 0
-            - name: total_pages
-              in: body
-              type: integer
-              required: false
-              default: 0
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - title
+                  - isbn
+                properties:
+                  title:
+                    type: string
+                    description: Title of the book
+                  isbn:
+                    type: string
+                    description: ISBN number
+                  author:
+                    type: string
+                    description: Author of the book
+                  description:
+                    type: string
+                    description: Description of the book
+                  reading_status:
+                    type: string
+                    description: Reading status
+                    enum:
+                      - To be read
+                      - Currently reading
+                      - Read
+                    default: To be read
+                  current_page:
+                    type: integer
+                    description: Current page being read
+                    default: 0
+                  total_pages:
+                    type: integer
+                    description: Total number of pages
+                    default: 0
         security:
             - bearerAuth: []         
         responses:
@@ -225,22 +235,25 @@ def edit_book(id):
             - name: id
               in: path
               description: ID of book (NOT ISBN)
-              type: integer
               required: true
-            - name: current_page
-              in: body
-              type: string
-              required: false
-            - name: status
-              in: body
-              type: string
-              required: false
-            - name: rating
-              in: body
-              type: number
-              required: false
+              schema:
+               type: integer
+        requestBody:
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  current_page:
+                    type: integer
+                  status:
+                    type: string
+                  rating:
+                    type: number
+                    format: float
         security:
-            - bearerAuth: []         
+            - bearerAuth: []
         responses:
           200:
             description: Book changed successfully.
@@ -309,7 +322,8 @@ def remove_book(id):
             - name: id
               in: path
               description: ID of book (NOT ISBN)
-              type: integer
+              schema:
+                type: integer
               required: true
         security:
             - bearerAuth: []         
@@ -342,7 +356,8 @@ def get_notes_for_book(id):
             - name: id
               in: path
               description: ID of book (NOT ISBN)
-              type: integer
+              schema:
+                type: integer
               required: true
         security:
             - bearerAuth: []         
@@ -377,23 +392,28 @@ def add_book_note(id):
             - name: id
               in: path
               description: ID of book (NOT ISBN)
-              type: integer
+              schema:
+                type: integer
               required: true
-            - name: content
-              in: body
-              description: Content of the note
-              type: string
-              required: true
-            - name: visibility
-              in: body
-              description: Visibility of the note (hidden or public)
-              type: string
-              required: false
-            - name: created_on
-              in: body
-              description: Date of note creation (optional)
-              type: string
-              required: false
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - content
+                properties:
+                  content:
+                    type: string
+                    description: Content of the note
+                  visibility:
+                    type: string
+                    description: Visibility of the note (hidden or public)
+                  created_on:
+                    type: string
+                    format: date-time
+                    description: Date of note creation (optional)
         security:
             - bearerAuth: []
         responses:

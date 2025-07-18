@@ -17,7 +17,8 @@ def download_file(filename):
         parameters:
             - name: filename
               in: path
-              type: string
+              schema:
+                type: string
               required: true
         security:
             - bearerAuth: []         

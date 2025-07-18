@@ -63,7 +63,8 @@ def get_task(id):
         parameters:
             - name: id
               in: path
-              type: integer
+              schema:
+                type: integer
               required: true
         security:
             - bearerAuth: []         
@@ -95,15 +96,20 @@ def create_task():
         ---
         tags:
             - Tasks
-        parameters:
-            - name: type
-              in: body
-              type: string
-              required: true
-            - name: data
-              in: body
-              type: string
-              required: true
+        requestBody:
+        required: true
+        content:
+            application/json:
+            schema:
+                type: object
+                required:
+                    - type
+                    - data
+                properties:
+                    type:
+                        type: string
+                    data:
+                        type: string
         security:
             - bearerAuth: []         
         responses:
@@ -133,7 +139,8 @@ def retry_task(id):
         parameters:
             - name: id
               in: path
-              type: integer
+              schema:
+                type: integer
               required: true
         security:
             - bearerAuth: []         

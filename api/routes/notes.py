@@ -16,7 +16,8 @@ def remove_note(id):
         parameters:
             - name: id
               in: path
-              type: integer
+              schema:
+                type: integer
               required: true
         security:
             - bearerAuth: []         
@@ -50,27 +51,28 @@ def edit_note(id):
         parameters:
             - name: id
               in: path
-              type: integer
+              schema:
+                type: integer
               required: true
-            - name: visibility
-              in: body
-              type: string
-              required: false
-            - name: content
-              in: body
-              description: Note content
-              type: string
-              required: false
-            - name: quote_page
-              in: body
-              description: Page of the quote
-              type: integer
-              required: false
-            - name: created_on
-              in: body
-              description: Date of note creation (optional)
-              type: string
-              required: false
+        requestBody:
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  visibility:
+                    type: string
+                  content:
+                    type: string
+                    description: Note content
+                  quote_page:
+                    type: integer
+                    description: Page of the quote
+                  created_on:
+                    type: string
+                    format: date-time
+                    description: Date of note creation (optional)
         security:
             - bearerAuth: []         
         responses:

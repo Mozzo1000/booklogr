@@ -15,7 +15,8 @@ def get_profile(display_name):
         parameters:
             - name: display_name
               in: path
-              type: string
+              schema:
+                type: string
               required: true
         responses:
           200:
@@ -74,16 +75,20 @@ def create_profile():
         ---
         tags:
             - Profiles
-        parameters:
-            - name: display_name
-              in: body
-              type: string
-              required: true
-            - name: visibility
-              in: body
-              type: string
-              default: hidden
-              required: false
+        requestBody:
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - display_name
+                properties:
+                  display_name:
+                    type: string
+                  visibility:
+                    type: string
+                    default: hidden
         security:
             - bearerAuth: []         
         responses:
@@ -122,15 +127,17 @@ def edit_profile():
         ---
         tags:
             - Profiles
-        parameters:
-            - name: display_name
-              in: body
-              type: string
-              required: false
-            - name: visibility
-              in: body
-              type: string
-              required: false
+        requestBody:
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  display_name:
+                    type: string
+                  visibility:
+                    type: string
         security:
             - bearerAuth: []         
         responses:
