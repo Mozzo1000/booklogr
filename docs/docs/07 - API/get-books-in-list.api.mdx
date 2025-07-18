@@ -1,0 +1,71 @@
+---
+id: get-books-in-list
+title: "Get books in list"
+description: "Get books in list"
+sidebar_label: "Get books in list"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1U01r20AQ/SvLnFJYbLlH3VJoQkoPoUnpwZiwksbSEmlXmRmZOkL/vYwkJ45xA23pSZrdt++9+eqhdeQaFCSGdN2DD5DCU4e0BwvBNQgpsDjpGCwQPnWesIB062pGC5xX2DhIe5B9O0HJhxKGwfZQIOfkW/FROa881oWRaDiSmGxvLlqKJSGzNa4osHgonKA14qVGa1wnVSRryIkPpTWErvChfJi8WOM5Cx/AnvcbSR6y/T8avouk0iZSgWQuHOcmklHM73RH5J+pbhTNbQyMrPcfk0Q/b518Q+kosMlifGTjg6k9i1oGxrwjL/uxdRk6QrrspIJ0vVFqcaV2FT7pQ9jYE95rlBNOCw1KFQtIoUQNW6dssNytliMSXjXvNKnJ9bHyIbqK1DiBFL78uIe5BJr6dAv2UIpKpB1z8WEb9Xkeg7hc9LejekZwulyWXqouW+SxWTbx+TmukiQZXdWxJBhOs7u8vTHbSMblOTJrJ7UMXxVrYZwySOFwZC5vb8DCDomn16tFskiUtI0sjQtqZ27zubK9kX5ps+BPWba180GZxmz6uaRr2K3AQnboTBVZ9LTvM8f4neph0ONpwrS7hWeX1UdD9Yj7493cubpTTRgn+RR84k9rjEH+31qeLcDs+GU7/9Ly+4v5jvJhP191NxqQV+FxZ47m//qzjq2bZ3pmfRne+UcbM1+5cJxS30+I+/iIYRjgYEE0hmEzDMMvecPc9Q==
+sidebar_class_name: "get api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get books in list"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/v1/books"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get books in list
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"query","name":"status","required":false,"schema":{"type":"string"}},{"description":"Field to sort by (progress, added_date, title, author, rating, reading_status, isbn)","in":"query","name":"sort_by","required":false,"schema":{"type":"string"}},{"description":"Sorting order (asc or desc)","in":"query","name":"order","required":false,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Returns books in list"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -5,7 +5,6 @@
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import {themes as prismThemes} from 'prism-react-renderer';
-
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 /** @type {import('@docusaurus/types').Config} */
@@ -51,6 +50,8 @@ const config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/mozzo1000/booklogr/tree/main/docs/',
+          docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
+
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -58,6 +59,26 @@ const config = {
       }),
     ],
   ],
+
+   plugins: [
+    [
+      'docusaurus-plugin-openapi-docs',
+      {
+        id: "api", // plugin id
+        docsPluginId: "classic", // configured for preset-classic
+        config: {
+          booklogr: {
+            specPath: "apispec_1.yaml",
+            outputDir: "docs/07 - API",
+            sidebarOptions: {
+              groupPathsBy: "tag",
+            },
+          }
+        }
+      },
+    ]
+  ],
+  themes: ["docusaurus-theme-openapi-docs"], // export theme components
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */

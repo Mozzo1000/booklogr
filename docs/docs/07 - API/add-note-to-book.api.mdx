@@ -1,0 +1,71 @@
+---
+id: add-note-to-book
+title: "Add note to book"
+description: "Add note to book"
+sidebar_label: "Add note to book"
+hide_title: true
+hide_table_of_contents: true
+api: eJx1VNtu2zAM/RWDTyngxE6wopvf2nUDMgxt0WYbsCAYZJux1diWK9HpUsP/PlBybk32Jom3w8MjtlALLUok1AaieQspmkTLmqSqIILpraeWXqzUyhvc3c+86dPN3QX4INlYC8rBh0qUCBHIFHzQ+NJIjSlEpBv0wSQ5lgKiFmhTW6+KMEMNXbdw3mjoRqUbdklURVgRH0VdFzIRjCJ4NgylPchVa1WjJonmXdgx+M/OwB1Qjl6lCMHfAjGkZZVB50OiURCmf1yV4xS3gpDjOdazjlJV3kBZuyiYiqXSpSCIIBWEQ5Ll2SJraWQsC0mb0yI/d7ZDqN4gl2mKlae0VzdxIZOL08TdIeXzHRWLnaOKnzEh6I49eTj2wdSqMo7GSRieQrvb9Y3pyJYzmDTatjFvIUahUV83lEM0X/BISWSsI7hRamUYx3G+6zR1zZGyqgIfSqRcpSwnZQh8p6oIgvU4YA8TtDLtAg4ysC//xGJwwA9BbG9ft0P59msGvQyZDmfd85gT1bYtFtnjXo5f/oqyLvBIXlvSjxUDk3DyYRheDSefZuPL6HIcTT6Owqvxbzge+oEWZLVU28wiscJtdNGjMVEQZJLyJh4lqgxK9famxmEYWjIKlWnO8I7Uh6m3VNoTSYLGyCrzmP3v7OsDSeI+YPvkXT9MGRpq46LHo3AUclLmvxT2E/Rf+sy0jirvfjXhXwrqQsiKE9lm2n6Qc1iPwQc7SvAhsmvCTXPhQ84zj+bQtrEw+EMXXcfPLw1qVtjCh7XQUsTcAi8naficQrQUhcETOPtZDR57sV94/9thZ7H3j6LaMEmiaPgGPqxw43Zct+h8yFGkqC0kZ+hXzXDG4fvAkzXGX2Qn+If7p5mlxq2/UqUco8UrL1Lx6gq7VWOFbt9aKESVNSJjX5eT9St6+ff4dzrvD4z0bGtt6zxmaoVV1+06Jb5zs133D2LXEZI=
+sidebar_class_name: "post api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Add note to book"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/v1/books/{id}/notes"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Add note to book
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"description":"ID of book (NOT ISBN)","in":"path","name":"id","required":true,"schema":{"type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"content":{"description":"Content of the note","type":"string"},"created_on":{"description":"Date of note creation (optional)","format":"date-time","type":"string"},"visibility":{"description":"Visibility of the note (hidden or public)","type":"string"}},"required":["content"],"type":"object"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Note created."}}}
+>
+  
+</StatusCodes>
+
+
+      

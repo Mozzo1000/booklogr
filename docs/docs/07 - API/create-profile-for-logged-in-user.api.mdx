@@ -1,0 +1,71 @@
+---
+id: create-profile-for-logged-in-user
+title: "Create profile for logged in user"
+description: "Create profile for logged in user"
+sidebar_label: "Create profile for logged in user"
+hide_title: true
+hide_table_of_contents: true
+api: eJyNU02L2zAQ/Stmzm7slF7q2+7SwpZCQzelhxDK2J7Y2siSVpLTZI3+exnZ+XCXQi9GGs/He/OeBrD00pPz97o+QTFApZUn5fmIxkhRoRdaZc9OK465qqUO+WSsNmS9IMe3Wjgj8fRLYUd89ydDUIDzVqgGQgoH4UQppPBxSk077KWHAlpR16Qg/bsipBGZsFRDsZn3316ydflMlYcwT9+hdBQjzmjlRoTv83yc7CorDJOCAlZW74SkpLKEnuoFI/2Qf/x3IkpLWJ8SOgrn3SLidFT1NhLbDFASWrJ3vW+h2GwDQ8XGMYWphWP48+YPcXpiphk7bROpm4bqRKikd2QhhY58q2sowGjnIQWDPAGywzIz58ZXKE8s08j7FtD59lnbDnn7X36uuSpmQzH9vYrRem8iRZb/+9Uon47YGUlvhT/LN9f7LHJIQaidPtsMq2iz3spplCuyrBG+7ctFpbus06+vepnneVZqvZe6sdxhvrq71WPcF1YVOSdUk9xrvf/KuSl44RkknEPJ3eqRoZF1Y/VykS9ybspL7TA6fCLyP5rMoFw87+noMyNRRMKR3TDJtYHDkrW7cULLchYbGIYSHf2wMgQOv/Rk2VDbFA5oBZZMZLMNKbSENdnotT3xch/GF/tuzeM5XfYM483rZS9eXLT69sTKl9Or73TNNRZ/Qxq/BUAKOlKLLoqxASSqpseGc8eebA6cvDXxv5hoOjDS6Req0w3CYRgz1npPKgRIJ0Ke7xC2IYQ/mJ+Wyg==
+sidebar_class_name: "post api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create profile for logged in user"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/v1/profiles"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Create profile for logged in user
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"display_name":{"type":"string"},"visibility":{"default":"hidden","type":"string"}},"required":["display_name"],"type":"object"}}},"required":false}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Profile created."},"409":{"description":"Profile already exists."}}}
+>
+  
+</StatusCodes>
+
+
+      

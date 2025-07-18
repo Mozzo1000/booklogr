@@ -1,0 +1,71 @@
+---
+id: get-profile-by-name
+title: "Get profile by name"
+description: "Get profile by name"
+sidebar_label: "Get profile by name"
+hide_title: true
+hide_table_of_contents: true
+api: eJxtU01v2zAM/SsCTxsgxM7Qk24dsBUZdgi2DjsEwSDbtC3EFl2JDuYa+u8DE3tr2p0sko8f75GeYbDB9sgYIpjDDM6DgcFyCxq87REMVC4OnZ1+XUwNAZ9GF7ACw2FEDbFssbdgZuBpEHzk4HwDKR0FHAfyEaPEP+S5fCqMZXADO5JeO19T6K1YyhY0suIW1RCodh1uIGm4y+/epu2vAOWJVU2jrzaQkga2jfBYwxGO+lXiA/JaXRWTWkj1yC1VYKBBBn0VwEB23mYLNmbzSx0SaIhYjsHx9F0EuDIs0AYM96Nkr9bnCz0w8OXnIyxyiUzXKOhVtpZ5uHBwviZJL8mzLVmeY+gWRDRZ1jhux2JTUp/19PxM2zzPs4Lo1FETRLFbxvf7naopKFuWGKPzjfpIdPoqWA3suJPuq0vd73eg4YwhXrO3m3yTS9GBIvfWyzjLYfxfypvmf4+C8TdnQ2edl1oXPvMi8wHOW9F8XZkGc3NyRw0tRRbgPBc24o/QpSTupxHDBOZw1HC2wdlCqBxmuVh5V2Bq20V8M5Moi1528u7bcs3v1b9N3M66OK2fRBfbjWKBhhNOr3+OdEwvTunh0yOk9AemiSYS
+sidebar_class_name: "get api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get profile by name"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/v1/profiles/{display_name}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get profile by name
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"path","name":"display_name","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Information about the profile."},"404":{"description":"Profile not found."}}}
+>
+  
+</StatusCodes>
+
+
+      

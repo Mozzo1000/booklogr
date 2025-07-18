@@ -1,0 +1,71 @@
+---
+id: check-if-book-by-isbn-is-already-in-a-list
+title: "Check if book (by isbn) is already in a list."
+description: "Check if book (by isbn) is already in a list."
+sidebar_label: "Check if book (by isbn) is already in a list."
+hide_title: true
+hide_table_of_contents: true
+api: eJyVU8Fu2zAM/RWBpxYQYmfoSbd02IYMw1C0HXYIfJBtxhZiS65EZ3MN/ftA20mbrjvsZIkm+R4fn0botNctEvoAajdCiaHwpiPjLCjYPtx+F24vcucOIMFwrNNUgwSrWwQFJuQWJHh86o3HEhT5HiWEosZWgxqBhm7Ks4QVeogx4+zQORswcMKHNOXPJfA9Uu9tmICFKYW2pfhVaxKNCSQMCROEsSuIEm7Sm3/Xo/fOT9UthqArlMK6ueve9bYUxgptB+FRl8ZWU/sVxCghYNF7Q8OkSo7ao9/0VIPaZTwC6YoFg1vnDgEy+Qb/Y43FQZhZOXGVD4KFumbaumGwYUJe8CS0SLUrQUGFBHLWWEFyXCfcICQjl0d4ofXAAs8CviZ3un12vtUECr7+fIRlHbyG+S/I01pqom4a19i94/LCWdIF8bH3zZIRVJJUhuo+XxWuTVr3/OzWaZpO5BpXed7DpQCbu63Ys/RFgSGwtKzUN86VQIYaRj+FxOZuCxKO6MNcvV6lq5Sbdi5Qqy3TWQz3v8pe0DrbkfA3JV2jjWWUadJxUX0HxzVImHQHCWpyeCahdoH47zjmOuAP38TI4acePZskk3DU3uicJ+OHZAKfS1B73QT8iwgLjZZXdHW/PJ5r8ea9vUt2CWo7sGS66fkGEg44nN5jzOIrS335xBbQiz+W8rMRlgNTfrfzOM4Zj+6ANsYzEPGdkWL8A+xbbvY=
+sidebar_class_name: "get api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Check if book (by isbn) is already in a list."}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/v1/books/{isbn}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Check if book (by isbn) is already in a list.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"description":"ISBN of book","in":"path","name":"isbn","required":true,"schema":{"type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Returns book id and what list it is in."},"404":{"description":"Returns error and message, no book found in any reading list."}}}
+>
+  
+</StatusCodes>
+
+
+      

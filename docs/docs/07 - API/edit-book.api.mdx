@@ -1,0 +1,71 @@
+---
+id: edit-book
+title: "Edit book"
+description: "Edit book"
+sidebar_label: "Edit book"
+hide_title: true
+hide_table_of_contents: true
+api: eJx1lF9vmzAQwL+KdU+txAKZtofxlnadlmpqqzbVHqpoMnABN2BT+0ibIr77dIaQdMmeMOf7fz9fC7W0skJC6yB+aiFDl1pVkzIaYph/F2YlEmPW4uzmdiHmDxc35xCA4staUgEBaFkhxKAyCMDiS6MsZhCTbTAAlxZYSYhboG3ttTRhjha6btlro6MLk21ZJTWaUBMfZV2XKpWcRfjsOJX2wFdtTY2WFDpv1liLmv7UMsdTkQKwkpTO+W5lbCUJYliVRhIEO2XdVEmv60hS4w78OLJs3HWjskmeMSXoWLQveCVLh17iaqNdn9vnKOLPx6ZecDvTQuocM+GaNEXnVk1ZbiecwJfo27HJPaYKN5gJbcT1w+2NUFokJustvp4K8qjX2rxqgdYaK0zqu5RNfB0O08Yq2vqBJygt2llDBcRPSx4LyZxZ8Hk6WAb/eL7KFHkkIIAKqTBZz0LKMHgmYgg305BVXNiqrIN9yAceYt+bw8C7vx+7+Vz/XsCAD7e8v93PqyCqfSkMx/0eo6s3WdUlHmMR7SmI9kMeh8tEr8wOQpl6CBtbDqFcHIa5oqJJJqmpwsq8v5tpFEW+xtLknpyPXZrdzcXKWCH9eJXOBbfzF+sGQIo4SdiJxOxuDgFs0LreejqJJhE7rY2jSnr+h3d22P4PIUdiCd8orEupNHvwVbTDYJ5gM4UA/GgggFhlPN/COOK7tk2kw0dbdh2LXxq0zMgygI20SiacM68I5fi8Y/4ojfEdw9n98DzOxf82ycmcB6HUW+6KLBv+gwDWuO03TbfsAihQZmh9Sv3FZR/404LN94ZHy4QhH8m9my0uf/qe9FuoMhkbWfnK+0y+9pGNr85z62UtlFLnjWcLeqeMoxxoHgoYsR0OnOrJ2tq211iYNequG0sl/udqu+4v0Mbo6A==
+sidebar_class_name: "patch api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Edit book"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"patch"}
+  path={"/v1/books/{id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Edit book
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"description":"ID of book (NOT ISBN)","in":"path","name":"id","required":true,"schema":{"type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"current_page":{"type":"integer"},"rating":{"format":"float","type":"number"},"status":{"type":"string"}},"type":"object"}}},"required":false}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Book changed successfully."},"409":{"description":"Recieved no JSON in body."},"500":{"description":"Unknown error occurred."}}}
+>
+  
+</StatusCodes>
+
+
+      

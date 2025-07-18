@@ -1,0 +1,71 @@
+---
+id: edit-note
+title: "Edit note"
+description: "Edit note"
+sidebar_label: "Edit note"
+hide_title: true
+hide_table_of_contents: true
+api: eJx1lG1vmzAQgP8Kuk+bRAOJVnXjW7sXrdM0VV2mSYui6gIXcAM2tY90GeK/T2cgNGv3zT7f+z2+Fmq0WBGTdZCsWlAaEqiRCwhBY0WQgMogBEsPjbKUQcK2oRBcWlCFkLTAh9praaacLHTdutcmx1cmO4hKajSTZjliXZcqRVZGR/fOaJFNvmprarKsyP1jlpFLrarFDBL4ZpiC8TUcM3Bslc6hCyG1hEzZXe/+1PYDMgVmG2jvQxSV0cEr49+xfA0hbI2tkCGBDJnOWFX0UpCHxjDd1ZjT8yA3mPsgXFDg9SYHxz6FsFdObVSp+PCkj2OA7mhhNveUMnQimsawxdKRl7jaaNd3bBHH/+tWgTqnLHBNSs5tm7I8zCSH85csfuidNo86IGuNnflcHKWN9ZmuWtgQWrKXDReQrNYycMZc+PGxHKzDfxx+zBT7jkMIFXFhsp6yVDDztCUQ7eeRqLioVVkHU8jvgkdf39PA4+3TOK0vP5cwgClt61+nxhfMtS9FsLudAP34G6u6pBPgximcogSLePHmLL44W7xbzs+T83myeDuLL+a/4JSG+HS0T5hRemvGQJh6shtbDsm5JIpyxUWzmaWmiirz54+Zx3EcbYzZlSb3zJz29fLmOtgaG2AqU1U6D66M2X0V3RBYsZQFoyi4vLmGEPZkXW89n8WzWJzWxnGF/rMMf/7pwE5CHjll+s1RXaLS4sFX0Q6jXMF+LuvDsxBCojIhojCO5a1tN+johy27TsQPDVmhah3CHq3CjeS8aiFTTs4j6c/SmGb16nb4FK+Dadqn6Q1C1AdpAJaN3CCEHR36BdetuxAKwoysj94/vO9jnC3FfDJ8tsPkBxyxvrlcvv8MIWyG5VeZTIwsPsoaxcc+cr9vPNRe1kKJOm88P9A7FVZxQH0o4Mj0cJBUX6ytbXuNpdmR7rpjqSx3qbbr/gKNCgZq
+sidebar_class_name: "patch api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Edit note"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"patch"}
+  path={"/v1/notes/{id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Edit note
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"path","name":"id","required":true,"schema":{"type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"content":{"description":"Note content","type":"string"},"created_on":{"description":"Date of note creation (optional)","format":"date-time","type":"string"},"quote_page":{"description":"Page of the quote","type":"integer"},"visibility":{"type":"string"}},"type":"object"}}},"required":false}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Note changed sucessfully."},"500":{"description":"Unknown error."}}}
+>
+  
+</StatusCodes>
+
+
+      

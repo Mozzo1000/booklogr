@@ -1,0 +1,71 @@
+---
+id: download-file
+title: "Download file"
+description: "Download file"
+sidebar_label: "Download file"
+hide_title: true
+hide_table_of_contents: true
+api: eJxtU8Fu2zAM/RWDpw0QYmfALr5lWDt02KHoWuwQ+KDYjC3EFl2KTpca+veBjpMmXU+mqCe+x0d6hN6y7VCQA+TrEZyHHHorDRjwtkPIYetanEIDjM+DY6wgFx7QQCgb7CzkI8ihV2wQdr6GGAsFh558wKD3X7JMPxWGkl0vjpTnAWVgHxJlWEA08PUj1JPfeXrxCTITJ1SWAzNWC4jRQMByYCeHSfsGLSOvBmkgXxcqQWytbcGtazFAYd5V/k4vviVbTQLAQIfSUAU51ChgjjbkkO6XqQJCOp6siPBG/Vs9ODZ5KeB0uiXurEAOP/88wuyYOnW8BXNyrhHpp5ac35I+L8mLLUXDgdsZEfI0rZ00w2ZRUpd29PpKyyzL0g3RrqWa1cXrJlf3d8mWOLFliSE4XyffiHa/FGtAnLTKfkolq/s7MLBHDsfXy0W2yLRoT0E661XOvBfv3buiPW+E4F9J+9Y6r1WmTsbZ2TXsl2Cm/QpgID8vWmGgoSCKGMeNDfjEbYyafh6QddiFgb1lZzeqfj1C5YLGFeRb2wb8T4yaiV7H8Olh3uHPyZv51yLnpPUHtcK2g57AwA4Pl79DLOLFyvy40fHaefZzifOQ50Clflh9HI+IR9qhj/FMJnpWphj/AT8DPME=
+sidebar_class_name: "get api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Download file"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/v1/files/{filename}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Download file
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"path","name":"filename","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Returns file."},"500":{"description":"Unknown error occurred."}}}
+>
+  
+</StatusCodes>
+
+
+      

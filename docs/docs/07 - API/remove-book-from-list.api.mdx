@@ -1,0 +1,71 @@
+---
+id: remove-book-from-list
+title: "Remove book from list"
+description: "Remove book from list"
+sidebar_label: "Remove book from list"
+hide_title: true
+hide_table_of_contents: true
+api: eJx1U01v2zAM/SsCTy0gxM7Qk2/pkgEZiq5oM+wQ5KDYdCxEllyJzuYa+u8DbTdr1vakr0e+x0eqh0Z5VSOhD5Bteygw5F43pJ2FDNZL4Uqxd+4oru5/bMT66fb+GiRofmwUVSDBqhohA12ABI/PrfZYQEa+RQkhr7BWkPVAXTOgLOEBPcS4Y3RonA0YGPAlTXm55L9lZo+1O2EhQpvnGELZGtPNIEq4SW/eh3x1rSmEdSRKbQuhbDfq/62pElShCG3TGI2FWC9nEKOEgHnrNXVD/XtUHv2ipQqy7Y5VkjqwNYOWADv5H9/joG7kKL2rhdGBQEKNVLkCMijQICHI0a8MktM8YXRIel1E+Mf/xGaNZrxV8Xr65nytCDL4/msDk7Vs6fgK8tXiiqgZ6tK2dByeO0sqJ9623kyIkCXJQVPV7me5q5Pavby4eZqmgzTjDp4Nvqx08bAWpfNCDW3Q9iDYkjvGSiBNBqeO8ZVYPKxBwgl9GKPns3SWctLGBaqVZTnT6Hxm4QX9eYQI/1DSGKUtZxsq6idvt3Cag4TBXZCQ6YL7VblA/Nb3exXwpzcx8vVzi557vpNwUl6rPevnH6AD7wvISmUCvpPBdqLlRlw9TuN+LT77KB9qni6V7dghZVo+gYQjduNHirv4ZoCWq7vVZgUS1DQPU/y58dOGxX+Yuu9HxMYd0cZ4ZiI+M1mMfwHlVlkm
+sidebar_class_name: "delete api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Remove book from list"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/v1/books/{id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Remove book from list
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"description":"ID of book (NOT ISBN)","in":"path","name":"id","required":true,"schema":{"type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Book removed successfully."},"404":{"description":"Could not find any book with the supplied ID."}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: get-notes-from-book
+title: "Get notes from book"
+description: "Get notes from book"
+sidebar_label: "Get notes from book"
+hide_title: true
+hide_table_of_contents: true
+api: eJx1k09v2zAMxb+K8E4tIMTO0JNvLbYVGYauaDvsUOSg2EwsxJZciQ6WGvruA223a9buZP15JB9/ogd0JpiWmEJE8TigolgG27H1DgVWn5Xfqo33e3V28+NBre6vbs6hYeWyM1xDw5mWUMBW0Aj01NtAFQoOPWnEsqbWoBjAx25UOaYdBaS0FnXsvIsURfApz+VzWv+OuA8uKueZojLMpqypUuwV1zT6WiBpXOQX72NvxpjS900l8WpDaut7Vy2Qkkaksg+Wj2PTGzKBwmXPNYrHtVhjsxMeuPJ+H7HW/+S+Jp49bYNvRyPQaIlrX6HAjhh64lMgOywzEcRssFXKxjD8NXAviCYEb2287L760BpGgW+/HjADFZDTLfQL2Jq5GxuzbuslvPSOTcmy7EMzK2KRZTvLdb9ZlL7NWv/87Jd5no8GG78LQvO01cvbldr6oExZUozW7ZQw+S5aDbbcSPWXI3V5u4LGgUKcopeLfJFL0s5Hbo0TO/PAfMzwpPjr2DD95qxrjHWSa+xnmPk+4rCExkgYGsU4hxPktUbtI4tmGDYm0s/QpCTHTz0Fefq1xsEEazbShUy/jbKuUGxNE+mdHYFKTp7j7G4e9XP1v5/kQ+/zoXFH4WSaXnbQ2NNx+onSOr2ZpOsv8upmHok5+PXt54U4/zDvMEyKB78nl9JrGZa9VErpD7agVj4=
+sidebar_class_name: "get api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get notes from book"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/v1/books/{id}/notes"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get notes from book
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"description":"ID of book (NOT ISBN)","in":"path","name":"id","required":true,"schema":{"type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Returns notes attached to the book."},"404":{"description":"Notes could not be found."}}}
+>
+  
+</StatusCodes>
+
+
+      

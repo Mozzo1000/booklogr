@@ -1,0 +1,71 @@
+---
+id: delete-note
+title: "Delete note"
+description: "Delete note"
+sidebar_label: "Delete note"
+hide_title: true
+hide_table_of_contents: true
+api: eJxtU8Fu2zAM/RXjnTZAiJ2hJ90yNAM6FEOxZdghyEGxmViILbkSHSw19O8DHSdtup4sUY98j4/0gM4E0xJTiNDrAdZBozNcQ8GZlqBhKygEeu5toAqaQ08KsaypNdAD+NSNKMe0p4CUNoKOnXeRogC+FIV8KoplsB1bLxQ/PFMWqPVHqrLYlyXFuOub5jRDUrgr7j5KyZxk7XzvqhlSUohU9sHyaZS+JRMoLHquodcbkcFmL12NZBEb9a7gPTXENBaFQktc+woa1RiGOtugkR/nuWBiPtgq4ZX1l3hw7vEt9+X2zYfWMDS+/1lhckycOr9CXZyrmbuxG+t2XtJL79iULMc+NBMi6jzfW6777az0bd76lxc/L4oi33p/aPw+iG+3/S2eHrKdD5kZ3bVun331/vAoWAW23Aj7JZQtnh6gcKQQz9nzWTErpGjnI7fGiZxpI26NuyG97gPTX867xlgnNcY+hsnRNY5zWa9xKgraVjKb2keWt2HYmki/Q5OShJ97CjLfjcLRBGu2ono9oLJRzhX0zjSR/pMhJpIT+z/9nHb3c/Zq+q28KWjcSSwwTS83KBzodP4B0ia92ZD75eNytYSCmQY+5V8nOx1E54elh+GMWPkDuZSuTCx3IUvpH7p0NU0=
+sidebar_class_name: "delete api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete note"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/v1/notes/{id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Delete note
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"path","name":"id","required":true,"schema":{"type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Note removed successfully."},"404":{"description":"No note found."}}}
+>
+  
+</StatusCodes>
+
+
+      

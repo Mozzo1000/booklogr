@@ -1,0 +1,71 @@
+---
+id: get-tasks
+title: "Get tasks"
+description: "Get tasks"
+sidebar_label: "Get tasks"
+hide_title: true
+hide_table_of_contents: true
+api: eJxtU8Fu2zAM/RWBpw0QYqfoSbcM2IoOPRRdhh2CHGSbsQXbkitRwVJD/z7QdtKk3ckS9cjH90iPMGiveyT0AdRuBGNBwaCpAQlW9wgKTAUSPL5G47ECRT6ihFA22GtQI9BpmFCWsEYPKe0ZHQZnAwYG3OU5fyoMpTcDGccUL0jR2yCMPTjfa44KXbhIghoUpEO7giThPr//nLvVoRWli10lrCNRoDi4aKsVpCQhYBm9odOkpkDt0W8iNaB2e+6MdM1CpxoB9vJD6QekiTyAhB6pcRUoqJFAzqYoyI7rbEJko6kSvBP+Ykdmxde059uPSSYo+PlnC4t/7Nv8CvLsY0M0TELYGU4vnSVdEh+j7xZEUFlWG2pisSpdn/Xu7c2t8zzPCufaztWezbuVtnl+FAfnhS5LDMHYWnxzrn1irAQy1DH7OSQ2z48g4Yg+zNnrVb7KuejgAvXacjvLflx7dkN52Q3Cv5QNnTaWK0wqxsXPHRzXzL/kK1PxUBoXiN/GsdABf/suJQ6/RvQ82L2Eo/ZGF9zzboTKBD5XoA66C/ipDbYQLZv/5WXZ46/i3fLb9pagtic2QHeRbyChxdP8M6R9ulqOh+88Tr3Mekm+DHU5cJP/rTuOM2LrWrQpXWiI78yU0j8fMjiC
+sidebar_class_name: "get api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get tasks"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/v1/tasks/{id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get tasks
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"in":"path","name":"id","required":true,"schema":{"type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Returns information about the task."},"404":{"description":"Task could not be found."}}}
+>
+  
+</StatusCodes>
+
+
+      
