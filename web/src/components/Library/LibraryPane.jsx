@@ -43,7 +43,7 @@ function LibraryPane() {
         BooksService.get(status, page).then(
             response => {
                 dispatch({type: actionTypes.BOOKS, books: response.data})
-                if (response.data.meta.totalPages > 0) {
+                if (response.data.meta.total_pages > 0) {
                     setTotalPages(response.data.meta.total_pages)
                 }
             }
