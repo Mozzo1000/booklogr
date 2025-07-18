@@ -11,7 +11,7 @@ function NotesIcon({id, notes, allowEditing, overrideNotes}) {
     return (
         <>
         <Tooltip content={t("notes.open")}>
-            <div onClick={() => setOpenNotesModal(true)} className="flex flex-row gap-2 items-center hover:bg-gray-100 hover:cursor-pointer">
+            <div onClick={() => setOpenNotesModal(true)} className="flex flex-row gap-2 items-center hover:bg-gray-100 hover:cursor-pointer dark:text-white dark:hover:bg-gray-500">
                 <RiStickyNoteLine/>
                 <p>{notes}</p>
             </div>
