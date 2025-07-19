@@ -33,6 +33,7 @@
           <th>Total pages</th>
           <th>Current page</th>
           <th>Rating</th>
+          <th>Notes</th>
         </tr>
         {% for item in data %}
             <tr>
@@ -44,6 +45,15 @@
             <td>{{ item.total_pages }}</td>
             <td>{{ item.current_page }}</td>
             <td>{{ item.rating }}</td>
+            <td>
+               {% for note in item.notes %}
+                <p><strong>Content:</strong> {{ note.content }}<br />
+                <strong>Quote page:</strong> {{ note.quote_page }}<br />
+                <strong>Visibility:</strong> {{ note.visibility }}<br />
+                <strong>Created:</strong> {{ note.created_on }}</p>
+                <hr />
+               {% endfor %}
+            </td>
             </tr>
         {% endfor %}
       </table>
