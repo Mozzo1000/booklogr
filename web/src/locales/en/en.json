@@ -266,7 +266,8 @@
         "title": "Title",
         "author": "Author",
         "progress": "Progress",
-        "rating": "Rating"
+        "rating": "Rating",
+        "date_added": "Date added"
     },
 
 

@@ -45,6 +45,7 @@ function SortSelector({sort, setSort, order, setOrder}) {
             <DropdownItem onClick={() => handleSort("author")}>{t("sort.author")}</DropdownItem>
             <DropdownItem onClick={() => handleSort("progress")}>{t("sort.progress")}</DropdownItem>
             <DropdownItem onClick={() => handleSort("rating")}>{t("sort.rating")}</DropdownItem>
+            <DropdownItem onClick={() => handleSort("created_on")}>{t("sort.date_added")}</DropdownItem>
         </Dropdown>
         <Popover content={displayPopoverContent} trigger="hover">
             <Button color="alternative" onClick={() => handleOrder()}>
