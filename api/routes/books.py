@@ -63,7 +63,7 @@ def get_books():
               in: query
               schema:
                 type: string
-              description: Field to sort by (progress, added_date, title, author, rating, reading_status, isbn)
+              description: Field to sort by (progress, created_on, title, author, rating, reading_status, isbn)
               required: false
             - name: order
               in: query
@@ -77,7 +77,7 @@ def get_books():
           200:
             description: Returns books in list
     """
-    sort_fields = {"progress", "added_date", "title", "author", "rating", "reading_status", "isbn"}
+    sort_fields = {"progress", "created_on", "title", "author", "rating", "reading_status", "isbn"}
     order_fields = {"asc", "desc"}
 
     limit = 25
@@ -93,7 +93,7 @@ def get_books():
     if sort_by not in sort_fields:
       return jsonify({
                   'error': 'Invalid sort field',
-                  'message': 'Sort can be only one of the following fields: progress, added_date, title, author, rating, reading_status, isbn'
+                  'message': 'Sort can be only one of the following fields: progress, created_on, title, author, rating, reading_status, isbn'
               }), 400
     
     if order not in order_fields:
