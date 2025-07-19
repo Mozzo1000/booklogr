@@ -66,10 +66,10 @@ function LibraryPane() {
                 <h2>{t("library")}</h2>
             </article>
             <ButtonGroup>
-                <Button size="sm" color={view === "gallery" ? "light" : "alternative"} onClick={() => changeView("gallery")}>
+                <Button size="sm" color={view === "gallery" ? "default" : "alternative"} onClick={() => changeView("gallery")}>
                     <RiGalleryView className="w-6 h-6" />
                 </Button>
-                <Button size="sm" color={view === "list" ? "light" : "alternative"} onClick={() => changeView("list")}>
+                <Button size="sm" color={view === "list" ? "default" : "alternative"} onClick={() => changeView("list")}>
                     <RiListView className="w-6 h-6" />
                 </Button>
             </ButtonGroup>
