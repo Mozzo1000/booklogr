@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+### Added
+- The API endpoint for creating a new note now accepts an optional `created_on` value for setting the date and time for when the note was created. Defaults to the servers current date and time (UTC) if not provided.
+- Added list view to library and profile pages.
+- Added new settings tab, Interfaces. Users can now change language, region, timezone, and time format.
+
+### Changed
+- Redesigned the Notes & Quotes UI.
+- All date and times now respects the users settings.
+
+### Fixed
+- Dark/light mode is now persistent after a page refresh.
+- Fixed retrieving incorrect total pages for pagination to work
+- Fixed note icon color in dark mode.
 
 ## [1.5.0] - 2025-07-15
 ### Added
