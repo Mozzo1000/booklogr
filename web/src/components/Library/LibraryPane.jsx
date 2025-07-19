@@ -13,17 +13,17 @@ import { RiGalleryView } from "react-icons/ri";
 import SortSelector from '../SortSelector';
 
 function LibraryPane() {
+    const { t, i18n } = useTranslation();
     const [activeTab, setActiveTab] = useState(0);
     const [state, dispatch] = useReducer(reducer, initialState);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [view, setView] = useState(localStorage.getItem("library_view") ? localStorage.getItem("library_view") : "gallery");
-    const [sort, setSort] = useState(localStorage.getItem("last_sorted") || "title");
+    const [sort, setSort] = useState(JSON.parse(localStorage.getItem("last_sorted")) || JSON.parse(JSON.stringify({value: "title", name: t("sort.title")})));
     const [order, setOrder] = useState(localStorage.getItem("last_ordered") || "asc");
 
     const onPageChange = (page) => setPage(page);
 
-    const { t, i18n } = useTranslation();
 
     useEffect(() => {
         getBooks(translateTabsToStatus());
@@ -44,7 +44,7 @@ function LibraryPane() {
     }
 
     const getBooks = (status) => {
-        BooksService.get(status, sort, order, page).then(
+        BooksService.get(status, sort.value, order, page).then(
             response => {
                 dispatch({type: actionTypes.BOOKS, books: response.data})
                 if (response.data.meta.total_pages > 0) {
