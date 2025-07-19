@@ -246,6 +246,20 @@
         "go_to_release": "Go to release page"
     },
 
+    "language": {
+        "language": "Language",
+        "region": "Region",
+        "region_info": "This affects date and number format.",
+        "timezone": "Timezone",
+        "time_format": "Time format",
+        "12hour": "12 hour",
+        "24hour": "24 hour",
+        "language_updated_toast": "Language updated.",
+        "region_updated_toast": "Region updated.",
+        "timezone_updated_toast": "Timezone updated.",
+        "time_format_updated_toast": "Time format updated."
+    },
+
     "help": {
         "title": "Help",
         "display_name_information": "A display name will be used on your profile page that lists all your books. A profile page can be private or public. Display name and visibility of the profile page can be changed at any time. Your display name will also be used for a link to your profile page if you have set it to public.",

@@ -8,6 +8,8 @@ import AnimatedLayout from '../AnimatedLayout';
 import MastodonTab from '../components/MastodonTab';
 import { RiMastodonLine } from "react-icons/ri";
 import { useTranslation, Trans } from 'react-i18next';
+import { RiSlideshowView } from "react-icons/ri";
+import InterfaceTab from '../components/InterfaceTab';
 
 function Settings() {
     const [activeTab, setActiveTab] = useState(0);
@@ -22,6 +24,9 @@ function Settings() {
             <Tabs aria-label="Tabs with underline"  onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">
                 <TabItem title={t("settings.nav.account")} icon={RiAccountCircleLine }>
                     <AccountTab />
+                </TabItem>
+                <TabItem title="Interface" icon={RiSlideshowView}>
+                    <InterfaceTab />
                 </TabItem>
                 <TabItem title={t("settings.nav.mastodon")} icon={RiMastodonLine}>
                     <MastodonTab />
