@@ -189,10 +189,10 @@ function Profile() {
                             <Button color="alternative" onClick={() => setReadingStatusFilter("To be read")}>{t("reading_status.to_be_read")} ({data.num_books_tbr || 0})</Button>
                         </ButtonGroup>
                         <ButtonGroup>
-                            <Button size="sm" color={view === "gallery" ? "light" : "alternative"} onClick={() => changeView("gallery")}>
+                            <Button size="sm" color={view === "gallery" ? "default" : "alternative"} onClick={() => changeView("gallery")}>
                                 <RiGalleryView className="w-6 h-6" />
                             </Button>
-                            <Button size="sm" color={view === "list" ? "light" : "alternative"} onClick={() => changeView("list")}>
+                            <Button size="sm" color={view === "list" ? "default" : "alternative"} onClick={() => changeView("list")}>
                                 <RiListView className="w-6 h-6" />
                             </Button>
                         </ButtonGroup>
