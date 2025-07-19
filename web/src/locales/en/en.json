@@ -260,6 +260,16 @@
         "time_format_updated_toast": "Time format updated."
     },
 
+    "sort": {
+        "sort_by": "Sort by {{sortType}}",
+        "order_by": "Order by",
+        "title": "Title",
+        "author": "Author",
+        "progress": "Progress",
+        "rating": "Rating"
+    },
+
+
     "help": {
         "title": "Help",
         "display_name_information": "A display name will be used on your profile page that lists all your books. A profile page can be private or public. Display name and visibility of the profile page can be changed at any time. Your display name will also be used for a link to your profile page if you have set it to public.",

@@ -10,6 +10,7 @@ import { RiBookmarkLine } from "react-icons/ri";
 import { useTranslation } from 'react-i18next';
 import { RiListView } from "react-icons/ri";
 import { RiGalleryView } from "react-icons/ri";
+import SortSelector from '../SortSelector';
 
 function LibraryPane() {
     const [activeTab, setActiveTab] = useState(0);
@@ -17,6 +18,9 @@ function LibraryPane() {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [view, setView] = useState(localStorage.getItem("library_view") ? localStorage.getItem("library_view") : "gallery");
+    const [sort, setSort] = useState(localStorage.getItem("last_sorted") || "title");
+    const [order, setOrder] = useState(localStorage.getItem("last_ordered") || "asc");
+
     const onPageChange = (page) => setPage(page);
 
     const { t, i18n } = useTranslation();
@@ -40,7 +44,7 @@ function LibraryPane() {
     }
 
     const getBooks = (status) => {
-        BooksService.get(status, page).then(
+        BooksService.get(status, sort, order, page).then(
             response => {
                 dispatch({type: actionTypes.BOOKS, books: response.data})
                 if (response.data.meta.total_pages > 0) {
@@ -52,7 +56,7 @@ function LibraryPane() {
 
     useEffect(() => {
       getBooks(translateTabsToStatus())
-    }, [page])
+    }, [page, sort, order])
     
     const changeView = (changeToView) => {
         setView(changeToView);
@@ -65,14 +69,17 @@ function LibraryPane() {
             <article className="format lg:format-lg pb-2 dark:format-invert">
                 <h2>{t("library")}</h2>
             </article>
-            <ButtonGroup>
-                <Button size="sm" color={view === "gallery" ? "default" : "alternative"} onClick={() => changeView("gallery")}>
-                    <RiGalleryView className="w-6 h-6" />
-                </Button>
-                <Button size="sm" color={view === "list" ? "default" : "alternative"} onClick={() => changeView("list")}>
-                    <RiListView className="w-6 h-6" />
-                </Button>
-            </ButtonGroup>
+            <div className="flex flex-row gap-4">
+                <SortSelector sort={sort} setSort={setSort} order={order} setOrder={setOrder}/>
+                <ButtonGroup>
+                    <Button size="sm" color={view === "gallery" ? "default" : "alternative"} onClick={() => changeView("gallery")}>
+                        <RiGalleryView className="w-6 h-6" />
+                    </Button>
+                    <Button size="sm" color={view === "list" ? "default" : "alternative"} onClick={() => changeView("list")}>
+                        <RiListView className="w-6 h-6" />
+                    </Button>
+                </ButtonGroup>
+            </div>
         </div>
         <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">
         <Tabs.Item active title={t("reading_status.currently_reading")} icon={RiBookOpenLine}>
