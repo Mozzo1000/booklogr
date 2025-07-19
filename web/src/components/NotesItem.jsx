@@ -10,6 +10,7 @@ import useToast from '../toast/useToast';
 import { useTranslation } from 'react-i18next';
 import { RiErrorWarningLine } from 'react-icons/ri';
 import EditNoteModal from './EditNoteModal';
+import {formatDateTime} from "../DateFormat";
 
 function NotesItem({ id, content, visibility, page, date, allowEditing, onDelete, onEdit}) {
     const [removalConfModal, setRemovalConfModal] = useState();
@@ -90,7 +91,7 @@ function NotesItem({ id, content, visibility, page, date, allowEditing, onDelete
                     <span></span>
                 )}
                 <div className="flex justify-end items-center">
-                    <p className="format dark:format-invert text-sm">{new Date(date).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'})}</p>
+                    <p className="format dark:format-invert text-sm">{formatDateTime(new Date(date))}</p>
                 </div>
             </div>
         </Card>

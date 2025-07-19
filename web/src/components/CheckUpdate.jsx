@@ -7,6 +7,7 @@ import { compare } from 'compare-versions';
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Link } from 'react-router-dom';
+import { formatDate } from '../DateFormat';
 
 function CheckUpdate({currentVersion}) {
     const [latestRelease, setLatestRelease] = useState(true);
@@ -88,7 +89,7 @@ function CheckUpdate({currentVersion}) {
                 <ModalBody>
                     <div className="flex flex-row justify-between format dark:format-invert">
                         <h2>{latestRelease?.title.replace("v", t("update.version") + " ")}</h2>
-                        <p>{new Date(latestRelease?.release_date).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'})}</p>
+                        <p>{formatDate(new Date(latestRelease?.release_date))}</p>
                    </div>
                    <div className="format dark:format-invert">
                         <Markdown remarkPlugins={[[remarkGfm, {singleTilde: false}]]}>

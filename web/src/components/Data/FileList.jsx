@@ -4,6 +4,7 @@ import FilesService from '../../services/files.service';
 import useToast from '../../toast/useToast';
 import { useInterval } from '../../useInterval';
 import { useTranslation, Trans } from 'react-i18next';
+import { formatDateTime } from '../../DateFormat';
 
 function FileList(props) {
     const [files, setFiles] = useState();
@@ -107,8 +108,7 @@ function FileList(props) {
                         return (
                             <TableRow key={item.id}>
                                 <TableCell>{item.filename}</TableCell>
-                                <TableCell>{new Date(item.created_at).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false})}</TableCell>
-                                
+                                <TableCell>{formatDateTime(new Date(item.created_at + "Z"))}</TableCell>
                                 <TableCell><Button onClick={() => downloadFile(item.filename)}>{t("forms.download")}</Button></TableCell>
                             </TableRow>
                         )

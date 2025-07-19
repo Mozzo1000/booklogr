@@ -57,7 +57,7 @@ function NotesView({id, allowEditing, open, setOpen, overrideNotes}) {
                             {notes?.map((item) => (
                                 item?.id &&
                                     <div key={item.id}>
-                                        <NotesItem id={item.id} page={item.quote_page ? item.quote_page : 0} date={item.created_on} content={item.content}
+                                        <NotesItem id={item.id} page={item.quote_page ? item.quote_page : 0} date={item.created_on + "Z"} content={item.content}
                                             visibility={item.visibility} allowEditing={allowEditing} onDelete={() =>  getNotes()} onEdit={() =>  getNotes()} />
                                     </div>
                             ))}
@@ -83,7 +83,7 @@ function NotesView({id, allowEditing, open, setOpen, overrideNotes}) {
                             {notes?.length > 0 && notes?.filter((item) => !item?.quote_page).map((item) => (
                                 item?.id &&
                                     <div key={item.id}>
-                                        <NotesItem id={item.id} date={item.created_on} content={item.content}
+                                        <NotesItem id={item.id} date={item.created_on + "Z"} content={item.content}
                                             visibility={item.visibility} allowEditing={allowEditing} onDelete={() =>  getNotes()} onEdit={() =>  getNotes()}/>
                                     </div>
                             ))}
@@ -109,7 +109,7 @@ function NotesView({id, allowEditing, open, setOpen, overrideNotes}) {
                             {notes?.length > 0 && notes?.filter((item) => item != null && item.quote_page).map((item) => (
                                 item?.id &&
                                     <div key={item.id}>
-                                        <NotesItem id={item.id} page={item.quote_page ? item.quote_page : 0} date={item.created_on} content={item.content} 
+                                        <NotesItem id={item.id} page={item.quote_page ? item.quote_page : 0} date={item.created_on + "Z"} content={item.content} 
                                             visibility={item.visibility} allowEditing={allowEditing} onDelete={() =>  getNotes()} onEdit={() =>  getNotes()}/>
                                     </div>
                             ))}
