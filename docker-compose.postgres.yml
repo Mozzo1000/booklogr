@@ -18,7 +18,7 @@ services:
 
     booklogr-api:
         container_name: "booklogr-api"
-        image: mozzo/booklogr:v1.5.0
+        image: mozzo/booklogr:v1.6.0
         depends_on:
             booklogr-db:
               condition: service_healthy
@@ -29,7 +29,7 @@ services:
 
     booklogr-web:
         container_name: "booklogr-web"
-        image: mozzo/booklogr-web:v1.5.0
+        image: mozzo/booklogr-web:v1.6.0
         environment:
             - BL_API_ENDPOINT=http://localhost:5000/ # CHANGE THIS TO POINT TO THE EXTERNAL ADRESS THE USER CAN ACCESS
             - BL_GOOGLE_ID= # CHANGE THIS TO YOUR OWN GOOGLE ID

@@ -4,11 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
-### Added
-- The API endpoint for creating a new note now accepts an optional `created_on` value for setting the date and time for when the note was created. Defaults to the servers current date and time (UTC) if not provided.
-- Added list view to library and profile pages.
-- Added new settings tab, Interfaces. Users can now change language, region, timezone, and time format.
 
+## [1.6.0] - 2025-07-20
+### Added
+- Added list view to library and profile pages.
+- Books in your library can now be sorted by title, author, date added, progress and rating.
+- Added new settings tab, Interface. Users can now change language, region, timezone, and time format.
+- Notes and quotes are now included in the export files.
+- Books added to a list now has a date attached to it.
+- The API endpoint for creating a new note now accepts an optional `created_on` value for setting the date and time for when the note was created. Defaults to the servers current date and time (UTC) if not provided.
+  
 ### Changed
 - Redesigned the Notes & Quotes UI.
 - All date and times now respects the users settings.
