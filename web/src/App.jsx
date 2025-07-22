@@ -35,6 +35,10 @@ function App() {
     } else if(localStorage.getItem("flowbite-theme-mode") === "light") {
       mode.setMode("light");
     }
+
+    if(!localStorage.getItem("flowbite-theme-mode")) {
+      localStorage.setItem("flowbite-theme-mode", "light");
+    }
   }, []);
 
 
