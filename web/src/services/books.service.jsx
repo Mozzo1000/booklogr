@@ -1,15 +1,14 @@
 import axios from "axios";
 import authHeader from "./auth-header";
-
-const API_URL = import.meta.env.VITE_API_ENDPOINT;
+import { getAPIUrl } from "./api.utils";
 
 const add = (data) => {
-    return axios.post(API_URL + "v1/books", data, { headers: authHeader() })
+    return axios.post(getAPIUrl("v1/books"), data, { headers: authHeader() })
 };
 
 const get = (status, sort, order, page) => {
     if (status) {
-        return axios.get(API_URL + "v1/books?status=" + status + "&sort_by=" + sort + "&order=" + order + "&offset=" + page, { headers: authHeader() })
+        return axios.get(getAPIUrl(`v1/books?status=${status}&sort_by=${sort}&order=${order}&offset=${page}`), { headers: authHeader() })
 
     } else {
         return axios.get(API_URL + "v1/books", { headers: authHeader() })
@@ -18,23 +17,23 @@ const get = (status, sort, order, page) => {
 }
 
 const edit = (id, data) => {
-    return axios.patch(API_URL + "v1/books/" + id, data, { headers: authHeader() });
+    return axios.patch(getAPIUrl(`v1/books/${id}`), data, { headers: authHeader() });
 };
 
 const remove = (id) => {
-    return axios.delete(API_URL + "v1/books/" + id, { headers: authHeader() });
+    return axios.delete(getAPIUrl(`v1/books/${id}`), { headers: authHeader() });
 };
 
 const notes = (id) => {
-    return axios.get(API_URL + "v1/books/" + id + "/notes", { headers: authHeader() })
+    return axios.get(getAPIUrl(`v1/books/${id}/notes`), { headers: authHeader() })
 };
 
 const addNote = (id, data) => {
-    return axios.post(API_URL + "v1/books/" + id + "/notes", data, { headers: authHeader() })
+    return axios.post(getAPIUrl(`v1/books/${id}/notes`), data, { headers: authHeader() })
 };
 
 const status = (isbn) => {
-    return axios.get(API_URL + "v1/books/" + isbn, {headers: authHeader() })
+    return axios.get(getAPIUrl(`v1/books/${isbn}`), {headers: authHeader() })
 }
 
 export default {

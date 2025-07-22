@@ -1,14 +1,13 @@
 import axios from "axios";
 import authHeader from "./auth-header";
-
-const API_URL = import.meta.env.VITE_API_ENDPOINT;
+import { getAPIUrl } from "./api.utils";
 
 const get = () => {
-    return axios.get(API_URL + "v1/settings", { headers: authHeader() });
+    return axios.get(getAPIUrl("v1/settings"), { headers: authHeader() });
 };
 
 const edit = (data) => {
-    return axios.patch(API_URL + "v1/settings", data, { headers: authHeader() });
+    return axios.patch(getAPIUrl("v1/settings"), data, { headers: authHeader() });
 }
 
 export default {
