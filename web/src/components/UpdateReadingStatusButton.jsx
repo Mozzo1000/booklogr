@@ -73,9 +73,9 @@ function UpdateReadingStatusButton(props) {
                         <div className="format lg:format-lg dark:format-invert">
                             <h2>{t("book.update_reading.finished.title")}</h2>
                             <p>
-                                <Trans i18nKey="book.update_reading.finished´.description"
+                                <Trans i18nKey="book.update_reading.finished.description"
                                     components={{
-                                        link_to_info: (
+                                        book_title: (
                                         <strong>{props.title}</strong>
                                         )
                                     }}
