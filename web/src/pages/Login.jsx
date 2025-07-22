@@ -50,7 +50,7 @@ function Login() {
               <Trans i18nKey="demo.description"
                 components={{
                   link_to_info: (
-                    <a target="_blank" className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://github.com/Mozzo1000/booklogr"/>
+                    <a target="_blank" className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://booklogr.app/docs/Features/Demo-mode#disabled-features-in-demo-mode"/>
                   )
                 }}
               />
