@@ -17,7 +17,6 @@ services:
         environment:
             - BL_API_ENDPOINT=http://localhost:5000/ # CHANGE THIS TO POINT TO THE EXTERNAL ADRESS THE USER CAN ACCESS
             - BL_GOOGLE_ID= # Leave empty to disable google login. To enable, write in your Google Client ID.
-            - BL_DISABLE_HOMEPAGE=true
             - BL_DEMO_MODE=false
         ports:
             - 5150:80

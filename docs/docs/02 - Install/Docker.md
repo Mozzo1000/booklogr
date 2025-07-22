@@ -136,7 +136,6 @@ services:
         environment:
             - BL_API_ENDPOINT=https://booklogr-api.YOURDOMAIN.TLD/ 
             - BL_GOOGLE_ID=XXX.apps.googleusercontent.com # CHANGE THIS TO YOUR OWN GOOGLE ID
-            - BL_DISABLE_HOMEPAGE=true
             - BL_DEMO_MODE=false
         labels:
             - "traefik.enable=true"
