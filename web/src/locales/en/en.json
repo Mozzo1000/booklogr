@@ -125,6 +125,7 @@
 
     "book": {
         "by_author": "by {{author}}",
+        "unknown_author": "unknown author",
         "no_description_found": "No description found",
         "pages": "Pages",
         "add_to_reading": "Add {{book_title}} to currently reading",
