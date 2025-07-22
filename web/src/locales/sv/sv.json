@@ -1,7 +1,289 @@
 {
+
+    "library": "Mitt bibliotek",
+
     "reading_status": {
+        "title": "Reading status",
         "read": "Läst",
         "currently_reading": "Läser just nu",
-        "to_be_read": "Att läsa"
+        "to_be_read": "Att läsa",
+        "all": "Alla",
+        "want_to_read": "Vill läsa"
+    },
+
+    "onboarding": {
+        "step_0": {
+            "title": "Välkommen! 🎉",
+            "description": "We are so happy to have you here! To get started tracking all the books you are reading you first need to choose a display name."
+        },
+        "step_1": {
+            "title": "You are all set!",
+            "description": "Why don't you start by adding some of your favorites books to your lists? It's super simple!"
+        }
+    },
+
+    "forms": {
+        "next": "Nästa",
+        "previous": "Föregående",
+        "close": "Stäng",
+        "update": "Uppdatera",
+        "save": "Spara",
+        "upload_picture": "Ladda upp bild",
+        "upload": "Ladda upp",
+        "uploading": "Laddar upp...",
+        "remove": "Ta bort",
+        "display_name": "Visningsnamn",
+        "visibility_label": "Synlighet",
+        "visibility_hidden": "Privat",
+        "visibility_public": "Publik",
+        "email": "E-post",
+        "email_placeholder": "namn@exempel.se",
+        "password": "Lösenord",
+        "confirm_password": "Bekräfta lösenord",
+        "name": "Ditt namn",
+        "login": "Logga in",
+        "register": "Registrera",
+        "register_title": "Registrera ett konto",
+        "register_button": "Registrera ett nytt konto",
+        "google_sign_in": "Logga in med Google",
+        "login_title": "Logga in på ditt konto",
+        "password_no_match": "Lösenorden matchar inte",
+        "change_password": "Ändra lösenord",
+        "old_password": "Gammalt lösenord",
+        "new_password": "Nytt lösenord",
+        "new_password_confirm": "Bekräfta nytt lösenord",
+        "download": "Ladda ner",
+        "cancel": "Avbryt"
+    },
+
+    "settings": {
+        "nav": {
+            "account": "Konto",
+            "mastodon": "Mastodon",
+            "data": "Data"
+        },
+        "mastodon": {
+            "share_events": "Dela händelser",
+            "enable_sharing": "Aktivera dela händelser",
+            "enable_sharing_description": "Detta gör det möjligt för BookLogr att lyssna efter händelser, till exempel när en bok är klar, och dela den på sociala medier.",
+            "instance": "Mastodon instans",
+            "access_token": "Access token",
+            "account": "Mastodon konto"
+        },
+        "data": {
+            "request_data": {
+                "title": "Begär data",
+                "description": "You can request a copy of all your data. Once the request has finished, the data will be displayed in the Available exports table for you to download.",
+                "format": "Välj dataformat"
+            },
+            "files": {
+                "available_exports": "Tillgängliga exporteringar",
+                "filename": "Filnamn",
+                "created": "Skapad",
+                "action": "Handling"
+            },
+            "import_books": {
+                "title": "Importera böcker",
+                "platform": "Plattform",
+                "file": "Fil",
+                "add_duplicate_books": "Lägg till dubbletter av böcker"
+            }
+        }
+    },
+
+    "toast": {
+        "file_available_download": "Den exporterade filen är nu tillgänglig för nedladdning"
+    },
+
+    "verification": {
+        "title": "Verifiera ditt konto",
+        "verification_code_sent": "En verifieringskod har skickats till <email_hidden />",
+        "verification_code": "Verifieringskod",
+        "verify_button": "Verifiera"
+    },
+
+    "demo": {
+        "title": "Detta är en demo av BookLogr",
+        "description": "Vissa funktioner är <link_to_info>inaktiverade.</link_to_info>",
+        "description_login": "För att logga in, använd:",
+        "email": "E-post: {{email}}",
+        "password": "Lösenord: {{password}}"
+    },
+
+    "search": {
+        "input_placeholder": "Sök efter en bok",
+        "attribution": "Sökning utförs med hjälp av <link_to_info>OpenLibrary</link_to_info>",
+        "error_not_found": {
+            "title": "Inga resultat hittade",
+            "description": "Försök att söka efter en annan titel eller ISBN-nummer."
+        },
+        "error_unknown": {
+            "title": "Något gick fel",
+            "description": "Försök igen senare. <error_text>{{error}}. <link_to_info>Läs mer</link_to_info></error_text>"
+        }
+    },
+
+    "book": {
+        "by_author": "av {{author}}",
+        "no_description_found": "Ingen beskrivning hittad",
+        "pages": "Sidor",
+        "add_to_reading": "Lägg till {{book_title}} to currently reading",
+        "share_mastodon": "Dela till Mastodon",
+        "total_pages": "Totalt antal sidor",
+        "remove_confirmation": {
+            "title": "Är du säker på att du vill ta bort den här boken?",
+            "yes": "Ja, jag är säker",
+            "no": "Nej, avbryt"
+        },
+        "update_reading": {
+            "update_progress": "Update progress",
+            "update_reading_progress": "Update reading progresss",
+            "reading_progress": "Reading progress",
+            "set_as_finished": "Set as finished",
+            "how_far": "How far are you in <book_title/> ?",
+            "current_page": "Current page",
+            "progress": "Progress: {{percentage}}%",
+            "percentage": "Percentage",
+            "percentage_complete": "Procent klar",
+            "current_page_of": "Current page: {{current_page}} of {{total_pages}}",
+            "error": {
+                "greater_than": "Current page cannot be greater than total pages.",
+                "less_than": "Current page cannot be less than 0."
+            },
+            "finished": {
+                "title": "Grattis!",
+                "description": "Til att du har läst ut <book_title/>"
+            }
+        },
+        "rating": {
+            "give": "Ge ett betyg",
+            "rate_book": "Betygsätt bok",
+            "how_many_starts": "Hur många stjärnor skulle du vilja ge <book_title/> ?",
+            "rate_this_book": "Betygsätt boken",
+            "error": {
+                "greater_than": "Betyget får inte vara högre än 5.",
+                "less_than": "Betyget får inte vara mindre än 0."
+            }
+        }
+        
+    },
+
+    "editions": {
+        "title": "Editions",
+        "change": "Change edition",
+        "current": "Current Edition"
+    },
+
+    "navigation": {
+        "search": "Sök",
+        "profile": "Profil",
+        "settings": "Inställningar",
+        "logout": "Logout",
+        "expand": "Expandera",
+        "collapse": "Kollapsa",
+        "library": "Bibliotek",
+        "home": "Hem",
+        "go_home": "Gå hem"
+    },
+
+    "profile": {
+        "not_found_error": {
+            "title": "No profile found",
+            "description": "We could not find a profile with that name. Either the profile does not exist or it is set to private."
+        },
+        "stats": {
+            "read": "Read",
+            "reading": "Reading",
+            "to_be_read": "To Be Read"
+        },
+        "update_profile": "Update profile",
+        "all_books": "All books",
+        "profile_settings": "Profile settings"
+
+    },
+
+    "actions": {
+        "edit_book": "Edit book"
+    },
+
+    "notes": {
+        "title": "Anteckningar & citat",
+        "open": "Öppna anteckningar",
+        "note": "Anteckning",
+        "quote": "Citat",
+        "notes": "Anteckningar",
+        "quotes": "Citat",
+        "add_note": "Lägg till anteckning",
+        "add_quote": "Lägg till citat",
+        "input_placeholder": "Write your {{type}} here...",
+        "page": "Page",
+        "edit": "Edit",
+        "page_number": "Page number",
+        "make_this_public": "Make this {{type}} public",
+        "no_both_error": {
+            "title": "No notes or quotes found",
+            "description": "There does not seem to be any notes or quotes for this book."
+        },
+        "no_notes_error": {
+            "title": "No notes found",
+            "description": "There does not seem to be any notes for this book."
+        },
+        "no_quotes_error": {
+            "title": "No quotes found",
+            "description": "There does not seem to be any quotes for this book."
+        },
+        "remove_confirmation": {
+            "title": "Are you sure you want to remove this note?",
+            "yes": "Yes, I'm sure",
+            "no": "No, cancel"
+        }
+    },
+
+    "update": {
+        "version": "Version",
+        "new_version": "Ny version {{version}} tillgänglig! 🎉",
+        "release_notes": "Release Notes",
+        "go_to_release": "Go to release page"
+    },
+
+    "language": {
+        "language": "Språk",
+        "region": "Region",
+        "region_info": "Detta påverkar datum- och nummerformat.",
+        "timezone": "Tidszon",
+        "time_format": "Tidsformat",
+        "12hour": "12 timmar",
+        "24hour": "24 timmar",
+        "language_updated_toast": "Språk uppdaterad.",
+        "region_updated_toast": "Region uppdaterad.",
+        "timezone_updated_toast": "Tidszon uppdaterad.",
+        "time_format_updated_toast": "Tidsformat uppdaterad."
+    },
+
+    "sort": {
+        "sort_by": "Sortera efter {{sortType}}",
+        "order_by": "Order by",
+        "title": "Titel",
+        "author": "Författare",
+        "progress": "Progress",
+        "rating": "Betyg",
+        "date_added": "Datum tillagt"
+    },
+
+
+    "help": {
+        "title": "Hjälp",
+        "display_name_information": "A display name will be used on your profile page that lists all your books. A profile page can be private or public. Display name and visibility of the profile page can be changed at any time. Your display name will also be used for a link to your profile page if you have set it to public.",
+        "display_name_change_information": "Changing your display name will also change the link to get to your public profile.",
+        "no_books_found": {
+            "title": "Inga böcker hittades",
+            "description": "Det verkar inte finnas några böcker i den här listan. Använd sökfunktionen för att hitta en bok och lägga till den i din lista."
+        },
+        "google_client_id_error":{
+            "title":"Google Sign-In Disabled",
+            "description": "The provided Google Client ID does not follow the expected format. If you are the person who installed BookLogr on this server, check your setup and update the ID to enable sign-in.<link_to_info>Learn more about setting up Google Sign-In</link_to_info>"
+        },
+        "mastodon_account_information": "See <link_to_info>guide</link_to_info> for how to connect your Mastodon account to BookLogr.",
+        "number_of_pages_information": "Antalet sidor i boken du läser"
     }
 }
