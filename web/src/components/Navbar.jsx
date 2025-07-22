@@ -28,11 +28,6 @@ function NavigationMenu() {
             </NavbarBrand>
             <NavbarToggle />
             <NavbarCollapse>
-              {import.meta.env.VITE_DISABLE_HOMEPAGE === "false" &&
-                <NavbarLink as={Link} to="/" active={location.pathname == "/"}>
-                  {t("navigation.home")}
-                </NavbarLink>
-              }
               <NavbarLink as={Link} to="/login" active={location.pathname == "/login"}>
                 {t("forms.login")}
               </NavbarLink>

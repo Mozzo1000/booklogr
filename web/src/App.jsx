@@ -1,8 +1,6 @@
 import { Routes, Route, Navigate, useLocation, useNavigate} from "react-router-dom";
 import BookDetails from "./pages/BookDetails";
 import Library from "./pages/Library";
-import Home from "./pages/Home";
-import SearchBar from "./components/SearchBar";
 import ToastContainer from "./toast/Container";
 import NavigationMenu from "./components/Navbar"
 import Login from "./pages/Login";
@@ -56,7 +54,7 @@ function App() {
         <AnimatePresence mode='wait'>
           <Routes location={location} key={location.pathname}>
             <Route path="/">
-              <Route index element={<Home/>} />
+              <Route index element={<Login />} />
         
               <Route path="library" element={<PrivateRoute><Library /></PrivateRoute>} />
               <Route path="books/:id" element={<BookDetails />} />

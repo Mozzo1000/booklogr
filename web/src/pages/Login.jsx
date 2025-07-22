@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../services/auth.service';
 import { Button, Label, TextInput, Card } from 'flowbite-react';
@@ -17,13 +17,19 @@ function Login() {
     const { t } = useTranslation();
 
     const isValidGoogleID = /^[0-9]+-[a-z0-9]+\.apps\.googleusercontent\.com$/.test(import.meta.env.VITE_GOOGLE_CLIENT_ID);
-  
+
+    useEffect(() => {
+        if(AuthService.getCurrentUser()) {
+            return navigate("/library")
+        }
+    }, [])
+
     const handleLogin = (e) => {
         e.preventDefault();
         AuthService.login(username, password).then(
             response => {
                 toast("success", "Login successful")
-                navigate("/")
+                navigate("/library")
             },
             error => {
               const resMessage =
