@@ -24,7 +24,7 @@
 BookLogr is a web app designed to help you manage your personal book library with ease. This self-hosted service ensures that you have complete control over your data, providing a secure and private way to keep track of all the books you own, read, or wish to read.
 Optionally you can also display your library proudly to the public, sharing it with your friends and family.
 
-<img src="web/public/feature_section_01.png" />
+<img src="assets/library.png" />
 
 
 > [!IMPORTANT]
