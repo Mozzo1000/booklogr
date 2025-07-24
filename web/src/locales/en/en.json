@@ -53,7 +53,8 @@
         "new_password": "New password",
         "new_password_confirm": "Confirm new password",
         "download": "Download",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "skip": "Skip"
     },
 
     "settings": {
@@ -165,8 +166,13 @@
                 "greater_than": "Rating cannot be more than 5",
                 "less_than": "Rating cannot be less than 0."
             }
-        }
-        
+        },
+        "missing_info": {
+            "title": "Missing information",
+            "description": "Some information for {{book_title}} is missing. Would you like to add it?",
+            "total_pages_placeholder": "Enter total pages",
+            "author_placeholder": "Enter author name"
+        }  
     },
 
     "editions": {
