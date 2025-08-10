@@ -1,5 +1,5 @@
 # Demo Mode
-BookLogr includes a demo mode feature for showcasing the applications functionality. This mode is used for the official demo site at https://demo.booklogr.app.cd
+BookLogr includes a demo mode feature for showcasing the applications functionality. This mode is used for the official demo site at https://demo.booklogr.app
 
 To try the official demo website, use the following login credentials:
 - **Username**: `demo@booklogr.app`
