@@ -8,6 +8,8 @@
     "build": "cross-env VITE_APP_VERSION=$npm_package_version vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "test": "node --test tests/**/*.test.js",
+    "test:watch": "node --test --watch tests/**/*.test.js",
     "postinstall": "flowbite-react patch"
   },
   "dependencies": {

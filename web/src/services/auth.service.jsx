@@ -13,7 +13,7 @@ axios.interceptors.response.use((response) => {
 });
 
 const register = (email, name, password) => {
-    return axios.post(getAPIUrl("/v1/register"), {
+    return axios.post(getAPIUrl("v1/register"), {
         email,
         name,
         password,
@@ -22,7 +22,7 @@ const register = (email, name, password) => {
 
 const login = (email, password) => {
     return axios
-        .post(getAPIUrl("/v1/login"), {
+        .post(getAPIUrl("v1/login"), {
             email,
             password,
         })
@@ -36,7 +36,7 @@ const login = (email, password) => {
 };
 
 const loginGoogle = (code) => {
-    return axios.post(getAPIUrl("/v1/authorize/google"), {code}).then((response) => {
+    return axios.post(getAPIUrl("v1/authorize/google"), {code}).then((response) => {
         if (response.data.access_token) {
             localStorage.setItem("auth_user", JSON.stringify(response.data));
         }
@@ -54,7 +54,7 @@ const getCurrentUser = () => {
 };
 
 const verify = (email, code) => {
-    return axios.post(getAPIUrl("/v1/verify"), {
+    return axios.post(getAPIUrl("v1/verify"), {
         email,
         code,
     });
