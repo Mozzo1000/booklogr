@@ -15,6 +15,7 @@ import globalRouter from "./GlobalRouter";
 import { AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 import { useThemeMode } from "flowbite-react";
+import i18n from "./i18n";
 
 function PrivateRoute({ children }) {
   const auth = AuthService.getCurrentUser()
@@ -40,6 +41,24 @@ function App() {
       localStorage.setItem("flowbite-theme-mode", "light");
     }
   }, []);
+
+  // Change dir of the document when the language updates
+  useEffect(() => {
+    const setDir = () => {
+      document.documentElement.setAttribute(
+        "dir",
+        i18n.language === "ar" ? "rtl" : "ltr"
+      );
+    };
+
+    setDir(); // Set initial direction
+
+    i18n.on("languageChanged", setDir); // Listen for language changes
+
+    return () => {
+      i18n.off("languageChanged", setDir); // Clean up the listener
+    };
+  }, []); // Empty dependency array ensures this effect runs only once on mount
 
 
   return (
