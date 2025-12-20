@@ -1,33 +1,30 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 import en from "./locales/en/en.json";
 import sv from "./locales/sv/sv.json";
 import ar from "./locales/ar/ar.json";
 import cn from "./locales/zh-CN/zh-CN.json";
 
 const resources = {
-  en: {
-    translation: en
-  },
-  sv: {
-    translation: sv
-  },
-  ar: {
-    translation: ar
-  "cn": {
-    translation: cn
-  }
+	en: {
+		translation: en,
+	},
+	sv: {
+		translation: sv,
+	},
+	ar: {
+		translation: ar,
+	},
+	cn: {
+		translation: cn,
+	},
 };
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources,
-    fallbackLng: 'en',
-    debug: true,
-  });
-
+i18n.use(LanguageDetector).use(initReactI18next).init({
+	resources,
+	fallbackLng: "en",
+	debug: true,
+});
 
 export default i18n;
