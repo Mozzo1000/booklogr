@@ -48,7 +48,7 @@ function NotesView({id, allowEditing, open, setOpen, overrideNotes}) {
     
     return (
         <>
-        <Modal size={"5xl"} position={"top-center"} show={open} onClose={() => setOpen(false)}>
+        <Modal size={"5xl"} dismissible position={"top-center"} show={open} onClose={() => setOpen(false)}>
         <ModalHeader className="border-gray-200">{t("notes.title")}</ModalHeader>
             <ModalBody>
                 <Tabs variant="fullWidth" className="sticky">

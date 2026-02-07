@@ -97,14 +97,14 @@
 
     "verification": {
         "title": "验证您的账户",
-        "verification_code_sent": "验证码已发送至 <email_hidden />",
+        "verification_code_sent": "验证码已发送至 {{email_hidden}}",
         "verification_code": "验证码",
         "verify_button": "验证"
     },
 
     "demo": {
         "title": "这是 BookLogr 的演示版本",
-        "description": "部分功能已<link_to_info>禁用。</link_to_info>",
+        "description": "部分功能已禁用。",
         "description_login": "登录请使用，",
         "email": "邮箱：{{email}}",
         "password": "密码：{{password}}"
@@ -119,7 +119,7 @@
         },
         "error_unknown": {
             "title": "出错了",
-            "description": "请稍后再试。<error_text>{{error}}。<link_to_info>了解更多</link_to_info></error_text>"
+            "description": "请稍后再试。{{error}}"
         }
     },
 
@@ -141,7 +141,7 @@
             "update_reading_progress": "更新阅读进度",
             "reading_progress": "阅读进度",
             "set_as_finished": "设为已完成",
-            "how_far": "您阅读 <book_title/> 到哪里了？",
+            "how_far": "您阅读 {{book_title}} 到哪里了？",
             "current_page": "当前页",
             "progress": "进度：{{percentage}}%",
             "percentage": "百分比",
@@ -153,13 +153,13 @@
             },
             "finished": {
                 "title": "恭喜！",
-                "description": "完成阅读 <book_title/>"
+                "description": "完成阅读 {{book_title}}"
             }
         },
         "rating": {
             "give": "给出评分",
             "rate_book": "为书籍评分",
-            "how_many_starts": "您想给 <book_title/> 几颗星？",
+            "how_many_starts": "您想给 {{book_title}} 几颗星？",
             "rate_this_book": "为这本书评分",
             "error": {
                 "greater_than": "评分不能超过 5 星",
@@ -285,9 +285,8 @@
         },
         "google_client_id_error":{
             "title":"Google 登录已禁用",
-            "description": "提供的 Google 客户端 ID 格式不符合预期。如果您是在此服务器上安装 BookLogr 的人，请检查您的设置并更新 ID 以启用登录。<link_to_info>了解更多关于设置 Google 登录的信息</link_to_info>"
+            "description": "提供的 Google 客户端 ID 格式不符合预期。如果您是在此服务器上安装 BookLogr 的人，请检查您的设置并更新 ID 以启用登录。"
         },
-        "mastodon_account_information": "查看<link_to_info>指南</link_to_info>了解如何将您的 Mastodon 账户连接到 BookLogr。",
         "number_of_pages_information": "您正在阅读的书籍的页数。"
     }
 }

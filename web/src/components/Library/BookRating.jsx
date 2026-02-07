@@ -75,17 +75,11 @@ function BookRating(props) {
             </Tooltip>
         )}
         
-        <Modal show={openModal} onClose={() => setOpenModal(false)}>
+        <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
             <ModalHeader className="border-gray-200">{t("book.rating.rate_book")}</ModalHeader>
             <ModalBody>
                 <p>
-                    <Trans i18nKey="book.rating.how_many_starts"
-                        components={{
-                            book_title: (
-                                <strong>{props.title}</strong>
-                            )
-                        }}
-                    />
+                    {t("book.rating.how_many_starts", {book_title: props.title})}
                 </p>
                 <div className="flex flex-row items-center gap-4">
                     <div className="basis-10/12">

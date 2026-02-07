@@ -97,14 +97,14 @@
 
   "verification": {
     "title": "تحقق من حسابك",
-    "verification_code_sent": "تم إرسال رمز التحقق إلى <email_hidden />",
+    "verification_code_sent": "تم إرسال رمز التحقق إلى {{email_hidden}}",
     "verification_code": "رمز التحقق",
     "verify_button": "تحقق"
   },
 
   "demo": {
     "title": "هذا عرض توضيحي لـ BookLogr",
-    "description": "بعض الميزات <link_to_info>معطلة.</link_to_info>",
+    "description": "بعض الميزات معطلة.",
     "description_login": "لتسجيل الدخول استخدم:",
     "email": "البريد الإلكتروني: {{email}}",
     "password": "كلمة المرور: {{password}}"
@@ -119,7 +119,7 @@
     },
     "error_unknown": {
       "title": "حدث خطأ ما",
-      "description": "حاول مرة أخرى لاحقًا. <error_text>{{error}}. <link_to_info>اعرف المزيد</link_to_info></error_text>"
+      "description": "حاول مرة أخرى لاحقًا. {{error}}"
     }
   },
 
@@ -141,7 +141,7 @@
       "update_reading_progress": "تحديث تقدم القراءة",
       "reading_progress": "تقدم القراءة",
       "set_as_finished": "تعيين كمنتهي",
-      "how_far": "إلى أي مدى وصلت في <book_title/> ؟",
+      "how_far": "إلى أي مدى وصلت في {{book_title}} ؟",
       "current_page": "الصفحة الحالية",
       "progress": "التقدم: {{percentage}}%",
       "percentage": "النسبة المئوية",
@@ -153,13 +153,13 @@
       },
       "finished": {
         "title": "تهانينا!",
-        "description": "على الانتهاء من قراءة <book_title/>"
+        "description": "على الانتهاء من قراءة {{book_title}}"
       }
     },
     "rating": {
       "give": "أعط تقييم",
       "rate_book": "قيّم الكتاب",
-      "how_many_starts": "كم عدد النجوم التي ترغب في إعطائها لـ <book_title/>؟",
+      "how_many_starts": "كم عدد النجوم التي ترغب في إعطائها لـ {{book_title}}؟",
       "rate_this_book": "قيّم هذا الكتاب",
       "error": {
         "greater_than": "لا يمكن أن يكون التقييم أكثر من 5",
@@ -285,9 +285,8 @@
     },
     "google_client_id_error": {
       "title": "تم تعطيل تسجيل الدخول باستخدام Google",
-      "description": "معرّف عميل Google المقدم لا يتبع التنسيق المتوقع. إذا كنت الشخص الذي قام بتثبيت BookLogr على هذا الخادم، فتحقق من إعداداتك وقم بتحديث المعرّف لتمكين تسجيل الدخول.<link_to_info>تعرّف على كيفية إعداد تسجيل الدخول باستخدام Google</link_to_info>"
+      "description": "معرّف عميل Google المقدم لا يتبع التنسيق المتوقع. إذا كنت الشخص الذي قام بتثبيت BookLogr على هذا الخادم، فتحقق من إعداداتك وقم بتحديث المعرّف لتمكين تسجيل الدخول."
     },
-    "mastodon_account_information": "راجع <link_to_info>الدليل</link_to_info> لمعرفة كيفية ربط حساب Mastodon الخاص بك بـ BookLogr.",
     "number_of_pages_information": "عدد صفحات الكتاب الذي تقرأه."
   }
 }

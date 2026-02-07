@@ -42,7 +42,7 @@ function AddQuoteModal({bookID, open, setOpen, onSave}) {
     }
 
     return (
-        <Modal show={open} size="2xl" onClose={() => setOpen(false)}>
+        <Modal show={open} dismissible size="2xl" onClose={() => setOpen(false)}>
             <ModalHeader className="border-gray-200">{t("notes.add_quote")}</ModalHeader>
             <ModalBody>
                 <div className="flex flex-col gap-4">

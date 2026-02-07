@@ -182,20 +182,25 @@ function Profile() {
                         <span className="absolute font-medium text-gray-900 -translate-x-1/3 bg-white dark:bg-[#121212] dark:text-white ">{t("profile.all_books")}</span>
                     </div>
                     <div className="flex flex-row justify-between">
-                        <ButtonGroup className="pb-4">
-                            <Button color="alternative" onClick={() => setReadingStatusFilter("All")}>{t("reading_status.all")} ({data.books.length})</Button>
-                            <Button color="alternative" onClick={() => setReadingStatusFilter("Read")}>{t("reading_status.read")} ({data.num_books_read || 0})</Button>
-                            <Button color="alternative" onClick={() => setReadingStatusFilter("Currently reading")}>{t("reading_status.currently_reading")} ({data.num_books_reading || 0})</Button>
-                            <Button color="alternative" onClick={() => setReadingStatusFilter("To be read")}>{t("reading_status.to_be_read")} ({data.num_books_tbr || 0})</Button>
-                        </ButtonGroup>
-                        <ButtonGroup>
-                            <Button size="sm" color={view === "gallery" ? "default" : "alternative"} onClick={() => changeView("gallery")}>
-                                <RiGalleryView className="w-6 h-6" />
-                            </Button>
-                            <Button size="sm" color={view === "list" ? "default" : "alternative"} onClick={() => changeView("list")}>
-                                <RiListView className="w-6 h-6" />
-                            </Button>
-                        </ButtonGroup>
+                        <div className="pb-4">
+                            <ButtonGroup>
+                                <Button color="alternative" onClick={() => setReadingStatusFilter("All")}>{t("reading_status.all")} ({data.books.length})</Button>
+                                <Button color="alternative" onClick={() => setReadingStatusFilter("Read")}>{t("reading_status.read")} ({data.num_books_read || 0})</Button>
+                                <Button color="alternative" onClick={() => setReadingStatusFilter("Currently reading")}>{t("reading_status.currently_reading")} ({data.num_books_reading || 0})</Button>
+                                <Button color="alternative" onClick={() => setReadingStatusFilter("To be read")}>{t("reading_status.to_be_read")} ({data.num_books_tbr || 0})</Button>
+                            </ButtonGroup>
+                        </div>
+                        <div>
+                            <ButtonGroup>
+                                <Button size="sm" color={view === "gallery" ? "default" : "alternative"} onClick={() => changeView("gallery")}>
+                                    <RiGalleryView className="w-6 h-6" />
+                                </Button>
+                                <Button size="sm" color={view === "list" ? "default" : "alternative"} onClick={() => changeView("list")}>
+                                    <RiListView className="w-6 h-6" />
+                                </Button>
+                            </ButtonGroup>
+                        </div>
+                        
                     </div>
                     <PaneTabView view={view}>
                     {filteredBooks.map((item, i) => {

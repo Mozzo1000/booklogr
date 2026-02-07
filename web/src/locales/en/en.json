@@ -98,14 +98,14 @@
 
     "verification": {
         "title": "Verify your account",
-        "verification_code_sent": "A verification code has been sent to <email_hidden />",
+        "verification_code_sent": "A verification code has been sent to {{email_hidden}}",
         "verification_code": "Verification code",
         "verify_button": "Verify"
     },
 
     "demo": {
         "title": "This is a demo of BookLogr",
-        "description": "Some features are <link_to_info>disabled.</link_to_info>",
+        "description": "Some features are disabled.",
         "description_login": "To login use,",
         "email": "Email: {{email}}",
         "password": "Password: {{password}}"
@@ -120,7 +120,7 @@
         },
         "error_unknown": {
             "title": "Something went wrong",
-            "description": "Try again later. <error_text>{{error}}. <link_to_info>Learn more</link_to_info></error_text>"
+            "description": "Try again later. {{error}}"
         }
     },
 
@@ -142,7 +142,7 @@
             "update_reading_progress": "Update reading progresss",
             "reading_progress": "Reading progress",
             "set_as_finished": "Set as finished",
-            "how_far": "How far are you in <book_title/> ?",
+            "how_far": "How far are you in {{book_title}} ?",
             "current_page": "Current page",
             "progress": "Progress: {{percentage}}%",
             "percentage": "Percentage",
@@ -154,13 +154,13 @@
             },
             "finished": {
                 "title": "Congratulations!",
-                "description": "On finishing reading <book_title/>"
+                "description": "On finishing reading {{book_title}}"
             }
         },
         "rating": {
             "give": "Give a rating",
             "rate_book": "Rate book",
-            "how_many_starts": "How many stars would you like to give <book_title/> ?",
+            "how_many_starts": "How many stars would you like to give {{book_title}} ?",
             "rate_this_book": "Rate this book",
             "error": {
                 "greater_than": "Rating cannot be more than 5",
@@ -288,9 +288,8 @@
         },
         "google_client_id_error":{
             "title":"Google Sign-In Disabled",
-            "description": "The provided Google Client ID does not follow the expected format. If you are the person who installed BookLogr on this server, check your setup and update the ID to enable sign-in.<link_to_info>Learn more about setting up Google Sign-In</link_to_info>"
+            "description": "The provided Google Client ID does not follow the expected format. If you are the person who installed BookLogr on this server, check your setup and update the ID to enable sign-in."
         },
-        "mastodon_account_information": "See <link_to_info>guide</link_to_info> for how to connect your Mastodon account to BookLogr.",
         "number_of_pages_information": "The number of pages in the book you are reading."
     }
 }

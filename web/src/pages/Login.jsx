@@ -53,13 +53,7 @@ function Login() {
           <div className="text-center">
             <p className="text-lg font-bold">{t("demo.title")}</p>
             <p>
-              <Trans i18nKey="demo.description"
-                components={{
-                  link_to_info: (
-                    <a target="_blank" className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://booklogr.app/docs/Features/Demo-mode#disabled-features-in-demo-mode"/>
-                  )
-                }}
-              />
+                {t("demo.description")}
             </p>
             <br />
             <p className="font-bold">{t("demo.description_login")}</p>

@@ -97,14 +97,14 @@
 
     "verification": {
         "title": "Verifiera ditt konto",
-        "verification_code_sent": "En verifieringskod har skickats till <email_hidden />",
+        "verification_code_sent": "En verifieringskod har skickats till {{email_hidden}}",
         "verification_code": "Verifieringskod",
         "verify_button": "Verifiera"
     },
 
     "demo": {
         "title": "Detta är en demo av BookLogr",
-        "description": "Vissa funktioner är <link_to_info>inaktiverade.</link_to_info>",
+        "description": "Vissa funktioner är inaktiverade.",
         "description_login": "För att logga in, använd:",
         "email": "E-post: {{email}}",
         "password": "Lösenord: {{password}}"
@@ -119,7 +119,7 @@
         },
         "error_unknown": {
             "title": "Något gick fel",
-            "description": "Försök igen senare. <error_text>{{error}}. <link_to_info>Läs mer</link_to_info></error_text>"
+            "description": "Försök igen senare. {{error}}"
         }
     },
 
@@ -140,7 +140,7 @@
             "update_reading_progress": "Update reading progresss",
             "reading_progress": "Reading progress",
             "set_as_finished": "Set as finished",
-            "how_far": "How far are you in <book_title/> ?",
+            "how_far": "How far are you in {{book_title}} ?",
             "current_page": "Current page",
             "progress": "Progress: {{percentage}}%",
             "percentage": "Percentage",
@@ -152,13 +152,13 @@
             },
             "finished": {
                 "title": "Grattis!",
-                "description": "Til att du har läst ut <book_title/>"
+                "description": "Til att du har läst ut {{book_title}}"
             }
         },
         "rating": {
             "give": "Ge ett betyg",
             "rate_book": "Betygsätt bok",
-            "how_many_starts": "Hur många stjärnor skulle du vilja ge <book_title/> ?",
+            "how_many_starts": "Hur många stjärnor skulle du vilja ge {{book_title}} ?",
             "rate_this_book": "Betygsätt boken",
             "error": {
                 "greater_than": "Betyget får inte vara högre än 5.",
@@ -281,9 +281,8 @@
         },
         "google_client_id_error":{
             "title":"Google Sign-In Disabled",
-            "description": "The provided Google Client ID does not follow the expected format. If you are the person who installed BookLogr on this server, check your setup and update the ID to enable sign-in.<link_to_info>Learn more about setting up Google Sign-In</link_to_info>"
+            "description": "The provided Google Client ID does not follow the expected format. If you are the person who installed BookLogr on this server, check your setup and update the ID to enable sign-in."
         },
-        "mastodon_account_information": "See <link_to_info>guide</link_to_info> for how to connect your Mastodon account to BookLogr.",
         "number_of_pages_information": "Antalet sidor i boken du läser"
     }
 }

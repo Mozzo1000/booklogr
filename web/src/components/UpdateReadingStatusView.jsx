@@ -36,13 +36,7 @@ function UpdateReadingStatusView({title, currentPage, setCurrentPage, totalPages
     return (
         <div className="space-y-6">
             <p className="flex items-center gap-2 dark:text-white">
-                <Trans i18nKey="book.update_reading.how_far"
-                    components={{
-                        book_title: (
-                            <p className="font-bold">{title}</p>
-                        )
-                    }}
-                    />
+                {t("book.update_reading.how_far", {book_title: title})}
             </p>
             <div className="overflow-x-auto">
                 <Tabs variant="fullWidth" ref={tabsRef} onActiveTabChange={(tab) => setActiveTab(tab)}>
