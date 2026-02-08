@@ -39,7 +39,7 @@ function BookItem(props) {
                         <div className="grow">
                             <UpdateReadingStatusButton currentPage={props.currentPage} totalPages={props.totalPages} id={props.internalID} title={props.title} rating={props.rating} onSucess={props.onReadingStatusChanged}/>
                         </div>
-                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged} allowNoteEditing={props.allowNoteEditing} totalPages={props.totalPages}/>
+                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged} allowNoteEditing={props.allowNoteEditing} totalPages={props.totalPages} author={props.author} title={props.title} isbn={props.isbn}/>
                     </div>
                     </>
                 }
@@ -55,7 +55,7 @@ function BookItem(props) {
                 </div>
                 {props.showOptions &&
                     <div className="flex flex-row-reverse">
-                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged} allowNoteEditing={props.allowNoteEditing} totalPages={props.totalPages}/>
+                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged} allowNoteEditing={props.allowNoteEditing} totalPages={props.totalPages} author={props.author} title={props.title} isbn={props.isbn}/>
                     </div>
                 }
             </div>

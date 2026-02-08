@@ -252,6 +252,10 @@ def edit_book(id):
                   rating:
                     type: number
                     format: float
+                  title:
+                    type: string
+                  author:
+                    type: string
         security:
             - bearerAuth: []
         responses:
@@ -295,7 +299,11 @@ def edit_book(id):
             elif int(request.json["rating"]) > 5:
                 return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating can't be more than 5."}), 422 
             elif int(request.json["rating"]) < 0:
-                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating can't be less than 0."}), 422 
+                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating can't be less than 0."}), 422
+        if "title" in request.json:
+            book.title = request.json["title"]
+        if "author" in request.json:
+            book.author = request.json["author"]
     else:
         return jsonify({
                     "error": "Bad request",
