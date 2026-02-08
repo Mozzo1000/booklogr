@@ -129,6 +129,8 @@
         "unknown_author": "unknown author",
         "no_description_found": "No description found",
         "pages": "Pages",
+        "cover": "Cover",
+        "isbn": "ISBN",
         "add_to_reading": "Add {{book_title}} to currently reading",
         "share_mastodon": "Share to Mastodon",
         "total_pages": "Total pages",
@@ -210,7 +212,8 @@
     },
 
     "actions": {
-        "edit_book": "Edit book"
+        "edit_book": "Edit book",
+        "replace_cover": "Replace cover"
     },
 
     "notes": {

@@ -65,7 +65,7 @@ function EditBookModal(props) {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                             <div className="format lg:format-lg dark:format-invert">
-                                <p>ISBN</p>
+                                <p>{t("book.cover")}</p>
                             </div>
                             <div className="col-span-2">
                                 <TextInput disabled type="text" value={isbn} onChange={(e) => setISBN(e.target.value)}/>
@@ -74,7 +74,7 @@ function EditBookModal(props) {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                             <div className="format lg:format-lg dark:format-invert">
-                                <p>{"Cover"}</p>
+                                <p>{t("book.cover")}</p>
                             </div>
                             <div className="flex flex-col gap-2">
                                 <Img className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg?default=false"} 
@@ -82,7 +82,7 @@ function EditBookModal(props) {
                                     unloader={theme.mode == "dark" && <img src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img src="/fallback-cover.svg"/>}
                                 />
                                 <Tooltip content="Currently not implemented">
-                                    <Button disabled>Replace cover</Button>
+                                    <Button disabled>{t("actions.replace_cover")}</Button>
                                 </Tooltip>
                             </div>
                         </div>
