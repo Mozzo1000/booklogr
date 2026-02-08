@@ -61,7 +61,7 @@ server {
     server_name api.YOUR_DOMAIN;
 
     location / {
-            proxy_pass http://127.0.0.1:5002;
+            proxy_pass http://127.0.0.1:5000;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -136,7 +136,6 @@ services:
         environment:
             - BL_API_ENDPOINT=https://booklogr-api.YOURDOMAIN.TLD/ 
             - BL_GOOGLE_ID=XXX.apps.googleusercontent.com # CHANGE THIS TO YOUR OWN GOOGLE ID
-            - BL_DISABLE_HOMEPAGE=true
             - BL_DEMO_MODE=false
         labels:
             - "traefik.enable=true"

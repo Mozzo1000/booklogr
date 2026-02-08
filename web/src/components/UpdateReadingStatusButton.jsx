@@ -46,7 +46,7 @@ function UpdateReadingStatusButton(props) {
             ) :(
                 <Button color="light" pill size="sm" onClick={() => setOpenModal(true)}>{t("book.update_reading.update_progress")}</Button>
             )}
-            <Modal size="lg" show={openModal} onClose={() => setOpenModal(false)}>
+            <Modal size="lg" dismissible show={openModal} onClose={() => setOpenModal(false)}>
             <ModalHeader className="border-gray-200">{t("book.update_reading.update_reading_progress")}</ModalHeader>
                 <ModalBody>
                     <UpdateReadingStatusView title={props.title} totalPages={props.totalPages} 
@@ -64,7 +64,7 @@ function UpdateReadingStatusButton(props) {
                 </ModalFooter>
             </Modal>
 
-            <Modal show={openFinishModal} onClose={() => (setOpenFinishModal(false), props.onSucess())} popup>
+            <Modal show={openFinishModal} dismissible onClose={() => (setOpenFinishModal(false), props.onSucess())} popup>
                 <ModalHeader />
                 <ModalBody>
                     <Confetti width={"640"} height={386} recycle={false} />
@@ -73,13 +73,7 @@ function UpdateReadingStatusButton(props) {
                         <div className="format lg:format-lg dark:format-invert">
                             <h2>{t("book.update_reading.finished.title")}</h2>
                             <p>
-                                <Trans i18nKey="book.update_reading.finished´.description"
-                                    components={{
-                                        link_to_info: (
-                                        <strong>{props.title}</strong>
-                                        )
-                                    }}
-                                />
+                                {t("book.update_reading.finished.description", {book_title: props.title})}
                             </p>                            
                         </div>
                         <div className="flex flex-col items-center">

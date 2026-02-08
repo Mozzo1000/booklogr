@@ -56,13 +56,7 @@ function GoogleLoginButton(props) {
             <div className="px-3 py-2">
 
                 <p>
-                    <Trans i18nKey="help.google_client_id_error.description"
-                        components={{
-                            link_to_info: (
-                                <a target="_blank" href="https://booklogr.app/docs/Configuration/Google-sign-in" className="mt-2 inline-block text-blue-600 underline hover:text-blue-800" />
-                            )
-                    }}
-                    />
+                    {t("help.google_client_id_error.description")}
                 </p>
             </div>
         </div>

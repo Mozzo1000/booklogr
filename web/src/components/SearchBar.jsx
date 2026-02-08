@@ -148,16 +148,7 @@ function SearchBar(props) {
                     <div className="format lg:format-lg dark:format-invert">
                         <h2>{t("search.error_unknown.title")}</h2>
                         <p>
-                            <Trans i18nKey="search.error_unknown.description" values={{ error: errorMessage }}
-                                components={{
-                                    error_text: (
-                                        <p className="text-xs" />
-                                    ),
-                                    link_to_info: (
-                                        <a href={"https://github.com/Mozzo1000/booklogr/wiki/Error-messages#" + String(errorMessage).toLowerCase()} />
-                                    )
-                                }}
-                            />
+                            {t("search.error_unknown.description", {error: errorMessage})}
                         </p>
                     </div>
                 </div>

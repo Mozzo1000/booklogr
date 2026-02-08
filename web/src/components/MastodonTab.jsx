@@ -71,13 +71,7 @@ function MastodonTab() {
             </div>
             <div className="px-3 py-2">
                 <p>
-                    <Trans i18nKey="help.mastodon_account_information"
-                        components={{
-                            link_to_info: (
-                                <a target="_blank" className="underline hover:no-underline" href="https://github.com/Mozzo1000/booklogr/wiki/Connect-to-mastodon"/>
-                            )
-                        }}
-                        />
+                    <a target="_blank" className="underline hover:no-underline" href="https://github.com/Mozzo1000/booklogr/wiki/Connect-to-mastodon">https://github.com/Mozzo1000/booklogr/wiki/Connect-to-mastodon</a>
                 </p>
             </div>
         </div>

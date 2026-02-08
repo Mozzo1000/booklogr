@@ -5,7 +5,9 @@ function LanguageSwitcher({fullSize}) {
     const { i18n } = useTranslation();
     const languages = [
         {code: "en", label: "English", flag: "🇬🇧"},
-        {code: "sv", label: "Svenska", flag: "🇸🇪"}
+        {code: "sv", label: "Svenska", flag: "🇸🇪"},
+        {code: "ar", label: "عربي", flag: "🇸🇦"},
+        {code: "cn", label: "中文", flag: "🇨🇳"}
     ]
 
     const currentLang = languages.find(lang => lang.code === i18n.language)?.flag || '🌐';

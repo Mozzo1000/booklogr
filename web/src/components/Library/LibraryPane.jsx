@@ -71,14 +71,16 @@ function LibraryPane() {
             </article>
             <div className="flex flex-row gap-4">
                 <SortSelector sort={sort} setSort={setSort} order={order} setOrder={setOrder}/>
-                <ButtonGroup>
-                    <Button size="sm" color={view === "gallery" ? "default" : "alternative"} onClick={() => changeView("gallery")}>
-                        <RiGalleryView className="w-6 h-6" />
-                    </Button>
-                    <Button size="sm" color={view === "list" ? "default" : "alternative"} onClick={() => changeView("list")}>
-                        <RiListView className="w-6 h-6" />
-                    </Button>
-                </ButtonGroup>
+                <div>
+                    <ButtonGroup>
+                        <Button size="sm" color={view === "gallery" ? "default" : "alternative"} onClick={() => changeView("gallery")}>
+                            <RiGalleryView className="w-6 h-6" />
+                        </Button>
+                        <Button size="sm" color={view === "list" ? "default" : "alternative"} onClick={() => changeView("list")}>
+                            <RiListView className="w-6 h-6" />
+                        </Button>
+                    </ButtonGroup>
+                </div>
             </div>
         </div>
         <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">

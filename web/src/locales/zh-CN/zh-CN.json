@@ -1,0 +1,292 @@
+{
+    "library": "我的书库",
+
+    "reading_status": {
+        "title": "阅读状态",
+        "read": "已读",
+        "currently_reading": "正在阅读",
+        "to_be_read": "待读",
+        "all": "全部",
+        "want_to_read": "想读"
+    },
+
+    "onboarding": {
+        "step_0": {
+            "title": "欢迎！🎉",
+            "description": "我们很高兴您的到来！要开始追踪您正在阅读的所有书籍，首先需要选择一个显示名称。"
+        },
+        "step_1": {
+            "title": "一切就绪！",
+            "description": "何不从将一些您最喜欢的书籍添加到列表开始呢？这非常简单！"
+        }
+    },
+
+    "forms": {
+        "next": "下一步",
+        "previous": "上一步",
+        "close": "关闭",
+        "update": "更新",
+        "save": "保存",
+        "upload_picture": "上传图片",
+        "upload": "上传",
+        "uploading": "上传中...",
+        "remove": "移除",
+        "display_name": "显示名称",
+        "visibility_label": "可见性",
+        "visibility_hidden": "私密",
+        "visibility_public": "公开",
+        "email": "邮箱",
+        "email_placeholder": "name@example.com",
+        "password": "密码",
+        "confirm_password": "确认密码",
+        "name": "您的名字",
+        "login": "登录",
+        "register": "注册",
+        "register_title": "注册账户",
+        "register_button": "注册新账户",
+        "google_sign_in": "使用 Google 登录",
+        "login_title": "登录您的账户",
+        "password_no_match": "密码不匹配",
+        "change_password": "修改密码",
+        "old_password": "旧密码",
+        "new_password": "新密码",
+        "new_password_confirm": "确认新密码",
+        "download": "下载",
+        "cancel": "取消",
+        "skip": "跳过"
+    },
+
+    "settings": {
+        "nav": {
+            "account": "账户",
+            "mastodon": "Mastodon",
+            "data": "数据"
+        },
+        "mastodon": {
+            "share_events": "分享事件",
+            "enable_sharing": "启用事件分享",
+            "enable_sharing_description": "这将允许 BookLogr 监听诸如完成一本书等事件并分享到社交媒体。",
+            "instance": "Mastodon 实例",
+            "access_token": "访问令牌",
+            "account": "Mastodon 账户"
+        },
+        "data": {
+            "request_data": {
+                "title": "请求数据",
+                "description": "您可以请求获取所有数据的副本。请求完成后，数据将显示在可用导出表中供您下载。",
+                "format": "选择数据格式"
+            },
+            "files": {
+                "available_exports": "可用导出",
+                "filename": "文件名",
+                "created": "创建时间",
+                "action": "操作"
+            },
+            "import_books": {
+                "title": "导入书籍",
+                "platform": "平台",
+                "file": "文件",
+                "add_duplicate_books": "添加重复书籍"
+            }
+        }
+    },
+
+    "toast": {
+        "file_available_download": "导出文件现已可供下载"
+    },
+
+    "verification": {
+        "title": "验证您的账户",
+        "verification_code_sent": "验证码已发送至 {{email_hidden}}",
+        "verification_code": "验证码",
+        "verify_button": "验证"
+    },
+
+    "demo": {
+        "title": "这是 BookLogr 的演示版本",
+        "description": "部分功能已禁用。",
+        "description_login": "登录请使用，",
+        "email": "邮箱：{{email}}",
+        "password": "密码：{{password}}"
+    },
+
+    "search": {
+        "input_placeholder": "搜索书籍",
+        "attribution": "搜索由 <link_to_info>OpenLibrary</link_to_info> 提供支持",
+        "error_not_found": {
+            "title": "未找到结果",
+            "description": "尝试搜索不同的书名或 ISBN。"
+        },
+        "error_unknown": {
+            "title": "出错了",
+            "description": "请稍后再试。{{error}}"
+        }
+    },
+
+    "book": {
+        "by_author": "作者：{{author}}",
+        "unknown_author": "未知作者",
+        "no_description_found": "未找到描述",
+        "pages": "页数",
+        "add_to_reading": "将《{{book_title}}》添加到正在阅读",
+        "share_mastodon": "分享到 Mastodon",
+        "total_pages": "总页数",
+        "remove_confirmation": {
+            "title": "您确定要移除这本书吗？",
+            "yes": "是的，我确定",
+            "no": "不，取消"
+        },
+        "update_reading": {
+            "update_progress": "更新进度",
+            "update_reading_progress": "更新阅读进度",
+            "reading_progress": "阅读进度",
+            "set_as_finished": "设为已完成",
+            "how_far": "您阅读 {{book_title}} 到哪里了？",
+            "current_page": "当前页",
+            "progress": "进度：{{percentage}}%",
+            "percentage": "百分比",
+            "percentage_complete": "完成百分比",
+            "current_page_of": "当前页：{{current_page}} / {{total_pages}}",
+            "error": {
+                "greater_than": "当前页不能大于总页数。",
+                "less_than": "当前页不能小于 0。"
+            },
+            "finished": {
+                "title": "恭喜！",
+                "description": "完成阅读 {{book_title}}"
+            }
+        },
+        "rating": {
+            "give": "给出评分",
+            "rate_book": "为书籍评分",
+            "how_many_starts": "您想给 {{book_title}} 几颗星？",
+            "rate_this_book": "为这本书评分",
+            "error": {
+                "greater_than": "评分不能超过 5 星",
+                "less_than": "评分不能小于 0。"
+            }
+        },
+        "missing_info": {
+            "title": "信息缺失",
+            "description": "《{{book_title}}》的某些信息缺失。您想要添加吗？",
+            "total_pages_placeholder": "输入总页数",
+            "author_placeholder": "输入作者姓名"
+        }  
+    },
+
+    "editions": {
+        "title": "版本",
+        "change": "更换版本",
+        "current": "当前版本"
+    },
+
+    "navigation": {
+        "search": "搜索",
+        "profile": "个人资料",
+        "settings": "设置",
+        "logout": "登出",
+        "expand": "展开",
+        "collapse": "收起",
+        "library": "书库",
+        "home": "首页",
+        "go_home": "回到首页"
+    },
+
+    "profile": {
+        "not_found_error": {
+            "title": "未找到个人资料",
+            "description": "我们找不到该名称的个人资料。该资料可能不存在或已设为私密。"
+        },
+        "stats": {
+            "read": "已读",
+            "reading": "在读",
+            "to_be_read": "待读"
+        },
+        "update_profile": "更新个人资料",
+        "all_books": "所有书籍",
+        "profile_settings": "个人资料设置"
+    },
+
+    "actions": {
+        "edit_book": "编辑书籍"
+    },
+
+    "notes": {
+        "title": "笔记与摘录",
+        "open": "打开笔记",
+        "note": "笔记",
+        "quote": "摘录",
+        "notes": "笔记",
+        "quotes": "摘录",
+        "add_note": "添加笔记",
+        "add_quote": "添加摘录",
+        "input_placeholder": "在此输入您的{{type}}...",
+        "page": "页码",
+        "edit": "编辑",
+        "page_number": "页码",
+        "make_this_public": "将此{{type}}设为公开",
+        "no_both_error": {
+            "title": "未找到笔记或摘录",
+            "description": "这本书似乎没有任何笔记或摘录。"
+        },
+        "no_notes_error": {
+            "title": "未找到笔记",
+            "description": "这本书似乎没有任何笔记。"
+        },
+        "no_quotes_error": {
+            "title": "未找到摘录",
+            "description": "这本书似乎没有任何摘录。"
+        },
+        "remove_confirmation": {
+            "title": "您确定要移除这条笔记吗？",
+            "yes": "是的，我确定",
+            "no": "不，取消"
+        }
+    },
+
+    "update": {
+        "version": "版本",
+        "new_version": "新版本 {{version}} 可用！🎉",
+        "release_notes": "发行说明",
+        "go_to_release": "前往发布页面"
+    },
+
+    "language": {
+        "language": "语言",
+        "region": "地区",
+        "region_info": "这会影响日期和数字格式。",
+        "timezone": "时区",
+        "time_format": "时间格式",
+        "12hour": "12 小时制",
+        "24hour": "24 小时制",
+        "language_updated_toast": "语言已更新。",
+        "region_updated_toast": "地区已更新。",
+        "timezone_updated_toast": "时区已更新。",
+        "time_format_updated_toast": "时间格式已更新。"
+    },
+
+    "sort": {
+        "sort_by": "排序方式：{{sortType}}",
+        "order_by": "排序依据",
+        "title": "标题",
+        "author": "作者",
+        "progress": "进度",
+        "rating": "评分",
+        "date_added": "添加日期"
+    },
+
+    "help": {
+        "title": "帮助",
+        "display_name_information": "显示名称将用于列出您所有书籍的个人资料页面。个人资料页面可以是私密的或公开的。显示名称和个人资料页面的可见性可以随时更改。如果您将个人资料页面设为公开，您的显示名称也将用于个人资料页面的链接。",
+        "display_name_change_information": "更改显示名称也将更改访问您公开个人资料的链接。",
+        "no_books_found": {
+            "title": "未找到书籍",
+            "description": "此列表中似乎没有任何书籍。使用搜索功能查找书籍并将其添加到列表中。"
+        },
+        "google_client_id_error":{
+            "title":"Google 登录已禁用",
+            "description": "提供的 Google 客户端 ID 格式不符合预期。如果您是在此服务器上安装 BookLogr 的人，请检查您的设置并更新 ID 以启用登录。"
+        },
+        "number_of_pages_information": "您正在阅读的书籍的页数。"
+    }
+}

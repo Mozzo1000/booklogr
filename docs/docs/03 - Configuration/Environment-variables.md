@@ -23,7 +23,6 @@ BookLogr uses environment variables to customize and set important variables acr
 |----------------------|-----------|-----------|---------------|
 |BL_API_ENDPOINT     |URL           |http://localhost:5000/  |URL to the booklogr API service.               |
 |BL_GOOGLE_ID |Text           |Empty           |Leave empty to disable Google Login. Change this to your own Google Client ID if you want to allow authentication with Google. Set this to the same as in the `.env` file in the root directory.               |
-|BL_DISABLE_HOMEPAGE |true or false |false           |Removes the homepage and redirects directly to login page or library (if you are already logged in).               |
 |BL_DEMO_MODE |true or false |false |Adds information to login screen and removes features such as Google Login, used for demo purposes. |
 
 ### .env file for frontend
@@ -35,6 +34,5 @@ These are only used if building from source or in a development fashion. If you 
 |----------------------|-----------|-----------|---------------|
 |VITE_API_ENDPOINT     |URL           |http://localhost:5000/  |URL to the booklogr API service.               |
 |VITE_GOOGLE_CLIENT_ID |Text           |XXX.apps.googleusercontent.com           |Change this to your own Google Client ID if you want to allow authentication with Google. Set this to the same as in the `.env` file in the root directory.               |
-|VITE_DISABLE_HOMEPAGE |true or false |false           |Removes the homepage and redirects directly to login page or library (if you are already logged in).               |
 |VITE_DEMO_MODE |true or false |false |Adds information to login screen and removes features such as Google Login, used for demo purposes. |
 

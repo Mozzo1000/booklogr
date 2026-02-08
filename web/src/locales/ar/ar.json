@@ -1,0 +1,292 @@
+{
+  "library": "مكتبتي",
+
+  "reading_status": {
+    "title": "حالة القراءة",
+    "read": "مقروء",
+    "currently_reading": "أقرأ حاليًا",
+    "to_be_read": "سيُقرأ",
+    "all": "الكل",
+    "want_to_read": "أرغب في قراءته"
+  },
+
+  "onboarding": {
+    "step_0": {
+      "title": "أهلاً بك! 🎉",
+      "description": "نحن سعداء بوجودك هنا! للبدء في تتبع جميع الكتب التي تقرأها، تحتاج أولاً إلى اختيار اسم عرض."
+    },
+    "step_1": {
+      "title": "تهانينا! تم الإعداد بنجاح!",
+      "description": "لماذا لا تبدأ بإضافة بعض الكتب المفضلة لديك إلى قوائمك؟ الأمر بسيط جدا!"
+    }
+  },
+
+  "forms": {
+    "next": "التالي",
+    "previous": "السابق",
+    "close": "إغلاق",
+    "update": "تحديث",
+    "save": "حفظ",
+    "upload_picture": "رفع صورة",
+    "upload": "رفع",
+    "uploading": "جاري الرفع...",
+    "remove": "إزالة",
+    "display_name": "اسم العرض",
+    "visibility_label": "الرؤية",
+    "visibility_hidden": "خاص",
+    "visibility_public": "عام",
+    "email": "البريد الإلكتروني",
+    "email_placeholder": "name@example.com",
+    "password": "كلمة المرور",
+    "confirm_password": "تأكيد كلمة المرور",
+    "name": "اسمك",
+    "login": "تسجيل الدخول",
+    "register": "تسجيل",
+    "register_title": "تسجيل حساب",
+    "register_button": "تسجيل حساب جديد",
+    "google_sign_in": "تسجيل الدخول باستخدام جوجل",
+    "login_title": "تسجيل الدخول إلى حسابك",
+    "password_no_match": "كلمتا المرور لا تتطابقان",
+    "change_password": "تغيير كلمة المرور",
+    "old_password": "كلمة المرور القديمة",
+    "new_password": "كلمة المرور الجديدة",
+    "new_password_confirm": "تأكيد كلمة المرور الجديدة",
+    "download": "تحميل",
+    "cancel": "إلغاء",
+    "skip": "تخطي"
+  },
+
+  "settings": {
+    "nav": {
+      "account": "الحساب",
+      "mastodon": "ماستودون",
+      "data": "البيانات"
+    },
+    "mastodon": {
+      "share_events": "مشاركة الأحداث",
+      "enable_sharing": "تمكين مشاركة الأحداث",
+      "enable_sharing_description": "سيؤدي هذا إلى تمكين BookLogr من الاستماع إلى الأحداث مثل عند الانتهاء من قراءة كتاب ومشاركتها على وسائل التواصل الاجتماعي.",
+      "instance": "مثيل ماستودون",
+      "access_token": "رمز الوصول",
+      "account": "حساب ماستودون"
+    },
+    "data": {
+      "request_data": {
+        "title": "طلب البيانات",
+        "description": "يمكنك طلب نسخة من جميع بياناتك. بمجرد اكتمال الطلب، ستتم عرض البيانات في جدول التصديرات المتاحة لتنزيلها.",
+        "format": "اختر تنسيق البيانات"
+      },
+      "files": {
+        "available_exports": "التصديرات المتاحة",
+        "filename": "اسم الملف",
+        "created": "تم الإنشاء",
+        "action": "الإجراء"
+      },
+      "import_books": {
+        "title": "استيراد الكتب",
+        "platform": "المنصة",
+        "file": "الملف",
+        "add_duplicate_books": "إضافة الكتب المكررة"
+      }
+    }
+  },
+
+  "toast": {
+    "file_available_download": "الملف المصدر متاح الآن للتنزيل"
+  },
+
+  "verification": {
+    "title": "تحقق من حسابك",
+    "verification_code_sent": "تم إرسال رمز التحقق إلى {{email_hidden}}",
+    "verification_code": "رمز التحقق",
+    "verify_button": "تحقق"
+  },
+
+  "demo": {
+    "title": "هذا عرض توضيحي لـ BookLogr",
+    "description": "بعض الميزات معطلة.",
+    "description_login": "لتسجيل الدخول استخدم:",
+    "email": "البريد الإلكتروني: {{email}}",
+    "password": "كلمة المرور: {{password}}"
+  },
+
+  "search": {
+    "input_placeholder": "ابحث عن كتاب",
+    "attribution": "البحث مدعوم من <link_to_info>OpenLibrary</link_to_info>",
+    "error_not_found": {
+      "title": "لم يتم العثور على نتائج",
+      "description": "حاول البحث عن عنوان أو رقم ISBN مختلف."
+    },
+    "error_unknown": {
+      "title": "حدث خطأ ما",
+      "description": "حاول مرة أخرى لاحقًا. {{error}}"
+    }
+  },
+
+  "book": {
+    "by_author": "بقلم {{author}}",
+    "unknown_author": "مؤلف غير معروف",
+    "no_description_found": "لم يتم العثور على وصف",
+    "pages": "الصفحات",
+    "add_to_reading": "أضف {{book_title}} إلى قيد القراءة",
+    "share_mastodon": "شارك على ماستودون",
+    "total_pages": "إجمالي الصفحات",
+    "remove_confirmation": {
+      "title": "هل أنت متأكد من أنك تريد إزالة هذا الكتاب؟",
+      "yes": "نعم، أنا متأكد",
+      "no": "لا، إلغاء"
+    },
+    "update_reading": {
+      "update_progress": "تحديث التقدم",
+      "update_reading_progress": "تحديث تقدم القراءة",
+      "reading_progress": "تقدم القراءة",
+      "set_as_finished": "تعيين كمنتهي",
+      "how_far": "إلى أي مدى وصلت في {{book_title}} ؟",
+      "current_page": "الصفحة الحالية",
+      "progress": "التقدم: {{percentage}}%",
+      "percentage": "النسبة المئوية",
+      "percentage_complete": "النسبة المئوية المكتملة",
+      "current_page_of": "الصفحة الحالية: {{current_page}} من {{total_pages}}",
+      "error": {
+        "greater_than": "لا يمكن أن تكون الصفحة الحالية أكبر من إجمالي الصفحات.",
+        "less_than": "لا يمكن أن تكون الصفحة الحالية أقل من 0."
+      },
+      "finished": {
+        "title": "تهانينا!",
+        "description": "على الانتهاء من قراءة {{book_title}}"
+      }
+    },
+    "rating": {
+      "give": "أعط تقييم",
+      "rate_book": "قيّم الكتاب",
+      "how_many_starts": "كم عدد النجوم التي ترغب في إعطائها لـ {{book_title}}؟",
+      "rate_this_book": "قيّم هذا الكتاب",
+      "error": {
+        "greater_than": "لا يمكن أن يكون التقييم أكثر من 5",
+        "less_than": "لا يمكن أن يكون التقييم أقل من 0."
+      }
+    },
+    "missing_info": {
+      "title": "معلومات مفقودة",
+      "description": "بعض المعلومات الخاصة بـ {{book_title}} مفقودة. هل ترغب في إضافتها؟",
+      "total_pages_placeholder": "أدخل إجمالي الصفحات",
+      "author_placeholder": "أدخل اسم المؤلف"
+    }
+  },
+
+  "editions": {
+    "title": "الطبعات",
+    "change": "تغيير الطبعة",
+    "current": "الطبعة الحالية"
+  },
+
+  "navigation": {
+    "search": "بحث",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "expand": "توسيع",
+    "collapse": "طي",
+    "library": "المكتبة",
+    "home": "الصفحة الرئيسية",
+    "go_home": "الذهاب إلى الصفحة الرئيسية"
+  },
+
+  "profile": {
+    "not_found_error": {
+      "title": "لم يتم العثور على ملف شخصي",
+      "description": "لم نتمكن من العثور على ملف شخصي بهذا الاسم. إما أن الملف الشخصي غير موجود أو أنه خاص."
+    },
+    "stats": {
+      "read": "تم القراءة",
+      "reading": "قيد القراءة",
+      "to_be_read": "للقراءة"
+    },
+    "update_profile": "تحديث الملف الشخصي",
+    "all_books": "كل الكتب",
+    "profile_settings": "إعدادات الملف الشخصي"
+  },
+
+  "actions": {
+    "edit_book": "تحرير الكتاب"
+  },
+
+  "notes": {
+    "title": "الملاحظات والاقتباسات",
+    "open": "فتح الملاحظات",
+    "note": "ملاحظة",
+    "quote": "اقتباس",
+    "notes": "ملاحظات",
+    "quotes": "اقتباسات",
+    "add_note": "إضافة ملاحظة",
+    "add_quote": "إضافة اقتباس",
+    "input_placeholder": "اكتب {{type}} هنا...",
+    "page": "الصفحة",
+    "edit": "تحرير",
+    "page_number": "رقم الصفحة",
+    "make_this_public": "اجعل هذا {{type}} عامًا",
+    "no_both_error": {
+      "title": "لم يتم العثور على ملاحظات أو اقتباسات",
+      "description": "لا يبدو أن هناك أي ملاحظات أو اقتباسات لهذا الكتاب."
+    },
+    "no_notes_error": {
+      "title": "لم يتم العثور على ملاحظات",
+      "description": "لا يبدو أن هناك أي ملاحظات لهذا الكتاب."
+    },
+    "no_quotes_error": {
+      "title": "لم يتم العثور على اقتباسات",
+      "description": "لا يبدو أن هناك أي اقتباسات لهذا الكتاب."
+    },
+    "remove_confirmation": {
+      "title": "هل أنت متأكد من أنك تريد إزالة هذه الملاحظة؟",
+      "yes": "نعم، أنا متأكد",
+      "no": "لا، إلغاء"
+    }
+  },
+
+  "update": {
+    "version": "الإصدار",
+    "new_version": "إصدار جديد {{version}} متاح! 🎉",
+    "release_notes": "ملاحظات الإصدار",
+    "go_to_release": "اذهب إلى صفحة الإصدار"
+  },
+
+  "language": {
+    "language": "اللغة",
+    "region": "المنطقة",
+    "region_info": "يؤثر هذا على تنسيق التاريخ والرقم.",
+    "timezone": "النطاق الزمني",
+    "time_format": "تنسيق الوقت",
+    "12hour": "12 ساعة",
+    "24hour": "24 ساعة",
+    "language_updated_toast": "تم تحديث اللغة.",
+    "region_updated_toast": "تم تحديث المنطقة.",
+    "timezone_updated_toast": "تم تحديث النطاق الزمني.",
+    "time_format_updated_toast": "تم تحديث تنسيق الوقت."
+  },
+
+  "sort": {
+    "sort_by": "ترتيب حسب {{sortType}}",
+    "order_by": "الترتيب حسب",
+    "title": "العنوان",
+    "author": "المؤلف",
+    "progress": "التقدم",
+    "rating": "التقييم",
+    "date_added": "تاريخ الإضافة"
+  },
+
+  "help": {
+    "title": "مساعدة",
+    "display_name_information": "سيتم استخدام اسم العرض على صفحة ملفك الشخصي التي تسرد جميع كتبك. يمكن أن تكون صفحة الملف الشخصي خاصة أو عامة. يمكن تغيير اسم العرض ورؤية صفحة الملف الشخصي في أي وقت. سيتم استخدام اسم العرض الخاص بك أيضًا كرابط لصفحة ملفك الشخصي إذا قمت بتعيينه على عام.",
+    "display_name_change_information": "سيؤدي تغيير اسم العرض الخاص بك أيضًا إلى تغيير الرابط للوصول إلى ملفك الشخصي العام.",
+    "no_books_found": {
+      "title": "لم يتم العثور على كتب",
+      "description": "لا يبدو أن هناك أي كتب في هذه القائمة. استخدم البحث للعثور على كتاب وإضافته إلى قائمتك."
+    },
+    "google_client_id_error": {
+      "title": "تم تعطيل تسجيل الدخول باستخدام Google",
+      "description": "معرّف عميل Google المقدم لا يتبع التنسيق المتوقع. إذا كنت الشخص الذي قام بتثبيت BookLogr على هذا الخادم، فتحقق من إعداداتك وقم بتحديث المعرّف لتمكين تسجيل الدخول."
+    },
+    "number_of_pages_information": "عدد صفحات الكتاب الذي تقرأه."
+  }
+}

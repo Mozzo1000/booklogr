@@ -52,13 +52,7 @@ function Verify() {
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">{t("verification.title")}</h1>
                     {email &&
                         <p className="dark:text-white">
-                            <Trans i18nKey="verification.verification_code_sent"
-                                components={{
-                                    email_hidden: (
-                                        <span className="bg-gray-600">{maskEmail(email)}</span>
-                                    )
-                                }}
-                            />
+                            {t("verification.verification_code_sent", {email_hidden: maskEmail(email)})}
                         </p>
                     }
                     <form className="space-y-4 md:space-y-6" onSubmit={handleVerify}>

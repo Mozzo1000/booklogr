@@ -28,22 +28,25 @@ function BookDetails() {
             response => {
                 setData(response.data);
                 setLoading(false);
-
                 OpenLibraryService.getWorks(response.data.works[0].key).then(
                     response => {
                         if (response.data.description) {
                             if (response.data.description.value) {
                                 setDescription(response.data.description.value)
-                                OpenLibraryService.getAuthor(response.data.authors[0].author.key).then(
-                                    response => {
-                                        setAuthor(response.data.name)
-                                    }
-                                )
                             } else {
                                 setDescription(response.data.description)
                             }
                         } else {
                             setDescription(t("book.no_description_found"))
+                        }
+                        if (response.data.authors) {
+                            OpenLibraryService.getAuthor(response.data.authors[0].author.key).then(
+                                response => {
+                                    setAuthor(response.data.name)
+                                }
+                            )
+                        } else {
+                            setAuthor(t("book.unknown_author"))
                         }
                     }
                 )
@@ -75,7 +78,11 @@ function BookDetails() {
                 <div>
                     <article className="format dark:format-invert">
                         <h2>{data?.title || <Skeleton />}</h2>
-                        <p className="lead">by {author || <Skeleton className="w-1/2" />}</p>
+                        {author ? (
+                            <p className="lead">{t("book.by_author", { author: author })}</p>
+                        ) : (
+                            <Skeleton className="w-1/2" />
+                        )}
                         <p>{description || <Skeleton count={4.5}/>}</p>
                         <p>
                             <span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">{t("book.pages")}</span> 

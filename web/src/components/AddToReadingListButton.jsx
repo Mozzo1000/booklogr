@@ -14,18 +14,25 @@ import { useTranslation, Trans } from 'react-i18next';
 function AddToReadingListButton(props) {
     const [readingStatus, setReadingStatus] = useState();
     const [currentPage, setCurrentPage] = useState(0);
-    const [totalPages, setTotalPages] = useState();
+    const [totalPages, setTotalPages] = useState(0);
+    const [correctedTotalPages, setCorrectedTotalPages] = useState();
     const [openModalReading, setOpenModalReading] = useState(false);
     const [readID, setReadID] = useState();
     const [openRemoveModal, setOpenRemoveModal] = useState();
+    const [openMissingData, setOpenMissingData] = useState(false);
+    const [author, setAuthor] = useState();
     const toast = useToast(4000);
     const { t } = useTranslation();
 
-    const handleSave = (status, current_page) => {
+    const handleSave = (status, current_page, total_pages, author_man ) => {
         var arr = {}
         arr.title = props.data?.title;
         arr.isbn = props.isbn;
-        arr.author = props.author;
+        if (author_man) {
+            arr.author = author_man
+        }else {
+            arr.author = props.author;
+        }
         if (props.description) {
             arr.description = props.description;
         }
@@ -37,8 +44,10 @@ function AddToReadingListButton(props) {
             arr.current_page = currentPage;
         }
 
-        if (totalPages) {
-            arr.total_pages = totalPages;
+        if (total_pages) {
+            arr.total_pages = total_pages;
+        }else {
+            arr.total_pages = totalPages
         }
 
         if (status) {
@@ -84,12 +93,16 @@ function AddToReadingListButton(props) {
         } else {
             setReadingStatus(status);
             setCurrentPage(current_page);
-            handleSave(status, current_page);
+            if(totalPages <= 0 || !totalPages) {
+                setOpenMissingData(true);
+            } else {
+                handleSave(status, current_page);
+            }
         }
     }
 
     useEffect(() => {
-      setTotalPages(props.data?.number_of_pages)
+      setTotalPages(props.data?.number_of_pages || 0)
       updateReadStatus();
     }, [props.data])
 
@@ -198,6 +211,42 @@ function AddToReadingListButton(props) {
                 </Dropdown>
             </ButtonGroup>
             <RemoveBookModal id={readID} open={openRemoveModal} close={setOpenRemoveModal} onSuccess={handleBookRemoval}/>
+
+            <Modal show={openMissingData} size="lg" onClose={() => setOpenMissingData(false)} popup>
+                <ModalHeader />
+                <ModalBody>
+                    <div className="flex flex-col gap-4">
+                        <div>
+                            <p className="text-xl font-bold">{t("book.missing_info.title")}</p>
+                            <p class="format dark:format-invert">{t("book.missing_info.description", {book_title: props.data?.title})}</p>
+                        </div>
+                        {(totalPages <= 0 || !totalPages) &&
+                            <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="total_pages">{t("book.total_pages")}</Label>
+                            </div>
+                            <TextInput id="total_pages" type="number" placeholder={t("book.missing_info.total_pages_placeholder")} value={correctedTotalPages} onChange={(e) => setCorrectedTotalPages(e.target.value)}/>
+                            </div>
+                        }
+                        {props.author === t("book.unknown_author") &&
+                            <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="author_name">Author</Label>
+                            </div>
+                            <TextInput id="author_name" type="text" placeholder={t("book.missing_info.author_placeholder")} value={author} onChange={(e) => setAuthor(e.target.value)}/>
+                            </div>
+                        }
+                        <div className="flex justify-end gap-4">
+                        <Button color="alternative" onClick={() => (setOpenMissingData(false), handleSave(readingStatus, currentPage, undefined, undefined))}>
+                            {t("forms.skip")}
+                        </Button>
+                        <Button onClick={() => (setOpenMissingData(false), handleSave(readingStatus, currentPage, correctedTotalPages, author))}>
+                            {t("forms.save")}
+                        </Button>
+                        </div>
+                    </div>
+                </ModalBody>
+            </Modal>
         </div>
     )
 }

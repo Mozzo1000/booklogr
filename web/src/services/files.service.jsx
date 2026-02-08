@@ -1,18 +1,17 @@
 import axios from "axios";
 import authHeader from "./auth-header";
-
-const API_URL = import.meta.env.VITE_API_ENDPOINT;
+import { getAPIUrl } from "./api.utils";
 
 const get = (filename) => {
-    return axios.get(API_URL + "v1/files/" + filename, { responseType: "blob", headers: authHeader() });
+    return axios.get(getAPIUrl(`v1/files/${filename}`), { responseType: "blob", headers: authHeader() });
 };
 
 const getAll = () => {
-    return axios.get(API_URL + "v1/files", { headers: authHeader() });
+    return axios.get(getAPIUrl("v1/files"), { headers: authHeader() });
 };
 
 const upload = (formData) => {
-    return axios.post(API_URL + "v1/files", formData, { headers: Object.assign({}, authHeader(), {"Content-Type": "multipart/form-data"}) });
+    return axios.post(getAPIUrl("v1/files"), formData, { headers: Object.assign({}, authHeader(), {"Content-Type": "multipart/form-data"}) });
 };
 
 
