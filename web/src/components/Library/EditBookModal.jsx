@@ -76,7 +76,7 @@ function EditBookModal(props) {
                             <div className="format lg:format-lg dark:format-invert">
                                 <p>{"Cover"}</p>
                             </div>
-                            <div>
+                            <div className="flex flex-col gap-2">
                                 <Img className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg?default=false"} 
                                     loader={<Skeleton count={1} width={200} height={200} borderRadius={0} inline={true}/>}
                                     unloader={theme.mode == "dark" && <img src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img src="/fallback-cover.svg"/>}
