@@ -5,11 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
+## [1.7.0] - 2026-02-08
 ### Added
 - Added support for Chinese and Arabic languages.
 - Introduced a popup prompting users to manually enter missing data when adding a book to reading list.
 - Added fallback for author name when retrieval fails.
 - Added ability to manually edit book metadata.
+- Added language filtering when selecting a book edition.
 
 ### Changed
 - `BL_API_ENDPOINT` no longer require a trailing slash.
