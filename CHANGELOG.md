@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Added support for Chinese and Arabic languages.
 - Introduced a popup prompting users to manually enter missing data when adding a book to reading list.
 - Added fallback for author name when retrieval fails.
+- Added ability to manually edit book metadata.
 
 ### Changed
 - `BL_API_ENDPOINT` no longer require a trailing slash.
