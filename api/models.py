@@ -151,7 +151,7 @@ class ProfileSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Profile()
         load_instance = True
-        fields = ("id", "display_name", "visibility", "books", "num_books_read", "num_books_reading", "num_books_tbr",)
+        fields = ("id", "display_name", "visibility", "books", "num_books_read", "num_books_reading", "num_books_tbr","num_books_dnf",)
 
     id = ma.Integer()
     display_name = ma.String()
@@ -162,6 +162,7 @@ class ProfileSchema(ma.SQLAlchemySchema):
     num_books_read = ma.Method("get_num_books_read")
     num_books_reading = ma.Method("get_num_books_currently_reading")
     num_books_tbr = ma.Method("get_num_books_to_be_read")
+    num_books_dnf = ma.Method("get_num_books_did_not_finish")
     
 
     def get_num_books_read(self, obj):
@@ -180,6 +181,13 @@ class ProfileSchema(ma.SQLAlchemySchema):
         
     def get_num_books_to_be_read(self, obj):
         query = Books.query.filter(Books.owner_id==obj.owner_id, Books.reading_status=="To be read").count()
+        if query:
+            return query
+        else:
+            return None
+    
+    def get_num_books_did_not_finish(self, obj):
+        query = Books.query.filter(Books.owner_id==obj.owner_id, Books.reading_status=="Did not finish").count()
         if query:
             return query
         else:

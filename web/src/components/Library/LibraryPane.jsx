@@ -4,7 +4,7 @@ import { Tabs, Pagination, ButtonGroup, Button } from "flowbite-react";
 import BooksService from '../../services/books.service';
 import PaneTabView from './PaneTabView';
 import reducer, { initialState, actionTypes } from '../../useLibraryReducer';
-import { RiBook2Line } from "react-icons/ri";
+import { RiArchiveLine, RiBook2Line } from "react-icons/ri";
 import { RiBookOpenLine } from "react-icons/ri";
 import { RiBookmarkLine } from "react-icons/ri";
 import { useTranslation } from 'react-i18next';
@@ -39,6 +39,8 @@ function LibraryPane() {
             status = "To be read"
          }else if (activeTab == 2) {
             status = "Read"
+        }else if (activeTab == 3) {
+            status = "Did not finish"
         }
         return status;
     }
@@ -107,6 +109,17 @@ function LibraryPane() {
             </PaneTabView>
         </Tabs.Item>
         <Tabs.Item title={t("reading_status.read")} icon={RiBook2Line}>
+            <PaneTabView view={view} setView={setView}>
+            {state.books?.items.map((item) => {
+                return (
+                    <div key={item.id}>
+                        <BookItem internalID={item.id} view={view} showNotes allowNoteEditing={true} showProgress={false} showOptions showRating title={item.title} isbn={item.isbn} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}  />
+                    </div>
+                )
+            })}
+            </PaneTabView>
+        </Tabs.Item>
+        <Tabs.Item title={t("reading_status.did_not_finish")} icon={RiArchiveLine}>
             <PaneTabView view={view} setView={setView}>
             {state.books?.items.map((item) => {
                 return (

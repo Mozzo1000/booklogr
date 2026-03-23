@@ -170,6 +170,7 @@ def add_book():
                       - To be read
                       - Currently reading
                       - Read
+                      - Did not finish
                     default: To be read
                   current_page:
                     type: integer
@@ -283,7 +284,7 @@ def edit_book(id):
             else:
                 return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Total pages must be an integer."}), 422
         if "status" in request.json:
-            if request.json["status"] in ("Currently reading", "To be read", "Read"):
+            if request.json["status"] in ("Currently reading", "To be read", "Read", "Did not finish"):
                 book.reading_status = request.json["status"]
 
                 if UserSettings.query.filter(UserSettings.owner_id==claim_id, UserSettings.send_book_events==True).first():

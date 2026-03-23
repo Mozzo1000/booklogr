@@ -6,7 +6,7 @@ import BookItem from '../components/Library/BookItem';
 import PaneTabView from '../components/Library/PaneTabView';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import BookStatsCard from '../components/BookStatsCard';
-import { RiSettings4Line } from "react-icons/ri";
+import { RiArchiveLine, RiSettings4Line } from "react-icons/ri";
 import { RiQuestionLine } from "react-icons/ri";
 import authService from '../services/auth.service';
 import { RiBook2Line } from "react-icons/ri";
@@ -176,6 +176,8 @@ function Profile() {
                         <BookStatsCard icon={<RiBook2Line className="w-8 h-8 dark:text-white"/>} number={data.num_books_read || 0} text={t("profile.stats.read")}/>
                         <BookStatsCard icon={<RiBookOpenLine className="w-8 h-8 dark:text-white"/>} number={data.num_books_reading || 0} text={t("profile.stats.reading")}/>
                         <BookStatsCard icon={<RiBookmarkLine className="w-8 h-8 dark:text-white"/>} number={data.num_books_tbr || 0} text={t("profile.stats.to_be_read")}/>
+                        <BookStatsCard icon={<RiArchiveLine className="w-8 h-8 dark:text-white"/>} number={data.num_books_dnf || 0} text={t("profile.stats.did_not_finish")}/>
+
                     </div>
                     <div className="inline-flex items-center justify-center w-full">
                         <hr className="w-full h-px my-8 bg-gray-200 border-0" />
@@ -188,6 +190,8 @@ function Profile() {
                                 <Button color="alternative" onClick={() => setReadingStatusFilter("Read")}>{t("reading_status.read")} ({data.num_books_read || 0})</Button>
                                 <Button color="alternative" onClick={() => setReadingStatusFilter("Currently reading")}>{t("reading_status.currently_reading")} ({data.num_books_reading || 0})</Button>
                                 <Button color="alternative" onClick={() => setReadingStatusFilter("To be read")}>{t("reading_status.to_be_read")} ({data.num_books_tbr || 0})</Button>
+                                <Button color="alternative" onClick={() => setReadingStatusFilter("Did not finish")}>{t("reading_status.did_not_finish")} ({data.num_books_dnf || 0})</Button>
+
                             </ButtonGroup>
                         </div>
                         <div>
