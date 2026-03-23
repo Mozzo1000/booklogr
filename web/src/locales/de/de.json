@@ -1,0 +1,295 @@
+{
+  "library": "My Library",
+
+  "reading_status": {
+    "title": "Lesestatus",
+    "read": "Gelesen",
+    "currently_reading": "Aktuell gelesen",
+    "to_be_read": "Zu lesen",
+    "all": "Alle",
+    "want_to_read": "Möchte Lesen"
+  },
+
+  "onboarding": {
+    "step_0": {
+      "title": "Willkommen! 🎉",
+      "description": "Wir sind froh, dass du hier bist! Um alle Bücher zu verfolgen, die du liest, musst du zuerst einen Anzeigenamen wählen."
+    },
+    "step_1": {
+      "title": "Alles ist bereit!",
+      "description": "Warum fängst du nicht damit an, einige deiner Lieblingsbücher zu deinen Listen hinzuzufügen? Es ist ganz einfach!"
+    }
+  },
+
+  "forms": {
+    "next": "Nächstes",
+    "previous": "Vorheriges",
+    "close": "Schließen",
+    "update": "Update",
+    "save": "Speichern",
+    "upload_picture": "Bild hochladen",
+    "upload": "Hochladen",
+    "uploading": "Wird hochgeladen...",
+    "remove": "Entfernen",
+    "display_name": "Anzeigename",
+    "visibility_label": "Sichtbarkeit",
+    "visibility_hidden": "Privat",
+    "visibility_public": "Öffentlich",
+    "email": "Email",
+    "email_placeholder": "name@beispiel.com",
+    "password": "Passwort",
+    "confirm_password": "Passwort bestätigen",
+    "name": "Name",
+    "login": "Anmelden",
+    "register": "Erstellen",
+    "register_title": "Konto Erstellen",
+    "register_button": "Neues Konto erstellen",
+    "google_sign_in": "Anmelden mit Google",
+    "login_title": "Bei ihrem Konto anmelden",
+    "password_no_match": "Passwörter stimmen nicht überein",
+    "change_password": "Passwort ändern",
+    "old_password": "Altes Passwort",
+    "new_password": "Neues Passwort",
+    "new_password_confirm": "Neues Passwort bestätigen",
+    "download": "Herunterladen",
+    "cancel": "Abbrechen",
+    "skip": "Überspringen"
+  },
+
+  "settings": {
+    "nav": {
+      "account": "Account",
+      "mastodon": "Mastodon",
+      "data": "Daten"
+    },
+    "mastodon": {
+      "share_events": "Ereignisse teilen",
+      "enable_sharing": "Ereignis teilen aktivieren",
+      "enable_sharing_description": "Dies wird BookLogr ermöglichen, Ereignisse wie das Beenden eines Buches zu verfolgen und sie auf soziale Medien zu teilen.",
+      "instance": "Mastodon-Instanz",
+      "access_token": "Zugangstoken",
+      "account": "Mastodon Konto"
+    },
+    "data": {
+      "request_data": {
+        "title": "Daten anfordern",
+        "description": "Sie können eine Kopie aller Ihrer Daten anfordern. Sobald die Anfrage abgeschlossen ist, werden die Daten in der Tabelle \"Verfügbare Exporte\" angezeigt, damit Sie sie herunterladen können.",
+        "format": "Datenformat auswählen"
+      },
+      "files": {
+        "available_exports": "Verfügbare Exporte",
+        "filename": "Dateiname",
+        "created": "Erstellt",
+        "action": "Aktion"
+      },
+      "import_books": {
+        "title": "Bücher Import ",
+        "platform": "Plattform",
+        "file": "Datei",
+        "add_duplicate_books": "Duplikate hinzufügen"
+      }
+    }
+  },
+
+  "toast": {
+    "file_available_download": "Exportierte Dateien sind jetzt verfügbar zum Download."
+  },
+
+  "verification": {
+    "title": "Konto-Verifikation",
+    "verification_code_sent": "Ein Verifikationscode wurde an {{email_hidden}} gesendet.",
+    "verification_code": "Verifikationscode",
+    "verify_button": "Verifizieren"
+  },
+
+  "demo": {
+    "title": "Dies ist eine Demo von BookLogr",
+    "description": "Einige Funktionen sind deaktiviert.",
+    "description_login": "Zum Login benutze,",
+    "email": "Email: {{email}}",
+    "password": "Password: {{password}}"
+  },
+
+  "search": {
+    "input_placeholder": "Suche nach einem Buch",
+    "attribution": "Suche unterstützt durch <link_to_info>OpenLibrary</link_to_info>",
+    "error_not_found": {
+      "title": "Keine Ergebnisse gefunden",
+      "description": "Versuche nach einem anderen Titel oder einer anderen ISBN zu suchen."
+    },
+    "error_unknown": {
+      "title": "Etwas ist schief gelaufen",
+      "description": "Versuche es später noch einmal. {{error}}"
+    }
+  },
+
+  "book": {
+    "by_author": "geschrieben von {{author}}",
+    "unknown_author": "unbekannter Autor",
+    "no_description_found": "Keine Beschreibung gefunden",
+    "pages": "Seiten",
+    "cover": "Cover",
+    "isbn": "ISBN",
+    "add_to_reading": "Füge {{book_title}} zu den aktuell gelesenen Büchern hinzu",
+    "share_mastodon": "Teile das Buch auf Mastodon",
+    "total_pages": "Seitenanzahl",
+    "remove_confirmation": {
+      "title": "Bist du sicher, dass du dieses Buch entfernen möchtest?",
+      "yes": "Ja, ich bin sicher",
+      "no": "Nein, abbrechen"
+    },
+    "update_reading": {
+      "update_progress": "Fortschritt aktualisieren",
+      "update_reading_progress": "Aktualisiere Leseprogress",
+      "reading_progress": "Lesefortschritt",
+      "set_as_finished": "Als abgeschlossen markieren",
+      "how_far": "Wie weit bist du in {{book_title}}?",
+      "current_page": "Aktuelle Seite",
+      "progress": "Fortschritt: {{percentage}}%",
+      "percentage": "Prozent",
+      "percentage_complete": "Prozent abgeschlossen",
+      "current_page_of": "Aktuelle Seite: {{current_page}} von {{total_pages}}",
+      "error": {
+        "greater_than": "Aktuelle Seite darf nicht größer als die Seitenanzahl sein.",
+        "less_than": "Aktuelle Seite darf nicht kleiner als 0 sein."
+      },
+      "finished": {
+        "title": "Herzlichen Glückwünsch!",
+        "description": "Du hast {{book_title}} abgeschlossen!"
+      }
+    },
+    "rating": {
+      "give": "Gib dem Buch eine Bewertung",
+      "rate_book": "Bewerte Buch",
+      "how_many_starts": "Wie viele Sterne möchtest du {{book_title}} geben?",
+      "rate_this_book": "Bewerte dieses Buch",
+      "error": {
+        "greater_than": "Bewertung darf nicht mehr als 5 betragen.",
+        "less_than": "Bewertung darf nicht weniger als 0 betragen."
+      }
+    },
+    "missing_info": {
+      "title": "Fehlende Informationen",
+      "description": "Manche Informationen zu {{book_title}} fehlen. Möchtest du sie hinzufügen?",
+      "total_pages_placeholder": "Gib die Seitenanzahl an",
+      "author_placeholder": "Gib den Autor an"
+    }
+  },
+
+  "editions": {
+    "title": "Editionen",
+    "change": "Ändere Edition",
+    "current": "Aktuelle Edition"
+  },
+
+  "navigation": {
+    "search": "Suche",
+    "profile": "Profil",
+    "settings": "Einstellungen",
+    "logout": "Abmelden",
+    "expand": "Ausklappen",
+    "collapse": "Einklappen",
+    "library": "Bibliothek",
+    "home": "Startseite",
+    "go_home": "Zurück zur Startseite"
+  },
+
+  "profile": {
+    "not_found_error": {
+      "title": "Kein Profil gefunden",
+      "description": "Wir konnten kein Profil mit diesem Namen finden. Entweder existiert dieses Profil nicht oder es ist privat."
+    },
+    "stats": {
+      "read": "Bereits Gelesen",
+      "reading": "Aktuell gelesen",
+      "to_be_read": "Zu lesen"
+    },
+    "update_profile": "Profil aktualisieren",
+    "all_books": "Alle Bücher",
+    "profile_settings": "Profileinstellungen"
+  },
+
+  "actions": {
+    "edit_book": "Buch bearbeiten",
+    "replace_cover": "Cover ersetzen"
+  },
+
+  "notes": {
+    "title": "Notizen & Zitate",
+    "open": "Notizen öffnen",
+    "note": "Notiz",
+    "quote": "Zitat",
+    "notes": "Notizen",
+    "quotes": "Zitate",
+    "add_note": "Notiz hinzufügen",
+    "add_quote": "Zitat hinzufügen",
+    "input_placeholder": "Schreibe dein/e {{type}} hier...",
+    "page": "Seite",
+    "edit": "Bearbeiten",
+    "page_number": "Seitennummer",
+    "make_this_public": "Diese/s {{type}} öffentlich machen",
+    "no_both_error": {
+      "title": "Keine Notizen oder Zitate gefunden",
+      "description": "Es scheint keine Notizen oder Zitate für dieses Buch zu geben."
+    },
+    "no_notes_error": {
+      "title": "Keine Notizen gefunden",
+      "description": "Es scheint keine Notizen für dieses Buch zu geben."
+    },
+    "no_quotes_error": {
+      "title": "Keine Zitate gefunden",
+      "description": "Es scheint keine Zitate für dieses Buch zu geben."
+    },
+    "remove_confirmation": {
+      "title": "Bist du sicher, dass du diese Notiz löschen möchtest?",
+      "yes": "Ja, ich bin sicher",
+      "no": "Nein, abbrechen"
+    }
+  },
+
+  "update": {
+    "version": "Version",
+    "new_version": "Neue Version {{version}} verfügbar! 🎉",
+    "release_notes": "Versionshinweise",
+    "go_to_release": "Zur Versionsseite"
+  },
+
+  "language": {
+    "language": "Sprache",
+    "region": "Region",
+    "region_info": "Dies beeinflusst das Datums- und Zahlformat.",
+    "timezone": "Zeitzone",
+    "time_format": "Zeitformat",
+    "12hour": "12 Stunden",
+    "24hour": "24 Stunden",
+    "language_updated_toast": "Sprache aktualisiert.",
+    "region_updated_toast": "Region aktualisiert.",
+    "timezone_updated_toast": "Zeitzone aktualisiert.",
+    "time_format_updated_toast": "Zeitformat aktualisiert."
+  },
+
+  "sort": {
+    "sort_by": "Sortieren nach {{sortType}}",
+    "order_by": "Reihenfolge nach",
+    "title": "Titel",
+    "author": "Autor",
+    "progress": "Fortschritt",
+    "rating": "Bewertung",
+    "date_added": "Hinzugefügt am"
+  },
+
+  "help": {
+    "title": "Hilfe",
+    "display_name_information": "Ein Anzeigename wird auf deiner Profilseite verwendet, die alle deine Bücher auflistet. Eine Profilseite kann privat oder öffentlich sein. Anzeigename und Sichtbarkeit der Profilseite können jederzeit geändert werden. Dein Anzeigename wird auch für einen Link zu deiner öffentlichen Profilseite verwendet, wenn du ihn auf öffentlich gesetzt hast.",
+    "display_name_change_information": "Das Ändern Anzeigenames names wird auch den Link zum öffentlichen Profil ändern.",
+    "no_books_found": {
+      "title": "Keine Bücher gefunden",
+      "description": "Es scheint keine Bücher in dieser Liste zu geben. Verwende die Suche, um ein Buch zu finden und es deiner Liste hinzuzufügen."
+    },
+    "google_client_id_error": {
+      "title": "Google Anmeldung deaktiviert",
+      "description": "Die angegebene Google-Client-ID entspricht nicht dem erwarteten Format. Wenn Sie BookLogr auf diesem Server installiert haben, überprüfen Sie Ihre Einstellungen und aktualisieren Sie die ID, um die Anmeldung zu ermöglichen."
+    },
+    "number_of_pages_information": "Die Seitenanzahl des aktuell gelesenen Buches."
+  }
+}
