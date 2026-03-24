@@ -37,7 +37,7 @@ class Config:
         },
         "specs_route": "/docs"
     }
-    if not SINGLE_USER_MODE.lower() in ["true", "y"]:
+    if not str(SINGLE_USER_MODE).lower() in ["true", "y"]:
         if SECRET_KEY == "this-really-needs-to-be-changed":
                 alert("USE OF DEPRECATED KEY DETECTED!\nCHANGE THE ENV VAR AUTH_SECRET_KEY TO A RANDOM, UNIQUE STRING")
         elif not SECRET_KEY:
