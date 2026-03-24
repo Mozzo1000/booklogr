@@ -1,0 +1,22 @@
+# docker-compose.yml
+services:
+    booklogr-api-test:
+        container_name: "booklogr-api-test"
+        build: .
+        environment:
+            - DATABASE_URL=sqlite:///books.db
+            - SINGLE_USER_MODE=true
+        ports:
+            - 5000:5000
+        volumes:
+            - ./data:/app/instance
+
+    booklogr-web-test:
+        container_name: "booklogr-web-test"
+        build: web
+        environment:
+            - BL_API_ENDPOINT=http://localhost:5000/ # CHANGE THIS TO POINT TO THE EXTERNAL ADRESS THE USER CAN ACCESS
+            - BL_GOOGLE_ID= # Leave empty to disable google login. To enable, write in your Google Client ID.
+            - BL_DEMO_MODE=false
+        ports:
+            - 5150:80
