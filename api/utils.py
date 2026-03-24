@@ -1,5 +1,7 @@
 from datetime import datetime
 import sys
+from flask import current_app
+from flask_jwt_extended import get_jwt
 
 def validate_date_string(date_str):
     formats = [
@@ -30,3 +32,8 @@ def alert(message):
     
     sys.stderr.write("\n".join(output))
     sys.exit(1)
+
+def get_current_user_id():
+    if current_app.config.get("SINGLE_USER_MODE").lower() in ["true", "y"]:
+        return 1
+    return get_jwt().get("id")

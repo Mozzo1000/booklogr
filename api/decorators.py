@@ -1,5 +1,6 @@
-from flask import jsonify, request
+from flask import jsonify, request, current_app
 from functools import wraps
+from flask_jwt_extended import jwt_required
 
 def required_params(*args):
     """Decorator factory to check request data for POST requests and return
@@ -21,4 +22,14 @@ def required_params(*args):
                 return jsonify(response), 400
             return fn(*args, **kwargs)
         return wrapper
+    return decorator
+
+def auth_required():
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if current_app.config.get("SINGLE_USER_MODE").lower() in ["true", "y"]:
+                return f(*args, **kwargs)
+            return jwt_required()(f)(*args, **kwargs)
+        return decorated_function
     return decorator

@@ -1,18 +1,18 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings, BooksStatusSchema, Profile, db
-from api.decorators import required_params
+from api.decorators import required_params, auth_required
 from api.routes.tasks import _create_task
 import json
 from sqlalchemy.exc import IntegrityError
 from psycopg2.errors import ForeignKeyViolation
 from datetime import datetime, timezone
-from api.utils import validate_date_string
+from api.utils import validate_date_string, get_current_user_id
 
 books_endpoint = Blueprint('books', __name__)
 
 @books_endpoint.route("/v1/books/<isbn>", methods=["GET"])
-@jwt_required()
+@auth_required()
 def get_book_reading_status(isbn):
     """
         Check if book (by isbn) is already in a list.
@@ -34,7 +34,7 @@ def get_book_reading_status(isbn):
           404:
             description: Returns error and message, no book found in any reading list.
     """
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
     book = Books.query.filter(Books.owner_id==claim_id, Books.isbn==isbn).first()
     books_status_schema = BooksStatusSchema(many=False)
     if book:
@@ -46,7 +46,7 @@ def get_book_reading_status(isbn):
         }), 404
 
 @books_endpoint.route("/v1/books", methods=["GET"])
-@jwt_required()
+@auth_required()
 def get_books():
     """
         Get books in list
@@ -85,7 +85,7 @@ def get_books():
     if request.args.get("limit"):
         limit = request.args.get("limit")
 
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
     query_status = request.args.get("status")
     sort_by = request.args.get("sort_by", "title")
     order = request.args.get("order", "asc")
@@ -134,7 +134,7 @@ def get_books():
 
 @required_params("title", "isbn")
 @books_endpoint.route("/v1/books", methods=["POST"])
-@jwt_required()
+@auth_required()
 def add_book():
     """
         Add book to list
@@ -187,7 +187,7 @@ def add_book():
             description: Book added to list.
     """
 
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
 
     author = None
     if "author" in request.json:
@@ -225,7 +225,7 @@ def add_book():
     return jsonify({'message': 'Book added to list.'}), 200
 
 @books_endpoint.route("/v1/books/<id>", methods=["PATCH"])
-@jwt_required()
+@auth_required()
 def edit_book(id):
     """
         Edit book
@@ -268,7 +268,7 @@ def edit_book(id):
             description: Unknown error occurred.
     """
     
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
     book = Books.query.filter(Books.owner_id==claim_id, Books.id==id).first()
     if request.json:
         if "current_page" in request.json:
@@ -320,7 +320,7 @@ def edit_book(id):
     }), 500
 
 @books_endpoint.route("/v1/books/<id>", methods=["DELETE"])
-@jwt_required()
+@auth_required()
 def remove_book(id):
     """
         Remove book from list
@@ -342,7 +342,7 @@ def remove_book(id):
           404:
             description: Could not find any book with the supplied ID.
     """
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
     book = Books.query.filter(Books.owner_id==claim_id, Books.id==id).first()
     if book:
         book.delete()
@@ -354,7 +354,7 @@ def remove_book(id):
         }), 404
     
 @books_endpoint.route("/v1/books/<id>/notes", methods=["GET"])
-@jwt_required()
+@auth_required()
 def get_notes_for_book(id):
     """
         Get notes from book
@@ -376,7 +376,7 @@ def get_notes_for_book(id):
           404:
             description: Notes could not be found.
     """
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
     notes_schema = NotesSchema(many=True)
     book = Books.query.filter(Books.owner_id==claim_id, Books.id==id).first()
     if book:
@@ -390,7 +390,7 @@ def get_notes_for_book(id):
 
 @required_params("content")
 @books_endpoint.route("/v1/books/<id>/notes", methods=["POST"])
-@jwt_required()
+@auth_required()
 def add_book_note(id):
     """
         Add note to book

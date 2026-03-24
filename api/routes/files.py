@@ -1,5 +1,6 @@
 from flask import Blueprint, send_from_directory, jsonify, request, current_app
-from flask_jwt_extended import jwt_required, get_jwt
+from api.decorators import auth_required
+from api.utils import get_current_user_id
 from api.models import Files, FilesSchema, Books
 import os
 import csv
@@ -7,7 +8,7 @@ import csv
 files_endpoint = Blueprint('files', __name__)
 
 @files_endpoint.route("/v1/files/<filename>", methods=["GET"])
-@jwt_required()
+@auth_required()
 def download_file(filename):
     """
         Download file
@@ -28,7 +29,7 @@ def download_file(filename):
           500:
             description: Unknown error occurred.
     """
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
     file = Files.query.filter(Files.filename==filename, Files.owner_id==claim_id).first()
 
     if file:
@@ -42,7 +43,7 @@ def download_file(filename):
 
 
 @files_endpoint.route("/v1/files", methods=["GET"])
-@jwt_required()
+@auth_required()
 def get_files():
     """
         Get list of files
@@ -57,7 +58,7 @@ def get_files():
           404:
             description: No files could be found.
     """
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
     file_schema = FilesSchema(many=True)
     files = Files.query.filter(Files.owner_id==claim_id).order_by(Files.created_at.desc()).all()
 
@@ -74,9 +75,9 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in current_app.config["ALLOWED_EXTENSIONS"]
 
 @files_endpoint.route("/v1/files", methods=["POST"])
-@jwt_required()
+@auth_required()
 def upload_file_for_import():
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
 
     if "file" not in request.files:
         return jsonify({

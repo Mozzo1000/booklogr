@@ -1,16 +1,16 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from api.models import UserSettings, UserSettingsSchema
-from api.decorators import required_params
+from api.decorators import auth_required
+from api.utils import get_current_user_id
 import time
 from datetime import datetime, timezone
 
 settings_endpoint = Blueprint('settings', __name__)
 
 @settings_endpoint.route("/v1/settings", methods=["GET"])
-@jwt_required()
+@auth_required()
 def get_settings():
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
     user_settings_schema = UserSettingsSchema(many=False)
     user_settings = UserSettings.query.filter(UserSettings.owner_id==claim_id).first()
     if user_settings:
@@ -22,9 +22,9 @@ def get_settings():
         }), 404
     
 @settings_endpoint.route("/v1/settings", methods=["PATCH"])
-@jwt_required()
+@auth_required()
 def edit_settings():
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
 
     user_settings = UserSettings.query.filter(UserSettings.owner_id==claim_id).first()
     if user_settings:

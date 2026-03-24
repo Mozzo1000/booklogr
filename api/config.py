@@ -11,6 +11,7 @@ class Config:
     EXPORT_FOLDER = os.environ.get("EXPORT_FOLDER", "export_data")
     GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
     GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
+    SINGLE_USER_MODE = os.environ.get("SINGLE_USER_MODE", False)
 
     ALLOWED_EXTENSIONS = {"csv"}
 
@@ -36,7 +37,8 @@ class Config:
         },
         "specs_route": "/docs"
     }
-    if SECRET_KEY == "this-really-needs-to-be-changed":
-            alert("USE OF DEPRECATED KEY DETECTED!\nCHANGE THE ENV VAR AUTH_SECRET_KEY TO A RANDOM, UNIQUE STRING")
-    elif not SECRET_KEY:
-        alert("NO SECRET KEY SET!\nYOU WILL HAVE TO SET THE ENV VAR AUTH_SECRET_KEY TO A RANDOM STRING BEFORE BOOKLOGR WILL START.")
+    if not SINGLE_USER_MODE.lower() in ["true", "y"]:
+        if SECRET_KEY == "this-really-needs-to-be-changed":
+                alert("USE OF DEPRECATED KEY DETECTED!\nCHANGE THE ENV VAR AUTH_SECRET_KEY TO A RANDOM, UNIQUE STRING")
+        elif not SECRET_KEY:
+            alert("NO SECRET KEY SET!\nYOU WILL HAVE TO SET THE ENV VAR AUTH_SECRET_KEY TO A RANDOM STRING BEFORE BOOKLOGR WILL START.")

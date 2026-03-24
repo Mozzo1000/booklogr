@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify, current_app
-from flask_jwt_extended import jwt_required, get_jwt
 from api.models import Tasks, TasksSchema, db, Books, Files, UserSettings
-from api.decorators import required_params
+from api.decorators import required_params, auth_required
 from sqlalchemy import text 
 import time
 import threading
@@ -13,6 +12,7 @@ import csv
 import json
 from jinja2 import Environment, FileSystemLoader
 from mastodon import Mastodon
+from api.utils import get_current_user_id
 
 tasks_endpoint = Blueprint('tasks', __name__)
 
@@ -53,7 +53,7 @@ def _start_background_task(app, task_id, claim):
 
 
 @tasks_endpoint.route("/v1/tasks/<id>", methods=["GET"])
-@jwt_required()
+@auth_required()
 def get_task(id):
     """
         Get tasks
@@ -74,7 +74,7 @@ def get_task(id):
           404:
             description: Task could not be found.
     """
-    claim = get_jwt()["id"]
+    claim = get_current_user_id()
     task_schema = TasksSchema()
     
     task = Tasks.query.filter(Tasks.id==id, Tasks.created_by==claim).first()
@@ -88,7 +88,7 @@ def get_task(id):
         }), 404
 
 @tasks_endpoint.route("/v1/tasks", methods=["POST"])
-@jwt_required()
+@auth_required()
 @required_params("type", "data")
 def create_task():
     """
@@ -116,7 +116,7 @@ def create_task():
           200:
             description: Task created.
     """
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
     try:
         new_task = _create_task(type=request.json["type"], data=str(request.json["data"]), created_by=claim_id)
 
@@ -129,7 +129,7 @@ def create_task():
 
 
 @tasks_endpoint.route("/v1/tasks/<id>/retry", methods=["POST"])
-@jwt_required()
+@auth_required()
 def retry_task(id):
     """
         Create task
@@ -155,7 +155,7 @@ def retry_task(id):
     if task:
         task.status = "fresh"
         task.updated_on = datetime.now(timezone.utc)
-        _start_background_task(current_app.app_context(), task.id, get_jwt()["id"])
+        _start_background_task(current_app.app_context(), task.id, get_current_user_id())
         return jsonify({"message": "Task set to be retried."})
 
     else:

@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt
 from api.models import Profile, ProfileSchema, Notes, Books, UserSettings
-from api.decorators import required_params
+from api.decorators import required_params, auth_required
+from api.utils import get_current_user_id
 
 profiles_endpoint = Blueprint('profiles', __name__)
 
@@ -38,7 +38,7 @@ def get_profile(display_name):
         }), 404
     
 @profiles_endpoint.route("/v1/profiles", methods=["GET"])
-@jwt_required()
+@auth_required()
 def get_profile_by_logged_in_id():
     """
         Get profile of the logged in user
@@ -53,7 +53,7 @@ def get_profile_by_logged_in_id():
           404:
             description: No profile found.
     """
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
     profile_schema = ProfileSchema()
     
     profile = Profile.query.filter(Profile.owner_id==claim_id).first()
@@ -68,7 +68,7 @@ def get_profile_by_logged_in_id():
 
 @required_params("display_name")
 @profiles_endpoint.route("/v1/profiles", methods=["POST"])
-@jwt_required()
+@auth_required()
 def create_profile():
     """
         Create profile for logged in user
@@ -98,7 +98,7 @@ def create_profile():
           409:
             description: Profile already exists.
     """
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
 
     profile = Profile.query.filter(Profile.owner_id==claim_id).first()
     if profile:
@@ -120,7 +120,7 @@ def create_profile():
         return jsonify({'message': 'Profile created'}), 200
 
 @profiles_endpoint.route("/v1/profiles", methods=["PATCH"])
-@jwt_required()
+@auth_required()
 def edit_profile():
     """
         Edit profile
@@ -146,7 +146,7 @@ def edit_profile():
           404:
             description: Profile not found.
     """
-    claim_id = get_jwt()["id"]
+    claim_id = get_current_user_id()
 
     profile = Profile.query.filter(Profile.owner_id==claim_id).first()
     if profile:

@@ -4,6 +4,9 @@ from getpass import getpass
 import sys
 import re
 from api.auth.models import User, Verification
+from api.models import Profile, UserSettings
+import secrets
+import string
 
 user_command = Blueprint('user', __name__)
 
@@ -56,3 +59,31 @@ def create_user(email, name, role, password):
     except:
         print("Could not save new user to database.")
     
+
+@user_command.cli.command("bootstrap-single-user")
+def bootstrap_single_user():
+    target_id = 1
+
+    existing_user = User.query.filter(User.id==target_id).first()
+    if existing_user:
+        print("Default profile already exists. Skipping")
+        sys.exit(1)
+    
+    rand_pass = ''.join(secrets.choice(string.ascii_letters + string.digits + string.punctuation) for i in range(32))
+
+    try:
+        new_user = User(email="single@user.com", password=User.generate_hash(rand_pass), name="Local user", role="admin")
+        new_user.save_to_db()
+
+        new_verification = Verification(user_id=new_user.id, status="verified", code=None, code_valid_until=None)
+        new_verification.save_to_db()
+
+        new_profile = Profile(owner_id=target_id, display_name="Local user", visibility="hidden")
+        new_profile.save_to_db()
+
+        new_user_settings = UserSettings(owner_id=target_id)
+        new_user_settings.save_to_db()
+
+        print(f"Successfully bootstrapped single user")
+    except Exception as e:
+        print(f"Could not save single user to database. {e}")
