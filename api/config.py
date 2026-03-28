@@ -11,7 +11,7 @@ class Config:
     EXPORT_FOLDER = os.environ.get("EXPORT_FOLDER", "export_data")
     GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
     GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
-    SINGLE_USER_MODE = os.environ.get("SINGLE_USER_MODE", False)
+    SINGLE_USER_MODE = os.environ.get("SINGLE_USER_MODE", "False")
 
     ALLOWED_EXTENSIONS = {"csv"}
 
