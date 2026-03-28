@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
-- Added support for German language.
+### Added
+- Added Single-user mode, allowing the application to be used without authentication for local environments.
+- Added a DNF (Did Not Finish) list.
+- Added support for the German language.
+
+### Changed
+- The frontend now hides the login and registration pages, account settings, and logout button when in single-user mode.
+- The API will now display an error and refuse to start if the authentication secret key is not configured or is set to the previous default value.
 
 ## [1.7.0] - 2026-02-08
 ### Added
