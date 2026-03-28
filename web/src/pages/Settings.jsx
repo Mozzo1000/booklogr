@@ -11,6 +11,8 @@ import { useTranslation, Trans } from 'react-i18next';
 import { RiSlideshowView } from "react-icons/ri";
 import InterfaceTab from '../components/InterfaceTab';
 
+const isSingleUserMode = import.meta.env.VITE_SINGLE_USER_MODE?.toString().toLowerCase() === 'true';
+
 function Settings() {
     const [activeTab, setActiveTab] = useState(0);
     const { t } = useTranslation();
@@ -22,9 +24,11 @@ function Settings() {
                 <h2>{t("navigation.settings")}</h2>
             </article>
             <Tabs aria-label="Tabs with underline"  onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">
-                <TabItem title={t("settings.nav.account")} icon={RiAccountCircleLine }>
-                    <AccountTab />
-                </TabItem>
+                {!isSingleUserMode && (
+                    <TabItem title={t("settings.nav.account")} icon={RiAccountCircleLine }>
+                        <AccountTab />
+                    </TabItem>
+                )}
                 <TabItem title="Interface" icon={RiSlideshowView}>
                     <InterfaceTab />
                 </TabItem>
