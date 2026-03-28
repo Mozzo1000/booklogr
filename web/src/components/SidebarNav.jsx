@@ -13,6 +13,8 @@ import { RiLoginBoxLine } from "react-icons/ri";
 import { RiSettings4Line } from "react-icons/ri";
 import { useTranslation } from 'react-i18next';
 
+const isSingleUserMode = import.meta.env.VITE_SINGLE_USER_MODE?.toString().toLowerCase() === 'true';
+
 const customTheme = {
   root: {
     inner: "h-full overflow-y-auto overflow-x-hidden rounded bg-transparent dark:bg-transparent py-4 px-3 border-r border-gray-200 dark:border-gray-700",
@@ -56,13 +58,14 @@ export default function SidebarNav() {
                     <SidebarItem as={Link} to="/profile" active={location.pathname == "/profile"} icon={RiUser3Line }>{t("navigation.profile")}</SidebarItem>
 
                     <SidebarItem as={Link} to="/settings" active={location.pathname == "/settings"} icon={RiSettings4Line}>{t("navigation.settings")}</SidebarItem>
-
-                    {AuthService.getCurrentUser() ? ( 
-                      <SidebarItem href="" onClick={() => (AuthService.logout(), navigate("/"))} icon={RiLogoutBoxLine}>{t("navigation.logout")}</SidebarItem>
-                    ):(
-                      <Link to="/login">
-                        <SidebarItem href="" icon={RiLoginBoxLine}>{t("forms.login")}</SidebarItem>
-                      </Link>
+                    {!isSingleUserMode && (
+                      AuthService.getCurrentUser() ? ( 
+                        <SidebarItem href="" onClick={() => (AuthService.logout(), navigate("/"))} icon={RiLogoutBoxLine}>{t("navigation.logout")}</SidebarItem>
+                      ):(
+                        <Link to="/login">
+                          <SidebarItem href="" icon={RiLoginBoxLine}>{t("forms.login")}</SidebarItem>
+                        </Link>
+                      )
                     )}
                 </SidebarItemGroup>
                 <SidebarItemGroup>
