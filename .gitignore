@@ -5,4 +5,7 @@ auth_db_vol
 booklogr
 instance
 book.db
+books.db
+data
+test
 .vscode
