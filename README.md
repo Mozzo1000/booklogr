@@ -57,5 +57,12 @@ If you’d like to contribute translations:
 - Visit our [translation guide](https://booklogr.app/docs/Developer/Translation) to get started.
 - Submit translations via pull request or get in touch through an issue.
 
+### ❤️ Contributors
+Thanks to these wonderful people for contributing their time and talent to this project!
+
+<a href="https://github.com/mozzo1000/booklogr/graphs/contributors">
+  <img alt="List of contributors" src="https://contrib.rocks/image?repo=mozzo1000/booklogr" />
+</a>
+
 ## 🧾License
 This project is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full license text.
