@@ -11,9 +11,7 @@ function LanguageSwitcher({ fullSize }) {
     { code: "de", label: "Deutsch", flag: "🇩🇪" },
   ];
 
-  const currentLang =
-    languages.find((lang) => lang.code === i18n.language)?.flag || "🌐";
-  const fullLang = languages.find((lang) => lang.code === i18n.language)?.label;
+const currentLang = languages.find((lang) => lang.code === i18n.language) || languages[0];
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -21,7 +19,7 @@ function LanguageSwitcher({ fullSize }) {
 
   return (
     <Dropdown
-      label={fullSize ? currentLang + " " + fullLang : currentLang}
+      label={fullSize ? `${currentLang.flag} ${currentLang.label}` : currentLang.flag}
       inline={!fullSize}
       color={"alternative"}
       className="max-h-48 overflow-y-auto"
