@@ -6,6 +6,12 @@
     "main"
   ],
   "permissions": [
-    "core:default"
+    "core:default",
+    "shell:allow-execute",
+    "shell:allow-spawn",
+    {
+      "identifier": "shell:allow-sidecar",
+      "allow": [{ "args": [], "sidecar": "api-backend" }]
+    }
   ]
 }
