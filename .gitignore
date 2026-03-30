@@ -9,3 +9,5 @@ books.db
 data
 test
 .vscode
+build
+dist
