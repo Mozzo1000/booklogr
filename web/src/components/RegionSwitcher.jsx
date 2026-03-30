@@ -1,10 +1,7 @@
 import { Dropdown, DropdownItem } from 'flowbite-react'; 
 import { useState } from 'react';
 
-function RegionSwitcher() {
-    const [selectedRegion, setSelectedRegion] = useState(localStorage.getItem('region') || navigator.language || 'en-GB');
-
-    const availableRegions = [
+const availableRegions = [
         { code: 'en-US', name: 'United States', flag: '🇺🇸' },
         { code: 'en-GB', name: 'United Kingdom', flag: '🇬🇧' },
         { code: 'sv-SE', name: 'Sverige', flag: '🇸🇪'},
@@ -16,7 +13,12 @@ function RegionSwitcher() {
         { code: 'it-IT', name: 'Italia', flag: '🇮🇹' },
         { code: 'pt-BR', name: 'Brasil', flag: '🇧🇷' },
         { code: 'nl-NL', name: 'Nederland', flag: '🇳🇱'},
-    ];
+];
+
+function RegionSwitcher() {
+    const initialValue = localStorage.getItem('region') || navigator.language || 'en-GB';
+    const isSupported = availableRegions.some(r => r.code === initialValue);
+    const [selectedRegion, setSelectedRegion] = useState(isSupported ? initialValue : 'en-GB');
 
     const currentRegion = availableRegions.find(r => r.code === selectedRegion);
 
