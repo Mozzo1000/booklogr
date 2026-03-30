@@ -1,6 +1,9 @@
 import os
 from datetime import timedelta
 from .utils import alert
+import secrets
+import platform
+from pathlib import Path
 
 class Config:
     CSRF_ENABLED = True
@@ -37,8 +40,31 @@ class Config:
         },
         "specs_route": "/docs"
     }
-    if not str(SINGLE_USER_MODE).lower() in ["true", "y"]:
-        if SECRET_KEY == "this-really-needs-to-be-changed":
+    
+
+class DesktopConfig:
+    home = Path.home()
+    if platform.system() == "Windows":
+        data_dir = home / "AppData/Local/BookLogr"
+    elif platform.system() == "Darwin":
+        data_dir = home / "Library/Application Support/BookLogr"
+    else:
+        data_dir = home / ".local/share/booklogr"
+    
+    os.makedirs(data_dir, exist_ok=True)
+
+    CSRF_ENABLED = True
+    SECRET_KEY = secrets.token_hex(32)
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{data_dir / 'books.db'}"
+    EXPORT_FOLDER = os.path.join(home, "export_data")
+    GOOGLE_CLIENT_ID = None
+    GOOGLE_CLIENT_SECRET = None
+    SINGLE_USER_MODE = "True"
+
+def check_config(app_config):
+     if not str(app_config.get("SINGLE_USER_MODE")).lower() in ["true", "y"]:
+        if app_config.get("SECRET_KEY") == "this-really-needs-to-be-changed":
                 alert("USE OF DEPRECATED KEY DETECTED!\nCHANGE THE ENV VAR AUTH_SECRET_KEY TO A RANDOM, UNIQUE STRING")
-        elif not SECRET_KEY:
+        elif not app_config.get("SECRET_KEY"):
             alert("NO SECRET KEY SET!\nYOU WILL HAVE TO SET THE ENV VAR AUTH_SECRET_KEY TO A RANDOM STRING BEFORE BOOKLOGR WILL START.")

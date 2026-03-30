@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_jwt_extended import JWTManager, jwt_required
 from flask_cors import CORS
-from api.config import Config
+from api.config import Config, DesktopConfig, check_config
 from flask_migrate import Migrate
 from api.models import db, ma
 from api.routes.books import books_endpoint
@@ -20,13 +20,16 @@ import tomllib
 import os
 from flask_mail import Mail
 from dotenv import load_dotenv
+import sys
 
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
-app.config.from_object(Config)
+app.config.from_object(DesktopConfig if getattr(sys, 'frozen', False) else Config)
+check_config(app.config)
+print(f"LOADED {'DESKTOP' if getattr(sys, 'frozen', False) else 'BASE'} CONFIG")
 swagger = Swagger(app)
 
 db.init_app(app)
