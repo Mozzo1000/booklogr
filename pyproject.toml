@@ -8,7 +8,7 @@ readme = "README.md"
 packages = [{include = "api"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.10,<3.15"
 Flask = "3.1.2"
 python-dotenv = "1.2.1"
 Flask-JWT-Extended = "4.7.1"
@@ -24,9 +24,11 @@ requests = "2.32.5"
 mastodon-py = "2.1.4"
 marshmallow = "4.1.1"
 flask-mail = "0.10.0"
+waitress = "^3.0.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.4.1"
+pyinstaller = "^6.19.0"
 
 [build-system]
 requires = ["poetry-core"]
