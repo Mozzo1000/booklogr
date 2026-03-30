@@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 - Resolved an issue where public profiles were not accessible.
+- Language switcher now correctly defaults to English.
+- Fixed an issue where the profile page would appear blank when the browser was set to an unsupported region.
 
 ### Changed
 - The frontend now hides the login and registration pages, account settings, and logout button when in single-user mode.
