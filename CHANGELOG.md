@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Added a DNF (Did Not Finish) list.
 - Added support for the German language.
 
+### Fixed
+- Resolved an issue where public profiles were not accessible.
+
 ### Changed
 - The frontend now hides the login and registration pages, account settings, and logout button when in single-user mode.
 - The API will now display an error and refuse to start if the authentication secret key is not configured or is set to the previous default value.
