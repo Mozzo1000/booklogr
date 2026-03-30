@@ -65,7 +65,7 @@ function EditBookModal(props) {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                             <div className="format lg:format-lg dark:format-invert">
-                                <p>{t("book.cover")}</p>
+                                <p>{t("book.isbn")}</p>
                             </div>
                             <div className="col-span-2">
                                 <TextInput disabled type="text" value={isbn} onChange={(e) => setISBN(e.target.value)}/>
