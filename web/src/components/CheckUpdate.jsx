@@ -20,6 +20,21 @@ function CheckUpdate({currentVersion}) {
     }
 
     useEffect(() => {
+        const isCheckEnabled = import.meta.env.VITE_CHECK_UPDATES !== 'false';
+
+        if (!isCheckEnabled) {
+            const disabledState = {
+                title: "Unavailable",
+                version: currentVersion,
+                link: "#",
+                release_date: new Date().toISOString(),
+                content: "",
+            };
+            setLatestRelease(disabledState);
+            localStorage.setItem("update", JSON.stringify({ latestRelease: disabledState, timestamp: Date.now() }));
+            return;
+        }
+        
         if (localStorage.getItem("update") && !isDataExpired(JSON.parse(localStorage.getItem("update")).timestamp)) {
             const cached_update = JSON.parse(localStorage.getItem("update"))
             setLatestRelease(cached_update.latestRelease)
