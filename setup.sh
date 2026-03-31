@@ -26,7 +26,7 @@ if [ ! -f .env ]; then
     echo "2) Multi-User Mode   (Standard login with email/password - best for shared servers)"
     
     while true; do
-        read -p "Select an option [1 or 2]: " mode_choice
+        read -p "Select an option [1 or 2]: " mode_choice </dev/tty
         case $mode_choice in
             1)
                 echo "SINGLE_USER_MODE=true" > .env
