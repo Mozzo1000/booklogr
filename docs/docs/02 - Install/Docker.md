@@ -35,9 +35,20 @@ curl --output .env "https://raw.githubusercontent.com/Mozzo1000/booklogr/refs/he
 ```
 
 ### 3. Configure .env
-Set the environment variables as needed inside the `docker-compose.yml` file or edit the `.env` file (if using PostgreSQL).
+Set the environment variables as needed inside the `docker-compose.yml` file or edit the `.env` file.
 See [Environment variables](/docs/Configuration/Environment-variables) for more information.
-The provided `docker-compose.yml` files have the minimum required environment variables set and should work out of the box.
+The provided `docker-compose.yml` files have the minimum required environment variables set except for setting a random `AUTH_SECRET_KEY` string.
+A secret key is required for BookLogr to start in multi-user mode.
+```sh
+echo "AUTH_SECRET_KEY=$(openssl rand -hex 32)" >> .env
+```
+If you rather would like to use single-user mode you do not need to set the `AUTH_SECRET_KEY` variable but instead need to set the `SINGLE_USER_MODE`  and `BL_SINGLE_USER_MODE` environment variable to `true`.
+```sh
+cat <<EOF >> .env
+SINGLE_USER_MODE=true
+BL_SINGLE_USER_MODE=true
+EOF
+```
 
 ### 4. Start the containers
 Start all containers
