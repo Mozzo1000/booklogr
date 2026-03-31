@@ -27,13 +27,13 @@ As a best practice for security, you should always inspect scripts from the inte
 ```sh
 curl -sL https://raw.githubusercontent.com/Mozzo1000/booklogr/main/setup.sh | bash
 ```
-The setup script will prompt you for selecting Single-user or Multi-user mode, you can read more about this at [Single-user mode]((./Single-user%20Mode.md)).
+The setup script will prompt you for selecting Single-user or Multi-user mode, you can read more about this at [Single-user mode](/docs/Configuration/Single-user-mode).
 
 After the setup has finished the containers will start up automatically and Booklogr should be available on http://localhost:5150
 
 ---
 ### Manual setup
-If you prefer a manual installation or need a specific database backend (like PostgreSQL), please refer to our [Detailed Docker Instructions.](./Docker.md)
+If you prefer a manual installation or need a specific database backend (like PostgreSQL), please refer to our [Detailed Docker Instructions.](/docs/Install/Docker)
 
 #### 1. Create directory
 ```sh

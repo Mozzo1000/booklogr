@@ -19,7 +19,8 @@ The environment variables need to be changed in order to deploy `booklogr` to pr
 |POSTGRES_DB |Text     |booklogr       |The name of the database if using PostgreSQL.|
 |AUTH_DEFAULT_USER | Text (email address) | Commented out | Uncomment and type in an email adress if you want to create a specific user on startup. Example use case is the demo instance. |
 |AUTH_DEFAULT_PASSWORD | Text (email address) | Commented out | Password for the user set with AUTH_DEFAULT_USER |
-|SINGLE_USER_MODE | true or false | false | Disables all authentication and account management for private, trusted environments. Warning: Do not enable if the instance is public. [See Single-user Mode documentation.](./Single-user%20Mode.md) |
+|SINGLE_USER_MODE | true or false | false | Disables all authentication and account management for private, trusted environments. Warning: Do not enable if the instance is public. [See Single-user Mode documentation.](/docs/Configuration/Single-user-mode) |
+
 
 
 ## Service: booklogr-web
@@ -28,7 +29,7 @@ The environment variables need to be changed in order to deploy `booklogr` to pr
 |BL_API_ENDPOINT     |URL           |http://localhost:5000/  |URL to the booklogr API service.               |
 |BL_GOOGLE_ID |Text           |Empty           |Leave empty to disable Google Login. Change this to your own Google Client ID if you want to allow authentication with Google. Set this to the same as in the `.env` file in the root directory.               |
 |BL_DEMO_MODE |true or false |false |Adds information to login screen and removes features such as Google Login, used for demo purposes. |
-|BL_SINGLE_USER_MODE |true or false |false |Disables login and account management UI for private environments. [See Single-user Mode documentation.](./Single-user%20Mode.md) |
+|BL_SINGLE_USER_MODE |true or false |false |Disables login and account management UI for private environments. [See Single-user Mode documentation.](/docs/Configuration/Single-user-mode) |
 |BL_CHECK_UPDATES |true or false |true |Enables the periodic check for new releases from GitHub and shows a notification icon in the footer. |
 
 ### .env file for frontend
@@ -41,5 +42,5 @@ These are only used if building from source or in a development fashion. If you 
 |VITE_API_ENDPOINT     |URL           |http://localhost:5000/  |URL to the booklogr API service.               |
 |VITE_GOOGLE_CLIENT_ID |Text           |XXX.apps.googleusercontent.com           |Change this to your own Google Client ID if you want to allow authentication with Google. Set this to the same as in the `.env` file in the root directory.               |
 |VITE_DEMO_MODE |true or false |false |Adds information to login screen and removes features such as Google Login, used for demo purposes. |
-|VITE_SINGLE_USER_MODE |true or false |false |Disables login and account management UI for private environments. [See Single-user Mode documentation.](./Single-user%20Mode.md) |
+|VITE_SINGLE_USER_MODE |true or false |false |Disables login and account management UI for private environments. [See Single-user Mode documentation.](/docs/Configuration/Single-user-mode) |
 |VITE_CHECK_UPDATES |true or false |true |Enables the periodic check for new releases from GitHub and shows a notification icon in the footer. |
