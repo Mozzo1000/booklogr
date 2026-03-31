@@ -1,7 +1,9 @@
 # Environment variables
 BookLogr uses environment variables to customize and set important variables across the app and between services. The variables and how they work are described below.
 
-> ⚠️ The environment variables need to be changed in order to deploy `booklogr` to production.
+:::warning
+The environment variables need to be changed in order to deploy `booklogr` to production.
+:::
 
 ## .env file
 | Variable   | Options   | Default   | Description   |
