@@ -3,9 +3,8 @@ services:
     booklogr-api:
         container_name: "booklogr-api"
         image: mozzo/booklogr:v1.7.0
-        environment:
-            - DATABASE_URL=sqlite:///books.db
-            - AUTH_SECRET_KEY=this-really-needs-to-be-changed
+        env_file:
+            - .env
         ports:
             - 5000:5000
         volumes:
@@ -14,6 +13,8 @@ services:
     booklogr-web:
         container_name: "booklogr-web"
         image: mozzo/booklogr-web:v1.7.0
+        env_file:
+            - .env
         environment:
             - BL_API_ENDPOINT=http://localhost:5000/ # CHANGE THIS TO POINT TO THE EXTERNAL ADRESS THE USER CAN ACCESS
             - BL_GOOGLE_ID= # Leave empty to disable google login. To enable, write in your Google Client ID.
