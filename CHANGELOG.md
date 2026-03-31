@@ -8,15 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Added Single-user mode, allowing the application to be used without authentication for local environments.
 - Added a DNF (Did Not Finish) list.
 - Added support for the German language.
+- Update checks in the web app can now be disabled by setting the `BL_CHECK_UPDATE` environment variable to `false`.
+- Added the ability to manually add books that are not found in the OpenLibrary database.
 
 ### Fixed
 - Resolved an issue where public profiles were not accessible.
 - Language switcher now correctly defaults to English.
 - Fixed an issue where the profile page would appear blank when the browser was set to an unsupported region.
+- Resolved an issue when editing a book where the ISBN field incorrectly displayed the text "cover".
 
 ### Changed
 - The frontend now hides the login and registration pages, account settings, and logout button when in single-user mode.
 - The API will now display an error and refuse to start if the authentication secret key is not configured or is set to the previous default value.
+- The search bar now expands to fill the entire screen on mobile devices.
 
 ## [1.7.0] - 2026-02-08
 ### Added
