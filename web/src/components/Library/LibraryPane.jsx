@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { RiListView } from "react-icons/ri";
 import { RiGalleryView } from "react-icons/ri";
 import SortSelector from '../SortSelector';
+import AddBookButton from '../AddBookButton';
 
 function LibraryPane() {
     const { t, i18n } = useTranslation();
@@ -68,9 +69,12 @@ function LibraryPane() {
     return (
         <>
         <div className="flex flex-row justify-between">
+            <div className="flex flex-row gap-4 items-center">
             <article className="format lg:format-lg pb-2 dark:format-invert">
-                <h2>{t("library")}</h2>
+                    <h2>{t("library")}</h2>
             </article>
+            <AddBookButton collapseButton={false} onSuccess={() => getBooks(translateTabsToStatus())}/>
+            </div>
             <div className="flex flex-row gap-4">
                 <SortSelector sort={sort} setSort={setSort} order={order} setOrder={setOrder}/>
                 <div>

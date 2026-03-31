@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { debounce } from 'lodash';
-import { TextInput } from "flowbite-react";
+import { Button, TextInput, Tooltip } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -12,6 +12,7 @@ import { RiErrorWarningLine } from "react-icons/ri";
 import { HR } from "flowbite-react";
 import { useThemeMode } from 'flowbite-react';
 import { useTranslation, Trans } from 'react-i18next';
+import AddBookButton from "./AddBookButton";
 
 function SearchBar(props) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -89,7 +90,14 @@ function SearchBar(props) {
 
     return (
         <div>
-            <TextInput icon={RiSearch2Line} rightIcon={props.hideESCIcon ? "" : ESCIcon} id="search" type="text" placeholder={t("search.input_placeholder")} onChange={(e) => (debouncedChangeHandler(e), setSearchTerm(e.target.value))} value={searchTerm} />
+            <div className="flex flex-row gap-2">
+                <div className="flex-1">
+                    <TextInput icon={RiSearch2Line} rightIcon={props.hideESCIcon ? "" : ESCIcon} id="search" type="text" placeholder={t("search.input_placeholder")} onChange={(e) => (debouncedChangeHandler(e), setSearchTerm(e.target.value))} value={searchTerm} />
+                </div>
+                {!props.hideAddBookButton &&
+                    <AddBookButton collapseButton={true}/>
+                }
+            </div>
             <div className={`${showList? "block": "hidden"} ${props.absolute? "absolute max-w-md": "relative"} z-10 bg-white pt-10 overflow-y-auto md:max-h-1/2 max-h-96 min-w-28 min-h-28 dark:bg-inherit`}>
                 {loading ? (
                      loadingPlaceholder.map(function() {

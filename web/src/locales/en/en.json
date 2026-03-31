@@ -215,7 +215,8 @@
 
     "actions": {
         "edit_book": "Edit book",
-        "replace_cover": "Replace cover"
+        "replace_cover": "Replace cover",
+        "add_book": "Add book"
     },
 
     "notes": {
