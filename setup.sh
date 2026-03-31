@@ -29,7 +29,10 @@ if [ ! -f .env ]; then
         read -p "Select an option [1 or 2]: " mode_choice </dev/tty
         case $mode_choice in
             1)
-                echo "SINGLE_USER_MODE=true" > .env
+                {
+                    echo "SINGLE_USER_MODE=true"
+                    echo "BL_SINGLE_USER_MODE=true"
+                } > .env
                 echo -e "${GREEN}✅ Configured for Single User Mode.${NC}"
                 break
                 ;;
