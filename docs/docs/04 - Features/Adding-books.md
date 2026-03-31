@@ -11,7 +11,7 @@ The fastest way to add a book is by using the search functionality, which is pow
 3.  Select the correct edition from the results list.
 4.  Choose which list to add it to (_Reading_, _To Be Read_, _Read_, or _Did not finish_).
 
-![alt text](/img/search-results.png)
+![A screenshot of the BookLogr search results modal. The search bar at the top contains the query "red rising" and is followed by a list of book results. Each result includes the book cover, title, author, and ISBN. The results shown are "Red Rising" and "Dark Age" by Pierce Brown, "Iron Gold" by Pierce Brown (with a "Book cover not available" placeholder), and "Red Storm Rising" by Tom Clancy.](/img/search-results.png)
 
 ## Manual Entry
 
@@ -26,12 +26,12 @@ If a book cannot be found in the OpenLibrary database—such as a specific local
     *   **Description**
 4.  Click **Save** to add the book to your library.
 
->![alt text](/img/add-book-modal.png)
+>![A screenshot of the "Add book" modal in the BookLogr interface. The left panel shows the book cover for "Red Rising" by Pierce Brown with a "Replace cover" button. The right panel contains a form with fields for ISBN, Title, Author, a text area for the book's Description, Number of pages, and a "Reading list" dropdown set to "To be read". "Close" and "Save" buttons are located at the bottom right.](/img/add-book-modal.png)
 
 ## Switching Lists
 
 Once a book is added, you can move it between your lists at any time. For example, once you finish a book in your reading list, you can move it to *Read* and leave a rating or a few notes. 
 
-If you decide to stop reading a book before finishing, you can now move it to the **Did not finish** list to keep your reading list tidy while still maintaining a record of the book.
+If you decide to stop reading a book before finishing, you can now move it to the *Did not finish* list to keep your reading list tidy while still maintaining a record of the book.
 
-![alt text](/img/book-action-menu.png)
+![A screenshot of the BookLogr web interface showing a book's "Reading progress" at 0% with an "Update progress" button. A vertical three-dot menu is open, revealing a dropdown list of actions: "Reading status" (with options for Currently reading, To be read, Read, and Did not finish), "Notes & Quotes", "Edit book", and "Remove".](/img/book-action-menu.png)
