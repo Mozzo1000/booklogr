@@ -33,7 +33,8 @@ Optionally you can also display your library proudly to the public, sharing it w
 
 ## ✨Features
 * Easily look up books by title or isbn. Powered by [OpenLibrary](https://openlibrary.org/)
-* Add books to predefined lists: _Reading_, _Already Read_ and _To Be Read_.
+* Add books to predefined lists: _Reading_, _Already Read_, _To Be Read_, and _Did not finish_.
+* Manually add books that are not found in the OpenLibrary.
 * Track your current page in the book you are reading.
 * Share a public profile of your library with others.
 * Rate books you have read using a 0.5 to 5-star scale.
