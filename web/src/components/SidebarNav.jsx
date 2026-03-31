@@ -114,7 +114,7 @@ export default function SidebarNav() {
         <Modal dismissible show={openSearchModal} onClose={() => setOpenSearchModal(false)} position={"top-center"}>
             <ModalBody>
                 <ModalHeader className='md:hidden border-b-0 pb-1 pt-0'></ModalHeader>  
-                <SearchBar absolute={false} hideESCIcon={false} onNavigate={() =>setOpenSearchModal(false)}/>
+                <SearchBar absolute={false} hideESCIcon={false} onNavigate={() =>setOpenSearchModal(false)} onClose={() => setOpenSearchModal(false)}/>
             </ModalBody>
         </Modal>
         </>
