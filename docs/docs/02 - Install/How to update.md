@@ -16,7 +16,7 @@ sudo docker compose down
 ```
 
 ### 2. Check latest versions
-Find the latest version on [Github]([https://](https://github.com/mozzo1000/booklogr/releases/latest))
+Find the latest version on [Github](https://github.com/mozzo1000/booklogr/releases/latest)
 
 ### 3. Update version numbers
 Edit your `docker-compose.yml` file and update the image versions:
