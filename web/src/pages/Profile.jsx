@@ -179,9 +179,12 @@ function Profile() {
                         <BookStatsCard icon={<RiArchiveLine className="w-8 h-8 dark:text-white"/>} number={data.num_books_dnf || 0} text={t("profile.stats.did_not_finish")}/>
 
                     </div>
-                    <div className="inline-flex items-center justify-center w-full">
-                        <hr className="w-full h-px my-8 bg-gray-200 border-0" />
-                        <span className="absolute font-medium text-gray-900 -translate-x-1/3 bg-white dark:bg-[#121212] dark:text-white ">{t("profile.all_books")}</span>
+                    <div className="relative flex items-center py-5">
+                        <div className="grow border-t border-gray-200"></div>
+                        <span className="shrink mx-4 text-gray-900 font-medium dark:text-white">
+                            {t("profile.all_books")}
+                        </span>
+                        <div className="grow border-t border-gray-200"></div>
                     </div>
                     <div className="flex flex-row justify-between">
                         <div className="pb-4">
