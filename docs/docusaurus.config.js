@@ -29,8 +29,15 @@ const config = {
   organizationName: 'mozzo1000', // Usually your GitHub org/user name.
   projectName: 'booklogr', // Usually your repo name.
 
+  //siteConfig.markdown.hooks.onBrokenMarkdownLinks
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+
+    }
+  },
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
