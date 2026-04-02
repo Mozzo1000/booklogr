@@ -12,6 +12,7 @@ import { RiListView } from "react-icons/ri";
 import { RiGalleryView } from "react-icons/ri";
 import SortSelector from '../SortSelector';
 import AddBookButton from '../AddBookButton';
+import BookSkeleton from '../BookSkeleton';
 
 function LibraryPane() {
     const { t, i18n } = useTranslation();
@@ -94,47 +95,63 @@ function LibraryPane() {
         </div>
         <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">
         <Tabs.Item active title={t("reading_status.currently_reading")} icon={RiBookOpenLine}>
-        <PaneTabView view={view} setView={setView}>
-            {state.books?.items.map((item) => {
-                return (
-                    <div key={item.id}>
-                        <BookItem internalID={item.id} view={view} allowNoteEditing={true} showNotes={false} showRating={false} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
-                    </div>
-                )
-            })}
+            <PaneTabView view={view} setView={setView}>
+                {!state.books ? (
+                    <BookSkeleton view={view} count={3} />
+                ): (
+                    state.books?.items.map((item) => {
+                        return (
+                            <div key={item.id}>
+                                <BookItem internalID={item.id} view={view} allowNoteEditing={true} showNotes={false} showRating={false} showProgress={true} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
+                            </div>
+                        )
+                    })
+                )}
             </PaneTabView>
         </Tabs.Item>
         <Tabs.Item title={t("reading_status.to_be_read")} icon={RiBookmarkLine}>
             <PaneTabView view={view} setView={setView}>
-            {state.books?.items.map((item) => {
-                return (
-                    <div key={item.id}>
-                        <BookItem internalID={item.id} view={view} showNotes allowNoteEditing={true} showProgress={false} showOptions title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
-                    </div>
-                )
-            })}
+                {!state.books ? (
+                    <BookSkeleton view={view} count={3} />
+                ): (
+                    state.books?.items.map((item) => {
+                        return (
+                            <div key={item.id}>
+                                <BookItem internalID={item.id} view={view} showNotes allowNoteEditing={true} showProgress={false} showOptions title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}/>
+                            </div>
+                        )
+                    })
+                )}
             </PaneTabView>
         </Tabs.Item>
         <Tabs.Item title={t("reading_status.read")} icon={RiBook2Line}>
             <PaneTabView view={view} setView={setView}>
-            {state.books?.items.map((item) => {
-                return (
-                    <div key={item.id}>
-                        <BookItem internalID={item.id} view={view} showNotes allowNoteEditing={true} showProgress={false} showOptions showRating title={item.title} isbn={item.isbn} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}  />
-                    </div>
-                )
-            })}
+                {!state.books ? (
+                    <BookSkeleton view={view} count={3} />
+                ): (
+                state.books?.items.map((item) => {
+                    return (
+                        <div key={item.id}>
+                            <BookItem internalID={item.id} view={view} showNotes allowNoteEditing={true} showProgress={false} showOptions showRating title={item.title} isbn={item.isbn} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}  />
+                        </div>
+                    )
+                })
+            )}
             </PaneTabView>
         </Tabs.Item>
         <Tabs.Item title={t("reading_status.did_not_finish")} icon={RiArchiveLine}>
             <PaneTabView view={view} setView={setView}>
-            {state.books?.items.map((item) => {
-                return (
-                    <div key={item.id}>
-                        <BookItem internalID={item.id} view={view} showNotes allowNoteEditing={true} showProgress={false} showOptions showRating title={item.title} isbn={item.isbn} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}  />
-                    </div>
-                )
-            })}
+                {!state.books ? (
+                    <BookSkeleton view={view} count={3} />
+                ): (
+                    state.books?.items.map((item) => {
+                        return (
+                            <div key={item.id}>
+                                <BookItem internalID={item.id} view={view} showNotes allowNoteEditing={true} showProgress={false} showOptions showRating title={item.title} isbn={item.isbn} author={item.author} rating={item.rating} notes={item.num_notes} onReadingStatusChanged={() => getBooks(translateTabsToStatus())}  />
+                            </div>
+                        )
+                    })
+                )}
             </PaneTabView>
         </Tabs.Item>
         </Tabs>
