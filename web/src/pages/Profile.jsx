@@ -18,6 +18,7 @@ import WelcomeModal from '../components/WelcomeModal';
 import { useTranslation, Trans } from 'react-i18next';
 import { RiListView } from "react-icons/ri";
 import { RiGalleryView } from "react-icons/ri";
+import BookSkeleton from '../components/BookSkeleton';
 
 function Profile() {
     const [data, setData] = useState();
@@ -154,16 +155,15 @@ function Profile() {
     return (
         <AnimatedLayout>
         <div className="container mx-auto">          
-            {data &&
                 <div>
                     <div className="flex flex-row justify-between">
                         <div className="flex items-center gap-4">
                             <Avatar rounded />
                         <div className="format lg:format-lg dark:format-invert">
-                            <h1>{data.display_name}</h1>
+                            <h1>{data?.display_name}</h1>
                         </div>
                             {currentUser &&
-                                <Badge icon={RiEyeLine} >{formatVisibility(data.visibility)}</Badge>
+                                <Badge icon={RiEyeLine} >{formatVisibility(data?.visibility)}</Badge>
                             }
                         </div>
                         {currentUser &&
@@ -173,10 +173,10 @@ function Profile() {
                         }                        
                     </div>
                     <div className="flex flex-row gap-16 pt-12 justify-around">
-                        <BookStatsCard icon={<RiBook2Line className="w-8 h-8 dark:text-white"/>} number={data.num_books_read || 0} text={t("profile.stats.read")}/>
-                        <BookStatsCard icon={<RiBookOpenLine className="w-8 h-8 dark:text-white"/>} number={data.num_books_reading || 0} text={t("profile.stats.reading")}/>
-                        <BookStatsCard icon={<RiBookmarkLine className="w-8 h-8 dark:text-white"/>} number={data.num_books_tbr || 0} text={t("profile.stats.to_be_read")}/>
-                        <BookStatsCard icon={<RiArchiveLine className="w-8 h-8 dark:text-white"/>} number={data.num_books_dnf || 0} text={t("profile.stats.did_not_finish")}/>
+                        <BookStatsCard icon={<RiBook2Line className="w-8 h-8 dark:text-white"/>} number={data?.num_books_read || 0} text={t("profile.stats.read")}/>
+                        <BookStatsCard icon={<RiBookOpenLine className="w-8 h-8 dark:text-white"/>} number={data?.num_books_reading || 0} text={t("profile.stats.reading")}/>
+                        <BookStatsCard icon={<RiBookmarkLine className="w-8 h-8 dark:text-white"/>} number={data?.num_books_tbr || 0} text={t("profile.stats.to_be_read")}/>
+                        <BookStatsCard icon={<RiArchiveLine className="w-8 h-8 dark:text-white"/>} number={data?.num_books_dnf || 0} text={t("profile.stats.did_not_finish")}/>
 
                     </div>
                     <div className="relative flex items-center py-5">
@@ -189,11 +189,11 @@ function Profile() {
                     <div className="flex flex-row justify-between">
                         <div className="pb-4">
                             <ButtonGroup>
-                                <Button color="alternative" onClick={() => setReadingStatusFilter("All")}>{t("reading_status.all")} ({data.books.length})</Button>
-                                <Button color="alternative" onClick={() => setReadingStatusFilter("Read")}>{t("reading_status.read")} ({data.num_books_read || 0})</Button>
-                                <Button color="alternative" onClick={() => setReadingStatusFilter("Currently reading")}>{t("reading_status.currently_reading")} ({data.num_books_reading || 0})</Button>
-                                <Button color="alternative" onClick={() => setReadingStatusFilter("To be read")}>{t("reading_status.to_be_read")} ({data.num_books_tbr || 0})</Button>
-                                <Button color="alternative" onClick={() => setReadingStatusFilter("Did not finish")}>{t("reading_status.did_not_finish")} ({data.num_books_dnf || 0})</Button>
+                                <Button color="alternative" onClick={() => setReadingStatusFilter("All")}>{t("reading_status.all")} ({data?.books.length})</Button>
+                                <Button color="alternative" onClick={() => setReadingStatusFilter("Read")}>{t("reading_status.read")} ({data?.num_books_read || 0})</Button>
+                                <Button color="alternative" onClick={() => setReadingStatusFilter("Currently reading")}>{t("reading_status.currently_reading")} ({data?.num_books_reading || 0})</Button>
+                                <Button color="alternative" onClick={() => setReadingStatusFilter("To be read")}>{t("reading_status.to_be_read")} ({data?.num_books_tbr || 0})</Button>
+                                <Button color="alternative" onClick={() => setReadingStatusFilter("Did not finish")}>{t("reading_status.did_not_finish")} ({data?.num_books_dnf || 0})</Button>
 
                             </ButtonGroup>
                         </div>
@@ -210,13 +210,17 @@ function Profile() {
                         
                     </div>
                     <PaneTabView view={view}>
-                    {filteredBooks.map((item, i) => {
-                        return (
-                            <div key={i}>
-                                <BookItem internalID={item.id} view={view} showNotes showRating disableGiveRating={true} showReadingStatusBadge={true} showOptions={false} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} readingStatus={item.reading_status} rating={item.rating} notes={item.num_notes} allowNoteEditing={false} overrideNotes={item.notes}/>
-                            </div>
-                        )
-                    })}
+                        {!filteredBooks ? (
+                            <BookSkeleton count={4}/>
+                        ):(
+                        filteredBooks?.map((item, i) => {
+                            return (
+                                <div key={i}>
+                                    <BookItem internalID={item.id} view={view} showNotes showRating disableGiveRating={true} showReadingStatusBadge={true} showOptions={false} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} readingStatus={item.reading_status} rating={item.rating} notes={item.num_notes} allowNoteEditing={false} overrideNotes={item.notes}/>
+                                </div>
+                            )
+                        })
+                    )}
                     </PaneTabView>
                     <Modal dismissible show={openSettingsModal} onClose={() => setOpenSettingsModal(false)}>
                         <ModalHeader className="border-gray-200">{t("profile.update_profile")}</ModalHeader>
@@ -247,7 +251,6 @@ function Profile() {
                         </ModalBody>
                     </Modal>
                 </div>
-            }
 
             {profileNotFound &&
                 <div className="flex flex-col min-h-screen justify-center items-center text-center gap-4">
