@@ -27,6 +27,9 @@ function LibraryPane() {
 
 
     useEffect(() => {
+        dispatch({
+            type: actionTypes.CLEAR
+        });
         getBooks(translateTabsToStatus());
         setPage(1);
         
