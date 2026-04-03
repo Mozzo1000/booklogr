@@ -63,7 +63,7 @@ const verify = (email, code) => {
 };
 
 const change_password = (current_password, new_password) => {
-    return axios.post(getAPIUrl("/v1/auth/change-password"), {
+    return axios.post(getAPIUrl("/v1/account/password"), {
         current_password,
         new_password,
     }, { headers: authHeader() });
