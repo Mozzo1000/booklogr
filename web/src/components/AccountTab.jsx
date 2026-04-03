@@ -13,6 +13,8 @@ function AccountTab() {
     const [newPassword, setNewPassword] = useState("");
     const [newPasswordConf, setNewPasswordConf] = useState("");
     const [passwordErrorText, setPasswordErrorText] = useState();
+    const [email, setEmail] = useState(AuthService.getCurrentUser().email)
+    const [emailErrorText, setEmailErrorText] = useState();
 
     const { t } = useTranslation();
     const toast = useToast(8000);
@@ -42,6 +44,50 @@ function AccountTab() {
         )
     }
 
+    const handleChangeEmail = () => {
+        if (!email.trim()) {
+            toast("error", "Email cannot be empty");
+            return;
+        }
+        AuthService.change_email(email).then(
+            response => {
+                toast("success", response.data.message)
+                setDisableSaveButton(true);
+                console.log(response.status)
+                if (response.status == 201) {
+                    const user = AuthService.getCurrentUser();
+                    user.email = email;
+                    localStorage.setItem("auth_user", JSON.stringify(user));
+                    setEmail(email);
+                }
+            },
+            error => {
+                const resMessage =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+                toast("error", resMessage);
+            }
+        )
+    }
+
+
+    useEffect(() => {
+        if (email !== AuthService.getCurrentUser().email) {
+            setDisableSaveButton(false);
+        }
+        if (!email) {
+            setDisableSaveButton(true);
+            setEmailErrorText("Email cannot be empty")
+        }
+        if(email) {
+            setEmailErrorText("");
+        }
+    }, [email])
+
+
     useEffect(() => {
         if (newPassword !== newPasswordConf) {
             setPasswordErrorText(t("forms.password_no_match"));
@@ -67,7 +113,7 @@ function AccountTab() {
     return (
         <div className="flex flex-col">
             <div className="flex flex-row justify-end">
-                <Button disabled={disableSaveButton}>{t("forms.save")}</Button>
+                <Button onClick={handleChangeEmail} disabled={disableSaveButton}>{t("forms.save")}</Button>
             </div>
 
             <div className="flex flex-row items-center justify-between">
@@ -86,7 +132,12 @@ function AccountTab() {
                     <h4>{t("forms.email")}</h4>
                 </div>
                 <div>
-                    <TextInput id="email1" type="email" placeholder={t("forms.email_placeholder")} icon={RiMailLine} />
+                    <TextInput id="email1" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t("forms.email_placeholder")} icon={RiMailLine} />
+                    {emailErrorText &&
+                    <HelperText color="failure">
+                        <span className="font-medium">{emailErrorText}</span>
+                    </HelperText>
+                    }
                 </div>
             </div>
 

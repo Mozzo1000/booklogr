@@ -69,6 +69,12 @@ const change_password = (current_password, new_password) => {
     }, { headers: authHeader() });
 };
 
+const change_email = (new_email) => {
+    return axios.patch(getAPIUrl("/v1/account/email"), {
+        new_email,
+    }, { headers: authHeader() });
+};
+
 
 export default {
     register,
@@ -78,4 +84,5 @@ export default {
     verify,
     loginGoogle,
     change_password,
+    change_email,
 };
