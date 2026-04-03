@@ -5,6 +5,7 @@ import { ToggleSwitch } from "flowbite-react";
 import LanguageSwitcher from './LanguageSwitcher';
 import RegionSwitcher from './RegionSwitcher';
 import TimezoneSwitcher from './TimezoneSwitcher';
+import ThemeToggle from './ThemeToggle';
 
 function InterfaceTab() {
     const [use24Hour, setUse24Hour] = useState(localStorage.getItem("time_format_24h") === "true" ? true : false);
@@ -19,6 +20,14 @@ function InterfaceTab() {
 
     return (
         <div className="flex flex-col gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="format lg:format-lg dark:format-invert ">
+                    <h4>Theme</h4>
+                </div>
+                <div className="col-span-2">
+                    <ThemeToggle />
+                </div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="format lg:format-lg dark:format-invert">
                     <h4>{t("language.language")}</h4>
