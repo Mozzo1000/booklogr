@@ -1,0 +1,71 @@
+---
+id: google-o-auth-authorization
+title: "Google OAuth Authorization"
+description: "Google OAuth Authorization"
+sidebar_label: "Google OAuth Authorization"
+hide_title: true
+hide_table_of_contents: true
+api: eJx9U01v2zAM/SsCz1rs7OPiWzt0RYcBK9YOOwQ5yDJjq7VFV6Kzpob/+0DZSde1mA+2TD1S7/FRIwR8GDDyOVUHKEaw5Bk9y9L0feusYUc+u4vkJRZtg52RVR+ox8AO45xWoXwrjDa4XnKggLOBGwruKdVQglEBLbo9VmoXqFOXRHWLspZTqxVo4EOPUEDk4HwN06QTQxewgmIzn7M9oai8Q8swvYRxGDAFYk8+zgTf5+vX/G4GazHG3dC2B2UGbtCzKMZK7Z1Z2K1g0vAx//CGPGtp8KxcVM4by24/gz/l+WvwIjUiD73CECiskjo2dRRl0itR9mbWd9lVL9oJGjrkhioooEYGDb3hBgrI9uvMLEjM6lQANES0Q3B8uBEH556UaAKGdPDp7wuFzjAU8PXXrWQlNBTL7rM/DXOf+Mtk/HieoYtH0/UtPs/EyUkNzu/oOGPGphkbQrsUi0WW1Y6boVxZ6rKOnp5oned5VhLdt1QHqfBP/6+v1I6CMslF52t1TnT/TbAa2LHQgGNInV1fgYY9hjhnr1f5KpeiPUXuTBpvb5LY/3b9BYfx2A/GR8761jgvJZOscXFkA/s1aDh5AhoWV7YaGooskHEsTcSfoZ0mCT8MGA5QbLYa9iY4U4qWzXbS0KCpMECxGeEeD1DA5/nGvrsVIgJvByH06vZO278m5vJC3C2XS9/NTgXzG3R6FwAaKGlMk5JiI7TG14OpBTuXlOcPxzZ3Xg==
+sidebar_class_name: "get api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Google OAuth Authorization"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/v1/authorize/google"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Google OAuth Authorization
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"code":{"description":"Authorization code received from Google frontend.","type":"string"}},"required":["code"],"type":"object"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"201":{"description":"Successfully authenticated via Google."},"403":{"description":"Account is inactive."},"500":{"description":"Google setup error."}}}
+>
+  
+</StatusCodes>
+
+
+      

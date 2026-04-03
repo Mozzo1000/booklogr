@@ -1,0 +1,71 @@
+---
+id: login-user
+title: "Login user"
+description: "Login user"
+sidebar_label: "Login user"
+hide_title: true
+hide_table_of_contents: true
+api: eJxtVE1v2zAM/SsCz16cbD351g4b0KHDirbDDkEOsszYamzRlSi3qeH/PlBxsnStD7ZE8fHj8ckjeHyKGPiKqj0UIxhyjI5lqfu+tUazJZc/BnJiC6bBTsuq99SjZ4tBdthp28qC9z1CAYG9dTVMGfQ6hGfy1QeHU5ayW48VFOs5xhlikx0RVD6iYZjeQthHTIbQkwuHQj4vV/KpMBhve6kdCrih2joVojEYwja2C3WHHL0LimmHLijtKhUDelVp1gsp++KjONdu0K2tlPFYoWOr2zA7f3nvfGkMRccqugG93VqsFHllnTZsB81YzdCL99CfNgTrapUYEdSRkkUijXUdhLDLyI2Q9FGz0g1k0CE3VEEBPQVO3HIDBeTDKm/FDzIIaKK3vL+X0R5ILFF79Cn8afedfKcZCvjx50FQyRuK+RROo2qY+1SlSObun7i+veiub/FMLEcdnGvkTDjWbemoSG2SIqNv5wyhyPPachPLhaEu7+j1lVbL5TIviXYt1V4i/DeP22u1Ja90UoHQe0W0uxHfDNiy1AZHk7q8vYYMBvThgF4tlotl0jMF7nS6DE4nBt4Q/ibnSfGML5z3rbZOQqQ2xnkWaxhWkMFhGpsMGhlUsYZxLHXA376dJjE/RfR7KNabDAbtrS6l3PVmyqBBXaGHYj3CDvdQwNfDFf70ILnFvY1Sw7vrPG3O9HH7617GWs6/gY4qwXj9DFl6FwAZUOorSSTZRmi1q6OuxfcQU56/W/97cg==
+sidebar_class_name: "post api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Login user"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/v1/login"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Login user
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"email":{"type":"string"},"password":{"type":"string"}},"required":["email","password"],"type":"object"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"201":{"description":"Login successful. Returns tokens and user data."},"401":{"description":"Invalid credentials."},"403":{"description":"Account unverified or inactivated."},"404":{"description":"Missing email or password."}}}
+>
+  
+</StatusCodes>
+
+
+      

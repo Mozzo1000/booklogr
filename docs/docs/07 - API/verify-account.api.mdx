@@ -1,0 +1,71 @@
+---
+id: verify-account
+title: "Verify account"
+description: "Verify account"
+sidebar_label: "Verify account"
+hide_title: true
+hide_table_of_contents: true
+api: eJxtVMFu2zAM/RWBZzd2ig4YdGuLDeiwYcXabocgB1lmbLW2pFKy19Twvw+U3bRdmkNiU4+P5OOLRiB87DHEC1ftQY6gnY1oIz8q71ujVTTO5vfBWY4F3WCn+MmT80jRYJjTKuTfCoMm4zkHJHw+0Y0ipSOSUK1vlO07JKMFw0VAG8VglMBOmXYFGcS9R5AQIhlbw5RBOmHe/06mLPVtCCuQmwWWzV1sDzyuvEcdYXoPj9RjCgTvbJjbPy2K4+5/I5ndIoAIvdaIFVYr7uvsI/yVHVRrKuFI4JPnYmnOJeHsOOEuIAnroti53i7Ep6fHuB8mBGPrWSemP9B++riPiGRVKwLSgCSQyNEqiRZVHViw8z42LNQHA++F0tr1NkIGHcbGVSDBu8DvXsUGJOTDOh8SFjIIqHsycX/DzpjVLFERUqpxePvqqFMRJHz7c8tZCQ1yOX3dfROjT62y4369evPLk+p8i69ee/HCwSRvbGPszr2YWelk5p7ahT3IPK9NbPpypV2Xd+752a2LoshL5x5aVxMzvBfm/PpK7ByxMjiv4sK5h++MzSCayH3BS0icX19BBgNSmLPXq2JVMCmr2Kn0P7IqTX+k+Lu6B9tHfIq5b5WxTJNGGZdlbGBYz9V4HdsMGl6V3MA4lirgHbXTxOHHHmkPcrPNYFBkVMk9b7ZTBg2qCgnkZoQH3IOEy/kKOLnl4gxve27i6DqYtm8ccv3zhvdaLtdIN++I1F/I0rcEyMClwZJHUmyEVtm6VzVjZ07+/ANKQ498
+sidebar_class_name: "post api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Verify account"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/v1/verify"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Verify account
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"code":{"description":"8-character alphanumeric code sent via email.","type":"string"},"email":{"type":"string"}},"required":["email","code"],"type":"object"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Verification succeeded."},"400":{"description":"Invalid or expired code."},"404":{"description":"User not found."},"422":{"description":"Missing email or code."},"500":{"description":"Internal server error."}}}
+>
+  
+</StatusCodes>
+
+
+      

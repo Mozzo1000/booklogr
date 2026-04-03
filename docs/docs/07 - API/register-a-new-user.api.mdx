@@ -1,0 +1,71 @@
+---
+id: register-a-new-user
+title: "Register a new user"
+description: "Register a new user"
+sidebar_label: "Register a new user"
+hide_title: true
+hide_table_of_contents: true
+api: eJxtVMFum0AQ/RU0Z2qw1R7KqUmVSqlaNUpS9WD5sMAYNll2yexghyD+vZoFO3ZdLizDvJm3897uAIQvHXq+dmUP2QCFs4yWZana1uhCsXY2efLOSswXNTZKVi25Fok1evnCRmkji62jRjFkcyQG7luEDDyTthWMMVjVoGRe/GiV93tH5VmZY/Ci0hgH7pqwhGx97HcCCJ02R6DLn7BgGM+RTB2GgG+d9dNuVulSXiX6gnQrA4AMrorCdZajglAxlpHvigK933bG9Avh/zH9fIm6EVqRMoSq7CNto87jlL1aXWb/1N5rW0UHetFWoyl9AHxK00vArWUkq0zkkXZIERI5WoThsKq8DOaq41qmcA68x0p7RopUZHEvrAhiaJBrV8rYnecwTK4hg2S3TGgGQAwei4409w9ihmliOSpCCq2OX98OGn7/8yiokA3Z/Pdd0Jq5DYzFZPfvdrx5VU1r8MReIDS/4BRfFK45iHx0xamLTqyl7dYd3K2K4O6OzNzbZ0lSaa67XEomjXt7c8s0TZPcuWfjKpIK/3jh7jbaOopUsIAodu3c8w/JjYE1C2s4hKKru1uIYYfkJ/RykS7S4HjnuVHhYM3b+L8sZ82PJ4fxlZPWKG2lVtjPMCu2ht0SxNSzZpsYalE0W8Mw5MrjbzLjKOGXDqmHbL2JYadIq1yorzdjDDWqEgmy9QDP2EMGX6er4cOjtJd00wmNi2ti3JwY6e7Xg4ifz9dL40rBkNoLPbWHDCAGF7YWjBRiAxhlq05VkjvVlOcvLhWYtQ==
+sidebar_class_name: "post api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Register a new user"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/v1/register"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Register a new user
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"email":{"format":"email","type":"string"},"name":{"type":"string"},"password":{"format":"password","type":"string"}},"required":["email","password","name"],"type":"object"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"201":{"description":"Account created successfully."},"409":{"description":"Email already in use."},"422":{"description":"Missing required fields."},"500":{"description":"Internal server error."}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: change-email
+title: "Change email"
+description: "Change email"
+sidebar_label: "Change email"
+hide_title: true
+hide_table_of_contents: true
+api: eJx1VE1vnDAQ/SvWnN2FrdpDOTWJUjVVD1G7VQ+rVTXABJwFm4zNJhvEf6/GwOarvWB7/ObrzTMDMN315MO5K4+QDVA4G8gG2WLXNabAYJxNbr2zYvNFTS3KrmPXEQdDXk6W7v9Qi6aRw43jFgNkMFk0hGNHkIEPbGwF46hjVsNUQrZ95rs7QV1+S0WA8SU2cE/R4Dtn/ZT5fbqWpSRfsOmkWMjgUsKpvisxULmCUcOHNH0Lu7IHbEypYnblWHlsSaFXRc9MNsyen/6XABsmLI8q4J6syo8KrQs1seo9cXT++O+0gdhiozzxgVgRsxP4qMFT0bMJR8i2A+SETHzWhxqy7W4UdrDyQlm07fSruBc12orUwnpLoXYlZNBhKGrQstaQQXJYJ1gUrrchWbBL3p8y34nY59mX05dlst9+b8QroiGbb58mXYfQxX5ENz+eFHb5gG3X0CvFgND1maa7VeFaYc7YG7cIEosoyJ6bObbPkqQyoe5zgSete3x06zRNk9y5feMqlggvyTm7vlI3jhUWBXlvbKXOndt/F6yGYIJUBYtJnV1fgYYDsZ+816t0lUrQzvnQYnwLFmPvr1h/kXVYCAn0EJKuQWMlSGxkmOexhcMaNMwTAQ2nt1A7H+R+GHL09IubcRTzXU8sAtlpOCAbzKX07W7UUBOWxFE7ezpKbdNrfreRKgTe9FLNm5ct2jrJ5fpsc/EVNOTzL6F1pTgx3oOO3wxAg4stRqVE2wAN2qrHSrBTUBEAzvqZeTgJZd5IqfMV2uOzEodhQmzcnuw4gp47CnKGcTeO419LDp09
+sidebar_class_name: "patch api-method"
+info_path: docs/07 - API/booklogr-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Change email"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"patch"}
+  path={"/v1/account/email"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Change email
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"new_email":{"format":"email","type":"string"}},"required":["new_email"],"type":"object"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"201":{"description":"Email updated."},"400":{"description":"Invalid email or same as current."},"409":{"description":"Email already taken by another user."},"500":{"description":"Internal server error."}}}
+>
+  
+</StatusCodes>
+
+
+      

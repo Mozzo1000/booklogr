@@ -18,6 +18,37 @@ mail = Mail()
 @auth_endpoint.route("/v1/register", methods=["POST"])
 @disable_route(os.environ.get("AUTH_ALLOW_REGISTRATION", "True"))
 def register():
+    """
+    Register a new user
+    ---
+    tags:
+      - Auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [email, password, name]
+            properties:
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+                format: password
+              name:
+                type: string
+    responses:
+      201:
+        description: Account created successfully.
+      409:
+        description: Email already in use.
+      422:
+        description: Missing required fields.
+      500:
+        description: Internal server error.
+    """
     if not "email" or not "password" or not "name" in request.json:
         abort(422)
     if User.find_by_email(request.json["email"]):
@@ -46,6 +77,36 @@ def register():
 
 @auth_endpoint.route("/v1/verify", methods=["POST"])
 def verify():
+    """
+    Verify account
+    ---
+    tags:
+      - Auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [email, code]
+            properties:
+              email:
+                type: string
+              code:
+                type: string
+                description: 8-character alphanumeric code sent via email.
+    responses:
+      200:
+        description: Verification succeeded.
+      400:
+        description: Invalid or expired code.
+      404:
+        description: User not found.
+      422:
+        description: Missing email or code.
+      500:
+        description: Internal server error.
+    """
     if not "email" or not "code" in request.json:
         abort(422)
 
@@ -72,6 +133,33 @@ def verify():
 
 @auth_endpoint.route("/v1/login", methods=["POST"])
 def login():
+    """
+    Login user
+    ---
+    tags:
+      - Auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [email, password]
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+    responses:
+      201:
+        description: Login successful. Returns tokens and user data.
+      401:
+        description: Invalid credentials.
+      403:
+        description: Account unverified or inactivated.
+      404:
+        description: Missing email or password.
+    """
     if not "email" or not "password" in request.json:
         abort(422)
     current_user = User.find_by_email(request.json["email"])
@@ -95,6 +183,17 @@ def login():
 
 @auth_endpoint.route('/v1/token/refresh', methods=['POST'])
 def token_refresh():
+    """
+    Refresh Access Token
+    ---
+    tags:
+      - Auth
+    security:
+      - bearerAuth: []
+    responses:
+      201:
+        description: New access token generated.
+    """
     current_user = get_jwt_identity()
     access_token = create_access_token(identity=current_user, additional_claims={"role": current_user.role,  "id": current_user.id})
     return jsonify({'access_token': access_token}), 201
@@ -102,6 +201,19 @@ def token_refresh():
 @auth_endpoint.route('/v1/token/logout/access', methods=['POST'])
 @jwt_required()
 def user_logout_access():
+    """
+    Logout (Revoke Access Token)
+    ---
+    tags:
+      - Auth
+    security:
+      - bearerAuth: []
+    responses:
+      201:
+        description: Access token revoked.
+      500:
+        description: Internal server error.
+    """
     jti = get_jwt()["jti"]
     try:
         revoked_token = RevokedTokenModel(jti=jti)
@@ -114,6 +226,19 @@ def user_logout_access():
 @auth_endpoint.route('/v1/token/logout/refresh', methods=['POST'])
 @jwt_required(refresh=True)
 def user_logout_refresh():
+    """
+    Logout (Revoke Refresh Token)
+    ---
+    tags:
+      - Auth
+    security:
+      - bearerAuth: []
+    responses:
+      201:
+        description: Refresh token revoked.
+      500:
+        description: Internal server error.
+    """
     jti = get_jwt()["jti"]
     try:
         revoked_token = RevokedTokenModel(jti=jti)
@@ -127,6 +252,31 @@ def user_logout_refresh():
 @jwt_required()
 @required_params("current_password", "new_password")
 def change_password():
+    """
+    Change password
+    ---
+    tags:
+      - Auth
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [current_password, new_password]
+            properties:
+              current_password:
+                type: string
+              new_password:
+                type: string
+    responses:
+      201:
+        description: Password updated.
+      401:
+        description: Current password incorrect.
+    """
     user = User.query.filter_by(email=get_jwt_identity()).first()
     if User.verify_hash(request.json["current_password"], user.password):
         user.password = User.generate_hash(request.json["new_password"])
@@ -139,6 +289,34 @@ def change_password():
 @jwt_required()
 @required_params("new_email")
 def change_email():
+    """
+    Change email
+    ---
+    tags:
+      - Auth
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [new_email]
+            properties:
+              new_email:
+                type: string
+                format: email
+    responses:
+      201:
+        description: Email updated.
+      400:
+        description: Invalid email or same as current.
+      409:
+        description: Email already taken by another user.
+      500:
+        description: Internal server error.
+    """
     user = User.query.filter_by(email=get_jwt_identity()).first()
     if not is_valid_email(request.json["new_email"]):
         return jsonify({'message': 'Invalid email'}), 400
@@ -170,6 +348,30 @@ the user is verified (we could use the verified key that the OAuth response from
 """
 @auth_endpoint.route("/v1/authorize/google", methods=['GET','POST'])
 def authorize_google():
+    """
+    Google OAuth Authorization
+    ---
+    tags:
+      - Auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [code]
+            properties:
+              code:
+                type: string
+                description: Authorization code received from Google frontend.
+    responses:
+      201:
+        description: Successfully authenticated via Google.
+      403:
+        description: Account is inactive.
+      500:
+        description: Google setup error.
+    """
     auth_code = request.get_json()['code']
     
     if not current_app.config["GOOGLE_CLIENT_ID"] and not current_app.config["GOOGLE_CLIENT_SECRET"]:
