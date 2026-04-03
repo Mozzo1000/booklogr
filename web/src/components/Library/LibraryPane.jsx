@@ -80,13 +80,11 @@ function LibraryPane() {
     return (
         <>
         <div className="flex flex-row justify-between">
-            <div className="flex flex-row gap-4 items-center">
             <article className="format lg:format-lg pb-2 dark:format-invert">
                     <h2>{t("library")}</h2>
             </article>
-            <AddBookButton collapseButton={false} onSuccess={() => getBooks(translateTabsToStatus())}/>
-            </div>
             <div className="flex flex-row gap-4">
+                  <AddBookButton collapseButton={isMobile} onSuccess={() => getBooks(translateTabsToStatus())}/>
                 <SortSelector sort={sort} setSort={setSort} order={order} setOrder={setOrder}/>
                 <div>
                     <ButtonGroup>
