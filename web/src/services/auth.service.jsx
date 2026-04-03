@@ -7,7 +7,7 @@ axios.interceptors.response.use((response) => {
     return response
 }, async (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest.url.includes("/change-password")) {
+    if (error.response.status === 401 && !originalRequest.url.includes("/password")) {
         logout();
         globalRouter.navigate("/login");
     }
@@ -63,7 +63,7 @@ const verify = (email, code) => {
 };
 
 const change_password = (current_password, new_password) => {
-    return axios.post(getAPIUrl("/v1/account/password"), {
+    return axios.patch(getAPIUrl("/v1/account/password"), {
         current_password,
         new_password,
     }, { headers: authHeader() });

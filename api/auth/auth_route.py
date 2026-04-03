@@ -123,7 +123,7 @@ def user_logout_refresh():
         return jsonify({'message': 'Something went wrong'}), 500
 
 
-@auth_endpoint.route("/v1/account/password", methods=["POST"])
+@auth_endpoint.route("/v1/account/password", methods=["patch"])
 @jwt_required()
 @required_params("current_password", "new_password")
 def change_password():
