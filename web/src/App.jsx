@@ -65,7 +65,7 @@ function App() {
 
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20 md:pb-0">
     <div className="flex flex-row">
       {isAuthenticated &&
         <SidebarNav />
