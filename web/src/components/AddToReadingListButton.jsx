@@ -147,7 +147,7 @@ function AddToReadingListButton(props) {
     }
 
     return (
-        <div>
+        <div className="w-full md:w-fit">
             <Modal show={openModalReading} onClose={() => setOpenModalReading(false)}>
                 <ModalHeader className="border-gray-200">{t("book.add_to_reading", {book_title: props.data?.title})}</ModalHeader>
                 <ModalBody>
@@ -164,20 +164,20 @@ function AddToReadingListButton(props) {
                 </ModalFooter>
             </Modal>
 
-            <ButtonGroup outline>
+            <ButtonGroup outline className="w-full flex">
                 {(() => {
                     if (readingStatus === "To be read") {
-                        return <Button onClick={() => handleSetReadingCurrentlyReading()}><RiBookOpenLine className="mr-2 h-5 w-5" />{t("reading_status.currently_reading")}</Button>;
+                        return <Button className="w-full" onClick={() => handleSetReadingCurrentlyReading()}><RiBookOpenLine className="mr-2 h-5 w-5" />{t("reading_status.currently_reading")}</Button>;
                     } else if (readingStatus === "Currently reading") {
                         return <UpdateReadingStatusButton currentPage={currentPage} totalPages={totalPages} id={readID} title={props.data?.title} rating={0} buttonStyle={"alternative"} onSucess={updateReadStatus}/>
                     } else if (readingStatus === "Read") {
-                        return <Button disabled><RiBook2Line className="mr-2 h-5 w-5" />{t("reading_status.read")}</Button>;
+                        return <Button className="w-full" disabled><RiBook2Line className="mr-2 h-5 w-5" />{t("reading_status.read")}</Button>;
                     }else {
-                        return <Button onClick={() => handleSetReadingToBeRead()}><RiBookmarkLine className="mr-2 h-5 w-5" />{t("reading_status.want_to_read")}</Button>;
+                        return <Button className="w-full" onClick={() => handleSetReadingToBeRead()}><RiBookmarkLine className="mr-2 h-5 w-5" />{t("reading_status.want_to_read")}</Button>;
                     }
                 })()}
         
-                <Dropdown>
+                <Dropdown className="shrink-0">
                     {(() => {
                         if (readingStatus === "To be read") {
                             return <>

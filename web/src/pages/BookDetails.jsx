@@ -96,7 +96,7 @@ function BookDetails() {
                     </article>
                 </div>
                 <div className="lg:col-start-2 lg:row-start-2">
-                    <div className="flex flex-row gap-4 ">
+                    <div className="flex flex-col md:flex-row gap-4">
                         <AddToReadingListButtton isbn={id} data={data} description={description} author={author}/>
                         <OpenLibraryButton isbn={id} />
                         <EditionSelector work_id={data?.works[0].key} selected_isbn={id}/>

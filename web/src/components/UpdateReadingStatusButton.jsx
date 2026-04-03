@@ -42,9 +42,9 @@ function UpdateReadingStatusButton(props) {
     return (
         <>
             {props.buttonStyle == "alternative" ? (
-                <Button onClick={() => setOpenModal(true)}>{t("book.update_reading.update_progress")}</Button>
+                <Button className="w-full" onClick={() => setOpenModal(true)}>{t("book.update_reading.update_progress")}</Button>
             ) :(
-                <Button color="light" pill size="sm" onClick={() => setOpenModal(true)}>{t("book.update_reading.update_progress")}</Button>
+                <Button className="w-full" color="light" pill size="sm" onClick={() => setOpenModal(true)}>{t("book.update_reading.update_progress")}</Button>
             )}
             <Modal size="lg" dismissible show={openModal} onClose={() => setOpenModal(false)}>
             <ModalHeader className="border-gray-200">{t("book.update_reading.update_reading_progress")}</ModalHeader>
