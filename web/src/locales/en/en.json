@@ -209,8 +209,13 @@
         },
         "update_profile": "Update profile",
         "all_books": "All books",
-        "profile_settings": "Profile settings"
-
+        "profile_settings": "Profile settings",
+        "share": "Share",
+        "share_profile": "Share profile",
+        "copy_link": "Copy link",
+        "link_copied": "Link copied to clipboard",
+        "share_title": "{{name}}'s Library",
+        "share_text": "I'm tracking my reading progress. Take a look at what I've been reading!"
     },
 
     "actions": {

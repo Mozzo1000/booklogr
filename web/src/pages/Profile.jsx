@@ -19,6 +19,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import { RiListView } from "react-icons/ri";
 import { RiGalleryView } from "react-icons/ri";
 import BookSkeleton from '../components/BookSkeleton';
+import ShareProfileButton from '../components/ShareProfileButton';
 
 function Profile() {
     const [data, setData] = useState();
@@ -166,11 +167,16 @@ function Profile() {
                                 <Badge icon={RiEyeLine} >{formatVisibility(data?.visibility)}</Badge>
                             }
                         </div>
+                        <div className="flex flex-row gap-4">
+                        {profileVisiblity == "public" && 
+                            <ShareProfileButton displayName={data?.display_name} />
+                        }
                         {currentUser &&
                             <Tooltip content={t("profile.profile_settings")}>
                                 <Button className="hover:cursor-pointer" color="light" pill onClick={() => setOpenSettingsModal(true)}><RiSettings4Line className="h-6 w-6"/></Button>
                             </Tooltip>
                         }                        
+                        </div>
                     </div>
                     <div className="flex flex-row gap-16 pt-12 justify-around">
                         <BookStatsCard icon={<RiBook2Line className="w-8 h-8 dark:text-white"/>} number={data?.num_books_read || 0} text={t("profile.stats.read")}/>
