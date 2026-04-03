@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+### Added
+- Added loading placeholder to the profile page to prevent it from appearing blank while books are loading.
+- Added the ability to change the theme from the Settings page.
+
+### Fixed
+- The background color of the "all books" section title on the profile page is now transparent to correctly match the background color.
+- Resolved an issue where books from the previous list remained visible during tab switches by introducing loading placeholders.
+- Added bottom padding to pages to prevent content from overlapping with the mobile navigation bar.
+
+### Changed
+- Library tabs now hide text and fill the entire width of the screen on smaller devices for a more compact mobile interface.
+- The "Add Book" button on the Library page has been moved next to the sort and filter buttons and now automatically collapses on smaller screens.
+- Sort and filter buttons are now responsive on smaller screens and open in a drawer.
+- Buttons on the book page now render in a column on smaller screens.
 
 ## [1.8.0] - 2026-03-31
 ### Added
