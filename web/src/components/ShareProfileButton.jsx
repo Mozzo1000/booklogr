@@ -1,5 +1,5 @@
 import { Button, Tooltip } from "flowbite-react";
-import { RiShareForwardLine, RiCheckLine } from "react-icons/ri";
+import { RiShareLine, RiCheckLine } from "react-icons/ri";
 import { useState } from 'react';
 import useToast from '../toast/useToast';
 import { useTranslation } from 'react-i18next';
@@ -40,7 +40,7 @@ function ShareProfileButton({ displayName }) {
                 {copied ? (
                     <RiCheckLine className="h-5 w-5 text-green-500" />
                 ) : (
-                    <RiShareForwardLine className="h-5 w-5" />
+                    <RiShareLine className="h-5 w-5" />
                 )}
                 <span className="ml-2 hidden sm:inline">{t("profile.share")}</span>
             </Button>
