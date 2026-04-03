@@ -1,11 +1,13 @@
 import axios from "axios";
 import globalRouter from "../GlobalRouter";
 import { getAPIUrl } from "./api.utils";
+import authHeader from "./auth-header";
 
 axios.interceptors.response.use((response) => {
     return response
 }, async (error) => {
-    if (error.response.status === 401) {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest.url.includes("/change-password")) {
         logout();
         globalRouter.navigate("/login");
     }
@@ -60,6 +62,14 @@ const verify = (email, code) => {
     });
 };
 
+const change_password = (current_password, new_password) => {
+    return axios.post(getAPIUrl("/v1/auth/change-password"), {
+        current_password,
+        new_password,
+    }, { headers: authHeader() });
+};
+
+
 export default {
     register,
     login,
@@ -67,4 +77,5 @@ export default {
     getCurrentUser,
     verify,
     loginGoogle,
+    change_password,
 };
