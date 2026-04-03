@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react'
 import BookItem from './BookItem'
-import { Tabs, Pagination, ButtonGroup, Button } from "flowbite-react";
+import { Tabs, Pagination } from "flowbite-react";
 import BooksService from '../../services/books.service';
 import PaneTabView from './PaneTabView';
 import reducer, { initialState, actionTypes } from '../../useLibraryReducer';
@@ -8,11 +8,9 @@ import { RiArchiveLine, RiBook2Line } from "react-icons/ri";
 import { RiBookOpenLine } from "react-icons/ri";
 import { RiBookmarkLine } from "react-icons/ri";
 import { useTranslation } from 'react-i18next';
-import { RiListView } from "react-icons/ri";
-import { RiGalleryView } from "react-icons/ri";
-import SortSelector from '../SortSelector';
 import AddBookButton from '../AddBookButton';
 import BookSkeleton from '../BookSkeleton';
+import Controls from './Controls';
 
 function LibraryPane() {
     const { t, i18n } = useTranslation();
@@ -83,19 +81,9 @@ function LibraryPane() {
             <article className="format lg:format-lg pb-2 dark:format-invert">
                     <h2>{t("library")}</h2>
             </article>
-            <div className="flex flex-row gap-4">
-                  <AddBookButton collapseButton={isMobile} onSuccess={() => getBooks(translateTabsToStatus())}/>
-                <SortSelector sort={sort} setSort={setSort} order={order} setOrder={setOrder}/>
-                <div>
-                    <ButtonGroup>
-                        <Button size="sm" color={view === "gallery" ? "default" : "alternative"} onClick={() => changeView("gallery")}>
-                            <RiGalleryView className="w-6 h-6" />
-                        </Button>
-                        <Button size="sm" color={view === "list" ? "default" : "alternative"} onClick={() => changeView("list")}>
-                            <RiListView className="w-6 h-6" />
-                        </Button>
-                    </ButtonGroup>
-                </div>
+            <div className="flex flex-row gap-4 pb-4">
+                <AddBookButton collapseButton={isMobile} onSuccess={() => getBooks(translateTabsToStatus())}/>
+                <Controls sort={sort} setSort={setSort} order={order} setOrder={setOrder} view={view} changeView={changeView}/>
             </div>
         </div>
         <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} variant={isMobile ? "fullWidth" : "underline"} className="pt-1">

@@ -14,7 +14,7 @@ function AddBookButton(props) {
             {props.collapseButton ? (
             <Button color="alternative" onClick={() => setOpenAddBookManulModal(true)}><RiAddBoxLine className="w-6 h-6 text-gray-500"/></Button>
             ):(
-                <Button color="alternative" onClick={() => setOpenAddBookManulModal(true)}><RiAddBoxLine className="w-6 h-6 mr-1 text-gray-500"/>Add book</Button>
+                <Button color="alternative" className="whitespace-nowrap w-fit" onClick={() => setOpenAddBookManulModal(true)}><RiAddBoxLine className="w-6 h-6 mr-1 text-gray-500"/>Add book</Button>
             )}
         </Tooltip>
         <AddBookManualModal open={openAddBookManualModal} close={setOpenAddBookManulModal} onSuccess={props.onSuccess} />
