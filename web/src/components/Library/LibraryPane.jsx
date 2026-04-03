@@ -23,6 +23,13 @@ function LibraryPane() {
     const [view, setView] = useState(localStorage.getItem("library_view") ? localStorage.getItem("library_view") : "gallery");
     const [sort, setSort] = useState(JSON.parse(localStorage.getItem("last_sorted")) || JSON.parse(JSON.stringify({value: "title", name: t("sort.title")})));
     const [order, setOrder] = useState(localStorage.getItem("last_ordered") || "asc");
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+            const handleResize = () => setIsMobile(window.innerWidth < 768);
+            window.addEventListener("resize", handleResize);
+            return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const onPageChange = (page) => setPage(page);
 
@@ -93,8 +100,8 @@ function LibraryPane() {
                 </div>
             </div>
         </div>
-        <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} variant="underline" className="pt-1">
-        <Tabs.Item active title={t("reading_status.currently_reading")} icon={RiBookOpenLine}>
+        <Tabs onActiveTabChange={(tab) => setActiveTab(tab)} variant={isMobile ? "fullWidth" : "underline"} className="pt-1">
+        <Tabs.Item active title={isMobile ? "" : t("reading_status.currently_reading")} icon={RiBookOpenLine}>
             <PaneTabView view={view} setView={setView}>
                 {!state.books ? (
                     <BookSkeleton view={view} count={3} />
@@ -109,7 +116,7 @@ function LibraryPane() {
                 )}
             </PaneTabView>
         </Tabs.Item>
-        <Tabs.Item title={t("reading_status.to_be_read")} icon={RiBookmarkLine}>
+        <Tabs.Item title={isMobile ? "" : t("reading_status.to_be_read")} icon={RiBookmarkLine}>
             <PaneTabView view={view} setView={setView}>
                 {!state.books ? (
                     <BookSkeleton view={view} count={3} />
@@ -124,7 +131,7 @@ function LibraryPane() {
                 )}
             </PaneTabView>
         </Tabs.Item>
-        <Tabs.Item title={t("reading_status.read")} icon={RiBook2Line}>
+        <Tabs.Item title={isMobile ? "" : t("reading_status.read")} icon={RiBook2Line}>
             <PaneTabView view={view} setView={setView}>
                 {!state.books ? (
                     <BookSkeleton view={view} count={3} />
@@ -139,7 +146,7 @@ function LibraryPane() {
             )}
             </PaneTabView>
         </Tabs.Item>
-        <Tabs.Item title={t("reading_status.did_not_finish")} icon={RiArchiveLine}>
+        <Tabs.Item title={isMobile ? "" : t("reading_status.did_not_finish")} icon={RiArchiveLine}>
             <PaneTabView view={view} setView={setView}>
                 {!state.books ? (
                     <BookSkeleton view={view} count={3} />
