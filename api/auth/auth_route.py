@@ -9,6 +9,7 @@ import os
 from api.auth.decorators import disable_route
 import requests
 from flask_mail import Mail, Message
+from api.decorators import required_params
 
 auth_endpoint = Blueprint('auth', __name__)
 mail = Mail()
@@ -119,6 +120,19 @@ def user_logout_refresh():
         return jsonify({'message': 'Refresh token has been revoked'}), 201
     except:
         return jsonify({'message': 'Something went wrong'}), 500
+
+
+@auth_endpoint.route("/v1/auth/change-password", methods=["POST"])
+@jwt_required()
+@required_params("current_password", "new_password")
+def change_password():
+    user = User.query.filter_by(email=get_jwt_identity()).first()
+    if User.verify_hash(request.json["current_password"], user.password):
+        user.password = User.generate_hash(request.json["new_password"])
+        user.save_to_db()
+        return jsonify({'message': 'Password changed'}), 201
+    else:
+        return jsonify({'message': 'Current password is incorrect'}), 401
 
 
 """
