@@ -2,6 +2,7 @@ from datetime import datetime
 import sys
 from flask import current_app
 from flask_jwt_extended import get_jwt
+import re
 
 def validate_date_string(date_str):
     formats = [
@@ -37,3 +38,8 @@ def get_current_user_id():
     if current_app.config.get("SINGLE_USER_MODE").lower() in ["true", "y"]:
         return 1
     return get_jwt().get("id")
+
+def is_valid_email(email):
+    # This regex checks for basic structure: characters + @ + characters + . + characters
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(email_regex, email) is not None

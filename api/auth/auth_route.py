@@ -10,6 +10,7 @@ from api.auth.decorators import disable_route
 import requests
 from flask_mail import Mail, Message
 from api.decorators import required_params
+from api.utils import is_valid_email
 
 auth_endpoint = Blueprint('auth', __name__)
 mail = Mail()
@@ -133,6 +134,28 @@ def change_password():
         return jsonify({'message': 'Password changed'}), 201
     else:
         return jsonify({'message': 'Current password is incorrect'}), 401
+
+@auth_endpoint.route("/v1/account/email", methods=["PATCH"])
+@jwt_required()
+@required_params("new_email")
+def change_email():
+    user = User.query.filter_by(email=get_jwt_identity()).first()
+    if not is_valid_email(request.json["new_email"]):
+        return jsonify({'message': 'Invalid email'}), 400
+
+    if user.email == request.json["new_email"]:
+        return jsonify({"message": "This is already your current email"}), 400
+
+    existing_user = User.query.filter_by(email=request.json["new_email"]).first()
+    if existing_user:
+        return jsonify({"message": "This email is already registered to another account."}), 409
+
+    user.email = request.json["new_email"]
+    try:
+        user.save_to_db()
+    except:
+        return jsonify({'message': 'Something went wrong'}), 500
+    return jsonify({'message': 'Email updated successfully'}), 201
 
 
 """
