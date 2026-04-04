@@ -33,15 +33,17 @@ function BookItem(props) {
                 }
 
                 {props.showProgress &&
-                    <>
-                    <Progress className="mb-3" progress={props.totalPages === 0 ? 0 : Math.round((100 * props.currentPage) / props.totalPages)} size="md" labelProgress textLabel={t("book.update_reading.reading_progress")} labelText textLabelPosition="outside" progressLabelPosition="outside" />
-                    <div className='flex flex-row items-center'>
-                        <div className="grow">
-                            <UpdateReadingStatusButton currentPage={props.currentPage} totalPages={props.totalPages} id={props.internalID} title={props.title} rating={props.rating} onSucess={props.onReadingStatusChanged}/>
+                    <div className="mt-auto">
+                        <Progress className="mb-3" progress={props.totalPages === 0 ? 0 : Math.round((100 * props.currentPage) / props.totalPages)} size="md" labelProgress textLabel={t("book.update_reading.reading_progress")} labelText textLabelPosition="outside" progressLabelPosition="outside" />
+                        <div className='flex flex-row items-center justify-between w-full'>
+                            <div className={`${props.view === "gallery" ? "grow" : ""}`}>
+                                <UpdateReadingStatusButton currentPage={props.currentPage} totalPages={props.totalPages} id={props.internalID} title={props.title} rating={props.rating} onSucess={props.onReadingStatusChanged}/>
+                            </div>
+                            <div>
+                                <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged} allowNoteEditing={props.allowNoteEditing} totalPages={props.totalPages} author={props.author} title={props.title} isbn={props.isbn}/>
+                            </div>
                         </div>
-                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged} allowNoteEditing={props.allowNoteEditing} totalPages={props.totalPages} author={props.author} title={props.title} isbn={props.isbn}/>
                     </div>
-                    </>
                 }
                 <div className="flex flex-row justify-between">
                 {props.showRating &&
