@@ -11,6 +11,7 @@ import requests
 from flask_mail import Mail, Message
 from api.decorators import required_params
 from api.utils import is_valid_email
+from api.config import Config
 
 auth_endpoint = Blueprint('auth', __name__)
 mail = Mail()
@@ -62,7 +63,7 @@ def register():
     try:
         new_user.save_to_db()
         user_id = User.find_by_email(request.json["email"]).id
-        if os.environ.get("AUTH_REQUIRE_VERIFICATION", "False").lower() in ["true", "yes", "y"] :
+        if current_app.config.get("AUTH_REQUIRE_VERIFICATION").lower() in ["true", "yes", "y"] and Config.can_send_email():
             new_verification = Verification(user_id=user_id, code=code, code_valid_until=(datetime.now() + timedelta(days=1)))
             _send_verification_email(request.json["name"], request.json["email"], code)
         else: 
@@ -70,7 +71,6 @@ def register():
         new_verification.save_to_db()
 
         return jsonify({'message': 'Account with email {} was created'.format(request.json["email"]), "status": new_verification.status}), 201
-
     except Exception as error:
         print(error)
         return jsonify({'message': 'Something went wrong'}), 500

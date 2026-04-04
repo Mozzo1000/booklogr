@@ -50,3 +50,11 @@ class Config:
                 alert("USE OF DEPRECATED KEY DETECTED!\nCHANGE THE ENV VAR AUTH_SECRET_KEY TO A RANDOM, UNIQUE STRING")
         elif not SECRET_KEY:
             alert("NO SECRET KEY SET!\nYOU WILL HAVE TO SET THE ENV VAR AUTH_SECRET_KEY TO A RANDOM STRING BEFORE BOOKLOGR WILL START.")
+
+    @staticmethod
+    def can_send_email():
+        print(Config.MAIL_SERVER)
+        if Config.MAIL_SERVER is not None and Config.MAIL_PASSWORD is not None and Config.MAIL_USERNAME is not None and Config.MAIL_DEFAULT_SENDER is not None:
+            return True
+        else:
+            return False
