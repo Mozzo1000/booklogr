@@ -34,15 +34,7 @@ ma.init_app(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
 
-if os.getenv("AUTH_REQUIRE_VERIFICATION", "false").lower() == "true":
-    app.config.update(
-        MAIL_SERVER = os.environ.get("MAIL_SERVER", None),
-        MAIL_PORT = os.environ.get("MAIL_PORT", 587),
-        MAIL_USE_TLS = os.environ.get("MAIL_USE_TLS", True),
-        MAIL_USERNAME = os.environ.get("MAIL_USERNAME", None),
-        MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", None),
-        MAIL_DEFAULT_SENDER = os.environ.get("MAIL_SENDER", os.environ.get("MAIL_USERNAME")),
-    )
+if app.config.get("AUTH_REQUIRE_VERIFICATION").lower() == "true":
     mail.init_app(app)
 else:
     mail = None
