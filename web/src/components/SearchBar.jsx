@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from "react";
-import axios from "axios";
 import { debounce } from 'lodash';
 import { Button, TextInput, HR, useThemeMode } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,6 +9,7 @@ import { Img } from 'react-image';
 import { useTranslation, Trans } from 'react-i18next';
 import ESCIcon from "./ESCIcon";
 import AddBookButton from "./AddBookButton";
+import BooksService from "../services/books.service";
 
 function SearchBar(props) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -27,38 +27,35 @@ function SearchBar(props) {
     const { t } = useTranslation();
 
     const fetchSuggestions = (searchTerm) => {
-      if (searchTerm) {
-        axios.get(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchTerm)}&limit=10&offset=0&fields=title,isbn,author_name,key&lang=en`).then(
-            response => {
-            let newArray = []
-            for (let i = 0; i < response.data.docs.length; i++) {
-                if (response.data.docs[i].isbn) {
-                    newArray.push({
-                        id: i, name: response.data.docs[i].title,
-                        isbn: response.data.docs[i].isbn[0], 
-                        author: response.data.docs[i].author_name[0],
-                        cover: response.data.docs[i].cover_i
-                    })
+        if (searchTerm) {
+            BooksService.search(searchTerm).then(
+                response => {
+                    let newArray = []
+                    for (let i = 0; i < response.data.items.length; i++) {
+                        newArray.push({
+                            id: i, name: response.data.items[i].title,
+                            isbn: response.data.items[i].isbn, 
+                            author: response.data.items[i].author,
+                        })
+                    }
+                    setSuggestions(newArray);
+                    setLoading(false);
+                    setShowList(true);
+                    setNoSuggestionsFound(false)
+                    setOnError(false);
+                    setErrorMessage();
+                    
+                    if (response.data.num_found == 0) {
+                        setSuggestions([])
+                        setNoSuggestionsFound(true)
+                    }
+                },
+                error => {
+                    setLoading(false);
+                    setOnError(true);
+                    setErrorMessage(error.code)
                 }
-            }
-            setSuggestions(newArray);
-            setLoading(false);
-            setShowList(true);
-            setNoSuggestionsFound(false)
-            setOnError(false);
-            setErrorMessage();
-
-            if (response.data.num_found == 0) {
-                setSuggestions([])
-                setNoSuggestionsFound(true)
-            }
-            },
-            error => {
-                setLoading(false);
-                setOnError(true);
-                setErrorMessage(error.code)
-            }
-        )
+            )
         }
     };
 
