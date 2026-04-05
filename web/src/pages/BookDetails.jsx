@@ -11,6 +11,7 @@ import AnimatedLayout from '../AnimatedLayout';
 import { useThemeMode } from 'flowbite-react';
 import EditionSelector from '../components/EditionSelector';
 import { useTranslation, Trans } from 'react-i18next';
+import BooksService from '../services/books.service';
 
 function BookDetails() {
     let { id } = useParams();
@@ -19,39 +20,38 @@ function BookDetails() {
     const [author, setAuthor] = useState();
     const [imageLoaded, setImageLoaded] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [workID, setWorkID] = useState();
     const theme = useThemeMode();
     const toast = useToast(4000);
     const { t } = useTranslation();
 
     useEffect(() => {
+        BooksService.get_isbn(id).then(
+            response => {
+                setData(response.data)
+                setDescription(response.data.description)
+                if(response.data.author)
+                    setAuthor(response.data.author)
+                else
+                    setAuthor(t("book.unknown_author"))
+                setLoading(false)
+            },
+            error => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                toast("error", resMessage);
+            }
+        )
+    }, [])
+
+    useEffect(() => {
         OpenLibraryService.get(id).then(
             response => {
-                setData(response.data);
-                setLoading(false);
-                OpenLibraryService.getWorks(response.data.works[0].key).then(
-                    response => {
-                        if (response.data.description) {
-                            if (response.data.description.value) {
-                                setDescription(response.data.description.value)
-                            } else {
-                                setDescription(response.data.description)
-                            }
-                        } else {
-                            setDescription(t("book.no_description_found"))
-                        }
-                        if (response.data.authors) {
-                            OpenLibraryService.getAuthor(response.data.authors[0].author.key).then(
-                                response => {
-                                    setAuthor(response.data.name)
-                                }
-                            )
-                        } else {
-                            setAuthor(t("book.unknown_author"))
-                        }
-                    }
-                )
-
-                
+                setWorkID(response.data.works[0].key)
             },
             error => {
                 const resMessage =
@@ -64,6 +64,7 @@ function BookDetails() {
             }
         )
     }, [])
+    
 
     return (
         <AnimatedLayout>
@@ -89,7 +90,7 @@ function BookDetails() {
                             {loading ? (
                                 <Skeleton width={50} />
                             ): (
-                                data?.number_of_pages || 0
+                                data?.total_pages || 0
                             )}
                         </p>
                         <p><span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">ISBN</span> {id}</p>
@@ -99,7 +100,7 @@ function BookDetails() {
                     <div className="flex flex-col md:flex-row gap-4">
                         <AddToReadingListButtton isbn={id} data={data} description={description} author={author}/>
                         <OpenLibraryButton isbn={id} />
-                        <EditionSelector work_id={data?.works[0].key} selected_isbn={id}/>
+                        <EditionSelector work_id={workID} selected_isbn={id}/>
                     </div>
                 </div>
             </div>

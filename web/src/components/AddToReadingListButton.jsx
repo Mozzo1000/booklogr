@@ -102,7 +102,7 @@ function AddToReadingListButton(props) {
     }
 
     useEffect(() => {
-      setTotalPages(props.data?.number_of_pages || 0)
+      setTotalPages(props.data?.total_pages || 0)
       updateReadStatus();
     }, [props.data])
 
