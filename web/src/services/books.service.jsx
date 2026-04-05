@@ -6,6 +6,10 @@ const add = (data) => {
     return axios.post(getAPIUrl("v1/books"), data, { headers: authHeader() })
 };
 
+const get_isbn = (isbn) => {
+    return axios.get(getAPIUrl(`v1/books/${isbn}`), {headers: authHeader() });
+}
+
 const get = (status, sort, order, page) => {
     if (status) {
         return axios.get(getAPIUrl(`v1/books?status=${status}&sort_by=${sort}&order=${order}&offset=${page}`), { headers: authHeader() })
@@ -33,7 +37,7 @@ const addNote = (id, data) => {
 };
 
 const status = (isbn) => {
-    return axios.get(getAPIUrl(`v1/books/${isbn}`), {headers: authHeader() })
+    return axios.get(getAPIUrl(`v1/books/${isbn}/status`), {headers: authHeader() })
 }
 
 export default {
@@ -44,4 +48,5 @@ export default {
     notes,
     addNote,
     status,
+    get_isbn,
 };
