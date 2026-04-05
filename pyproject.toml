@@ -24,6 +24,7 @@ requests = "2.33.1"
 mastodon-py = "2.1.4"
 marshmallow = "4.2.4"
 flask-mail = "0.10.0"
+flask-caching = "^2.3.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "9.0.2"
