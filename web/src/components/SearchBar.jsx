@@ -36,6 +36,7 @@ function SearchBar(props) {
                             id: i, name: response.data.items[i].title,
                             isbn: response.data.items[i].isbn, 
                             author: response.data.items[i].author,
+                            inLibrary: response.data.items[i].in_library,
                         })
                     }
                     setSuggestions(newArray);
@@ -94,6 +95,17 @@ function SearchBar(props) {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
+    const inLibraryBooks = suggestions.filter(b => b.inLibrary);
+    const otherBooks = suggestions.filter(b => !b.inLibrary);
+
+    const SectionHeader = ({ title }) => (
+        <div className="bg-gray-50 dark:bg-gray-800 px-4 py-2 my-2 rounded-lg">
+            <span className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                {title}
+            </span>
+        </div>
+    );
+
     return (
         <div className={`
             ${(isFocused || showList) 
@@ -129,7 +141,7 @@ function SearchBar(props) {
             <div className={`
                 ${showList ? "block" : "hidden"} 
                 ${props.absolute ? "md:absolute md:max-w-md" : "relative"} 
-                z-10 bg-white dark:bg-inherit pt-10 overflow-y-auto 
+                z-10 bg-white dark:bg-inherit overflow-y-auto 
                 max-md:flex-1 max-md:w-full
                 md:max-h-1/2 min-w-28 min-h-28
             `}>
@@ -148,26 +160,59 @@ function SearchBar(props) {
                         </div>
                     ))
                 ) : (
-                    suggestions?.map((data) => (
-                        <Link key={data.id} to={"/books/" + data.isbn} onClick={(e) => (props.onNavigate(), closeSearch(), navigate("/books/" + data.isbn))}>
-                            <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4">
-                                <div className="lg:row-span-2 md:mx-auto">
-                                    <Img className="object-contain h-32" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn + "-M.jpg?default=false"} 
-                                        loader={<Skeleton count={1} width={100} height={"100%"} borderRadius={0} inline={true}/>}
-                                        unloader={theme.mode == "dark" && <img className="object-contain h-32" src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img className="object-contain h-32" src="/fallback-cover.svg"/>}
-                                    />
-                                </div>
-                                <div className="row-span-2">
-                                    <div className="flex flex-col gap-1 dark:text-white">
-                                        <p className="font-bold lead">{data.name}</p>
-                                        <p className="font-semi">{t("book.by_author", {author: data.author})}</p>
-                                        <p className="text-sm font-sans">ISBN: {data.isbn}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <HR />
-                        </Link>
-                    ))
+                    <>
+                        {inLibraryBooks.length > 0 && (
+                            <>
+                                <SectionHeader title={t("search.in_library")} />
+                                {inLibraryBooks.map((data) => (
+                                    <Link key={data.id} to={"/books/" + data.isbn} onClick={(e) => (props.onNavigate(), closeSearch(), navigate("/books/" + data.isbn))}>
+                                        <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4">
+                                            <div className="lg:row-span-2 md:mx-auto">
+                                                <Img className="object-contain h-32" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn + "-M.jpg?default=false"} 
+                                                    loader={<Skeleton count={1} width={100} height={"100%"} borderRadius={0} inline={true}/>}
+                                                    unloader={theme.mode == "dark" && <img className="object-contain h-32" src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img className="object-contain h-32" src="/fallback-cover.svg"/>}
+                                                />
+                                            </div>
+                                            <div className="row-span-2">
+                                                <div className="flex flex-col gap-1 dark:text-white">
+                                                    <p className="font-bold lead">{data.name}</p>
+                                                    <p className="font-semi">{t("book.by_author", {author: data.author})}</p>
+                                                    <p className="text-sm font-sans">ISBN: {data.isbn}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <HR />
+                                    </Link>
+                                ))}
+                            </>
+                        )}
+
+                        {otherBooks.length > 0 && (
+                            <>
+                                <SectionHeader title={t("search.results")} />
+                                {otherBooks.map((data) => (
+                                    <Link key={data.id} to={"/books/" + data.isbn} onClick={(e) => (props.onNavigate(), closeSearch(), navigate("/books/" + data.isbn))}>
+                                        <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4">
+                                            <div className="lg:row-span-2 md:mx-auto">
+                                                <Img className="object-contain h-32" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn + "-M.jpg?default=false"} 
+                                                    loader={<Skeleton count={1} width={100} height={"100%"} borderRadius={0} inline={true}/>}
+                                                    unloader={theme.mode == "dark" && <img className="object-contain h-32" src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img className="object-contain h-32" src="/fallback-cover.svg"/>}
+                                                />
+                                            </div>
+                                            <div className="row-span-2">
+                                                <div className="flex flex-col gap-1 dark:text-white">
+                                                    <p className="font-bold lead">{data.name}</p>
+                                                    <p className="font-semi">{t("book.by_author", {author: data.author})}</p>
+                                                    <p className="text-sm font-sans">ISBN: {data.isbn}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <HR />
+                                    </Link>
+                                ))}
+                            </>
+                        )}
+                    </>
                 )}
 
                 {noSuggestionsFound &&

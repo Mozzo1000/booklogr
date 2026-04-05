@@ -122,7 +122,9 @@
         "error_unknown": {
             "title": "Something went wrong",
             "description": "Try again later. {{error}}"
-        }
+        },
+        "in_library": "In your library",
+        "results": "Search results"
     },
 
     "book": {
