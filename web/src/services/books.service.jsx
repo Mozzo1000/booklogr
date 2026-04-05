@@ -40,6 +40,10 @@ const status = (isbn) => {
     return axios.get(getAPIUrl(`v1/books/${isbn}/status`), {headers: authHeader() })
 }
 
+const search = (query) => {
+    return axios.get(getAPIUrl(`v1/books/search?q=${query}`), {headers: authHeader() })
+}
+
 export default {
     add,
     get,
@@ -49,4 +53,5 @@ export default {
     addNote,
     status,
     get_isbn,
+    search,
 };

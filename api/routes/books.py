@@ -8,9 +8,10 @@ from sqlalchemy.exc import IntegrityError
 from psycopg2.errors import ForeignKeyViolation
 from datetime import datetime, timezone
 from api.utils import validate_date_string, get_current_user_id
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from typing import Optional
 import requests
+from sqlalchemy import or_
 
 books_endpoint = Blueprint('books', __name__)
 
@@ -23,6 +24,98 @@ class BookData:
     library_data: Optional[dict] = None
     author: Optional[str] = None
     description: Optional[str] = None
+
+@dataclass
+class SearchResult:
+    isbn: str
+    title: str
+    author: str
+    in_library: bool
+
+@books_endpoint.route("/v1/books/search", methods=["GET"])
+@auth_required()
+def search_books():
+    search_term = request.args.get('q', '')
+    if not search_term:
+        return jsonify([]), 200
+
+    claim_id = get_current_user_id()
+
+    local_db_results = Books.query.filter(
+        Books.owner_id == claim_id,
+        or_(
+            Books.title.ilike(f"%{search_term}%"),
+            Books.author.ilike(f"%{search_term}%"),
+            Books.isbn.ilike(f"%{search_term}%")
+        )
+    ).all()
+
+    results = []
+    seen_isbns = set()
+
+    for b in local_db_results:
+        book_obj = SearchResult(
+            isbn=b.isbn,
+            title=b.title,
+            author=b.author,
+            in_library=True,
+        )
+        results.append(book_obj)
+        seen_isbns.add(b.isbn)
+
+    try:
+        params = {
+            "q": search_term,
+            "limit": 10,
+            "fields": "title,isbn,author_name,cover_i",
+            "lang": "en"
+        }
+        session = requests.Session()
+        session.headers.update({"User-Agent": "BookLogr (mozzo242@gmail.com)"})
+
+        response = session.get("https://openlibrary.org/search.json", params=params, timeout=10)
+        response.raise_for_status()
+        ol_docs = response.json().get("docs", [])
+
+
+        for doc in ol_docs:
+            if not doc.get("isbn"):
+                continue
+            
+            isbn = doc["isbn"][0]
+
+            if isbn in seen_isbns:
+                continue
+            
+            existing_book = Books.query.filter_by(owner_id=claim_id, isbn=isbn).first()
+            
+            if existing_book:
+                book_obj = SearchResult(
+                    isbn=existing_book.isbn,
+                    title=existing_book.title,
+                    author=existing_book.author,
+                    in_library=True,
+                )
+            else:
+                book_obj = SearchResult(
+                    isbn=isbn,
+                    title=doc.get("title"),
+                    author=doc.get("author_name")[0] if doc.get("author_name") else "Unknown",
+                    in_library=False,
+                )
+            
+            results.append(book_obj)
+            seen_isbns.add(isbn)
+
+        results.sort(key=lambda x: x.in_library, reverse=True)
+        return jsonify({
+            "num_found": len(results),
+            "items": [asdict(b) for b in results]
+        }), 200
+
+    except requests.exceptions.RequestException:
+        return jsonify([asdict(b) for b in results]), 200
+
 
 @books_endpoint.route("/v1/books/<isbn>", methods=["GET"])
 @auth_required()
