@@ -77,7 +77,7 @@ function EditionSelector({work_id, selected_isbn}) {
 
     return (
         <>
-        <Dropdown className="w-full md:w-fit" dismissOnClick={true} label={<span className="inline-flex items-center gap-2"><RiBook2Line className="w-4 h-4" />{t("editions.change")}</span>} color={"light"}>
+        <Dropdown disabled={!work_id} className="w-full md:w-fit" dismissOnClick={true} label={<span className="inline-flex items-center gap-2"><RiBook2Line className="w-4 h-4" />{t("editions.change")}</span>} color={"light"}>
             <DropdownHeader>
                 <div className="flex flex-row justify-between items-center">
                     <p className="text-xl">{t("editions.title")} ({filteredEntries?.length || 0})</p>
