@@ -20,6 +20,7 @@ import tomllib
 import os
 from flask_mail import Mail
 from dotenv import load_dotenv
+from api.extensions import cache
 
 load_dotenv()
 
@@ -33,6 +34,7 @@ db.init_app(app)
 ma.init_app(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
+cache.init_app(app)
 
 if app.config.get("AUTH_REQUIRE_VERIFICATION").lower() == "true":
     mail.init_app(app)

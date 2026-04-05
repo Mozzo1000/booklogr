@@ -20,6 +20,9 @@ class Config:
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME", None)
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", None)
     MAIL_DEFAULT_SENDER = os.environ.get("MAIL_SENDER", os.environ.get("MAIL_USERNAME"))
+
+    CACHE_TYPE = "SimpleCache"
+    CACHE_DEFAULT_TIMEOUT = 300
     
     ALLOWED_EXTENSIONS = {"csv"}
 

@@ -12,6 +12,7 @@ from dataclasses import dataclass, asdict
 from typing import Optional
 import requests
 from sqlalchemy import or_
+from api.extensions import cache
 
 books_endpoint = Blueprint('books', __name__)
 
@@ -34,6 +35,7 @@ class SearchResult:
 
 @books_endpoint.route("/v1/books/search", methods=["GET"])
 @auth_required()
+@cache.cached(query_string=True)
 def search_books():
     search_term = request.args.get('q', '')
     if not search_term:
