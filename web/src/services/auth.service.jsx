@@ -1,15 +1,36 @@
 import axios from "axios";
 import globalRouter from "../GlobalRouter";
 import { getAPIUrl } from "./api.utils";
+import { authRefreshHeader } from "./auth-header";
 import authHeader from "./auth-header";
+
+const refreshInstance = axios.create();
 
 axios.interceptors.response.use((response) => {
     return response
 }, async (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest.url.includes("/password")) {
-        logout();
-        globalRouter.navigate("/login");
+    if (error.response.status === 401 && error.response.data?.msg === "Token has expired" && !originalRequest.url.includes("/password") && !originalRequest._retry) {
+        originalRequest._retry = true;
+        try {
+            const response = await refreshInstance.post(getAPIUrl("/v1/token/refresh"),{}, { headers: authRefreshHeader() });
+            const { access_token, refresh_token } = response.data;
+            
+            const user = JSON.parse(localStorage.getItem("auth_user"));
+            localStorage.setItem("auth_user", JSON.stringify({
+                ...user,
+                access_token,
+                refresh_token
+            }));
+
+            originalRequest.headers.Authorization = `Bearer ${access_token}`;
+            return axios(originalRequest);
+
+        } catch (err) {
+            localStorage.removeItem("auth_user");
+            globalRouter.Navigate("/login")
+            return Promise.reject(err);
+        }
     }
     return Promise.reject(error)
 });
