@@ -60,7 +60,9 @@ function BookDetails() {
                         error.response.data.message) ||
                     error.message ||
                     error.toString();
-                toast("error", "OpenLibrary: " + resMessage);
+                if (error.status != 404) {
+                    toast("error", "OpenLibrary: " + resMessage)
+                }
             }
         )
     }, [])
