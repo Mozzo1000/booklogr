@@ -182,6 +182,7 @@ def login():
         return jsonify({'message': 'Wrong username or password, please try again.'}), 401
 
 @auth_endpoint.route('/v1/token/refresh', methods=['POST'])
+@jwt_required(refresh=True)
 def token_refresh():
     """
     Refresh Access Token
@@ -194,9 +195,11 @@ def token_refresh():
       201:
         description: New access token generated.
     """
-    current_user = get_jwt_identity()
-    access_token = create_access_token(identity=current_user, additional_claims={"role": current_user.role,  "id": current_user.id})
-    return jsonify({'access_token': access_token}), 201
+    current_user = User.find_by_email(get_jwt_identity())
+
+    access_token = create_access_token(identity=current_user.email, additional_claims={"role": current_user.role,  "id": current_user.id})
+    refresh_token = create_refresh_token(identity=current_user.email)
+    return jsonify({'access_token': access_token, 'refresh_token': refresh_token}), 201
 
 @auth_endpoint.route('/v1/token/logout/access', methods=['POST'])
 @jwt_required()
