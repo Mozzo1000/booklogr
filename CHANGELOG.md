@@ -7,17 +7,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 - Added loading placeholder to the profile page to prevent it from appearing blank while books are loading.
 - Added the ability to change the theme from the Settings page.
+- You can now change your email address and password from the Settings page.
+- Added share button to profile page.
+- Your active library tab is now preserved in the URL, ensuring you stay on the same tab when refreshing the page.
+- Caching to the search route to improve performance and reduce repeated data requests.
 
 ### Fixed
 - The background color of the "all books" section title on the profile page is now transparent to correctly match the background color.
 - Resolved an issue where books from the previous list remained visible during tab switches by introducing loading placeholders.
 - Added bottom padding to pages to prevent content from overlapping with the mobile navigation bar.
+- Prevented the application from attempting to send emails when mail settings are not properly configured. If `AUTH_REQUIRE_VERIFICATION` is enabled without a valid email setup, it will now automatically default to false to avoid errors.
 
 ### Changed
 - Library tabs now hide text and fill the entire width of the screen on smaller devices for a more compact mobile interface.
 - The "Add Book" button on the Library page has been moved next to the sort and filter buttons and now automatically collapses on smaller screens.
 - Sort and filter buttons are now responsive on smaller screens and open in a drawer.
 - Buttons on the book page now render in a column on smaller screens.
+- The "Update Reading" button now always stays at the bottom of the book card for a more consistent layout.
+- The API route for checking if a book exists in a list by its ISBN has been updated to `/v1/books/<isbn>/status`.
+- The book page now fetches data directly from the internal API instead of OpenLibrary, with the server handling external data retrieval from OpenLibrary when necessary.
+- The Edition Selector on the book page is now disabled when no editions can be found.
+- Search results now display books already in your library at the top of the list.
 
 ## [1.8.0] - 2026-03-31
 ### Added
