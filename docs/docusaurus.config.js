@@ -110,6 +110,11 @@ const config = {
             label: 'GitHub',
             position: 'right',
           },
+           {
+            href: 'https://github.com/sponsors/Mozzo1000',
+            label: "Sponsor the project",
+            position: "right",
+          },
         ],
       },
       footer: {
@@ -140,6 +145,10 @@ const config = {
           {
             title: 'Links',
             items: [
+              {
+                label: 'Sponsor',
+                to: '/sponsor',
+              },
               {
                 label: 'Service status',
                 href: 'https://status.booklogr.app',

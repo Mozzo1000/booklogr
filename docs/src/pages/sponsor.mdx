@@ -1,0 +1,108 @@
+import React, { useState } from 'react';
+
+export const SponsorTable = () => {
+  const [currency, setCurrency] = useState('SEK');
+  
+  // Exchange rates (Base: 1 SEK) - Adjust these as needed
+  const rates = {
+    SEK: 1.00,
+    USD: 0.11,
+    EUR: 0.092  
+  };
+
+  const costs = [
+    { item: 'Domain Registration', sek: 32 },
+    { item: 'DNS hosting', sek: 12.5 },
+    { item: 'Server', sek: 50.00 },
+  ];
+
+  const totalSEK = costs.reduce((sum, cost) => sum + cost.sek, 0);
+  
+  const formatValue = (sekValue) => {
+    const converted = sekValue * rates[currency];
+    
+    if (currency === 'SEK') return `${converted.toFixed(0)} kr`;
+    if (currency === 'USD') return `$${converted.toFixed(2)}`;
+    if (currency === 'EUR') return `€${converted.toFixed(2)}`;
+  };
+
+  const buttonStyle = (target) => ({
+    padding: '6px 14px',
+    cursor: 'pointer',
+    fontSize: '0.85rem',
+    fontWeight: '600',
+    backgroundColor: currency === target ? 'var(--ifm-color-primary)' : 'transparent',
+    color: currency === target ? 'white' : 'var(--ifm-font-color-base)',
+    border: '1px solid var(--ifm-color-primary)',
+    transition: 'all 0.2s ease',
+    // Logical rounding for the button group
+    borderRadius: target === 'SEK' ? '6px 0 0 6px' : target === 'EUR' ? '0 6px 6px 0' : '0'
+  });
+
+  return (
+    <div style={{ 
+      margin: '2rem 0', 
+      border: '1px solid var(--ifm-color-emphasis-200)', 
+      borderRadius: '12px', 
+      padding: '1.5rem', 
+      backgroundColor: 'var(--ifm-background-surface-color)',
+      boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+    }}>
+      <div style={{ 
+        display: 'flex', 
+        flexWrap: 'wrap',
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        gap: '1rem',
+        marginBottom: '1.5rem' 
+      }}>
+        <h3 style={{ margin: 0 }}>Monthly Infrastructure Costs</h3>
+        <div style={{ display: 'flex' }}>
+          <button onClick={() => setCurrency('SEK')} style={buttonStyle('SEK')}>SEK</button>
+          <button onClick={() => setCurrency('USD')} style={buttonStyle('USD')}>USD</button>
+          <button onClick={() => setCurrency('EUR')} style={buttonStyle('EUR')}>EUR</button>
+        </div>
+      </div>
+      
+      <table style={{ width: '100%', borderCollapse: 'collapse', display: 'table' }}>
+        <thead>
+          <tr style={{ borderBottom: '2px solid var(--ifm-color-emphasis-300)' }}>
+            <th style={{ textAlign: 'left', padding: '12px' }}>Details</th>
+            <th style={{ textAlign: 'right', padding: '12px' }}>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {costs.map((c, i) => (
+            <tr key={i} style={{ borderBottom: '1px solid var(--ifm-color-emphasis-200)' }}>
+              <td style={{ padding: '12px' }}>{c.item}</td>
+              <td style={{ padding: '12px', textAlign: 'right', fontFamily: 'monospace', fontWeight: '600' }}>
+                {formatValue(c.sek)}
+              </td>
+            </tr>
+          ))}
+          <tr style={{ backgroundColor: 'var(--ifm-color-emphasis-100)', fontWeight: '800' }}>
+            <td style={{ padding: '12px', borderRadius: '0 0 0 8px' }}>Total Operating Cost</td>
+            <td style={{ padding: '12px', textAlign: 'right', borderRadius: '0 0 8px 0' }}>
+              {formatValue(totalSEK)}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div style={{ marginTop: '1.2rem', fontSize: '0.8rem', opacity: 0.6, fontStyle: 'italic' }}>
+        * Base currency is SEK. Conversions are approximate based on current market rates.
+      </div>
+    </div>
+  );
+};
+
+# Sponsoring BookLogr
+
+To keep the project truly independent and free for everyone, I rely on small donations to cover the monthly infrastructure costs.
+
+## Transparency
+I believe in full transparency regarding where sponsorship money goes. Here is the breakdown of what it costs to keep BookLogrs public infrastructure (demo sites, documentation) running:
+
+<SponsorTable />
+
+[**Become a Sponsor on GitHub ❤️**](https://github.com/sponsors/Mozzo1000)

@@ -57,6 +57,34 @@ export default function Home() {
             </Link>
             </div>
         </section>
+        <hr style={{width: "75%", margin: "auto"}}/>
+        <section className="hero">
+          <div className="container text--center">
+            <h2 style={{ fontSize: '3rem', fontWeight: '700', marginBottom: '1rem' }}>
+              Support the project
+            </h2>
+            <p style={{ fontSize: '1.2rem', marginBottom: '2rem', opacity: '0.9', maxWidth: '800px', margin: '0 auto 2rem' }}>
+              Support BookLogr by becoming a <Link to="https://github.com/sponsors/Mozzo1000" style={{textDecoration: 'underline', color: 'inherit'}}>sponsor</Link>, 
+              reporting bugs, or contributing on <Link to="https://github.com/mozzo1000/booklogr" style={{textDecoration: 'underline', color: 'inherit'}}>GitHub</Link>. 
+              Read about our <Link to="/sponsor" style={{textDecoration: 'underline', color: 'inherit'}}>monthly costs.</Link>.
+            </p>
+            
+            <div>
+              <Link
+                style={{marginRight: '1rem'}}
+                className="button button--outline button--secondary button--lg"
+                to="https://github.com/sponsors/Mozzo1000">
+                ❤️ Sponsor on GitHub
+              </Link>
+              <Link
+                className="button button--outline button--secondary button--lg"
+                to="https://github.com/mozzo1000/booklogr">
+                <img src="https://github.com/fluidicon.png" width="20" style={{marginRight: '8px', verticalAlign: 'middle'}} />
+                View on GitHub
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
     </Layout>
   );
