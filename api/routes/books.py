@@ -623,7 +623,14 @@ def add_book_note(id):
         responses:
           200:
             description: Note created.
+          404:
+            description: No book found.
+          422:
+            description: Invalid date format.
     """
+
+    claim_id = get_current_user_id()
+    owns_book = Books.query.filter(Books.owner_id==claim_id, Books.id==id).first()
 
     page = None
     created_on = datetime.now(timezone.utc)
@@ -643,11 +650,16 @@ def add_book_note(id):
       if parsed:
           created_on = parsed
       else:
-           return jsonify({
+          return jsonify({
                 "error": "Invalid date format.",
                 "message": "The date format is invalid. Accepted formats: 'YYYY-MM-DD', 'YYYY-MM-DD HH:MM:SS', or 'YYYY-MM-DD HH:MM:SS.ssssss'."
             }), 422
-    
-    new_note = Notes(book_id=id, content=request.json["content"], quote_page=page, created_on=created_on, visibility=visibility)
-    new_note.save_to_db()
-    return jsonify({'message': 'Note created'}), 200
+    if owns_book:
+        new_note = Notes(book_id=id, content=request.json["content"], quote_page=page, created_on=created_on, visibility=visibility)
+        new_note.save_to_db()
+        return jsonify({'message': 'Note created'}), 200
+    else:
+        return jsonify({
+                    "error": "Not found",
+                    "message": "No book found"
+        }), 404
