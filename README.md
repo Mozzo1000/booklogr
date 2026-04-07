@@ -16,7 +16,8 @@
     <a href="https://demo.booklogr.app">💻View Demo</a> |
     <a href="https://github.com/Mozzo1000/booklogr/issues">🐞Report Bug</a> |
     <a href="https://github.com/Mozzo1000/booklogr/issues">✨Request Feature</a> |
-    <a href="https://status.booklogr.app">👷Service status</a>
+    <a href="https://status.booklogr.app">👷Service status</a> |
+    <a href="https://github.com/sponsors/Mozzo1000">❤️Sponsor this project</a>
   </p>
 </div>
 
@@ -57,6 +58,11 @@ All contributions, from bug reports to feature requests and code submissions are
 If you’d like to contribute translations:
 - Visit our [translation guide](https://booklogr.app/docs/Developer/Translation) to get started.
 - Submit translations via pull request or get in touch through an issue.
+
+> [!TIP]
+> **Enjoying BookLogr?**  Help keep the project running and cover our monthly hosting costs. [Sponsor on GitHub ❤️](https://github.com/sponsors/Mozzo1000)
+> You can also [read more about our monthly costs](https://booklogr.app/sponsor) on our website.
+
 
 ### ❤️ Contributors
 Thanks to these wonderful people for contributing their time and talent to this project!
