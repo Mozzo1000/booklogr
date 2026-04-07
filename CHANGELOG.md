@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+
+## [1.9.0] - 2026-04-07
 ### Added
 - Added loading placeholder to the profile page to prevent it from appearing blank while books are loading.
 - Added the ability to change the theme from the Settings page.
@@ -11,12 +13,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Added share button to profile page.
 - Your active library tab is now preserved in the URL, ensuring you stay on the same tab when refreshing the page.
 - Caching to the search route to improve performance and reduce repeated data requests.
+- Authentication token now automatically refreshes in the background when necessary.
 
 ### Fixed
 - The background color of the "all books" section title on the profile page is now transparent to correctly match the background color.
 - Resolved an issue where books from the previous list remained visible during tab switches by introducing loading placeholders.
 - Added bottom padding to pages to prevent content from overlapping with the mobile navigation bar.
 - Prevented the application from attempting to send emails when mail settings are not properly configured. If `AUTH_REQUIRE_VERIFICATION` is enabled without a valid email setup, it will now automatically default to false to avoid errors.
+- Fixed an issue where logging out did not properly invalidate the session, ensuring revoked tokens can no longer be used to access your account.
+- Creating a note now verifies book ownership, preventing users from creating notes to books not present in their own library.
 
 ### Changed
 - Library tabs now hide text and fill the entire width of the screen on smaller devices for a more compact mobile interface.
@@ -24,7 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Sort and filter buttons are now responsive on smaller screens and open in a drawer.
 - Buttons on the book page now render in a column on smaller screens.
 - The "Update Reading" button now always stays at the bottom of the book card for a more consistent layout.
-- The API route for checking if a book exists in a list by its ISBN has been updated to `/v1/books/<isbn>/status`.
+- The API route for checking if a book exists in a list by its ISBN has been changed to `/v1/books/<isbn>/status`.
 - The book page now fetches data directly from the internal API instead of OpenLibrary, with the server handling external data retrieval from OpenLibrary when necessary.
 - The Edition Selector on the book page is now disabled when no editions can be found.
 - Search results now display books already in your library at the top of the list.
