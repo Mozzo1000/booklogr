@@ -60,7 +60,11 @@ export default function SidebarNav() {
                     <SidebarItem as={Link} to="/settings" active={location.pathname == "/settings"} icon={RiSettings4Line}>{t("navigation.settings")}</SidebarItem>
                     {!isSingleUserMode && (
                       AuthService.getCurrentUser() ? ( 
-                        <SidebarItem href="" onClick={() => (AuthService.logout(), navigate("/"))} icon={RiLogoutBoxLine}>{t("navigation.logout")}</SidebarItem>
+                        <SidebarItem href="" onClick={async (e) => {
+                            e.preventDefault();
+                            await AuthService.logout();
+                            window.location.href = "/"
+                        }} icon={RiLogoutBoxLine}>{t("navigation.logout")}</SidebarItem>
                       ):(
                         <Link to="/login">
                           <SidebarItem href="" icon={RiLoginBoxLine}>{t("forms.login")}</SidebarItem>

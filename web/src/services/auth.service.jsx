@@ -67,8 +67,25 @@ const loginGoogle = (code) => {
     })
 }
 
-const logout = () => {
-    /*TODO: Send logout request to auth-server so the token get invalidated. */
+const logout = async () => {
+    const authUser = JSON.parse(localStorage.getItem("auth_user"));    
+    if (authUser) {
+        const { access_token, refresh_token } = authUser;
+
+        try {
+            await Promise.allSettled([
+                axios.post(getAPIUrl("/v1/token/logout/access"), {}, {
+                    headers: { Authorization: `Bearer ${access_token}` }
+                }),
+
+                axios.post(getAPIUrl("/v1/token/logout/refresh"), {}, {
+                    headers: { Authorization: `Bearer ${refresh_token}` }
+                })
+            ]);
+        } catch (error) {
+            console.error("Logout requests failed", error);
+        }
+    }
     localStorage.removeItem("auth_user");
 };
 

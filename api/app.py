@@ -21,6 +21,7 @@ import os
 from flask_mail import Mail
 from dotenv import load_dotenv
 from api.extensions import cache
+from api.auth.models import RevokedTokenModel
 
 load_dotenv()
 
@@ -56,6 +57,15 @@ app.register_blueprint(settings_endpoint)
 
 app.register_blueprint(auth_endpoint)
 app.register_blueprint(user_endpoint)
+
+@jwt.token_in_blocklist_loader
+def check_if_token_revoked(jwt_header, jwt_payload: dict) -> bool:
+    jti = jwt_payload["jti"]
+    token = RevokedTokenModel.is_jti_blacklisted(jti)
+
+    return token is not None and token is not False
+
+
 
 @app.route("/")
 def index():
