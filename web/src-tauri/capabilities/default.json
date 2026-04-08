@@ -7,11 +7,25 @@
   ],
   "permissions": [
     "core:default",
-    "shell:allow-execute",
-    "shell:allow-spawn",
     {
-      "identifier": "shell:allow-sidecar",
-      "allow": [{ "args": [], "sidecar": "api-backend" }]
+      "identifier": "shell:allow-execute",
+      "allow": [
+        { 
+          "args": [], 
+          "name": "bin/api-backend", 
+          "sidecar": true 
+        }
+      ]
+    },
+    {
+      "identifier": "shell:allow-spawn",
+      "allow": [
+        { 
+          "args": [], 
+          "name": "bin/api-backend", 
+          "sidecar": true 
+        }
+      ]
     }
   ]
 }
