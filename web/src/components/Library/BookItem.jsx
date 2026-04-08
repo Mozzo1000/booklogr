@@ -26,7 +26,7 @@ function BookItem(props) {
                 <Link to={"/books/" + props.isbn} className="hover:underline">
                     <h5 className="mb-2 text font-bold tracking-tight text-gray-900 dark:text-white">{props.title}</h5>
                 </Link>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{t("book.by_author", {author: props.author})}</p>
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{t("book.by_author", {author: props.author || t("book.unknown_author")})}</p>
 
                 {props.showReadingStatusBadge &&
                     <Badge color="gray" className="w-fit">{props.readingStatus}</Badge>
