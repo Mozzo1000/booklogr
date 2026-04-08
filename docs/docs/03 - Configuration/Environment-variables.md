@@ -31,6 +31,7 @@ The environment variables need to be changed in order to deploy `booklogr` to pr
 |BL_DEMO_MODE |true or false |false |Adds information to login screen and removes features such as Google Login, used for demo purposes. |
 |BL_SINGLE_USER_MODE |true or false |false |Disables login and account management UI for private environments. [See Single-user Mode documentation.](/docs/Configuration/Single-user-mode) |
 |BL_CHECK_UPDATES |true or false |true |Enables the periodic check for new releases from GitHub and shows a notification icon in the footer. |
+|BL_DEBUG | true or false |false |Enables debug mode, exposing settings and debug information on the frontend (/debug). **Do NOT enable in production.** |
 
 ### .env file for frontend
 The frontend has it's own `.env` file located in the `web` directory. This is because [Vite](https://vitejs.dev/), the frontend tooling used in this project requires environment variables to be prefixed with `VITE_`. This causes some duplicate environment variables.
@@ -44,3 +45,4 @@ These are only used if building from source or in a development fashion. If you 
 |VITE_DEMO_MODE |true or false |false |Adds information to login screen and removes features such as Google Login, used for demo purposes. |
 |VITE_SINGLE_USER_MODE |true or false |false |Disables login and account management UI for private environments. [See Single-user Mode documentation.](/docs/Configuration/Single-user-mode) |
 |VITE_CHECK_UPDATES |true or false |true |Enables the periodic check for new releases from GitHub and shows a notification icon in the footer. |
+|VITE_DEBUG | true or false |false |Enables debug mode, exposing settings and debug information on the frontend (/debug). **Do NOT enable in production.** |

@@ -16,6 +16,7 @@ import { AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 import { useThemeMode } from "flowbite-react";
 import i18n from "./i18n";
+import DebugPage from "./pages/Debug";
 
 const isSingleUserMode = import.meta.env.VITE_SINGLE_USER_MODE?.toString().toLowerCase() === 'true';
 
@@ -92,6 +93,9 @@ function App() {
               <Route path="register" element={isSingleUserMode ? <Navigate to="/library" /> : <Register />} />
               <Route path="verify" element={<Verify />} />
 
+              {import.meta.env.VITE_DEBUG?.trim() === "true" &&
+                <Route path="debug" element={<DebugPage />} />
+              }
             </Route>
           </Routes>
         </AnimatePresence>
