@@ -47,6 +47,7 @@
         "register_title": "Register an account",
         "register_button": "Register new account",
         "google_sign_in": "Sign in with Google",
+        "oidc_sign_in": "Sign in with OpenID Connect",
         "login_title": "Login to your account",
         "password_no_match": "Passwords do not match",
         "change_password": "Change password",

@@ -113,6 +113,16 @@ const change_email = (new_email) => {
     }, { headers: authHeader() });
 };
 
+const loginOIDC = (data) => {
+    return axios
+        .post(getAPIUrl("v1/authorize/oidc"), data)
+        .then(response => {
+            if (response.data.access_token) {
+                localStorage.setItem("auth_user", JSON.stringify(response.data));
+            }
+            return response.data;
+        });
+}
 
 export default {
     register,
@@ -123,4 +133,5 @@ export default {
     loginGoogle,
     change_password,
     change_email,
+    loginOIDC
 };

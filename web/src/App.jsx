@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import { useThemeMode } from "flowbite-react";
 import i18n from "./i18n";
 import DebugPage from "./pages/Debug";
+import Callback from "./pages/Callback";
 
 const isSingleUserMode = import.meta.env.VITE_SINGLE_USER_MODE?.toString().toLowerCase() === 'true';
 
@@ -92,6 +93,8 @@ function App() {
               <Route path="login" element={isSingleUserMode ? <Navigate to="/library" /> : <Login />} />
               <Route path="register" element={isSingleUserMode ? <Navigate to="/library" /> : <Register />} />
               <Route path="verify" element={<Verify />} />
+
+              <Route path="/callback" element={<Callback />} />
 
               {import.meta.env.VITE_DEBUG?.trim() === "true" &&
                 <Route path="debug" element={<DebugPage />} />

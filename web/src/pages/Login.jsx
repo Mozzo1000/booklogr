@@ -5,9 +5,11 @@ import { Button, Label, TextInput, Card } from 'flowbite-react';
 import GoogleLoginButton from '../components/GoogleLoginButton';
 import { RiMailLine } from "react-icons/ri";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { RiShieldUserLine } from "react-icons/ri";
 import useToast from '../toast/useToast';
 import AnimatedLayout from '../AnimatedLayout';
 import { useTranslation, Trans } from 'react-i18next';
+import { useAuth } from "react-oidc-context";
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -15,6 +17,7 @@ function Login() {
     let navigate = useNavigate();
     const toast = useToast(8000);
     const { t } = useTranslation();
+    const auth = useAuth();
 
     const isValidGoogleID = /^[0-9]+-[a-z0-9]+\.apps\.googleusercontent\.com$/.test(import.meta.env.VITE_GOOGLE_CLIENT_ID);
 
@@ -62,10 +65,14 @@ function Login() {
           </div>
         )}
 
-        {!import.meta.env.VITE_GOOGLE_CLIENT_ID?.trim() ? (
-          <></>
-        ):(
-            <GoogleLoginButton error={!isValidGoogleID}/>
+        {import.meta.env.VITE_GOOGLE_CLIENT_ID?.trim() && (
+          <GoogleLoginButton error={!isValidGoogleID}/>
+        )}
+        {import.meta.env.VITE_OIDC_AUTHORITY?.trim() && import.meta.env.VITE_OIDC_CLIENT_ID?.trim() && (
+          <Button color="light" onClick={() => auth.signinRedirect()}>
+              <RiShieldUserLine className="mr-2 h-5 w-5" />
+              {t("forms.oidc_sign_in")}
+          </Button>
         )}
 
         <Card>
