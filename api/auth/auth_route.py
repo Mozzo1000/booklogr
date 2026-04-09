@@ -339,6 +339,82 @@ def change_email():
     return jsonify({'message': 'Email updated successfully'}), 201
 
 
+@auth_endpoint.route("/v1/authorize/oidc", methods=['POST'])
+def authorize_oidc():
+    auth_code = request.get_json().get('code')
+
+    discovery_url = os.getenv("OIDC_DISCOVERY_URL")
+    oidc_config = None
+    try:
+        response = requests.get(discovery_url)
+        response.raise_for_status()
+        oidc_config = response.json()
+    except Exception as e:
+        print(f"Failed to fetch OIDC config: {e}")
+        oidc_config = None
+
+    client_id = os.getenv("OIDC_CLIENT_ID")
+    client_secret = os.getenv("OIDC_CLIENT_SECRET")
+    redirect_uri = os.getenv("OIDC_REDIRECT_URI") # Must match frontend redirect
+
+    if not all([client_id, client_secret, oidc_config]):
+        return jsonify({'message': 'OIDC provider not configured.'}), 500
+
+    token_endpoint = oidc_config.get('token_endpoint')
+    userinfo_endpoint = oidc_config.get('userinfo_endpoint')
+
+    token_data = {
+        'code': auth_code,
+        'client_id': client_id,
+        'client_secret': client_secret,
+        'redirect_uri': redirect_uri,
+        'grant_type': 'authorization_code',
+    }
+
+    token_res = requests.post(token_endpoint, data=token_data)
+    if token_res.status_code != 200:
+        return jsonify({'message': 'Failed to fetch tokens from OIDC provider'}), 401
+    
+    tokens = token_res.json()
+
+    headers = {'Authorization': f'Bearer {tokens["access_token"]}'}
+    user_info = requests.get(userinfo_endpoint, headers=headers).json()
+
+    email = user_info.get('email')
+    name = user_info.get('name', email.split('@')[0])
+    
+    current_user = User.find_by_email(email)
+    if not current_user:
+        #CREATE A NEW USER
+        print("CREATE NEW USER")
+        random_pass = "".join(random.choices(string.ascii_letters + string.digits + string.punctuation, k=32))
+
+        new_user = User(email=email, password=User.generate_hash(random_pass), name=name)
+
+        new_user.save_to_db()
+        user_id = User.find_by_email(email)
+        new_verification = Verification(user_id=user_id.id, status="verified", code=None, code_valid_until=None)
+        new_verification.save_to_db()
+
+        access_token = create_access_token(identity=user_id.email, additional_claims={"role": user_id.role, "id": user_id.id})
+        refresh_token = create_refresh_token(identity=user_id.email)
+
+        user_schema = UserSchema()
+        json_output = user_schema.dump(user_id)
+        json_output.update({'access_token': access_token, 'refresh_token': refresh_token})
+        return jsonify(json_output), 201
+    if current_user and current_user.status == "active":
+        access_token = create_access_token(identity=email, additional_claims={"role": current_user.role, "id": current_user.id})
+        refresh_token = create_refresh_token(identity=email)
+
+        user_schema = UserSchema()
+        json_output = user_schema.dump(current_user)
+        json_output.update({'access_token': access_token, 'refresh_token': refresh_token})
+        return jsonify(json_output), 201
+    elif current_user and current_user.status == "inactive":
+        return jsonify({'message': 'Account has been inactivated, contact administrator for more information.'}), 403
+    
+
 """
 NOTE: This is a quick n dirty way of adding a authorized redirect URI route for Google OAuth authentication.
 How this is used is a frontend, ex Web app requests an authorization code from Google when a user is trying to login. When the frontend 
