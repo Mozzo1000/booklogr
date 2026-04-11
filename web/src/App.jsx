@@ -2,7 +2,6 @@ import { Routes, Route, Navigate, useLocation, useNavigate} from "react-router-d
 import BookDetails from "./pages/BookDetails";
 import Library from "./pages/Library";
 import ToastContainer from "./toast/Container";
-import NavigationMenu from "./components/Navbar"
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Footer from "./components/Footer";
@@ -67,19 +66,12 @@ function App() {
 
 
   return (
-    <div className="min-h-screen pb-20 md:pb-0">
-    <div className="flex flex-row">
+    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-row grow">
       {isAuthenticated &&
         <SidebarNav />
       }
-      <div className="container mx-auto p-4 sm:p-8 md:p-16">
-
-        {!isAuthenticated &&
-          location.pathname != "/library"  &&
-            <NavigationMenu />
-        
-        }
-        <AnimatePresence mode='wait'>
+      <main className={`grow ${!isAuthenticated ? 'p-0' : 'container mx-auto p-4 sm:p-8 md:p-12'}`}>        <AnimatePresence mode='wait'>
           <Routes location={location} key={location.pathname}>
             <Route path="/">
               <Route index element={isSingleUserMode ? <Navigate to="/library" /> : <Login />}/>
@@ -102,7 +94,7 @@ function App() {
             </Route>
           </Routes>
         </AnimatePresence>
-      </div>
+      </main>
     </div>
     <Footer />
     <ToastContainer />
