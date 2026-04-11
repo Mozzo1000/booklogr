@@ -56,7 +56,9 @@
         "new_password_confirm": "Confirm new password",
         "download": "Download",
         "cancel": "Cancel",
-        "skip": "Skip"
+        "skip": "Skip",
+        "or": "Or",
+        "back_to_login": "Back to Login"
     },
 
     "settings": {
