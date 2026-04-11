@@ -13,6 +13,7 @@ const oidcConfig = {
   client_id: import.meta.env.VITE_OIDC_CLIENT_ID,
   redirect_uri: window.location.origin + "/callback",
   disablePKCE: true,
+  scope: "openid profile email",
   onSigninCallback: () => {
       window.history.replaceState({}, document.title, window.location.pathname);
   }
