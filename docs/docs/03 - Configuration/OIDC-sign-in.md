@@ -2,7 +2,7 @@
 
 BookLogr supports OpenID Connect (OIDC) authentication for account sign-in. To enable it, you will need to set up credentials and apply them to your container environment.
 
-## Prerequisites
+# Prerequisites
 
 Before enabling OIDC, you must configure a new client application in your identity provider. While the specifics of this setup vary from provider to provider, the general approach should be the same.
 
@@ -21,12 +21,12 @@ Before enabling OIDC, you must configure a new client application in your identi
 Replace `{your-domain-or-ip-of-web}` with the user facing domain name or IP of your `booklogr-web` server/container.
 :::
 
-### Example Configuration
+## Example Configuration
 
 <details>
 <summary>Keycloak Example</summary>
 
-#### Keycloak Setup
+### Keycloak Setup
 
 1. **Create Client**: Navigate to **Clients** -> **Create client**.
    - **Client type**: `OpenID Connect`
@@ -52,7 +52,7 @@ Replace `{your-domain-or-ip-of-web}` with the user facing domain name or IP of y
 <details>
 <summary>Pocket ID Example</summary>
 
-#### Pocket ID Setup
+### Pocket ID Setup
 
 1. **Create Client**: Go to **Administration** -> **OIDC Clients** -> **Add OIDC Client**.
    - **Name**: `booklogr`
@@ -81,16 +81,20 @@ labels:
 
 :::tip Proxy Settings
 Ensure the `APP_URL` in your Pocket ID environment variables matches the domain you are using to access it, and set `TRUST_PROXY=true`.
+
+[Pocket ID documentation](https://pocket-id.org/docs/configuration/environment-variables#reverse-proxy-settings)
 :::
 
 </details>
 
-### Configure Environment Variables
+---
+
+# Configure Environment Variables
 :::tip
 See [Environment variables](/docs/Configuration/Environment-variables) for more information.
 :::
 
-#### `booklogr-api` container
+## `booklogr-api` container
 ```env
 OIDC_CLIENT_ID=your_client_id
 OIDC_CLIENT_SECRET=your_client_secret
@@ -98,7 +102,7 @@ OIDC_REDIRECT_URI=http://{your-domain-or-ip-of-web}/callback
 OIDC_DISCOVERY_URL=http://{your-domain-or-ip-of-OIDC-provider}/.well-known/openid-configuration
 ```
 
-#### `booklogr-web` container
+## `booklogr-web` container
 ```env
 BL_OIDC_AUTHORITY={your-domain-or-ip-of-OIDC-provider}
 BL_OIDC_CLIENT_ID=your_client_id
