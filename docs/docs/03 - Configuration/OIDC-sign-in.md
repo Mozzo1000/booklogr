@@ -49,6 +49,42 @@ Replace `{your-domain-or-ip-of-web}` with the user facing domain name or IP of y
 </details>
 
 
+<details>
+<summary>Pocket ID Example</summary>
+
+#### Pocket ID Setup
+
+1. **Create Client**: Go to **Administration** -> **OIDC Clients** -> **Add OIDC Client**.
+   - **Name**: `booklogr`
+   - **Callback URLs**: `http://localhost:5173/callback`
+   - **Public Client**: `Disabled`
+   - **PKCE**: `Disabled`
+![alt text](/img/pocketid_1.png)
+
+2. **Retrieve Credentials**: After saving, copy the Client ID and Client Secret from the client details page.
+![alt text](/img/pocketid_2.png)
+
+:::warning CORS & Reverse Proxy
+By default, Pocket ID does not send the necessary CORS headers for browser-based discovery. If you see a "Cross-Origin Request Blocked" error in your browser console, you must configure your reverse proxy (like Traefik or Nginx) to inject these headers.
+:::
+
+#### Traefik Configuration Example
+Add these labels to your Pocket ID service in your `docker-compose.yml`:
+
+```yaml
+labels:
+  - "traefik.http.middlewares.pocketid-cors.headers.accesscontrolalloworiginlist=*"
+  - "traefik.http.middlewares.pocketid-cors.headers.accesscontrolallowmethods=GET,OPTIONS,POST"
+  - "traefik.http.middlewares.pocketid-cors.headers.accesscontrolallowheaders=*"
+  - "traefik.http.routers.pocketid.middlewares=pocketid-cors"
+```
+
+:::tip Proxy Settings
+Ensure the `APP_URL` in your Pocket ID environment variables matches the domain you are using to access it, and set `TRUST_PROXY=true`.
+:::
+
+</details>
+
 ### Configure Environment Variables
 :::tip
 See [Environment variables](/docs/Configuration/Environment-variables) for more information.
