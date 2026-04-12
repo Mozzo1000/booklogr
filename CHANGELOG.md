@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+### Added
+- A new debug page accessible at `/debug` to help diagnose configuration issues. This page is only active when the `BL_DEBUG` environment variable is set to `true` and should only be used temporarily for troubleshooting.
+- Support for OpenID Connect (OIDC) login, allowing you to authenticate using external identity providers.
+- A "Login with OpenID Connect" button on the login page when configured.
+- New environment variables to customize the login screen, including the ability to hide the registration button or the manual login form.
+- You can now track your full reading history for each book, including the ability to record multiple start and finish dates.
+- A new "Read again" option has been added to book pages, allowing you to easily start a new reading session for books you've already completed.
+
+### Changed
+- Books in your library that have no author will now display "by unknown author" instead of being blank.
+- The login and registration pages have been updated to be fully responsive on mobile devices.
+
+### Removed
+- The navigation bar has been removed from public-facing pages (login, registration, and profile).
 
 ## [1.9.0] - 2026-04-07
 ### Added
