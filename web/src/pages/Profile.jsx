@@ -193,21 +193,26 @@ function Profile() {
                         </span>
                         <div className="grow border-t border-gray-200"></div>
                     </div>
-                    <div className="flex flex-row justify-between">
-                        <div className="pb-4">
-                            <ButtonGroup>
-                                <Button color="alternative" onClick={() => setReadingStatusFilter("All")}>{t("reading_status.all")} ({data?.books.length})</Button>
-                                <Button color="alternative" onClick={() => setReadingStatusFilter("Read")}>{t("reading_status.read")} ({data?.num_books_read || 0})</Button>
-                                <Button color="alternative" onClick={() => setReadingStatusFilter("Currently reading")}>{t("reading_status.currently_reading")} ({data?.num_books_reading || 0})</Button>
-                                <Button color="alternative" onClick={() => setReadingStatusFilter("To be read")}>{t("reading_status.to_be_read")} ({data?.num_books_tbr || 0})</Button>
-                                <Button color="alternative" onClick={() => setReadingStatusFilter("Did not finish")}>{t("reading_status.did_not_finish")} ({data?.num_books_dnf || 0})</Button>
-
-                            </ButtonGroup>
+                   <div className="flex flex-row items-center justify-between gap-2 w-full pb-4">
+                        <div className="flex-1 min-w-0"> 
+                            <div className="flex flex-nowrap overflow-x-auto no-scrollbar gap-2 py-1">
+                                {[
+                                    { label: t("reading_status.all"), value: "All", count: data?.books.length },
+                                    { label: t("reading_status.read"), value: "Read", count: data?.num_books_read },
+                                    { label: t("reading_status.currently_reading"), value: "Currently reading", count: data?.num_books_reading },
+                                    { label: t("reading_status.to_be_read"), value: "To be read", count: data?.num_books_tbr },
+                                    { label: t("reading_status.did_not_finish"), value: "Did not finish", count: data?.num_books_dnf },
+                                ].map((status) => (
+                                    <Button key={status.value} color={readingStatusFilter === status.value ? "blue" : "alternative"} className="whitespace-nowrap shrink-0" pill size="sm" onClick={() => setReadingStatusFilter(status.value)}>
+                                        {status.label} ({status.count || 0})
+                                    </Button>
+                                ))}
+                            </div>
                         </div>
-                        <div>
+                        <div className="md:hidden h-8 w-px bg-gray-300 dark:bg-gray-700 mx-1 shrink-0"></div>
+                        <div className="shrink-0">
                             <Controls view={view} changeView={changeView} enableSort={false} />
                         </div>
-                        
                     </div>
                     <PaneTabView view={view}>
                         {!filteredBooks ? (
