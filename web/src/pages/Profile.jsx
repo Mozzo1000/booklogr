@@ -178,7 +178,7 @@ function Profile() {
                         }                        
                         </div>
                     </div>
-                    <div className="flex flex-row gap-16 pt-12 justify-around">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12">
                         <BookStatsCard icon={<RiBook2Line className="w-8 h-8 dark:text-white"/>} number={data?.num_books_read || 0} text={t("profile.stats.read")}/>
                         <BookStatsCard icon={<RiBookOpenLine className="w-8 h-8 dark:text-white"/>} number={data?.num_books_reading || 0} text={t("profile.stats.reading")}/>
                         <BookStatsCard icon={<RiBookmarkLine className="w-8 h-8 dark:text-white"/>} number={data?.num_books_tbr || 0} text={t("profile.stats.to_be_read")}/>
