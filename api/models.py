@@ -108,6 +108,7 @@ class Books(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey("profiles.owner_id"))
     created_on = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     notes = db.relationship("Notes", backref="books")
+    sessions = db.relationship("ReadingSessions", backref="books")
 
     def save_to_db(self):
         db.session.add(self)
@@ -116,6 +117,23 @@ class Books(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+class ReadingSessions(db.Model):
+    __tablename__ = "reading_sessions"
+    id = db.Column(db.Integer, primary_key=True)
+    book_id = db.Column(db.Integer, db.ForeignKey("books.id"), nullable=False)
+    status = db.Column(db.String, nullable=False)
+    start_date = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
+    end_date = db.Column(db.DateTime, nullable=True)
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_active(cls, book_id, owner_id):
+        return cls.query.join(Books).filter(cls.book_id==book_id, cls.end_date==None, Books.owner_id==owner_id).first()
+
 
 class BooksStatusSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
