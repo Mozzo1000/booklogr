@@ -134,6 +134,7 @@ function AddToReadingListButton(props) {
 
     const handleSetReadingCurrentlyReading = () => {
         setReadingStatus("Currently reading")
+        setCurrentPage(0);
         setOpenModalReading(true);
     }
     const handleSetReadingRead = () => {
@@ -196,7 +197,7 @@ function AddToReadingListButton(props) {
                             </>;
                         } else if (readingStatus === "Read") {
                             return <>
-                                <DropdownItem icon={RiBookmarkLine} onClick={() => handleSetReadingToBeRead() }>{t("reading_status.want_to_read")}</DropdownItem>
+                                <DropdownItem icon={RiBookOpenLine} onClick={() => handleSetReadingCurrentlyReading() }>Read again</DropdownItem>
                                 <DropdownItem icon={RiBookOpenLine} onClick={() => handleSetReadingCurrentlyReading() }>{t("reading_status.currently_reading")}</DropdownItem>
                                 <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
                             </>;
