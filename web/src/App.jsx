@@ -71,7 +71,8 @@ function App() {
       {isAuthenticated &&
         <SidebarNav />
       }
-      <main className={`grow ${!isAuthenticated ? 'p-0' : 'container mx-auto p-4 sm:p-8 md:p-12'}`}>        <AnimatePresence mode='wait'>
+        <main className="grow container mx-auto p-4 sm:p-8 md:p-12">
+        <AnimatePresence mode='wait'>
           <Routes location={location} key={location.pathname}>
             <Route path="/">
               <Route index element={isSingleUserMode ? <Navigate to="/library" /> : <Login />}/>

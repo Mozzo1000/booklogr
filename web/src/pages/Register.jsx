@@ -79,7 +79,7 @@ function Register() {
 
     return (
         <AnimatedLayout>
-            <div className="flex flex-col min-h-[calc(100vh-140px)] items-center justify-center px-4 py-4">                
+            <div className="flex flex-col min-h-[calc(100vh-200px)] items-center justify-center px-4 py-4">                
                 <div className="flex flex-col items-center mb-6">
                     <div className="flex items-center mb-1">
                         <img src="/icon.svg" className="mr-3 h-8 sm:h-10" alt="BookLogr Logo" />
