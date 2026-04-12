@@ -156,7 +156,7 @@ function Profile() {
 
     return (
         <AnimatedLayout>
-        <div className="container mx-auto">          
+        <div className="container mx-auto pb-20">
                 <div>
                     <div className="flex flex-row justify-between">
                         <div className="flex items-center gap-4">
