@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
-from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings, BooksStatusSchema, Profile, ReadingSessions, db
+from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings, BooksStatusSchema, Profile, ReadingSessions, ReadingSessionsSchema, db
 from api.decorators import required_params, auth_required
 from api.routes.tasks import _create_task
 import json
@@ -685,3 +685,17 @@ def add_book_note(id):
                     "error": "Not found",
                     "message": "No book found"
         }), 404
+    
+
+
+@books_endpoint.route("/v1/books/<id>/sessions", methods=["GET"])
+@auth_required()
+def get_book_reading_sessions(id):
+    claim_id = get_current_user_id()
+    
+    history = ReadingSessions.query.join(Books).filter(
+        Books.owner_id == claim_id,
+        Books.id == id
+    ).order_by(ReadingSessions.start_date.desc()).all()
+    
+    return jsonify(ReadingSessionsSchema(many=True).dump(history))

@@ -3,13 +3,14 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, TextInput, S
 import BooksService from '../services/books.service';
 import useToast from '../toast/useToast';
 import UpdateReadingStatusButton from './UpdateReadingStatusButton';
-import { RiBook2Line } from "react-icons/ri";
+import { RiBook2Line, RiHistoryLine } from "react-icons/ri";
 import { RiBookOpenLine } from "react-icons/ri";
 import { RiBookmarkLine } from "react-icons/ri";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import RemoveBookModal from './RemoveBookModal';
 import UpdateReadingStatusView from './UpdateReadingStatusView';
 import { useTranslation, Trans } from 'react-i18next';
+import ReadingHistoryModal from './ReadingHistoryModal';
 
 function AddToReadingListButton(props) {
     const [readingStatus, setReadingStatus] = useState();
@@ -21,6 +22,7 @@ function AddToReadingListButton(props) {
     const [openRemoveModal, setOpenRemoveModal] = useState();
     const [openMissingData, setOpenMissingData] = useState(false);
     const [author, setAuthor] = useState();
+    const [openReadingHistoryModal, setOpenReadingHistoryModal] = useState(false);
     const toast = useToast(4000);
     const { t } = useTranslation();
 
@@ -193,12 +195,13 @@ function AddToReadingListButton(props) {
                                 <DropdownDivider />
                                 <DropdownItem icon={RiBookmarkLine} onClick={() => handleSetReadingToBeRead() }>{t("reading_status.want_to_read")}</DropdownItem>
                                 <DropdownItem icon={RiBook2Line} onClick={() => handleSetReadingRead() }>{t("reading_status.read")}</DropdownItem>
+                                <DropdownItem icon={RiHistoryLine} onClick={() => (setOpenReadingHistoryModal(true))}>Reading history</DropdownItem>
                                 <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
                             </>;
                         } else if (readingStatus === "Read") {
                             return <>
                                 <DropdownItem icon={RiBookOpenLine} onClick={() => handleSetReadingCurrentlyReading() }>Read again</DropdownItem>
-                                <DropdownItem icon={RiBookOpenLine} onClick={() => handleSetReadingCurrentlyReading() }>{t("reading_status.currently_reading")}</DropdownItem>
+                                <DropdownItem icon={RiHistoryLine} onClick={() => (setOpenReadingHistoryModal(true))}>Reading history</DropdownItem>
                                 <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
                             </>;
                         }else {
@@ -248,6 +251,7 @@ function AddToReadingListButton(props) {
                     </div>
                 </ModalBody>
             </Modal>
+            <ReadingHistoryModal bookID={readID} show={openReadingHistoryModal} onClose={() => setOpenReadingHistoryModal(false)} />
         </div>
     )
 }

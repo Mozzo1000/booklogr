@@ -135,6 +135,10 @@ class ReadingSessions(db.Model):
         return cls.query.join(Books).filter(cls.book_id==book_id, cls.end_date==None, Books.owner_id==owner_id).first()
 
 
+class ReadingSessionsSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = ReadingSessions
+
 class BooksStatusSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Books
