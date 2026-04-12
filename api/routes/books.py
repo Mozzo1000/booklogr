@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
-from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings, BooksStatusSchema, Profile, db
+from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings, BooksStatusSchema, Profile, ReadingSessions, db
 from api.decorators import required_params, auth_required
 from api.routes.tasks import _create_task
 import json
@@ -395,6 +395,7 @@ def add_book():
     reading_status = "To be read"
     if "reading_status" in request.json:
         reading_status = request.json["reading_status"]
+
     current_page = 0
     if "current_page" in request.json:
         current_page = request.json["current_page"]
@@ -407,6 +408,15 @@ def add_book():
                       description=description, reading_status=reading_status, 
                       current_page=current_page, total_pages=total_pages, author=author)
       new_book.save_to_db()
+
+      if reading_status in ("Currently reading", "Read", "Did not finish"):
+        new_session = ReadingSessions(book_id=new_book.id, status="Currently reading")
+
+        if request.json["reading_status"] in ("Read", "Did not finish"):
+          new_session.end_date = datetime.now(timezone.utc)
+          new_session.status = request.json["reading_status"]
+        new_session.save_to_db()
+
     except IntegrityError as e:
         db.session.rollback()
         if isinstance(e.orig, ForeignKeyViolation):
@@ -480,7 +490,19 @@ def edit_book(id):
                 return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Total pages must be an integer."}), 422
         if "status" in request.json:
             if request.json["status"] in ("Currently reading", "To be read", "Read", "Did not finish"):
+                active_session = ReadingSessions.get_active(id, claim_id)
                 book.reading_status = request.json["status"]
+
+                print(active_session)
+
+                if request.json["status"] == "Currently reading":
+                  if not active_session:
+                      new_session = ReadingSessions(book_id=id, status="Currently reading")
+                      new_session.save_to_db()
+                elif request.json["status"] in ("Read", "Did not finish"):
+                  if active_session:
+                      active_session.end_date = datetime.now(timezone.utc)
+                      active_session.status = request.json["status"]
 
                 if UserSettings.query.filter(UserSettings.owner_id==claim_id, UserSettings.send_book_events==True).first():
                   if book.reading_status == "Read":
