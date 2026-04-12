@@ -20,6 +20,7 @@ import { RiListView } from "react-icons/ri";
 import { RiGalleryView } from "react-icons/ri";
 import BookSkeleton from '../components/BookSkeleton';
 import ShareProfileButton from '../components/ShareProfileButton';
+import Controls from '../components/Library/Controls';
 
 function Profile() {
     const [data, setData] = useState();
@@ -204,14 +205,7 @@ function Profile() {
                             </ButtonGroup>
                         </div>
                         <div>
-                            <ButtonGroup>
-                                <Button size="sm" color={view === "gallery" ? "default" : "alternative"} onClick={() => changeView("gallery")}>
-                                    <RiGalleryView className="w-6 h-6" />
-                                </Button>
-                                <Button size="sm" color={view === "list" ? "default" : "alternative"} onClick={() => changeView("list")}>
-                                    <RiListView className="w-6 h-6" />
-                                </Button>
-                            </ButtonGroup>
+                            <Controls view={view} changeView={changeView} enableSort={false} />
                         </div>
                         
                     </div>

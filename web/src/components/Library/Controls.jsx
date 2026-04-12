@@ -3,14 +3,16 @@ import { Button, ButtonGroup, Drawer, DrawerHeader, DrawerItems } from "flowbite
 import { RiGalleryView, RiListView, RiListSettingsLine } from "react-icons/ri";
 import SortSelector from "../SortSelector";
 
-function Controls({ sort, setSort, order, setOrder, view, changeView }) {
+function Controls({ sort, setSort, order, setOrder, view, changeView, enableSort = true }) {
   const [isOpen, setIsOpen] = useState(false);
   const handleClose = () => setIsOpen(false);
 
   return (
     <div className="flex items-center justify-between w-full">      
       <div className="hidden md:flex items-center gap-4">
-        <SortSelector sort={sort} setSort={setSort} order={order} setOrder={setOrder} />
+        {enableSort &&
+          <SortSelector sort={sort} setSort={setSort} order={order} setOrder={setOrder} />
+        }
         <ButtonGroup>
             <Button size="sm" color={view === "gallery" ? "default" : "alternative"} onClick={() => changeView("gallery")}>
                 <RiGalleryView className="w-6 h-6" />
@@ -44,11 +46,12 @@ function Controls({ sort, setSort, order, setOrder, view, changeView }) {
                 </Button>
               </ButtonGroup>
             </section>
-
-            <section className="mb-3">
-              <h4 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">Sort and order</h4>
-                <SortSelector sort={sort} setSort={setSort} order={order} setOrder={setOrder} />
-            </section>
+            {enableSort &&
+              <section className="mb-3">
+                <h4 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">Sort and order</h4>
+                  <SortSelector sort={sort} setSort={setSort} order={order} setOrder={setOrder} />
+              </section>
+            }
           </div>
         </DrawerItems>
       </Drawer>
