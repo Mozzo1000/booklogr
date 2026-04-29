@@ -1,5 +1,5 @@
 # Configure Email Verification
-BookLogr supports email-based verification of new accounts. When a user signs up, they will receive a verification code via email if this feature is enabled. The user then needs to use this code to verify their account before being able to login.
+BookLogr supports email-based verification of new accounts. When a user signs up, they will receive a verification code via email if this feature is enabled. The user then needs to use this code to verify their account before being able to log in.
 :::note
 This feature is **disabled** by default.
 :::

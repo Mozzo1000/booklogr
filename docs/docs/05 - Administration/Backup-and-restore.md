@@ -10,12 +10,12 @@ sudo docker exec -t CONTAINER_ID pg_dumpall -c -U POSTGRES_USER > dump_`date +%Y
 
 ### Restore
 :::info
-The database needs to be empty in order to be able to restore from backup. Stop all containers and delete the volume from the postgres service. Afterwords, only start up the postgres database. E.g `docker compose up booklogr-db -d`
+The database needs to be empty in order to be able to restore from backup. Stop all containers and delete the volume from the PostgreSQL service. Afterwards, only start up the PostgreSQL database. E.g., `docker compose up booklogr-db -d`.
 :::
 
-```
+```bash
 cat dump_2025-01-02_16_06_47.sql | sudo docker exec -i CONTAINER_ID psql -U POSTGRES_USER -d booklogr
 ```
-Lastly, start all other containers, `docker compose up -d`
+Lastly, start all other containers: `docker compose up -d`
 
 

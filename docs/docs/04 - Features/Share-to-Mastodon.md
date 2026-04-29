@@ -4,7 +4,7 @@ BookLogr has a Mastodon integration that will allow BookLogr to share events ont
 ## Enable via web interface
 By default, BookLogr will not share these events to Mastodon. You will first have to enable it in the Settings page on your BookLogr web interface.
 
-![](https://raw.githubusercontent.com/Mozzo1000/booklogr/main/assets/mastodon-enable-share.png)
+![A screenshot of the BookLogr settings page showing the Mastodon integration section. It includes a toggle switch to enable Mastodon sharing and a text field for the Mastodon access token.](https://raw.githubusercontent.com/Mozzo1000/booklogr/main/assets/mastodon-enable-share.png)
 
 ## Create app
 1. Go to your Mastodon instance (ex https://mastodon.social)

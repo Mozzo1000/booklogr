@@ -11,7 +11,7 @@ sidebar_position: 1
 ## Steps to set up the server
 
 ### Automatic setup (recommended)
-The easiest way to get BookLogr running is using the official setup script. This script checks your prerequisites, downloads the neccessary files helps you configure your environment interactively.
+The easiest way to get BookLogr running is using the official setup script. This script checks your prerequisites, downloads the necessary files helps you configure your environment interactively.
 
 #### 1. Create directory
 Create a directory and move to that directory.
@@ -29,7 +29,7 @@ curl -sL https://raw.githubusercontent.com/Mozzo1000/booklogr/main/setup.sh | ba
 ```
 The setup script will prompt you for selecting Single-user or Multi-user mode, you can read more about this at [Single-user mode](/docs/Configuration/Single-user-mode).
 
-After the setup has finished the containers will start up automatically and Booklogr should be available on http://localhost:5150
+After the setup has finished the containers will start up automatically and BookLogr should be available on http://localhost:5150
 
 ---
 ### Manual setup
@@ -50,7 +50,7 @@ A secret key is required for BookLogr to start in multi-user mode. Create a .env
 ```sh
 echo "AUTH_SECRET_KEY=$(openssl rand -hex 32)" > .env
 ```
-If you rather would like to use single-user mode you do not need to set the `AUTH_SECRET_KEY` variable but instead need to set the `SINGLE_USER_MODE`  and `BL_SINGLE_USER_MODE` environment variable to `true`.
+If you would prefer to use single-user mode you do not need to set the `AUTH_SECRET_KEY` variable but instead need to set the `SINGLE_USER_MODE` and `BL_SINGLE_USER_MODE` environment variables to `true`.
 ```sh
 cat <<EOF > .env
 SINGLE_USER_MODE=true

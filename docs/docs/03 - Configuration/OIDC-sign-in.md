@@ -2,7 +2,7 @@
 
 BookLogr supports OpenID Connect (OIDC) authentication for account sign-in. To enable it, you will need to set up credentials and apply them to your container environment.
 
-# Prerequisites
+## Prerequisites
 
 Before enabling OIDC, you must configure a new client application in your identity provider. While the specifics of this setup vary from provider to provider, the general approach should be the same.
 
@@ -10,15 +10,15 @@ Before enabling OIDC, you must configure a new client application in your identi
    - **Protocol**: `OpenID Connect`
    - **Client Type/Authentication**: `Confidential` (Requires a Client Secret)
    - **Grant Type**: `Authorization Code`
-   - **PKCE**: Disable if possible (is not used)
+   - **PKCE**: Disable if possible (it is not used)
 
 2. **Configure Redirect URIs**
-   The **Valid Redirect URIs** must include the exact path to the frontends callback route:
+   The **Valid Redirect URIs** must include the exact path to the frontend's callback route:
    - `http://{your-domain-or-ip-of-web}/callback`
 
 
 :::note
-Replace `{your-domain-or-ip-of-web}` with the user facing domain name or IP of your `booklogr-web` server/container.
+Replace `{your-domain-or-ip-of-web}` with the user-facing domain name or IP of your `booklogr-web` server/container.
 :::
 
 ## Example Configuration
@@ -31,18 +31,18 @@ Replace `{your-domain-or-ip-of-web}` with the user facing domain name or IP of y
 1. **Create Client**: Navigate to **Clients** -> **Create client**.
    - **Client type**: `OpenID Connect`
    - **Client ID**: `booklogr`
-![alt text](/img/keycloak_1.png)
+![Keycloak Client creation screen showing Client type set to OpenID Connect and Client ID set to booklogr.](/img/keycloak_1.png)
 
 2. **Capability Config**:
    - **Client Authentication**: `On`
    - **Authorization**: `Off`.
    - **Standard Flow**: `Enabled`.
    - **Require PKCE**: `Off`.
-![alt text](/img/keycloak_2.png)
+![Keycloak Capability configuration screen with Client Authentication enabled and Authorization disabled.](/img/keycloak_2.png)
 1. **Login Settings**:
    - **Valid Redirect URIs**: `http://{your-domain-or-ip-of-web}/callback`
    - **Web Origins**: `+`.
-![alt text](/img/keycloak_3.png)
+![Keycloak Login settings screen showing the configured Valid Redirect URIs and Web Origins.](/img/keycloak_3.png)
 
 1. **Credentials**:
    - Navigate to the **Credentials** tab to copy your **Client Secret**.
@@ -59,10 +59,10 @@ Replace `{your-domain-or-ip-of-web}` with the user facing domain name or IP of y
    - **Callback URLs**: `http://localhost:5173/callback`
    - **Public Client**: `Disabled`
    - **PKCE**: `Disabled`
-![alt text](/img/pocketid_1.png)
+![Pocket ID OIDC client creation screen with Name, Callback URLs, and PKCE settings configured.](/img/pocketid_1.png)
 
 2. **Retrieve Credentials**: After saving, copy the Client ID and Client Secret from the client details page.
-![alt text](/img/pocketid_2.png)
+![Pocket ID client details page showing the generated Client ID and Client Secret.](/img/pocketid_2.png)
 
 :::warning CORS & Reverse Proxy
 By default, Pocket ID does not send the necessary CORS headers for browser-based discovery. If you see a "Cross-Origin Request Blocked" error in your browser console, you must configure your reverse proxy (like Traefik or Nginx) to inject these headers.

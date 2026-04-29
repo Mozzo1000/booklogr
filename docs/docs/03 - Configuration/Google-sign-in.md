@@ -21,9 +21,9 @@ BookLogr supports Google authentication for account sign-in. To enable it, you w
 7. Save and copy the **Client ID** and **Client Secret**.
 
 :::note
-Replace `{your-domain-or-ip-of-web}` with the user facing domain name or IP of your `booklogr-web` server/container.
+Replace `{your-domain-or-ip-of-web}` with the user-facing domain name or IP of your `booklogr-web` server/container.
 
-Replace `{your-domain-or-ip-of-api}` with the user facing domain name or IP of your `booklogr-api` server/container.
+Replace `{your-domain-or-ip-of-api}` with the user-facing domain name or IP of your `booklogr-api` server/container.
 :::
 
 ### 2. Configure Environment Variables
@@ -43,12 +43,12 @@ GOOGLE_CLIENT_SECRET=your-client-secret
 BL_GOOGLE_ID=your-client-id.apps.googleusercontent.com
 ```
 :::note
-If BL_GOOGLE_ID is empty or not set, the Sign in with Google button will not appear on the login screen.
+If `BL_GOOGLE_ID` is empty or not set, the **Sign in with Google** button will not appear on the login screen.
 :::
 
 ## Troubleshooting
 ### Error: Google Sign-In Disabled
-If the Google Sign-In button is disabled this indicates that the provided Client ID is in the wrong format. 
+If the Google Sign-In button is disabled, this indicates that the provided Client ID is in the wrong format. 
 
 **Verify Client ID Format**
 
@@ -57,6 +57,6 @@ It should match this pattern:
 [numbers]-[string].apps.googleusercontent.com
 ```
 :::note
-If you Client ID does indeed match this pattern and you are still getting "Google Sign-In Disabled", please open an [issue](https://github.com/mozzo1000/booklogr/issues).
+If your Client ID does indeed match this pattern and you are still getting "Google Sign-In Disabled", please open an [issue](https://github.com/Mozzo1000/booklogr/issues).
 :::
 
