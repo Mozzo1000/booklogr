@@ -29,7 +29,10 @@ function BookDetails() {
         BooksService.get_isbn(id).then(
             response => {
                 setData(response.data)
-                setDescription(response.data.description)
+                if (response.data.description)
+                    setDescription(response.data.description)
+                else
+                    setDescription(t("book.no_description_found"))
                 if(response.data.author)
                     setAuthor(response.data.author)
                 else
