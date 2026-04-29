@@ -12,9 +12,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - You can now track your full reading history for each book, including the ability to record multiple start and finish dates.
 - A new "Read again" option has been added to book pages, allowing you to easily start a new reading session for books you've already completed.
 
+### Fixed
+- Resolved an issue where the mobile navigation bar was hidden on the profile page.
+- Resolved an issue where a skeleton loading animation would display indefinitely if a book description was missing.
+
 ### Changed
 - Books in your library that have no author will now display "by unknown author" instead of being blank.
 - The login and registration pages have been updated to be fully responsive on mobile devices.
+- The profile page layout has been refined with updated spacing for reading stats and a new pill-shaped design for list buttons.
+- Improved mobile layout on the profile page to ensure the bottom of the book list is no longer obscured by the navigation bar.
+- The "Add Book" modal now opens in fullscreen on mobile devices.
 
 ### Removed
 - The navigation bar has been removed from public-facing pages (login, registration, and profile).
