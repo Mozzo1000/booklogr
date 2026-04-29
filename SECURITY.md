@@ -43,5 +43,7 @@ After you report a vulnerability:
 
 - We will acknowledge your report as soon as possible
 - We will investigate and validate the issue
-- If confirmed, we will work on a fix  
+- If confirmed, we will work on a fix
 - You will be credited in the release notes unless you request anonymity
+
+Regarding CVE, we do not currently request CVE IDs for vulnerabilities. All vulnerabilities will be documented and credited in our GitHub release notes.
