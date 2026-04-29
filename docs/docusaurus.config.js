@@ -126,7 +126,7 @@ const config = {
           },
            {
             href: 'https://github.com/sponsors/Mozzo1000',
-            label: "Sponsor the project",
+            label: "Support the project",
             position: "right",
           },
         ],
