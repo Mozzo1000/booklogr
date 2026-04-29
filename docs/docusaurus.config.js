@@ -85,7 +85,17 @@ const config = {
       },
     ]
   ],
-  themes: ["docusaurus-theme-openapi-docs"], // export theme components
+  themes: [
+    "docusaurus-theme-openapi-docs",
+    [
+      "@easyops-cn/docusaurus-search-local",
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
+        hashed: true,
+        indexBlog: false,
+      }),
+    ],
+  ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -99,6 +109,10 @@ const config = {
           src: 'img/icon.svg',
         },
         items: [
+          {
+            type: 'search',
+            position: 'right',
+          },
           {
             type: 'docSidebar',
             sidebarId: 'docsIDSidebar',
