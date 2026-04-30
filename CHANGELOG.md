@@ -15,11 +15,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Fixed
 - Resolved an issue where the mobile navigation bar was hidden on the profile page.
 - Resolved an issue where a skeleton loading animation would display indefinitely if a book description was missing.
+- Authentication routes for OIDC and Google now respect the `AUTH_ALLOW_REGISTRATION` environment variable, preventing new account creation via external providers when registration is disabled.
+- Adjusted the padding in the search bar to prevent the loading animation from being to close to the search field.
+- Corrected the share button tooltip to display the proper text instead of the internal translation key.
 
 ### Changed
 - Books in your library that have no author will now display "by unknown author" instead of being blank.
 - The login and registration pages have been updated to be fully responsive on mobile devices.
-- The profile page layout has been refined with updated spacing for reading stats and a new pill-shaped design for list buttons.
+- The profile page layout has been refined with updated spacing for reading stats new navigation tabs.
 - Improved mobile layout on the profile page to ensure the bottom of the book list is no longer obscured by the navigation bar.
 - The "Add Book" modal now opens in fullscreen on mobile devices.
 
