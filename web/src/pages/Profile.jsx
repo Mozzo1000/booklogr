@@ -21,11 +21,20 @@ import { RiGalleryView } from "react-icons/ri";
 import BookSkeleton from '../components/BookSkeleton';
 import ShareProfileButton from '../components/ShareProfileButton';
 import Controls from '../components/Library/Controls';
+import BookTabs from '../components/BookTabs';
+
+const PROFILE_TABS = [
+    { id: 0, status: "All", tKey: "reading_status.all", icon: RiBook2Line }, // Icon of your choice
+    { id: 1, status: "Currently reading", tKey: "reading_status.currently_reading", icon: RiBookOpenLine },
+    { id: 2, status: "To be read", tKey: "reading_status.to_be_read", icon: RiBookmarkLine },
+    { id: 3, status: "Read", tKey: "reading_status.read", icon: RiBook2Line },
+    { id: 4, status: "Did not finish", tKey: "reading_status.did_not_finish", icon: RiArchiveLine },
+];
 
 function Profile() {
     const [data, setData] = useState();
-    const [readingStatusFilter, setReadingStatusFilter] = useState("All");
-
+    const [activeTab, setActiveTab] = useState(0);
+    
     const [openSettingsModal, setOpenSettingsModal] = useState(false);
     const [displayName, setDisplayName] = useState();
     const [profileVisiblity, setProfileVisiblity] = useState();
@@ -52,15 +61,22 @@ function Profile() {
     )
 
     const filteredBooks = useMemo(() => {
-        if (data) {
-            if (readingStatusFilter == "All") {
-                return data.books;
-            } else {
-                return data.books.filter(data => data.reading_status.toLowerCase() === readingStatusFilter.toLowerCase());
-            }
+    if (data) {
+        const currentStatus = PROFILE_TABS[activeTab].status;
+        if (currentStatus === "All") {
+            return data.books;
+        } else {
+            return data.books.filter(book => 
+                book.reading_status.toLowerCase() === currentStatus.toLowerCase()
+            );
         }
-      }, [data, readingStatusFilter]);
+    }
+    }, [data, activeTab]);
     
+    const tabs = PROFILE_TABS.map(tab => ({
+        ...tab,
+        title: t(tab.tKey)
+    }));
 
     useEffect(() => {
         if (name) {
@@ -157,105 +173,133 @@ function Profile() {
     return (
         <AnimatedLayout>
         <div className="container mx-auto pb-20">
-                <div>
-                    <div className="flex flex-row justify-between">
-                        <div className="flex items-center gap-4">
-                            <Avatar rounded />
-                        <div className="format lg:format-lg dark:format-invert">
-                            <h1>{data?.display_name}</h1>
-                        </div>
-                            {currentUser &&
-                                <Badge icon={RiEyeLine} >{formatVisibility(data?.visibility)}</Badge>
-                            }
-                        </div>
-                        <div className="flex flex-row gap-4">
-                        {profileVisiblity == "public" && 
-                            <ShareProfileButton displayName={data?.display_name} />
-                        }
-                        {currentUser &&
-                            <Tooltip content={t("profile.profile_settings")}>
-                                <Button className="hover:cursor-pointer" color="light" pill onClick={() => setOpenSettingsModal(true)}><RiSettings4Line className="h-6 w-6"/></Button>
-                            </Tooltip>
-                        }                        
-                        </div>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                    <Avatar rounded />
+                    <div className="format lg:format-lg dark:format-invert">
+                        <h1 className="mb-0">{data?.display_name}</h1>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 pt-12">
-                        <BookStatsCard icon={<RiBook2Line className="w-8 h-8 dark:text-white"/>} number={data?.num_books_read || 0} text={t("profile.stats.read")}/>
-                        <BookStatsCard icon={<RiBookOpenLine className="w-8 h-8 dark:text-white"/>} number={data?.num_books_reading || 0} text={t("profile.stats.reading")}/>
-                        <BookStatsCard icon={<RiBookmarkLine className="w-8 h-8 dark:text-white"/>} number={data?.num_books_tbr || 0} text={t("profile.stats.to_be_read")}/>
-                        <BookStatsCard icon={<RiArchiveLine className="w-8 h-8 dark:text-white"/>} number={data?.num_books_dnf || 0} text={t("profile.stats.did_not_finish")}/>
+                    
+                    {currentUser && (
+                        <div className="hidden md:block">
+                            <Badge icon={RiEyeLine}>{formatVisibility(data?.visibility)}</Badge>
+                        </div>
+                    )}
+                </div>
 
-                    </div>
-                    <div className="relative flex items-center py-5">
-                        <div className="grow border-t border-gray-200"></div>
-                        <span className="shrink mx-4 text-gray-900 font-medium dark:text-white">
-                            {t("profile.all_books")}
-                        </span>
-                        <div className="grow border-t border-gray-200"></div>
-                    </div>
-                   <div className="flex flex-row items-center justify-between gap-2 w-full pb-4">
-                        <div className="flex-1 min-w-0"> 
-                            <div className="flex flex-nowrap overflow-x-auto no-scrollbar gap-2 py-1">
-                                {[
-                                    { label: t("reading_status.all"), value: "All", count: data?.books.length },
-                                    { label: t("reading_status.read"), value: "Read", count: data?.num_books_read },
-                                    { label: t("reading_status.currently_reading"), value: "Currently reading", count: data?.num_books_reading },
-                                    { label: t("reading_status.to_be_read"), value: "To be read", count: data?.num_books_tbr },
-                                    { label: t("reading_status.did_not_finish"), value: "Did not finish", count: data?.num_books_dnf },
-                                ].map((status) => (
-                                    <Button key={status.value} color={readingStatusFilter === status.value ? "blue" : "alternative"} className="whitespace-nowrap shrink-0" pill size="sm" onClick={() => setReadingStatusFilter(status.value)}>
-                                        {status.label} ({status.count || 0})
-                                    </Button>
-                                ))}
-                            </div>
+                <div className="flex flex-row items-center justify-between md:justify-end gap-4 w-full md:w-auto">
+                    {currentUser && (
+                        <div className="block md:hidden">
+                            <Badge icon={RiEyeLine}>{formatVisibility(data?.visibility)}</Badge>
                         </div>
-                        <div className="md:hidden h-8 w-px bg-gray-300 dark:bg-gray-700 mx-1 shrink-0"></div>
-                        <div className="shrink-0">
-                            <Controls view={view} changeView={changeView} enableSort={false} />
-                        </div>
+                    )}
+
+                    <div className="flex flex-row gap-4 ml-auto md:ml-0">
+                        {profileVisiblity === "public" && (
+                            <ShareProfileButton displayName={data?.display_name} />
+                        )}
+                        {currentUser && (
+                            <Tooltip content={t("profile.profile_settings")}>
+                                <Button className="hover:cursor-pointer" color="light" pill onClick={() => setOpenSettingsModal(true)}>
+                                    <RiSettings4Line className="h-6 w-6" />
+                                </Button>
+                            </Tooltip>
+                        )}
                     </div>
+                </div>
+            </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 pt-12">
+                    <BookStatsCard icon={<RiBook2Line className="w-8 h-8 dark:text-white"/>} number={data?.num_books_read || 0} text={t("profile.stats.read")}/>
+                    <BookStatsCard icon={<RiBookOpenLine className="w-8 h-8 dark:text-white"/>} number={data?.num_books_reading || 0} text={t("profile.stats.reading")}/>
+                    <BookStatsCard icon={<RiBookmarkLine className="w-8 h-8 dark:text-white"/>} number={data?.num_books_tbr || 0} text={t("profile.stats.to_be_read")}/>
+                    <BookStatsCard icon={<RiArchiveLine className="w-8 h-8 dark:text-white"/>} number={data?.num_books_dnf || 0} text={t("profile.stats.did_not_finish")}/>
+
+                </div>
+                <div className="relative flex items-center py-5">
+                    <div className="grow border-t border-gray-200"></div>
+                    <span className="shrink mx-4 text-gray-900 font-medium dark:text-white">
+                        {t("profile.all_books")}
+                    </span>
+                    <div className="grow border-t border-gray-200"></div>
+                </div>
+                
+                <div className="flex flex-col md:flex-row justify-between md:items-start">
+                    <div className="w-full order-2 md:order-1">
+                        <BookTabs 
+                            tabs={tabs} 
+                            activeTab={activeTab} 
+                            onTabChange={(tabIndex) => setActiveTab(tabIndex)} 
+                        />
+                    </div>
+
+                    <div className="flex justify-end order-1 md:order-2 shrink-0">
+                        <Controls view={view} changeView={changeView} enableSort={false} />
+                    </div>
+                </div>
+
+                <div className="w-full">
                     <PaneTabView view={view}>
                         {!filteredBooks ? (
                             <BookSkeleton count={4}/>
-                        ):(
-                        filteredBooks?.map((item, i) => {
-                            return (
+                        ) : (
+                            filteredBooks?.map((item, i) => (
                                 <div key={i}>
-                                    <BookItem internalID={item.id} view={view} showNotes showRating disableGiveRating={true} showReadingStatusBadge={true} showOptions={false} showProgress={false} title={item.title} isbn={item.isbn} totalPages={item.total_pages} currentPage={item.current_page} author={item.author} readingStatus={item.reading_status} rating={item.rating} notes={item.num_notes} allowNoteEditing={false} overrideNotes={item.notes}/>
+                                    <BookItem 
+                                        {...item} 
+                                        internalID={item.id} 
+                                        view={view} 
+                                        showReadingStatusBadge={true} 
+                                        allowNoteEditing={false}
+                                        showNotes 
+                                        showRating 
+                                        disableGiveRating={true}
+                                        showOptions={false} 
+                                        showProgress={false} 
+                                        title={item.title} 
+                                        isbn={item.isbn} 
+                                        totalPages={item.total_pages} 
+                                        currentPage={item.current_page} 
+                                        author={item.author} 
+                                        readingStatus={item.reading_status} 
+                                        rating={item.rating} 
+                                        notes={item.num_notes} 
+                                        overrideNotes={item.notes}
+                                    />
                                 </div>
-                            )
-                        })
-                    )}
+                            ))
+                        )}
                     </PaneTabView>
-                    <Modal dismissible show={openSettingsModal} onClose={() => setOpenSettingsModal(false)}>
-                        <ModalHeader className="border-gray-200">{t("profile.update_profile")}</ModalHeader>
-                        <ModalBody>
-                            <form className="flex flex-col gap-4" onSubmit={handleUpdateProfile}>
-                                <div>
-                                    <div className="mb-2 block">
-                                        <div className="flex flex-row gap-2 items-center">
-                                        <Label htmlFor="displayname">{t("forms.display_name")}</Label>
-                                        <Popover trigger="hover" content={displayNamePopoverContent}>
-                                            <span><RiQuestionLine className="dark:text-white"/></span>
-                                        </Popover>
-                                        </div>
-                                    </div>
-                                    <TextInput id="displayname" type="text" required value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
-                                </div>
-                                <div>
-                                    <div className="mb-2 block">
-                                        <Label htmlFor="visiblity">{t("forms.visibility_label")}</Label>
-                                    </div>
-                                    <Select id="visiblity" required value={profileVisiblity} onChange={(e) => setProfileVisiblity(e.target.value)}>
-                                        <option value="hidden">{t("forms.visibility_hidden")}</option>
-                                        <option value="public">{t("forms.visibility_public")}</option>
-                                    </Select>
-                                </div>
-                                <Button type="submit">{t("forms.update")}</Button>
-                            </form>
-                        </ModalBody>
-                    </Modal>
                 </div>
+
+                <Modal dismissible show={openSettingsModal} onClose={() => setOpenSettingsModal(false)}>
+                    <ModalHeader className="border-gray-200">{t("profile.update_profile")}</ModalHeader>
+                    <ModalBody>
+                        <form className="flex flex-col gap-4" onSubmit={handleUpdateProfile}>
+                            <div>
+                                <div className="mb-2 block">
+                                    <div className="flex flex-row gap-2 items-center">
+                                    <Label htmlFor="displayname">{t("forms.display_name")}</Label>
+                                    <Popover trigger="hover" content={displayNamePopoverContent}>
+                                        <span><RiQuestionLine className="dark:text-white"/></span>
+                                    </Popover>
+                                    </div>
+                                </div>
+                                <TextInput id="displayname" type="text" required value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
+                            </div>
+                            <div>
+                                <div className="mb-2 block">
+                                    <Label htmlFor="visiblity">{t("forms.visibility_label")}</Label>
+                                </div>
+                                <Select id="visiblity" required value={profileVisiblity} onChange={(e) => setProfileVisiblity(e.target.value)}>
+                                    <option value="hidden">{t("forms.visibility_hidden")}</option>
+                                    <option value="public">{t("forms.visibility_public")}</option>
+                                </Select>
+                            </div>
+                            <Button type="submit">{t("forms.update")}</Button>
+                        </form>
+                    </ModalBody>
+                </Modal>
+            </div>
 
             {profileNotFound &&
                 <div className="flex flex-col min-h-screen justify-center items-center text-center gap-4">
@@ -268,7 +312,6 @@ function Profile() {
                     </Link>
                 </div>
             }
-        </div>
         {!name &&
             <WelcomeModal show={showWelcomeModal} onProfileCreate={() => getProfileData()}/>
         }
