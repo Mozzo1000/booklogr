@@ -385,24 +385,27 @@ def authorize_oidc():
     
     current_user = User.find_by_email(email)
     if not current_user:
-        #CREATE A NEW USER
-        print("CREATE NEW USER")
-        random_pass = "".join(random.choices(string.ascii_letters + string.digits + string.punctuation, k=32))
+        if os.getenv("AUTH_ALLOW_REGISTRATION", "True").lower() in ["true", "yes", "y"]:
+          random_pass = "".join(random.choices(string.ascii_letters + string.digits + string.punctuation, k=32))
 
-        new_user = User(email=email, password=User.generate_hash(random_pass), name=name)
+          new_user = User(email=email, password=User.generate_hash(random_pass), name=name)
 
-        new_user.save_to_db()
-        user_id = User.find_by_email(email)
-        new_verification = Verification(user_id=user_id.id, status="verified", code=None, code_valid_until=None)
-        new_verification.save_to_db()
+          new_user.save_to_db()
+          user_id = User.find_by_email(email)
+          new_verification = Verification(user_id=user_id.id, status="verified", code=None, code_valid_until=None)
+          new_verification.save_to_db()
 
-        access_token = create_access_token(identity=user_id.email, additional_claims={"role": user_id.role, "id": user_id.id})
-        refresh_token = create_refresh_token(identity=user_id.email)
+          access_token = create_access_token(identity=user_id.email, additional_claims={"role": user_id.role, "id": user_id.id})
+          refresh_token = create_refresh_token(identity=user_id.email)
 
-        user_schema = UserSchema()
-        json_output = user_schema.dump(user_id)
-        json_output.update({'access_token': access_token, 'refresh_token': refresh_token})
-        return jsonify(json_output), 201
+          user_schema = UserSchema()
+          json_output = user_schema.dump(user_id)
+          json_output.update({'access_token': access_token, 'refresh_token': refresh_token})
+          return jsonify(json_output), 201
+        else:
+          return jsonify({
+            'message': 'Registration is disabled. Please contact an administrator to create an account.'
+          }), 403
     if current_user and current_user.status == "active":
         access_token = create_access_token(identity=email, additional_claims={"role": current_user.role, "id": current_user.id})
         refresh_token = create_refresh_token(identity=email)
@@ -472,24 +475,28 @@ def authorize_google():
     # CREATE USER AND THEN SEND BACK NORMAL ACCESS TOKEN, SAME AS WITH NORMAL LOGIN
     current_user = User.find_by_email(user_info["email"])
     if not current_user:
-        #CREATE A NEW USER
-        print("CREATE NEW USER")
-        random_pass = "".join(random.choices(string.ascii_letters + string.digits + string.punctuation, k=32))
+        if os.getenv("AUTH_ALLOW_REGISTRATION", "True").lower() in ["true", "yes", "y"]:
 
-        new_user = User(email=user_info["email"], password=User.generate_hash(random_pass), name=user_info["name"])
+          random_pass = "".join(random.choices(string.ascii_letters + string.digits + string.punctuation, k=32))
 
-        new_user.save_to_db()
-        user_id = User.find_by_email(user_info["email"])
-        new_verification = Verification(user_id=user_id.id, status="verified", code=None, code_valid_until=None)
-        new_verification.save_to_db()
+          new_user = User(email=user_info["email"], password=User.generate_hash(random_pass), name=user_info["name"])
 
-        access_token = create_access_token(identity=user_id.email, additional_claims={"role": user_id.role, "id": user_id.id})
-        refresh_token = create_refresh_token(identity=user_id.email)
+          new_user.save_to_db()
+          user_id = User.find_by_email(user_info["email"])
+          new_verification = Verification(user_id=user_id.id, status="verified", code=None, code_valid_until=None)
+          new_verification.save_to_db()
 
-        user_schema = UserSchema()
-        json_output = user_schema.dump(user_id)
-        json_output.update({'access_token': access_token, 'refresh_token': refresh_token})
-        return jsonify(json_output), 201
+          access_token = create_access_token(identity=user_id.email, additional_claims={"role": user_id.role, "id": user_id.id})
+          refresh_token = create_refresh_token(identity=user_id.email)
+
+          user_schema = UserSchema()
+          json_output = user_schema.dump(user_id)
+          json_output.update({'access_token': access_token, 'refresh_token': refresh_token})
+          return jsonify(json_output), 201
+        else:
+          return jsonify({
+            'message': 'Registration is disabled. Please contact an administrator to create an account.'
+          }), 403
     if current_user and current_user.status == "active":
         access_token = create_access_token(identity=user_info['email'], additional_claims={"role": current_user.role, "id": current_user.id})
         refresh_token = create_refresh_token(identity=user_info['email'])
