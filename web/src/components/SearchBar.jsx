@@ -148,7 +148,7 @@ function SearchBar(props) {
                 {loading ? (
                      loadingPlaceholder.map((i) => (
                         <div key={i}>
-                            <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4 pt-10">
                                 <div className="lg:row-span-2">
                                         <Skeleton count={1} height={100} width={"60%"} />
                                 </div>
