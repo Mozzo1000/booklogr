@@ -35,7 +35,7 @@ function ShareProfileButton({ displayName }) {
     };
 
     return (
-        <Tooltip content={copied ? t("profile.copied") : t("profile.share_profile")}>
+        <Tooltip content={copied ? t("profile.link_copied") : t("profile.share_profile")}>
             <Button pill color="light" onClick={handleShare} className="flex items-center justify-center transition-all">
                 {copied ? (
                     <RiCheckLine className="h-5 w-5 text-green-500" />
