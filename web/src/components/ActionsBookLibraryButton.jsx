@@ -13,12 +13,15 @@ import RemoveBookModal from './RemoveBookModal';
 import EditBookModal from './Library/EditBookModal';
 import { RiBallPenLine } from "react-icons/ri";
 import { useTranslation, Trans } from 'react-i18next';
+import ReadingHistoryModal from './ReadingHistoryModal';
+import { RiHistoryLine } from "react-icons/ri";
 
 function ActionsBookLibraryButton(props) {
     const [status, setStatus] = useState();
     const [openNotesModal, setOpenNotesModal] = useState();
     const [openRemoveModal, setOpenRemoveModal] = useState();
     const [openEditBookModal, setOpenEditBookModal] = useState();
+    const [openReadingHistoryModal, setOpenReadingHistoryModal] = useState(false);
 
     const toast = useToast(4000);
     const { t } = useTranslation();
@@ -59,6 +62,7 @@ function ActionsBookLibraryButton(props) {
             <DropdownDivider />
 
             <DropdownItem onClick={() => setOpenNotesModal(true)}><RiStickyNoteLine size={18} className="mr-1"/>{t("notes.title")}</DropdownItem>
+            <DropdownItem icon={RiHistoryLine} onClick={() => (setOpenReadingHistoryModal(true))}>Reading history</DropdownItem>
             <DropdownItem onClick={() => setOpenEditBookModal(true)}><RiBallPenLine size={18} className="mr-1"/>{t("actions.edit_book")}</DropdownItem>
             <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
         </Dropdown>
@@ -66,6 +70,7 @@ function ActionsBookLibraryButton(props) {
         <NotesView id={props.id} open={openNotesModal} setOpen={setOpenNotesModal} allowEditing={props.allowNoteEditing}/>
         <RemoveBookModal id={props.id} open={openRemoveModal} close={setOpenRemoveModal} onSuccess={props.onSuccess}/>
         <EditBookModal id={props.id} totalPages={props.totalPages} open={openEditBookModal} close={setOpenEditBookModal} onSuccess={props.onSuccess} author={props.author} title={props.title} isbn={props.isbn}/>
+        <ReadingHistoryModal bookID={props.id} show={openReadingHistoryModal} onClose={() => setOpenReadingHistoryModal(false)} />
         </>
     )
 }
