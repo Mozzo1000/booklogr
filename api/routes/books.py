@@ -13,6 +13,7 @@ from typing import Optional
 import requests
 from sqlalchemy import or_
 from api.extensions import cache
+from api.book_provider import BookProvider
 
 books_endpoint = Blueprint('books', __name__)
 
@@ -56,67 +57,41 @@ def search_books():
     seen_isbns = set()
 
     for b in local_db_results:
-        book_obj = SearchResult(
-            isbn=b.isbn,
-            title=b.title,
-            author=b.author,
-            in_library=True,
-        )
-        results.append(book_obj)
+        results.append(SearchResult(isbn=b.isbn, title=b.title, author=b.author, in_library=True))
         seen_isbns.add(b.isbn)
 
-    try:
-        params = {
-            "q": search_term,
-            "limit": 10,
-            "fields": "title,isbn,author_name,cover_i",
-            "lang": "en"
-        }
-        session = requests.Session()
-        session.headers.update({"User-Agent": "BookLogr (mozzo242@gmail.com)"})
+    external_data = BookProvider().search(search_term)
 
-        response = session.get("https://openlibrary.org/search.json", params=params, timeout=10)
-        response.raise_for_status()
-        ol_docs = response.json().get("docs", [])
+    for item in external_data:
+        isbn = item["isbn"]
+        if isbn in seen_isbns:
+            continue
+        
+        existing_book = Books.query.filter_by(owner_id=claim_id, isbn=isbn).first()
+        
+        if existing_book:
+            book_obj = SearchResult(
+                isbn=existing_book.isbn,
+                title=existing_book.title,
+                author=existing_book.author,
+                in_library=True
+            )
+        else:
+            book_obj = SearchResult(
+                isbn=isbn,
+                title=item["title"],
+                author=item["author"],
+                in_library=False
+            )
+        
+        results.append(book_obj)
+        seen_isbns.add(isbn)
 
-
-        for doc in ol_docs:
-            if not doc.get("isbn"):
-                continue
-            
-            isbn = doc["isbn"][0]
-
-            if isbn in seen_isbns:
-                continue
-            
-            existing_book = Books.query.filter_by(owner_id=claim_id, isbn=isbn).first()
-            
-            if existing_book:
-                book_obj = SearchResult(
-                    isbn=existing_book.isbn,
-                    title=existing_book.title,
-                    author=existing_book.author,
-                    in_library=True,
-                )
-            else:
-                book_obj = SearchResult(
-                    isbn=isbn,
-                    title=doc.get("title"),
-                    author=doc.get("author_name")[0] if doc.get("author_name") else "Unknown",
-                    in_library=False,
-                )
-            
-            results.append(book_obj)
-            seen_isbns.add(isbn)
-
-        results.sort(key=lambda x: x.in_library, reverse=True)
-        return jsonify({
-            "num_found": len(results),
-            "items": [asdict(b) for b in results]
-        }), 200
-
-    except requests.exceptions.RequestException:
-        return jsonify([asdict(b) for b in results]), 200
+    results.sort(key=lambda x: x.in_library, reverse=True)
+    return jsonify({
+        "num_found": len(results),
+        "items": [asdict(b) for b in results]
+    }), 200
 
 
 @books_endpoint.route("/v1/books/<isbn>", methods=["GET"])
@@ -150,61 +125,22 @@ def get_book(isbn):
     book = Books.query.filter(Books.owner_id==claim_id, Books.isbn==isbn).first()
     if book:
         return jsonify(BookData(isbn=book.isbn, title=book.title, author=book.author, description=book.description, in_library=True, total_pages=book.total_pages, library_data={"reading_status": book.reading_status, "current_page": book.current_page, "rating": book.rating})), 200
-    else:
-        BASE_URL = "https://openlibrary.org"
-        session = requests.Session()
-        session.headers.update({"User-Agent": "BookLogr (mozzo242@gmail.com)"})
-        
-        try:
-          response = session.get(f"{BASE_URL}/isbn/{isbn}.json", timeout=10)
-          if response.status_code == 200:
-              ol_data = response.json()
-              
-              title = ol_data.get("title")
-              total_pages = ol_data.get("number_of_pages", 0)
-              
-              # Handle description which can be a string or a dict
-              description = ol_data.get("description")
-              if isinstance(description, dict):
-                  description = description.get("value")
-              
-              # Get author name if key exists
-              author_name = None
-              if "authors" in ol_data and len(ol_data["authors"]) > 0:
-                  author_key = ol_data["authors"][0].get("key")
-                  author_res = session.get(f"{BASE_URL}{author_key}.json", timeout=5)
-                  if author_res.status_code == 200:
-                      author_name = author_res.json().get("name")
-
-              # If description is missing, try to fetch from works
-              if not description and "works" in ol_data and len(ol_data["works"]) > 0:
-                  work_key = ol_data["works"][0].get("key")
-                  work_res = session.get(f"{BASE_URL}{work_key}.json", timeout=5)
-                  if work_res.status_code == 200:
-                      work_data = work_res.json()
-                      description = work_data.get("description")
-                      if isinstance(description, dict):
-                          description = description.get("value")
-
-              return jsonify(BookData(
-                  isbn=isbn, 
-                  title=title, 
-                  author=author_name, 
-                  description=description, 
-                  in_library=False, 
-                  total_pages=total_pages
-              )), 200
-          elif response.status_code == 404:
-              return jsonify({
-                    "error": "Not found",
-                    "message": f"No book with isbn {isbn} found."
-              }), 404
-        except requests.exceptions.RequestException:
-            return jsonify({
-                "error": "Service unavailable",
-                "message": "Could not connect to OpenLibrary"
-            }), 503
-
+    
+    external_data = BookProvider.get(isbn)
+    if not external_data:
+        return jsonify({
+            "error": "Not found",
+            "message": f"No book with isbn {isbn} found."
+        }), 404
+    
+    return jsonify(BookData(
+        isbn=isbn,
+        title=external_data["title"],
+        author=external_data["author"],
+        description=external_data["description"],
+        in_library=False,
+        total_pages=external_data["total_pages"]
+    )), 200
 
 @books_endpoint.route("/v1/books/<isbn>/status", methods=["GET"])
 @auth_required()
