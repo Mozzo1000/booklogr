@@ -13,6 +13,8 @@ class Config:
     GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
     SINGLE_USER_MODE = os.environ.get("SINGLE_USER_MODE", "False")
     AUTH_REQUIRE_VERIFICATION = os.environ.get("AUTH_REQUIRE_VERIFICATION", "False")
+    DATA_PROVIDER = os.environ.get("DATA_PROVIDER", "openlibrary")
+    DATA_PROVIDER_FALLBACK = os.environ.get("DATA_PROVIDER_FALLBACK", "https://search.booklogr.app")
     
     MAIL_SERVER = os.environ.get("MAIL_SERVER", None)
     MAIL_PORT = os.environ.get("MAIL_PORT", 587)

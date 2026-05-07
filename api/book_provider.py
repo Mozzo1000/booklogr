@@ -1,10 +1,12 @@
 import os
 import requests
+from flask import current_app
+
 class BookProvider:
     def __init__(self):
         
-        self.primary_provider = os.getenv("DATA_PROVIDER", "https://search.booklogr.app").strip().lower()
-        self.fallback_provider = os.getenv("DATA_PROVIDER_FALLBACK", "openlibrary").strip().lower()
+        self.primary_provider = current_app.config.get("DATA_PROVIDER").strip().lower()
+        self.fallback_provider = current_app.config.get("DATA_PROVIDER_FALLBACK").strip().lower()
 
         # Session configuration for connection pooling
         self.session = requests.Session()
