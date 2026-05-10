@@ -163,3 +163,19 @@ networks:
     proxy:
         external: true
 ```
+## Use Nginx Proxy Manager as reverse proxy
+Based on https://raw.githubusercontent.com/Mozzo1000/booklogr/refs/heads/main/docker-compose.yml
+
+### Proxy Host
+You need to create 2 Proxy Host
+- one for the api - target the 5000 (i.e https://booklogr-api.mydomain.com)
+- one for the frontend - target 5150 (i.e https://booklogr.mydomain.com)
+
+### Update the compose.yaml
+Set the url to target the api via the Proxy Host configured previously
+```console
+BL_API_ENDPOINT=https://booklogr-api.mydomain.com
+```
+
+
+
