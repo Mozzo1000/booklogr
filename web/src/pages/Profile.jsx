@@ -22,6 +22,7 @@ import BookSkeleton from '../components/BookSkeleton';
 import ShareProfileButton from '../components/ShareProfileButton';
 import Controls from '../components/Library/Controls';
 import BookTabs from '../components/BookTabs';
+import AuthService from '../services/auth.service';
 
 const PROFILE_TABS = [
     { id: 0, status: "All", tKey: "reading_status.all", icon: RiBook2Line }, // Icon of your choice
@@ -42,6 +43,8 @@ function Profile() {
     const [view, setView] = useState(localStorage.getItem("library_view") ? localStorage.getItem("library_view") : "gallery");
 
     const [showWelcomeModal, setShowWelcomeScreen] = useState(false);
+
+    const [profilePicture, setProfilePicture] = useState(null);
 
     const toast = useToast(4000);
     let { name } = useParams();
@@ -85,6 +88,7 @@ function Profile() {
                     setData(response.data)
                     setDisplayName(response.data.display_name);
                     setProfileVisiblity(response.data.visibility)
+                    setProfilePicture(AuthService.getProfilePicture(response.data.profile_picture))
                 },
                 error => {
                     const resMessage =
@@ -108,6 +112,7 @@ function Profile() {
                 setData(response.data)
                 setDisplayName(response.data.display_name);
                 setProfileVisiblity(response.data.visibility)
+                setProfilePicture(AuthService.getProfilePicture(response.data.profile_picture))
             },
             error => {
                 const resMessage =
@@ -175,7 +180,7 @@ function Profile() {
         <div className="container mx-auto pb-20">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                    <Avatar rounded />
+                    <Avatar rounded img={profilePicture}/>
                     <div className="format lg:format-lg dark:format-invert">
                         <h1 className="mb-0">{data?.display_name}</h1>
                     </div>

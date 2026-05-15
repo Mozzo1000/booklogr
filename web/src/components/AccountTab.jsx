@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Avatar, Button, Checkbox, Label, TextInput, HelperText } from "flowbite-react";
 import { RiMailLine } from "react-icons/ri";
 import { HR } from "flowbite-react";
@@ -15,6 +15,9 @@ function AccountTab() {
     const [passwordErrorText, setPasswordErrorText] = useState();
     const [email, setEmail] = useState(AuthService.getCurrentUser().email)
     const [emailErrorText, setEmailErrorText] = useState();
+
+    const [profilePicture, setProfilePicture] = useState(AuthService.getProfilePicture(AuthService.getCurrentUser().profile_picture))
+    const fileInputRef = useRef(null)
 
     const { t } = useTranslation();
     const toast = useToast(8000);
@@ -73,6 +76,30 @@ function AccountTab() {
         )
     }
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        AuthService.uploadProfilePicture(file).then(
+            response => {
+                toast("success", response.data.message)
+                const user = AuthService.getCurrentUser();
+                user.profile_picture = response.data.profile_picture;
+                localStorage.setItem("auth_user", JSON.stringify(user));
+
+                setProfilePicture(AuthService.getProfilePicture(response.data.profile_picture));
+            },
+            error => {
+                const resMessage =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+                toast("error", resMessage);
+            }
+        )
+    }
+
 
     useEffect(() => {
         if (email !== AuthService.getCurrentUser().email) {
@@ -110,6 +137,7 @@ function AccountTab() {
         }
     }, [currentPassword, newPassword, newPasswordConf, passwordErrorText])
     
+    
     return (
         <div className="flex flex-col">
             <div className="flex flex-row justify-end">
@@ -117,9 +145,10 @@ function AccountTab() {
             </div>
 
             <div className="flex flex-row items-center justify-between">
-                <Avatar size={"lg"} rounded/>
+                <Avatar size={"lg"} rounded img={profilePicture}/>
                 <div className="flex flex-row gap-4">
-                    <Button disabled>{t("forms.upload_picture")}</Button>
+                    <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handleFileChange} />
+                    <Button onClick={() => fileInputRef.current.click()}>{t("forms.upload_picture")}</Button>
                     <Button disabled color="gray">{t("forms.remove")}</Button>
                 </div>
                 
