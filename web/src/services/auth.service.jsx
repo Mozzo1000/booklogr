@@ -124,6 +124,22 @@ const loginOIDC = (data) => {
         });
 }
 
+const uploadProfilePicture = (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    return axios.post(getAPIUrl("/v1/users/me/profile-picture"), formData, {
+        headers: {
+            ...authHeader(),
+            "Content-Type": "multipart/form-data",
+        },
+    });
+};
+
+const getProfilePicture = (filename) => {
+    return getAPIUrl("/v1/users/profile-picture/" + filename)
+}
+
 export default {
     register,
     login,
@@ -133,5 +149,7 @@ export default {
     loginGoogle,
     change_password,
     change_email,
-    loginOIDC
+    loginOIDC,
+    uploadProfilePicture,
+    getProfilePicture
 };
