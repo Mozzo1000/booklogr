@@ -31,7 +31,7 @@ class User(db.Model):
     role = db.Column(db.String, default="user")
     status = db.Column(db.String, default="active")
     verification = db.relationship("Verification", uselist=False, backref="verification")
-
+    profile_picture = db.Column(db.String, nullable=True)
 
     def save_to_db(self):
         db.session.add(self)
@@ -53,7 +53,7 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     verification = ma.Nested(VerificationSchema())
     class Meta:
         model = User
-        fields = ("id", "name", "email", "role", "status", "verification")
+        fields = ("id", "name", "email", "role", "status", "verification", "profile_picture")
 
 class RevokedTokenModel(db.Model):
     __tablename__ = 'revoked_tokens'

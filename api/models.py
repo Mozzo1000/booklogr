@@ -89,6 +89,7 @@ class Profile(db.Model):
     visibility = db.Column(db.String, default="hidden")
     owner_id = db.Column(db.Integer, unique=True)
     books = db.relationship("Books", backref='profiles')
+    profile_picture = db.Column(db.String, nullable=True)
 
     def save_to_db(self):
         db.session.add(self)
@@ -173,11 +174,12 @@ class ProfileSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Profile()
         load_instance = True
-        fields = ("id", "display_name", "visibility", "books", "num_books_read", "num_books_reading", "num_books_tbr","num_books_dnf",)
+        fields = ("id", "display_name", "visibility", "books", "num_books_read", "num_books_reading", "num_books_tbr","num_books_dnf","profile_picture",)
 
     id = ma.Integer()
     display_name = ma.String()
     visibility = ma.String()
+    profile_picture = ma.String()
     
     books = db.relationship("Books", backref='profiles')
     books = ma.List(ma.Nested(BooksPublicOnlySchema(only=("id", "author", "description", "current_page", "total_pages", "reading_status", "title", "isbn", "rating", "notes", "num_notes"))))
