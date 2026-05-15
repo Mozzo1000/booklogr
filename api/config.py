@@ -25,8 +25,12 @@ class Config:
 
     CACHE_TYPE = "SimpleCache"
     CACHE_DEFAULT_TIMEOUT = 300
-    
+
+    BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     ALLOWED_EXTENSIONS = {"csv"}
+    PROFILE_PICTURE_FOLDER=os.path.join(BASE_DIR, "profile_pictures")
+    ALLOWED_PROFILE_PICTURE_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
 
     SWAGGER = {
         "openapi": "3.0.0",
