@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - You can now track your full reading history for each book, including the ability to record multiple start and finish dates.
 - A new "Read again" option has been added to book pages, allowing you to easily start a new reading session for books you've already completed.
 - Custom data provider support, you can now configure where BookLogr fetches book information. In addition to OpenLibrary, the app now supports https://search.booklogr.app as a metadata source.
+- You can now upload a profile picture, which will be displayed on your profile and settings pages.
 
 ### Fixed
 - Resolved an issue where the mobile navigation bar was hidden on the profile page.
