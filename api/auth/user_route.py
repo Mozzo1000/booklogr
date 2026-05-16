@@ -6,6 +6,7 @@ import os
 from werkzeug.utils import secure_filename
 import uuid
 from api.models import Profile
+from api.utils import get_current_user_id
 
 user_endpoint = Blueprint('user_endpoint', __name__)
 
@@ -81,3 +82,24 @@ def serve_profile_picture(filename):
             return send_from_directory(current_app.config['PROFILE_PICTURE_FOLDER'], filename)
 
     return jsonify({"message": "Profile picture not found"}), 404
+
+
+@user_endpoint.route("/v1/users/me/profile-picture", methods=["DELETE"])
+@jwt_required()
+def remove_profile_picture():
+    claim_id = get_current_user_id()
+    user = User.query.filter(User.id==claim_id).first()
+    profile = Profile.query.filter(Profile.owner_id==claim_id).first()
+
+    if user and profile: 
+        user.profile_picture = None
+        profile.profile_picture = None
+        user.save_to_db()
+        profile.save_to_db()
+        return jsonify({'message': 'Profile picture removed successfully'}), 200
+    else:
+        return jsonify({
+                    "error": "Not found",
+                    "message": f"No user/profile found"
+        }), 404
+    

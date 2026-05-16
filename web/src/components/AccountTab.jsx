@@ -104,6 +104,28 @@ function AccountTab() {
     }
 
 
+    const handleRemovePicture = () => {
+        AuthService.removeProfilePicture().then(
+            response => {
+                toast("success", response.data.message);
+                const user = AuthService.getCurrentUser();
+                user.profile_picture = null;
+                localStorage.setItem("auth_user", JSON.stringify(user));
+                setProfilePicture(null);
+            },
+            error => {
+                const resMessage =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+                toast("error", resMessage);
+            }
+        );
+    };
+
+
     useEffect(() => {
         if (email !== AuthService.getCurrentUser().email) {
             setDisableSaveButton(false);
@@ -152,7 +174,7 @@ function AccountTab() {
                 <div className="flex flex-row gap-4">
                     <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handleFileChange} />
                     <Button onClick={() => fileInputRef.current.click()}>{t("forms.upload_picture")}</Button>
-                    <Button disabled color="gray">{t("forms.remove")}</Button>
+                    <Button disabled={!profilePicture} onClick={handleRemovePicture} color="gray">{t("forms.remove")}</Button>
                 </div>
                 
             </div>

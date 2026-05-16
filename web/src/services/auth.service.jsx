@@ -145,6 +145,10 @@ const getProfilePicture = (filename) => {
     });
 };
 
+const removeProfilePicture = () => {
+    return axios.delete(getAPIUrl("/v1/users/me/profile-picture"), { headers: authHeader() });
+};
+
 export default {
     register,
     login,
@@ -156,5 +160,6 @@ export default {
     change_email,
     loginOIDC,
     uploadProfilePicture,
-    getProfilePicture
+    getProfilePicture,
+    removeProfilePicture
 };
