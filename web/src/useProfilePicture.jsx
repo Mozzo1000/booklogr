@@ -7,6 +7,7 @@ export const useProfilePicture = (filename) => {
 
     useEffect(() => {
         if (!filename) {
+            setImgSrc(null); 
             setLoading(false);
             return;
         }
