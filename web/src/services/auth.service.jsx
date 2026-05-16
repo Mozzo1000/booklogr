@@ -137,8 +137,13 @@ const uploadProfilePicture = (file) => {
 };
 
 const getProfilePicture = (filename) => {
-    return getAPIUrl("/v1/users/profile-picture/" + filename)
-}
+    return axios.get(getAPIUrl("/v1/users/profile-picture/" + filename), {
+        responseType: 'blob',
+        headers: {
+            ...authHeader()
+        }
+    });
+};
 
 export default {
     register,

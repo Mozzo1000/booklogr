@@ -63,10 +63,21 @@ def upload_profile_picture():
 
 
 @user_endpoint.route("/v1/users/profile-picture/<filename>", methods=["GET"])
+@jwt_required(optional=True)
 def serve_profile_picture(filename):
     filename = os.path.basename(filename)
-    if filename:
+    profile = Profile.query.filter_by(profile_picture=filename).first()
+    
+    if not profile:
+        return jsonify({"message": "Profile picture not found"}), 404
+    
+    if profile.visibility != "hidden":
         return send_from_directory(current_app.config['PROFILE_PICTURE_FOLDER'], filename)
-        
-    return jsonify({"message": "No profile picture found"}), 404
 
+    current_user_email = get_jwt_identity()
+    if current_user_email:
+        current_user = User.query.filter_by(email=current_user_email).first()
+        if current_user and current_user.id == profile.owner_id:
+            return send_from_directory(current_app.config['PROFILE_PICTURE_FOLDER'], filename)
+
+    return jsonify({"message": "Profile picture not found"}), 404

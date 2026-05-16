@@ -5,6 +5,7 @@ import { HR } from "flowbite-react";
 import { useTranslation, Trans } from 'react-i18next';
 import useToast from '../toast/useToast';
 import AuthService from '../services/auth.service';
+import { useProfilePicture } from '../useProfilePicture';
 
 function AccountTab() {
     const [disableSaveButton, setDisableSaveButton] = useState(true);
@@ -16,7 +17,9 @@ function AccountTab() {
     const [email, setEmail] = useState(AuthService.getCurrentUser().email)
     const [emailErrorText, setEmailErrorText] = useState();
 
-    const [profilePicture, setProfilePicture] = useState(AuthService.getProfilePicture(AuthService.getCurrentUser().profile_picture))
+    const [profilePicture, setProfilePicture] = useState(AuthService.getCurrentUser()?.profile_picture || null);
+    const { imgSrc, loading } = useProfilePicture(profilePicture);
+
     const fileInputRef = useRef(null)
 
     const { t } = useTranslation();
@@ -86,7 +89,7 @@ function AccountTab() {
                 user.profile_picture = response.data.profile_picture;
                 localStorage.setItem("auth_user", JSON.stringify(user));
 
-                setProfilePicture(AuthService.getProfilePicture(response.data.profile_picture));
+                setProfilePicture(response.data.profile_picture)
             },
             error => {
                 const resMessage =
@@ -145,7 +148,7 @@ function AccountTab() {
             </div>
 
             <div className="flex flex-row items-center justify-between">
-                <Avatar size={"lg"} rounded img={profilePicture}/>
+                <Avatar size={"lg"} rounded img={imgSrc}/>
                 <div className="flex flex-row gap-4">
                     <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handleFileChange} />
                     <Button onClick={() => fileInputRef.current.click()}>{t("forms.upload_picture")}</Button>
