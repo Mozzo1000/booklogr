@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../services/auth.service';
-import { Button, Label, TextInput, Card } from 'flowbite-react';
+import { Button, Label, TextInput, Card, Alert } from 'flowbite-react';
 import GoogleLoginButton from '../components/GoogleLoginButton';
 import { RiMailLine } from "react-icons/ri";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { RiShieldUserLine } from "react-icons/ri";
+import { RiInformationLine } from "react-icons/ri";
+import { RiFileCopyLine } from "react-icons/ri";
+import { RiCheckLine } from 'react-icons/ri';
 import useToast from '../toast/useToast';
 import AnimatedLayout from '../AnimatedLayout';
 import { useTranslation, Trans } from 'react-i18next';
