@@ -13,7 +13,8 @@ export const SponsorTable = () => {
   const costs = [
     { item: 'Domain Registration', sek: 32 },
     { item: 'DNS hosting', sek: 12.5 },
-    { item: 'Server', sek: 50.00 },
+    { item: 'Servers (https://demo.booklogr.app and https://metadata.booklogr.app)', sek: 50.00 },
+    {item: 'Status page (https://status.booklogr.app)', sek: 1}
   ];
 
   const totalSEK = costs.reduce((sum, cost) => sum + cost.sek, 0);
