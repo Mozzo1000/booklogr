@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+
+## [1.10.0] - 2026-05-17
 ### Added
 - A new debug page accessible at `/debug` to help diagnose configuration issues. This page is only available when the `BL_DEBUG` environment variable is set to `true` and should only be used temporarily for troubleshooting.
 - Support for OpenID Connect (OIDC) login, allowing you to authenticate using external identity providers.
