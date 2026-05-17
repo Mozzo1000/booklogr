@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - A new "Read again" option has been added to book pages, allowing you to easily start a new reading session for books you've already completed.
 - Custom data provider support, you can now configure where BookLogr fetches book information. In addition to OpenLibrary, the app now supports https://metadata.booklogr.app as a metadata source.
 - You can now upload a profile picture, which will be displayed on your profile and settings pages.
+- Added support for the Hindi language.
 
 ### Fixed
 - Resolved an issue where the mobile navigation bar was hidden on the profile page.
