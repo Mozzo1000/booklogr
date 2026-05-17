@@ -120,6 +120,11 @@ const config = {
             label: 'Docs',
           },
           {
+            href: 'https://metadata.booklogr.app',
+            label: 'Metadata service',
+            position: 'right',
+          },
+          {
             href: 'https://github.com/mozzo1000/booklogr',
             label: 'GitHub',
             position: 'right',
@@ -170,6 +175,10 @@ const config = {
               {
                 label: 'GitHub',
                 href: 'https://github.com/Mozzo1000/booklogr',
+              },
+              {
+                label: 'BookLogr Metadata Service',
+                href: 'https://metadata.booklogr.app',
               },
             ],
           },
