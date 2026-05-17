@@ -126,7 +126,7 @@ def get_book(isbn):
     if book:
         return jsonify(BookData(isbn=book.isbn, title=book.title, author=book.author, description=book.description, in_library=True, total_pages=book.total_pages, library_data={"reading_status": book.reading_status, "current_page": book.current_page, "rating": book.rating})), 200
     
-    external_data = BookProvider.get(isbn)
+    external_data = BookProvider().get(isbn)
     if not external_data:
         return jsonify({
             "error": "Not found",
