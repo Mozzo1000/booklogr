@@ -19,8 +19,9 @@ function Login() {
     const { t } = useTranslation();
     const auth = useAuth();
 
-    const isManualLoginAllowed = import.meta.env.VITE_ALLOW_MANUAL_LOGIN !== "false";
-    const isRegistrationAllowed = import.meta.env.VITE_ALLOW_REGISTRATION !== "false";
+    const isManualLoginAllowed = import.meta.env.VITE_ALLOW_MANUAL_LOGIN?.trim() !== "false";
+    const isRegistrationAllowed = import.meta.env.VITE_ALLOW_REGISTRATION?.trim() !== "false";
+    
     const hasGoogle = !!import.meta.env.VITE_GOOGLE_CLIENT_ID?.trim();
     const hasOIDC = !!(import.meta.env.VITE_OIDC_AUTHORITY?.trim() && import.meta.env.VITE_OIDC_CLIENT_ID?.trim());
     const isValidGoogleID = /^[0-9]+-[a-z0-9]+\.apps\.googleusercontent\.com$/.test(import.meta.env.VITE_GOOGLE_CLIENT_ID);
