@@ -109,7 +109,7 @@ class Books(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey("profiles.owner_id"))
     created_on = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     notes = db.relationship("Notes", backref="books")
-    sessions = db.relationship("ReadingSessions", backref="books")
+    sessions = db.relationship("ReadingSessions", backref="books", cascade="all, delete-orphan")
 
     def save_to_db(self):
         db.session.add(self)
