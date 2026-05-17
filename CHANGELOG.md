@@ -5,13 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 ### Added
-- A new debug page accessible at `/debug` to help diagnose configuration issues. This page is only active when the `BL_DEBUG` environment variable is set to `true` and should only be used temporarily for troubleshooting.
+- A new debug page accessible at `/debug` to help diagnose configuration issues. This page is only available when the `BL_DEBUG` environment variable is set to `true` and should only be used temporarily for troubleshooting.
 - Support for OpenID Connect (OIDC) login, allowing you to authenticate using external identity providers.
 - A "Login with OpenID Connect" button on the login page when configured.
 - New environment variables to customize the login screen, including the ability to hide the registration button or the manual login form.
 - You can now track your full reading history for each book, including the ability to record multiple start and finish dates.
 - A new "Read again" option has been added to book pages, allowing you to easily start a new reading session for books you've already completed.
-- Custom data provider support, you can now configure where BookLogr fetches book information. In addition to OpenLibrary, the app now supports https://search.booklogr.app as a metadata source.
+- Custom data provider support, you can now configure where BookLogr fetches book information. In addition to OpenLibrary, the app now supports https://metadata.booklogr.app as a metadata source.
 - You can now upload a profile picture, which will be displayed on your profile and settings pages.
 
 ### Fixed
@@ -27,6 +27,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - The profile page layout has been refined with updated spacing for reading stats new navigation tabs.
 - Improved mobile layout on the profile page to ensure the bottom of the book list is no longer obscured by the navigation bar.
 - The "Add Book" modal now opens in fullscreen on mobile devices.
+- Removing a book now automatically removes all associated reading sessions from your history.
+- The `BL_GOOGLE_ID` environment variable no longer needs to be explicitly set to empty to disable the feature and will now default to disabled if omitted entirely.
 
 ### Removed
 - The navigation bar has been removed from public-facing pages (login, registration, and profile).
