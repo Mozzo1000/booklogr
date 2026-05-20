@@ -1,0 +1,27 @@
+name: Generate Sponsors README
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 12 */2 * *
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+
+      - name: Generate Sponsors 💖
+        uses: JamesIves/github-sponsors-readme-action@v1
+        with:
+          token: ${{ secrets.PAT }}
+
+          file: 'README.md'
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          # Typically this should be the name of the base branch, in many cases this is 'main'.
+          branch: main
+
+          # As we're deploying changes to our markdown files, this needs to be . to push the root directory back to the repository.
+          folder: '.'
