@@ -64,6 +64,10 @@ If you’d like to contribute translations:
 > You can also [read more about our monthly costs](https://booklogr.app/sponsor) on our website.
 
 
+### 🤝 Sponsors
+Huge thanks to our amazing sponsors for helping cover our infrastructure and hosting costs!
+<!-- sponsors -->
+
 ### ❤️ Contributors
 Thanks to these wonderful people for contributing their time and talent to this project!
 
