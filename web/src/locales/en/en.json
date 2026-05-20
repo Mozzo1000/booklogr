@@ -147,10 +147,10 @@
         },
         "update_reading": {
             "update_progress": "Update progress",
-            "update_reading_progress": "Update reading progresss",
+            "update_reading_progress": "Update reading progress",
             "reading_progress": "Reading progress",
             "set_as_finished": "Set as finished",
-            "how_far": "How far are you in {{book_title}} ?",
+            "how_far": "How far are you in {{book_title}}?",
             "current_page": "Current page",
             "progress": "Progress: {{percentage}}%",
             "percentage": "Percentage",
@@ -168,7 +168,7 @@
         "rating": {
             "give": "Give a rating",
             "rate_book": "Rate book",
-            "how_many_starts": "How many stars would you like to give {{book_title}} ?",
+            "how_many_starts": "How many stars would you like to give {{book_title}}?",
             "rate_this_book": "Rate this book",
             "error": {
                 "greater_than": "Rating cannot be more than 5",
@@ -180,7 +180,7 @@
             "description": "Some information for {{book_title}} is missing. Would you like to add it?",
             "total_pages_placeholder": "Enter total pages",
             "author_placeholder": "Enter author name"
-        }  
+        }
     },
 
     "editions": {
@@ -308,4 +308,4 @@
         },
         "number_of_pages_information": "The number of pages in the book you are reading."
     }
-}
+  }
