@@ -66,7 +66,7 @@ If you’d like to contribute translations:
 
 ### 🤝 Sponsors
 Huge thanks to our amazing sponsors for helping cover our infrastructure and hosting costs!
-<!-- sponsors -->
+<!-- sponsors --><!-- sponsors -->
 
 ### ❤️ Contributors
 Thanks to these wonderful people for contributing their time and talent to this project!
