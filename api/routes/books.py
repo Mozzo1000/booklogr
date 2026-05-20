@@ -14,6 +14,7 @@ import requests
 from sqlalchemy import or_
 from api.extensions import cache
 from api.book_provider import BookProvider
+from api.isbn import isbn_lookup_values
 
 books_endpoint = Blueprint('books', __name__)
 
@@ -122,7 +123,10 @@ def get_book(isbn):
         """
     
     claim_id = get_current_user_id()
-    book = Books.query.filter(Books.owner_id==claim_id, Books.isbn==isbn).first()
+    book = Books.query.filter(
+        Books.owner_id==claim_id,
+        Books.isbn.in_(isbn_lookup_values(isbn))
+    ).first()
     if book:
         return jsonify(BookData(isbn=book.isbn, title=book.title, author=book.author, description=book.description, in_library=True, total_pages=book.total_pages, library_data={"reading_status": book.reading_status, "current_page": book.current_page, "rating": book.rating})), 200
     
@@ -166,7 +170,10 @@ def get_book_reading_status(isbn):
             description: Returns error and message, no book found in any reading list.
     """
     claim_id = get_current_user_id()
-    book = Books.query.filter(Books.owner_id==claim_id, Books.isbn==isbn).first()
+    book = Books.query.filter(
+        Books.owner_id==claim_id,
+        Books.isbn.in_(isbn_lookup_values(isbn))
+    ).first()
     books_status_schema = BooksStatusSchema(many=False)
     if book:
         return jsonify(books_status_schema.dump(book))
