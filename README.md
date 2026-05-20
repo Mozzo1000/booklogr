@@ -67,6 +67,9 @@ If you’d like to contribute translations:
 ### 🤝 Sponsors
 Huge thanks to our amazing sponsors for helping cover our infrastructure and hosting costs!
 <!-- sponsors --><!-- sponsors -->
+<a href="https://github.com/KeatonMayhem" target="_blank">
+  <img src="https://github.com/KeatonMayhem.png" width="60px" height="60px" alt="KeatonMayhem" title="KeatonMayhem - First One-Time Sponsor!" style="border-radius: 50%;"/>
+</a>
 
 ### ❤️ Contributors
 Thanks to these wonderful people for contributing their time and talent to this project!
