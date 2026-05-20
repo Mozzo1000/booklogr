@@ -120,7 +120,7 @@
         "attribution": "Search powered by <link_to_info>OpenLibrary</link_to_info>",
         "error_not_found": {
             "title": "No results found",
-            "description": "Try searching for a different title or isbn."
+            "description": "Try searching for a different title or ISBN."
         },
         "error_unknown": {
             "title": "Something went wrong",
@@ -171,7 +171,7 @@
             "how_many_starts": "How many stars would you like to give {{book_title}}?",
             "rate_this_book": "Rate this book",
             "error": {
-                "greater_than": "Rating cannot be more than 5",
+                "greater_than": "Rating cannot be more than 5.",
                 "less_than": "Rating cannot be less than 0."
             }
         },
