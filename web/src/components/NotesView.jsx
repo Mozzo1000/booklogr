@@ -91,7 +91,7 @@ function NotesView({id, allowEditing, open, setOpen, overrideNotes}) {
                             {notes?.length <= 0 &&
                                 <div className="col-span-3">
                                     <div className="grid grid-cols-1 grid-rows-3 place-items-center justify-center items-center text-center">
-                                        <RiDoubleQuotesR size={96} className="dark:text-white"/>
+                                        <RiStickyNoteLine size={96} className="dark:text-white"/>
                                         <div className="format lg:format-lg dark:format-invert">
                                             <h2>{t("notes.no_notes_error.title")}</h2>
                                             <p>{t("notes.no_notes_error.description")}</p>
