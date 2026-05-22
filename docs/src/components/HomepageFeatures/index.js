@@ -35,6 +35,26 @@ const FeatureList = [
       </>
     ),
   },
+  {
+    title: 'Track reading progress',
+    Img: "/img/feature_section_04.png",
+    pos: "right",
+    description: (
+      <>
+        Update your reading progress by page number or percentage and celebrate once you finish reading a book.
+      </>
+    ),
+  },
+  {
+    title: 'Notes & Quotes',
+    Img: "/img/feature_section_05.png",
+    pos: "left",
+    description: (
+      <>
+        Capture meaningful quotes and personal thoughts as you read. Link them to specific pages and choose to keep them private or share them on your public profile.
+      </>
+    ),
+  },
 ];
 
 function Feature({Img, title, description, pos}) {
