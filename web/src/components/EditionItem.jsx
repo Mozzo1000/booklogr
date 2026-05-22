@@ -4,11 +4,15 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { Img } from 'react-image'
 import { Badge } from 'flowbite-react';
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 function EditionItem({data, selected_isbn}) {
     const theme = useThemeMode();
     const { t } = useTranslation();
+    const isbn = data.isbn_13?.[0];
+    const coverId = data.covers?.[0];
+    const fallbackCover = theme.mode === "dark" ? "/fallback-cover-light.svg" : "/fallback-cover.svg";
+    const coverClassName = "h-full w-full rounded object-contain shadow-2xl";
     
     function extractYear(dateString) {
         if (!dateString) return null; // handle null
@@ -58,17 +62,19 @@ function EditionItem({data, selected_isbn}) {
     };
 
     return (
-        <>
-        <div className="flex justify-items-center p-4">
-            <div className="w-1/3 ">
-                <Img className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/id/" + data.covers?.[0] + "-M.jpg?default=false"} 
-                    loader={<Skeleton count={1} width={200} height={200} borderRadius={0} inline={true}/>}
-                    unloader={theme.mode == "dark" && <img src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img src="/fallback-cover.svg"/>}
+        <div className="flex w-full items-start gap-4 p-4">
+        <div className="flex h-32 w-24 shrink-0 items-center justify-center">
+            {coverId ? (
+                <Img className={coverClassName} src={"https://covers.openlibrary.org/b/id/" + coverId + "-M.jpg?default=false"}
+                    loader={<Skeleton count={1} width={96} height={128} borderRadius={0} inline={true}/>}
+                    unloader={<img className={coverClassName} src={fallbackCover} alt="" />}
                 />
-            </div>
+            ) : (
+                <img className={coverClassName} src={fallbackCover} alt="" />
+            )}
         </div>
 
-        <div class="flex flex-col w-2/3 items-start">
+        <div className="flex min-w-0 flex-1 flex-col items-start">
             <p className="font-bold lead">{data.title}</p>
             <div className="flex flex-row gap-4">
                 {extractYear(data.publish_date) &&
@@ -84,16 +90,16 @@ function EditionItem({data, selected_isbn}) {
                     return (
                         <p className="text-sm">{flag}</p>
                     )
-                })}
+            })}
             </div>
             <p className="text-sm font-sans">{t("book.pages")}: {data.number_of_pages || "N/A"}</p>
-            <p className="text-sm font-sans">ISBN: {data.isbn_13[0]}</p>
-            {data.isbn_13[0] === selected_isbn &&
+            <p className="text-sm font-sans">ISBN: {isbn}</p>
+            {isbn === selected_isbn &&
                 <Badge color="success">{t("editions.current")}</Badge>
             }
 
         </div>
-    </>
+    </div>
     )
 }
 
