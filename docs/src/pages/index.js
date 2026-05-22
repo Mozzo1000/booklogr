@@ -51,7 +51,7 @@ export default function Home() {
           <div className="container text--center">
            <Link
               className="button button--primary button--lg"
-              to="/docs/Features/Adding-books">
+              to="/docs/Features/Overview">
               Explore all features
             </Link>
             </div>
