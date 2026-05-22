@@ -49,11 +49,10 @@ export default function Home() {
         <HomepageFeatures />
         <section className="hero hero--secondary" >
           <div className="container text--center">
-            <h2>And many more features</h2>
            <Link
-              className="button button--primary"
-              to="/docs/Features/Share-to-Mastodon">
-              Learn more
+              className="button button--primary button--lg"
+              to="/docs/Features/Adding-books">
+              Explore all features
             </Link>
             </div>
         </section>
