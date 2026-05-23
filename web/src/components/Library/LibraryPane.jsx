@@ -40,7 +40,7 @@ function LibraryPane() {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [view, setView] = useState(localStorage.getItem("library_view") ? localStorage.getItem("library_view") : "gallery");
-    const [sort, setSort] = useState(JSON.parse(localStorage.getItem("last_sorted")) || JSON.parse(JSON.stringify({value: "title", name: t("sort.title")})));
+    const [sort, setSort] = useState(JSON.parse(localStorage.getItem("last_sorted")) || {value: "title"});
     const [order, setOrder] = useState(localStorage.getItem("last_ordered") || "asc");
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
