@@ -52,7 +52,7 @@ function AccountTab() {
 
     const handleChangeEmail = () => {
         if (!email.trim()) {
-            toast("error", "Email cannot be empty");
+            toast("error", t("toast.email_empty"));
             return;
         }
         AuthService.change_email(email).then(

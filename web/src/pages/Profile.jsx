@@ -172,6 +172,17 @@ function Profile() {
         return visibilityMap[value] || value;
     }
 
+    function formatStatus(value) {
+        const statusMap = {
+            "Read": t("reading_status.read"),
+            "Currently reading": t("reading_status.currently_reading"),
+            "To be read": t("reading_status.to_be_read"),
+            "Did not finish": t("reading_status.did_not_finish")
+
+        };
+        return statusMap[value] || value;
+    }
+
     const changeView = (changeToView) => {
         setView(changeToView);
         localStorage.setItem("library_view", changeToView);
@@ -267,7 +278,7 @@ function Profile() {
                                         totalPages={item.total_pages} 
                                         currentPage={item.current_page} 
                                         author={item.author} 
-                                        readingStatus={item.reading_status} 
+                                        readingStatus={formatStatus(item.reading_status)} 
                                         rating={item.rating} 
                                         notes={item.num_notes} 
                                         overrideNotes={item.notes}

@@ -29,7 +29,7 @@ function Settings() {
                         <AccountTab />
                     </TabItem>
                 )}
-                <TabItem title="Interface" icon={RiSlideshowView}>
+                <TabItem title={t("settings.nav.interface")} icon={RiSlideshowView}>
                     <InterfaceTab />
                 </TabItem>
                 <TabItem title={t("settings.nav.mastodon")} icon={RiMastodonLine}>

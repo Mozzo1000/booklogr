@@ -9,7 +9,9 @@
         "to_be_read": "To be read",
         "all": "All",
         "want_to_read": "Want to read",
-        "did_not_finish": "Did not finish"
+        "did_not_finish": "Did not finish",
+        "read_again": "Read again",
+        "list": "Reading list"
     },
 
     "onboarding": {
@@ -58,12 +60,17 @@
         "cancel": "Cancel",
         "skip": "Skip",
         "or": "Or",
-        "back_to_login": "Back to Login"
+        "back_to_login": "Back to Login",
+        "isbn_required": "ISBN is required",
+        "title_required": "Title is required",
+        "placeholder_total_num_pages": "Enter a total number of pages",
+        "placeholder_description": "Enter a brief description of the book"
     },
 
     "settings": {
         "nav": {
             "account": "Account",
+            "interface": "Interface",
             "mastodon": "Mastodon",
             "data": "Data"
         },
@@ -93,11 +100,18 @@
                 "file": "File",
                 "add_duplicate_books": "Add duplicate books"
             }
+        },
+        "theme": {
+            "theme": "Theme",
+            "dark": "Dark theme",
+            "light": "Light theme",
+            "system": "System"
         }
     },
 
     "toast": {
-        "file_available_download": "Exported file is now available for download"
+        "file_available_download": "Exported file is now available for download",
+        "email_empty": "Email cannot be empty" 
     },
 
     "verification": {
@@ -134,12 +148,17 @@
         "by_author": "by {{author}}",
         "unknown_author": "unknown author",
         "no_description_found": "No description found",
+        "description": "Description",
         "pages": "Pages",
         "cover": "Cover",
+        "book_cover": "Book Cover",
+        "details": "Book details",
         "isbn": "ISBN",
         "add_to_reading": "Add {{book_title}} to currently reading",
         "share_mastodon": "Share to Mastodon",
         "total_pages": "Total pages",
+        "num_pages": "Number of pages",
+        "not_implemented": "Currently not implemented",
         "remove_confirmation": {
             "title": "Are you sure you want to remove this book?",
             "yes": "Yes, I'm sure",
@@ -186,7 +205,9 @@
     "editions": {
         "title": "Editions",
         "change": "Change edition",
-        "current": "Current Edition"
+        "current": "Current Edition",
+        "filter": "Filter by language",
+        "all_languages": "All languages"
     },
 
     "navigation": {
@@ -293,7 +314,6 @@
         "date_added": "Date added"
     },
 
-
     "help": {
         "title": "Help",
         "display_name_information": "A display name will be used on your profile page that lists all your books. A profile page can be private or public. Display name and visibility of the profile page can be changed at any time. Your display name will also be used for a link to your profile page if you have set it to public.",
@@ -307,5 +327,13 @@
             "description": "The provided Google Client ID does not follow the expected format. If you are the person who installed BookLogr on this server, check your setup and update the ID to enable sign-in."
         },
         "number_of_pages_information": "The number of pages in the book you are reading."
+    },
+
+    "reading_history": {
+        "title": "Reading history",
+        "status": "Status",
+        "start": "Start date",
+        "end": "End date"
+
     }
   }

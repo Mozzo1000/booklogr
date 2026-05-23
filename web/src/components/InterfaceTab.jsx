@@ -22,7 +22,7 @@ function InterfaceTab() {
         <div className="flex flex-col gap-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="format lg:format-lg dark:format-invert ">
-                    <h4>Theme</h4>
+                    <h4>{t("settings.theme.theme")}</h4>
                 </div>
                 <div className="col-span-2">
                     <ThemeToggle />

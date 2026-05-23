@@ -81,7 +81,7 @@ function EditBookModal(props) {
                                     loader={<Skeleton count={1} width={200} height={200} borderRadius={0} inline={true}/>}
                                     unloader={theme.mode == "dark" && <img src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img src="/fallback-cover.svg"/>}
                                 />
-                                <Tooltip content="Currently not implemented">
+                                <Tooltip content={t("book.not_implemented")}>
                                     <Button disabled>{t("actions.replace_cover")}</Button>
                                 </Tooltip>
                             </div>

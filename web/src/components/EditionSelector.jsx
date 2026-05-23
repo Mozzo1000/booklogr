@@ -60,10 +60,10 @@ function EditionSelector({work_id, selected_isbn}) {
     function LanguageSelector() {
         return (
             <div className="flex gap-2 items-center">
-                <Label className="flex" htmlFor="language">Filter by language</Label>
-                <Dropdown id="language" label={selectedLanguage ? selectedLanguage.toUpperCase() : "All languages"} outline>
+                <Label className="flex" htmlFor="language">{t("editions.filter")}</Label>
+                <Dropdown id="language" label={selectedLanguage ? selectedLanguage.toUpperCase() : t("editions.all_languages")} outline>
                     <div className="overflow-auto h-36">
-                        <DropdownItem onClick={() => setSelectedLanguage("")}>All languages</DropdownItem>
+                        <DropdownItem onClick={() => setSelectedLanguage("")}>{t("editions.all_languages")}</DropdownItem>
                         {languages.map(lang => (
                             <DropdownItem key={lang} value={lang} onClick={() => setSelectedLanguage(lang)} className={selectedLanguage == lang ? "bg-blue-600 text-white hover:text-black": ""}>
                                 {lang.toUpperCase()}

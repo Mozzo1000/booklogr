@@ -1,27 +1,29 @@
 import { useState } from 'react'
 import { useThemeMode } from "flowbite-react";
 import { RiMoonFill, RiSunLine, RiSettings3Line } from "react-icons/ri";
+import { useTranslation } from 'react-i18next';
 
 const ThemeToggle = () => {
   const {mode, setMode} = useThemeMode()
   const [theme, setTheme] = useState(mode || "light");
+  const { t } = useTranslation();
 
   const themes = [
     {
       id: "dark",
-      label: "Dark theme",
+      label: t("settings.theme.dark"),
       icon: <RiMoonFill className="w-5 h-5 dark:text-white" />,
       previewClass: "bg-[#121212] border-slate-700",
     },
     {
       id: "light",
-      label: "Light theme",
+      label: t("settings.theme.light"),
       icon: <RiSunLine className="w-5 h-5 dark:text-white" />,
       previewClass: "bg-[#FDFCF7] border-gray-200",
     },
     {
         id: "auto",
-        label: "System",
+        label: t("settings.theme.system"),
         icon: <RiSettings3Line className="w-5 h-5 dark:text-white" />,
         isSystem: true,
     },

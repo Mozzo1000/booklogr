@@ -31,14 +31,14 @@ function ReadingHistoryModal({bookID, show, onClose}) {
     return (
         <div>
             <Modal size="3xl" show={show} onClose={onClose}>
-                <ModalHeader className="border-gray-200">Reading history</ModalHeader>
+                <ModalHeader className="border-gray-200">{t("reading_history.title")}</ModalHeader>
                 <ModalBody>
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableHeadCell>Status</TableHeadCell>
-                                <TableHeadCell>Start date</TableHeadCell>
-                                <TableHeadCell>End date</TableHeadCell>
+                                <TableHeadCell>{t("reading_history.status")}</TableHeadCell>
+                                <TableHeadCell>{t("reading_history.start")}</TableHeadCell>
+                                <TableHeadCell>{t("reading_history.end")}</TableHeadCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

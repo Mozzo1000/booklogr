@@ -195,13 +195,13 @@ function AddToReadingListButton(props) {
                                 <DropdownDivider />
                                 <DropdownItem icon={RiBookmarkLine} onClick={() => handleSetReadingToBeRead() }>{t("reading_status.want_to_read")}</DropdownItem>
                                 <DropdownItem icon={RiBook2Line} onClick={() => handleSetReadingRead() }>{t("reading_status.read")}</DropdownItem>
-                                <DropdownItem icon={RiHistoryLine} onClick={() => (setOpenReadingHistoryModal(true))}>Reading history</DropdownItem>
+                                <DropdownItem icon={RiHistoryLine} onClick={() => (setOpenReadingHistoryModal(true))}>{t("reading_history.title")}</DropdownItem>
                                 <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
                             </>;
                         } else if (readingStatus === "Read") {
                             return <>
-                                <DropdownItem icon={RiBookOpenLine} onClick={() => handleSetReadingCurrentlyReading() }>Read again</DropdownItem>
-                                <DropdownItem icon={RiHistoryLine} onClick={() => (setOpenReadingHistoryModal(true))}>Reading history</DropdownItem>
+                                <DropdownItem icon={RiBookOpenLine} onClick={() => handleSetReadingCurrentlyReading() }>{t("reading_status.read_again")}</DropdownItem>
+                                <DropdownItem icon={RiHistoryLine} onClick={() => (setOpenReadingHistoryModal(true))}>{t("reading_status.reading_history")}</DropdownItem>
                                 <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
                             </>;
                         }else {

@@ -84,17 +84,17 @@ function AddBookManualModal(props) {
         <AdaptiveDialog type="modal" show={props.open} onClose={() => props.close(false)} title={t("actions.add_book")} footer={modalFooter} size="6xl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-start">
                 <Card>
-                    <h2>Book Cover</h2>
+                    <h2>{t("book.book_cover")}</h2>
                     <Img width={200} height={200} className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg?default=false"} 
                         loader={<Skeleton count={1} width={200} height={200} borderRadius={0} inline={true}/>}
                         unloader={theme.mode == "dark" && <img width={200} src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img width={200} src="/fallback-cover.svg"/>}
                     />
-                    <Tooltip content="Currently not implemented">
+                    <Tooltip content={t("book.not_implemented")}>
                         <Button disabled>{t("actions.replace_cover")}</Button>
                     </Tooltip>
                 </Card>
                 <Card>
-                    <h2>Book Details</h2>
+                    <h2>{t("book.details")}</h2>
                     <div>
                         <div className="mb-2 block">
                             <Label htmlFor="isbn">{t("book.isbn")}</Label>
@@ -102,7 +102,7 @@ function AddBookManualModal(props) {
                         <TextInput id="isbn" type="number" placeholder="9781396251634" required value={isbn} onChange={(e) => {setISBN(e.target.value); if (errors.isbn) setErrors({...errors, isbn: false});}} color={errors.isbn ? "failure" : "gray"}/>
                         {errors.isbn && (
                         <HelperText color="failure">
-                            <span className="font-medium">ISBN is required!</span>
+                            <span className="font-medium">{t("forms.isbn_required")}</span>
                         </HelperText>
                             )}
                     </div>
@@ -113,7 +113,7 @@ function AddBookManualModal(props) {
                         <TextInput id="title" type="text" required value={title} onChange={(e) => {setTitle(e.target.value); if (errors.title) setErrors({...errors, title: false});}} color={errors.title ? "failure" : "gray"}/>
                         {errors.title && (
                         <HelperText color="failure">
-                            <span className="font-medium">Title is required!</span>
+                            <span className="font-medium">{t("forms.title_required")}</span>
                         </HelperText>
                         )}
                     </div>
@@ -125,25 +125,25 @@ function AddBookManualModal(props) {
                     </div>
                     <div>
                         <div className="mb-2 block">
-                            <Label htmlFor="description">Description</Label>
+                            <Label htmlFor="description">{t("book.description")}</Label>
                         </div>
-                        <Textarea id="description" placeholder="Enter a brief description of the book" rows={4} value={description} onChange={(e) => setDescription(e.target.value)}/>
+                        <Textarea id="description" placeholder={t("forms.placeholder_description")} rows={4} value={description} onChange={(e) => setDescription(e.target.value)}/>
                     </div>
                     <div>
                         <div className="mb-2 block">
-                            <Label htmlFor="num_pages">Number of pages</Label>
+                            <Label htmlFor="num_pages">{t("book.num_pages")}</Label>
                         </div>
-                        <TextInput id="num_pages" type="number" placeholder="Enter a total number of pages" required value={totalPages} onChange={(e) => setTotalPages(e.target.value)} />
+                        <TextInput id="num_pages" type="number" placeholder={t("forms.placeholder_total_num_pages")} required value={totalPages} onChange={(e) => setTotalPages(e.target.value)} />
                     </div>
                     <div>
                         <div className="mb-2 block">
-                            <Label htmlFor="list">Reading list</Label>
+                            <Label htmlFor="list">{t("reading_status.list")}</Label>
                         </div>
                         <Select id="list" require value={readingList} onChange={(e) => setReadingList(e.target.value)}>
-                            <option value="To be read">To be read</option>
-                            <option value="Currently reading">Currently reading</option>
-                            <option value="Read">Read</option>
-                            <option value="Did not finish">Did not finish</option>
+                            <option value="To be read">{t("reading_status.want_to_read")}</option>
+                            <option value="Currently reading">{t("reading_status.currently_reading")}</option>
+                            <option value="Read">{t("reading_status.read")}</option>
+                            <option value="Did not finish">{t("reading_status.did_not_finish")}</option>
                         </Select>
                     </div>
                 </Card>
