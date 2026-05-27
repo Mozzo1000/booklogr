@@ -1,4 +1,3 @@
 files:
   - source: /web/src/locales/en-GB/en-GB.json
     translation: /web/src/locales/%locale%/%locale%.json
-
