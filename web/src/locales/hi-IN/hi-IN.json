@@ -1,7 +1,5 @@
 {
-
     "library": "मेरा पुस्तकालय",
-
     "reading_status": {
         "title": "पुस्तक की स्थिति",
         "read": "पढ़ा गया है",
@@ -9,9 +7,10 @@
         "to_be_read": "पढ़ने वाला हूँ",
         "all": "सब",
         "want_to_read": "पढ़ना चाहता हूँ",
-        "did_not_finish": "ख़त्म नहीं किया"
+        "did_not_finish": "ख़त्म नहीं किया",
+        "read_again": "Read again",
+        "list": "Reading list"
     },
-
     "onboarding": {
         "step_0": {
             "title": "नमस्ते 🎉",
@@ -22,7 +21,6 @@
             "description": "आप अपनी पसंदीदा किताबों को अपनी सूचियों में सम्मिलित करके आरंभ कर सकते हैं। यह बहुत आसान है।"
         }
     },
-
     "forms": {
         "next": "अगला",
         "previous": "पिछला",
@@ -58,12 +56,16 @@
         "cancel": "निरस्त करें",
         "skip": "इसे छोड़ें और अगले पर जाएं",
         "or": "या",
-        "back_to_login": "वापस लॉगिन पर जाएं"
+        "back_to_login": "वापस लॉगिन पर जाएं",
+        "isbn_required": "ISBN is required",
+        "title_required": "Title is required",
+        "placeholder_total_num_pages": "Enter a total number of pages",
+        "placeholder_description": "Enter a brief description of the book"
     },
-
     "settings": {
         "nav": {
             "account": "खाता",
+            "interface": "Interface",
             "mastodon": "मॉस्टोडॉन",
             "data": "डेटा"
         },
@@ -93,20 +95,24 @@
                 "file": "फ़ाइल",
                 "add_duplicate_books": "डुप्लिकेट पुस्तकें जोड़ें"
             }
+        },
+        "theme": {
+            "theme": "Theme",
+            "dark": "Dark theme",
+            "light": "Light theme",
+            "system": "System"
         }
     },
-
     "toast": {
-        "file_available_download": "निर्यात की गई फ़ाइल अब डाउनलोड के लिए उपलब्ध है।"
+        "file_available_download": "निर्यात की गई फ़ाइल अब डाउनलोड के लिए उपलब्ध है।",
+        "email_empty": "Email cannot be empty"
     },
-
     "verification": {
         "title": "अपने खाते को सत्यापित करें",
         "verification_code_sent": "आपके ईमेल {{email_hidden}} पर एक सत्यापन कोड भेजा गया है।",
         "verification_code": "सत्यापन कोड",
         "verify_button": "सत्यापित करें"
     },
-
     "demo": {
         "title": "यह बुकलॉगर (BookLogr) का एक डेमो है।",
         "description": "कुछ सुविधाएं निष्क्रिय हैं।",
@@ -114,7 +120,6 @@
         "email": "ईमेल: {{email}}",
         "password": "पासवर्ड: {{password}}"
     },
-
     "search": {
         "input_placeholder": "पुस्तके ढूंढ लो",
         "attribution": "<link_to_info>ओपनलाइब्रेरी</link_to_info> द्वारा संचालित खोज",
@@ -129,17 +134,21 @@
         "in_library": "आपकी पुस्तकालय में",
         "results": "खोज के परिणाम"
     },
-
     "book": {
         "by_author": "{{author}} द्वारा",
         "unknown_author": "अज्ञात लेखक",
         "no_description_found": "कोई विवरण नहीं मिला",
+        "description": "Description",
         "pages": "पृष्ठ",
         "cover": "मुखपृष्ठ",
+        "book_cover": "Book Cover",
+        "details": "Book details",
         "isbn": "आयएसबीेएन (ISBN)",
         "add_to_reading": "अभी पढ़ने में {{book_title}} को जोड़ें",
         "share_mastodon": "मॉस्टोडॉन के साथ साझा करें",
         "total_pages": "कुल पृष्ठ",
+        "num_pages": "Number of pages",
+        "not_implemented": "Currently not implemented",
         "remove_confirmation": {
             "title": "क्या आप वाकई इस पुस्तक को हटाना चाहते हैं?",
             "yes": "हाँ, मुझे यकीन है।",
@@ -180,15 +189,15 @@
             "description": "{{book_title}} के लिए कुछ जानकारी अधूरी है। क्या आप इसे जोड़ना चाहेंगे?",
             "total_pages_placeholder": "कुल पृष्ठ दर्ज करें",
             "author_placeholder": "लेखक का नाम दर्ज करें"
-        }  
+        }
     },
-
     "editions": {
         "title": "संस्करण",
         "change": "संस्करण बदलें",
-        "current": "वर्तमान संस्करण"
+        "current": "वर्तमान संस्करण",
+        "filter": "Filter by language",
+        "all_languages": "All languages"
     },
-
     "navigation": {
         "search": "खोज",
         "profile": "प्रोफ़ाइल",
@@ -200,7 +209,6 @@
         "home": "मुखपृष्ठ",
         "go_home": "मुखपृष्ठ पर जाएं"
     },
-
     "profile": {
         "not_found_error": {
             "title": "कोई प्रोफ़ाइल नहीं मिली",
@@ -222,13 +230,11 @@
         "share_title": "{{name}} के पुस्तकालय",
         "share_text": "मैं अपनी पढ़ने की प्रगति पर नज़र रख रहा हूँ। देखो मैं क्या-क्या पढ़ रहा हूँ!"
     },
-
     "actions": {
         "edit_book": "पुस्तक संपादित करें",
         "replace_cover": "मुखपृष्ठ बदलें",
         "add_book": "पुस्तक जोड़ें"
     },
-
     "notes": {
         "title": "नोट्स एवं उद्धरण",
         "open": "नोट्स खोलें",
@@ -261,14 +267,12 @@
             "no": "नहीं, निरस्त करें"
         }
     },
-
     "update": {
         "version": "संस्करण",
         "new_version": "नया संस्करण {{version}} उपलब्ध है! 🎉",
         "release_notes": "रिलीस नोट्स",
         "go_to_release": "रिलीस पेज पर जाएं"
     },
-
     "language": {
         "language": "भाषा",
         "region": "क्षेत्र",
@@ -282,7 +286,6 @@
         "timezone_updated_toast": "समयक्षेत्र अद्यतन किया गया",
         "time_format_updated_toast": "समय प्रारूप अद्यतन की गई"
     },
-
     "sort": {
         "sort_by": "{{sortType}} के अनुसार क्रमबद्ध करें",
         "order_by": "किस्के अनुसार व्यवस्था करना चाहते हो",
@@ -292,8 +295,6 @@
         "rating": "रेटिंग",
         "date_added": "जोड़ने का दिनांक"
     },
-
-
     "help": {
         "title": "सहायता",
         "display_name_information": "आपकी प्रोफाइल पेज पर एक डिस्प्ले नाम का उपयोग किया जाएगा जिसमें आपकी सभी पुस्तकों की सूची होगी। प्रोफाइल पृष्ठ असार्वजनिक या सार्वजनिक हो सकता है। प्रोफ़ाइल पृष्ठ का डिस्प्ले नाम और दृश्यता किसी भी समय बदली जा सकती है। यदि आपने अपना नाम सार्वजनिक किया है, तो आपके डिस्प्ले नाम का उपयोग आपकी प्रोफ़ाइल पृष्ठ के लिंक के लिए भी किया जाएगा।",
@@ -302,10 +303,16 @@
             "title": "कोई पुस्तक नहीं मिली",
             "description": "इस सूची में कोई पुस्तकें नहीं दिख रही हैं। पुस्तक ढूंढने और उसे अपनी सूची में जोड़ने के लिए खोजने का फ़ंक्शन का उपयोग करें।"
         },
-        "google_client_id_error":{
-            "title":"गूगल साइन-इन अक्षम",
+        "google_client_id_error": {
+            "title": "गूगल साइन-इन अक्षम",
             "description": "प्रदान की गई गूगल क्लाइंट आईडी अपेक्षित प्रारूप का पालन नहीं करती है। यदि आपने इस सर्वर पर बुकलॉगर (BookLogr) इंस्टॉल किया है, तो अपना सेटअप जांचें और साइन-इन सक्षम करने के लिए आईडी अपडेट करें।"
         },
         "number_of_pages_information": "आप जिस पुस्तक को पढ़ रहे हैं, उसमें पृष्ठों की संख्या।"
+    },
+    "reading_history": {
+        "title": "Reading history",
+        "status": "Status",
+        "start": "Start date",
+        "end": "End date"
     }
 }
