@@ -1,16 +1,16 @@
 {
-
     "library": "Mitt bibliotek",
-
     "reading_status": {
         "title": "Reading status",
         "read": "Läst",
         "currently_reading": "Läser just nu",
         "to_be_read": "Att läsa",
         "all": "Alla",
-        "want_to_read": "Vill läsa"
+        "want_to_read": "Vill läsa",
+        "did_not_finish": "Did not finish",
+        "read_again": "Read again",
+        "list": "Reading list"
     },
-
     "onboarding": {
         "step_0": {
             "title": "Välkommen! 🎉",
@@ -21,7 +21,6 @@
             "description": "Why don't you start by adding some of your favorites books to your lists? It's super simple!"
         }
     },
-
     "forms": {
         "next": "Nästa",
         "previous": "Föregående",
@@ -46,6 +45,7 @@
         "register_title": "Registrera ett konto",
         "register_button": "Registrera ett nytt konto",
         "google_sign_in": "Logga in med Google",
+        "oidc_sign_in": "Sign in with OpenID Connect",
         "login_title": "Logga in på ditt konto",
         "password_no_match": "Lösenorden matchar inte",
         "change_password": "Ändra lösenord",
@@ -53,12 +53,19 @@
         "new_password": "Nytt lösenord",
         "new_password_confirm": "Bekräfta nytt lösenord",
         "download": "Ladda ner",
-        "cancel": "Avbryt"
+        "cancel": "Avbryt",
+        "skip": "Skip",
+        "or": "Or",
+        "back_to_login": "Back to Login",
+        "isbn_required": "ISBN is required",
+        "title_required": "Title is required",
+        "placeholder_total_num_pages": "Enter a total number of pages",
+        "placeholder_description": "Enter a brief description of the book"
     },
-
     "settings": {
         "nav": {
             "account": "Konto",
+            "interface": "Interface",
             "mastodon": "Mastodon",
             "data": "Data"
         },
@@ -88,20 +95,24 @@
                 "file": "Fil",
                 "add_duplicate_books": "Lägg till dubbletter av böcker"
             }
+        },
+        "theme": {
+            "theme": "Theme",
+            "dark": "Dark theme",
+            "light": "Light theme",
+            "system": "System"
         }
     },
-
     "toast": {
-        "file_available_download": "Den exporterade filen är nu tillgänglig för nedladdning"
+        "file_available_download": "Den exporterade filen är nu tillgänglig för nedladdning",
+        "email_empty": "Email cannot be empty"
     },
-
     "verification": {
         "title": "Verifiera ditt konto",
         "verification_code_sent": "En verifieringskod har skickats till {{email_hidden}}",
         "verification_code": "Verifieringskod",
         "verify_button": "Verifiera"
     },
-
     "demo": {
         "title": "Detta är en demo av BookLogr",
         "description": "Vissa funktioner är inaktiverade.",
@@ -109,7 +120,6 @@
         "email": "E-post: {{email}}",
         "password": "Lösenord: {{password}}"
     },
-
     "search": {
         "input_placeholder": "Sök efter en bok",
         "attribution": "Sökning utförs med hjälp av <link_to_info>OpenLibrary</link_to_info>",
@@ -120,16 +130,25 @@
         "error_unknown": {
             "title": "Något gick fel",
             "description": "Försök igen senare. {{error}}"
-        }
+        },
+        "in_library": "In your library",
+        "results": "Search results"
     },
-
     "book": {
         "by_author": "av {{author}}",
+        "unknown_author": "unknown author",
         "no_description_found": "Ingen beskrivning hittad",
+        "description": "Description",
         "pages": "Sidor",
+        "cover": "Cover",
+        "book_cover": "Book Cover",
+        "details": "Book details",
+        "isbn": "ISBN",
         "add_to_reading": "Lägg till {{book_title}} to currently reading",
         "share_mastodon": "Dela till Mastodon",
         "total_pages": "Totalt antal sidor",
+        "num_pages": "Number of pages",
+        "not_implemented": "Currently not implemented",
         "remove_confirmation": {
             "title": "Är du säker på att du vill ta bort den här boken?",
             "yes": "Ja, jag är säker",
@@ -164,16 +183,21 @@
                 "greater_than": "Betyget får inte vara högre än 5.",
                 "less_than": "Betyget får inte vara mindre än 0."
             }
+        },
+        "missing_info": {
+            "title": "Missing information",
+            "description": "Some information for {{book_title}} is missing. Would you like to add it?",
+            "total_pages_placeholder": "Enter total pages",
+            "author_placeholder": "Enter author name"
         }
-        
     },
-
     "editions": {
         "title": "Editions",
         "change": "Change edition",
-        "current": "Current Edition"
+        "current": "Current Edition",
+        "filter": "Filter by language",
+        "all_languages": "All languages"
     },
-
     "navigation": {
         "search": "Sök",
         "profile": "Profil",
@@ -185,7 +209,6 @@
         "home": "Hem",
         "go_home": "Gå hem"
     },
-
     "profile": {
         "not_found_error": {
             "title": "No profile found",
@@ -194,18 +217,24 @@
         "stats": {
             "read": "Read",
             "reading": "Reading",
-            "to_be_read": "To Be Read"
+            "to_be_read": "To Be Read",
+            "did_not_finish": "Did Not Finish"
         },
         "update_profile": "Update profile",
         "all_books": "All books",
-        "profile_settings": "Profile settings"
-
+        "profile_settings": "Profile settings",
+        "share": "Share",
+        "share_profile": "Share profile",
+        "copy_link": "Copy link",
+        "link_copied": "Link copied to clipboard",
+        "share_title": "{{name}}'s Library",
+        "share_text": "I'm tracking my reading progress. Take a look at what I've been reading!"
     },
-
     "actions": {
-        "edit_book": "Edit book"
+        "edit_book": "Edit book",
+        "replace_cover": "Replace cover",
+        "add_book": "Add book"
     },
-
     "notes": {
         "title": "Anteckningar & citat",
         "open": "Öppna anteckningar",
@@ -238,14 +267,12 @@
             "no": "No, cancel"
         }
     },
-
     "update": {
         "version": "Version",
         "new_version": "Ny version {{version}} tillgänglig! 🎉",
         "release_notes": "Release Notes",
         "go_to_release": "Go to release page"
     },
-
     "language": {
         "language": "Språk",
         "region": "Region",
@@ -259,7 +286,6 @@
         "timezone_updated_toast": "Tidszon uppdaterad.",
         "time_format_updated_toast": "Tidsformat uppdaterad."
     },
-
     "sort": {
         "sort_by": "Sortera efter {{sortType}}",
         "order_by": "Order by",
@@ -269,8 +295,6 @@
         "rating": "Betyg",
         "date_added": "Datum tillagt"
     },
-
-
     "help": {
         "title": "Hjälp",
         "display_name_information": "A display name will be used on your profile page that lists all your books. A profile page can be private or public. Display name and visibility of the profile page can be changed at any time. Your display name will also be used for a link to your profile page if you have set it to public.",
@@ -279,10 +303,16 @@
             "title": "Inga böcker hittades",
             "description": "Det verkar inte finnas några böcker i den här listan. Använd sökfunktionen för att hitta en bok och lägga till den i din lista."
         },
-        "google_client_id_error":{
-            "title":"Google Sign-In Disabled",
+        "google_client_id_error": {
+            "title": "Google Sign-In Disabled",
             "description": "The provided Google Client ID does not follow the expected format. If you are the person who installed BookLogr on this server, check your setup and update the ID to enable sign-in."
         },
         "number_of_pages_information": "Antalet sidor i boken du läser"
+    },
+    "reading_history": {
+        "title": "Reading history",
+        "status": "Status",
+        "start": "Start date",
+        "end": "End date"
     }
 }
