@@ -51,7 +51,7 @@ function App() {
     const setDir = () => {
       document.documentElement.setAttribute(
         "dir",
-        i18n.language === "ar" ? "rtl" : "ltr"
+        i18n.language?.startsWith("ar") ? "rtl" : "ltr"
       );
     };
 

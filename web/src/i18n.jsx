@@ -1,38 +1,37 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
-import en from "./locales/en/en.json";
-import sv from "./locales/sv/sv.json";
-import ar from "./locales/ar/ar.json";
-import cn from "./locales/zh-CN/zh-CN.json";
-import de from "./locales/de/de.json";
-import hi from "./locales/hi/hi.json";
+import arSA from "./locales/ar-SA/ar-SA.json";
+import deDE from "./locales/de-DE/de-DE.json";
+import enGB from "./locales/en-GB/en-GB.json";
+import hiIN from "./locales/hi-IN/hi-IN.json";
+import svSE from "./locales/sv-SE/sv-SE.json";
+import zhCN from "./locales/zh-CN/zh-CN.json";
 
 const resources = {
-  en: {
-    translation: en,
+  "ar-SA": {
+    translation: arSA,
   },
-  ar: {
-    translation: ar,
+  "de-DE": {
+    translation: deDE,
   },
-  cn: {
-    translation: cn,
+  "en-GB": {
+    translation: enGB,
   },
-  de: {
-    translation: de,
+  "hi-IN": {
+    translation: hiIN,
   },
-  sv: {
-    translation: sv,
+  "sv-SE": {
+    translation: svSE,
   },
-  hi: {
-    translation: hi,
+  "zh-CN": {
+    translation: zhCN,
   },
 };
 
 i18n.use(LanguageDetector).use(initReactI18next).init({
   resources,
-  fallbackLng: "en",
-  debug: true,
+  fallbackLng: "en-GB",
 });
 
 export default i18n;

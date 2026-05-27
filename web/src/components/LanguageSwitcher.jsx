@@ -4,12 +4,12 @@ import { useTranslation } from "react-i18next";
 function LanguageSwitcher({ fullSize }) {
   const { i18n } = useTranslation();
   const languages = [
-    { code: "en", label: "English", flag: "🇬🇧" },
-    { code: "sv", label: "Svenska", flag: "🇸🇪" },
-    { code: "ar", label: "عربي", flag: "🇸🇦" },
-    { code: "cn", label: "中文", flag: "🇨🇳" },
-    { code: "de", label: "Deutsch", flag: "🇩🇪" },
-    { code: "hi", label: "हिंदी", flag: "🇮🇳" },
+    { code: "en-GB", label: "English", flag: "🇬🇧" },
+    { code: "sv-SE", label: "Svenska", flag: "🇸🇪" },
+    { code: "ar-SA", label: "عربي", flag: "🇸🇦" },
+    { code: "zh-CN", label: "中文", flag: "🇨🇳" },
+    { code: "de-DE", label: "Deutsch", flag: "🇩🇪" },
+    { code: "hi-IN", label: "हिंदी", flag: "🇮🇳" },
   ];
 
 const currentLang = languages.find((lang) => lang.code === i18n.language) || languages[0];
