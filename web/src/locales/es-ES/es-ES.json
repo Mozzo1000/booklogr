@@ -17,8 +17,8 @@
             "description": "¡Estamos muy contentos de tenerte aquí! Para empezar a llevar un registro de todos los libros que estás leyendo, primero tienes que elegir un nombre para mostrar."
         },
         "step_1": {
-          "title": "¡Ya está todo listo!",
-          "description": "¿Por qué no empiezas añadiendo algunos de tus libros favoritos a tus listas? ¡Es muy fácil!"
+            "title": "¡Ya está todo listo!",
+            "description": "¿Por qué no empiezas añadiendo algunos de tus libros favoritos a tus listas? ¡Es muy fácil!"
         }
     },
     "forms": {
@@ -300,12 +300,12 @@
         "display_name_information": "El nombre para mostrar se utilizará tu página de perfil, donde aparecerán todos tus libros. La página de perfil puede ser privada o pública. El nombre para mostrar y la visibilidad de la página de perfil pueden cambiarse en cualquier momento. Tu nombre para mostrar también se utilizará para el enlace a tu página de perfil si la has configurado como pública.",
         "display_name_change_information": "Si cambias tu nombre para mostrar, también cambiará el enlace para acceder a tu perfil público.",
         "no_books_found": {
-          "title": "No se han encontrado libros",
-          "description": "Parece que no hay libros en esta lista. Utiliza la función de búsqueda para encontrar un libro y añadirlo a tu lista."
+            "title": "No se han encontrado libros",
+            "description": "Parece que no hay libros en esta lista. Utiliza la función de búsqueda para encontrar un libro y añadirlo a tu lista."
         },
         "google_client_id_error": {
-          "title":"Inicio de sesión con Google desactivado",
-          "description": "El ID de cliente de Google proporcionado no tiene el formato esperado. Si eres la persona que instaló BookLogr en este servidor, revisa la configuración y actualiza el ID para habilitar el inicio de sesión."
+            "title": "Inicio de sesión con Google desactivado",
+            "description": "El ID de cliente de Google proporcionado no tiene el formato esperado. Si eres la persona que instaló BookLogr en este servidor, revisa la configuración y actualiza el ID para habilitar el inicio de sesión."
         },
         "number_of_pages_information": "El número de páginas del libro que estás leyendo."
     },
