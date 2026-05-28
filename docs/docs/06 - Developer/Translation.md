@@ -1,11 +1,20 @@
 # Translating BookLogr
 
-BookLogr supports localization through simple translation files. Each language has its own file stored in the project directory. This guide walks you through the steps to translate BookLogr into your preferred language.
+BookLogr supports localization to make the application accessible to everyone. We use Crowdin to manage our translations collaboratively, which is our preferred method for contributions. However, we also still support manual translation edits directly in the source repository.
 
 ---
 
 ## How to Translate
-Language files are located in `web/src/locales`. Each language has its own subfolder named after its respective language code (e.g., `en` for English, `sv` for Swedish). Inside, you’ll find a `.json` file containing the translation keys and values.
+
+### Using Crowdin
+1. The easiest way to contribute translations is through our Crowdin project. You don't need to touch any code or use Git.
+2. Visit the [BookLogr Crowdin Project](https://crowdin.com/project/booklogr).
+3. Create a free account or log in.
+4. Select the language you want to translate.
+5. Start translating strings!
+
+### Manual Translation
+If you prefer to manage translations locally via Git, language files are located in `web/src/locales`. Each language has its own subfolder named after its respective language code (e.g., `en` for English, `sv` for Swedish). Inside, you’ll find a `.json` file containing the translation keys and values.
 
 1. **Locate the Language File**
    - Navigate to `web/src/locales/<language_code>/<language_code>.json`
@@ -48,7 +57,7 @@ To finish your translation contribution, the last thing you should do is commit 
 This guide walks developers through the process of adding a new language to the BookLogr project.
 
 :::tip
-If you are a translator and would like to contribute a new language to the project, reach out by opening an [issue](https://github.com/Mozzo1000/booklogr) and requesting a new language to be added.
+If you are a translator and a language you want to work on is missing, the best way to get it added is to open an [issue](https://github.com/Mozzo1000/booklogr) requesting the new language so we can enable it on Crowdin.
 :::
 
 :::warning
