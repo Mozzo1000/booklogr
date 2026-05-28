@@ -7,6 +7,7 @@ import enGB from "./locales/en-GB/en-GB.json";
 import hiIN from "./locales/hi-IN/hi-IN.json";
 import svSE from "./locales/sv-SE/sv-SE.json";
 import zhCN from "./locales/zh-CN/zh-CN.json";
+import frFR from "./locales/fr-FR/fr-FR.json";
 
 const resources = {
   "ar-SA": {
@@ -26,6 +27,9 @@ const resources = {
   },
   "zh-CN": {
     translation: zhCN,
+  },
+  "fr-FR": {
+    translation: frFR,
   },
 };
 
