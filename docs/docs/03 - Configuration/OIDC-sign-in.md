@@ -87,6 +87,45 @@ Ensure the `APP_URL` in your Pocket ID environment variables matches the domain 
 
 </details>
 
+
+<details>
+   <summary>Authelia Example</summary>
+
+   ### Authelia Setup
+   :::warning
+   This is a community provided setup for using Authelia with BookLogr. This is not officially supported.  
+   See [issue #110](https://github.com/Mozzo1000/booklogr/issues/110) for more information.
+   :::
+
+   ```yaml
+   cors:
+      endpoints:
+      - 'authorization'
+      - 'token'
+      - 'userinfo'
+      allowed_origins:
+      - 'https://books.domain.com'
+   clients:
+      - client_id: 'booklogr'
+         client_name: 'Booklogr'
+         client_secret: '$pbkdf2-sha512$i=600000$...your_encrypted_hash_here...'
+         public: false
+         authorization_policy: 'one_factor'
+         redirect_uris:
+            - 'https://books.domain.com/callback'
+         scopes:
+            - 'openid'
+            - 'profile'
+            - 'email'
+         response_types:
+            - 'code'
+         grant_types:
+            - 'authorization_code'
+         token_endpoint_auth_method: 'client_secret_post'
+   ```
+</details>
+
+
 ---
 
 # Configure Environment Variables
