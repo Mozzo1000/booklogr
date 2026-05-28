@@ -60,7 +60,8 @@ All contributions, from bug reports to feature requests and code submissions are
 
 We use Crowdin to manage our localization efforts. This is our preferred way to receive translation contributions, as it requires no coding knowledge.
 
-* Join our [Crowdin Project](https://crowdin.com/project/booklogr) to start translating right away.
+* **Standard Translation:**: Join our [Crowdin Project](https://crowdin.com/project/booklogr) to start translating right away.
+* * **In-Context Translation:** Translate strings directly inside the live application user interface at [https://translate-live.booklogr.app](https://translate-live.booklogr.app).
 * For advanced or manual translation workflows (via pull requests), please check out our [Translation Guide](https://booklogr.app/docs/Developer/Translation).
 
 
