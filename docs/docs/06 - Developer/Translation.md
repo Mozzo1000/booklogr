@@ -7,11 +7,9 @@ BookLogr supports localization to make the application accessible to everyone. W
 ## How to Translate
 
 ### Using Crowdin
-1. The easiest way to contribute translations is through our Crowdin project. You don't need to touch any code or use Git.
-2. Visit the [BookLogr Crowdin Project](https://crowdin.com/project/booklogr).
-3. Create a free account or log in.
-4. Select the language you want to translate.
-5. Start translating strings!
+The easiest way to contribute translations is through our Crowdin project. You don't need to touch any code or use Git.
+* Standard Translation: Visit the [BookLogr Crowdin Project](https://crowdin.com/project/booklogr), select your target language, and start translating strings directly.
+* In-Context Translation (Live Preview): You can also translate strings directly inside the running application interface by visiting [https://translate-live.booklogr.app](https://translate-live.booklogr.app). This allows you to see exactly where and how your translations will appear in context.
 
 ### Manual Translation
 If you prefer to manage translations locally via Git, language files are located in `web/src/locales`. Each language has its own subfolder named after its respective language code (e.g., `en` for English, `sv` for Swedish). Inside, you’ll find a `.json` file containing the translation keys and values.
