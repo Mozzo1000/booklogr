@@ -1,0 +1,318 @@
+{
+    "library": "crwdns1357:0crwdne1357:0",
+    "reading_status": {
+        "title": "crwdns1359:0crwdne1359:0",
+        "read": "crwdns1361:0crwdne1361:0",
+        "currently_reading": "crwdns1363:0crwdne1363:0",
+        "to_be_read": "crwdns1365:0crwdne1365:0",
+        "all": "crwdns1367:0crwdne1367:0",
+        "want_to_read": "crwdns1369:0crwdne1369:0",
+        "did_not_finish": "crwdns1371:0crwdne1371:0",
+        "read_again": "crwdns1373:0crwdne1373:0",
+        "list": "crwdns1375:0crwdne1375:0"
+    },
+    "onboarding": {
+        "step_0": {
+            "title": "crwdns1377:0crwdne1377:0",
+            "description": "crwdns1379:0crwdne1379:0"
+        },
+        "step_1": {
+            "title": "crwdns1381:0crwdne1381:0",
+            "description": "crwdns1383:0crwdne1383:0"
+        }
+    },
+    "forms": {
+        "next": "crwdns1385:0crwdne1385:0",
+        "previous": "crwdns1387:0crwdne1387:0",
+        "close": "crwdns1389:0crwdne1389:0",
+        "update": "crwdns1391:0crwdne1391:0",
+        "save": "crwdns1393:0crwdne1393:0",
+        "upload_picture": "crwdns1395:0crwdne1395:0",
+        "upload": "crwdns1397:0crwdne1397:0",
+        "uploading": "crwdns1399:0crwdne1399:0",
+        "remove": "crwdns1401:0crwdne1401:0",
+        "display_name": "crwdns1403:0crwdne1403:0",
+        "visibility_label": "crwdns1405:0crwdne1405:0",
+        "visibility_hidden": "crwdns1407:0crwdne1407:0",
+        "visibility_public": "crwdns1409:0crwdne1409:0",
+        "email": "crwdns1411:0crwdne1411:0",
+        "email_placeholder": "crwdns1413:0crwdne1413:0",
+        "password": "crwdns1415:0crwdne1415:0",
+        "confirm_password": "crwdns1417:0crwdne1417:0",
+        "name": "crwdns1419:0crwdne1419:0",
+        "login": "crwdns1421:0crwdne1421:0",
+        "register": "crwdns1423:0crwdne1423:0",
+        "register_title": "crwdns1425:0crwdne1425:0",
+        "register_button": "crwdns1427:0crwdne1427:0",
+        "google_sign_in": "crwdns1429:0crwdne1429:0",
+        "oidc_sign_in": "crwdns1431:0crwdne1431:0",
+        "login_title": "crwdns1433:0crwdne1433:0",
+        "password_no_match": "crwdns1435:0crwdne1435:0",
+        "change_password": "crwdns1437:0crwdne1437:0",
+        "old_password": "crwdns1439:0crwdne1439:0",
+        "new_password": "crwdns1441:0crwdne1441:0",
+        "new_password_confirm": "crwdns1443:0crwdne1443:0",
+        "download": "crwdns1445:0crwdne1445:0",
+        "cancel": "crwdns1447:0crwdne1447:0",
+        "skip": "crwdns1449:0crwdne1449:0",
+        "or": "crwdns1451:0crwdne1451:0",
+        "back_to_login": "crwdns1453:0crwdne1453:0",
+        "isbn_required": "crwdns1455:0crwdne1455:0",
+        "title_required": "crwdns1457:0crwdne1457:0",
+        "placeholder_total_num_pages": "crwdns1459:0crwdne1459:0",
+        "placeholder_description": "crwdns1461:0crwdne1461:0"
+    },
+    "settings": {
+        "nav": {
+            "account": "crwdns1463:0crwdne1463:0",
+            "interface": "crwdns1465:0crwdne1465:0",
+            "mastodon": "crwdns1467:0crwdne1467:0",
+            "data": "crwdns1469:0crwdne1469:0"
+        },
+        "mastodon": {
+            "share_events": "crwdns1471:0crwdne1471:0",
+            "enable_sharing": "crwdns1473:0crwdne1473:0",
+            "enable_sharing_description": "crwdns1475:0crwdne1475:0",
+            "instance": "crwdns1477:0crwdne1477:0",
+            "access_token": "crwdns1479:0crwdne1479:0",
+            "account": "crwdns1481:0crwdne1481:0"
+        },
+        "data": {
+            "request_data": {
+                "title": "crwdns1483:0crwdne1483:0",
+                "description": "crwdns1485:0crwdne1485:0",
+                "format": "crwdns1487:0crwdne1487:0"
+            },
+            "files": {
+                "available_exports": "crwdns1489:0crwdne1489:0",
+                "filename": "crwdns1491:0crwdne1491:0",
+                "created": "crwdns1493:0crwdne1493:0",
+                "action": "crwdns1495:0crwdne1495:0"
+            },
+            "import_books": {
+                "title": "crwdns1497:0crwdne1497:0",
+                "platform": "crwdns1499:0crwdne1499:0",
+                "file": "crwdns1501:0crwdne1501:0",
+                "add_duplicate_books": "crwdns1503:0crwdne1503:0"
+            }
+        },
+        "theme": {
+            "theme": "crwdns1505:0crwdne1505:0",
+            "dark": "crwdns1507:0crwdne1507:0",
+            "light": "crwdns1509:0crwdne1509:0",
+            "system": "crwdns1511:0crwdne1511:0"
+        }
+    },
+    "toast": {
+        "file_available_download": "crwdns1513:0crwdne1513:0",
+        "email_empty": "crwdns1515:0crwdne1515:0"
+    },
+    "verification": {
+        "title": "crwdns1517:0crwdne1517:0",
+        "verification_code_sent": "crwdns1519:0{{email_hidden}}crwdne1519:0",
+        "verification_code": "crwdns1521:0crwdne1521:0",
+        "verify_button": "crwdns1523:0crwdne1523:0"
+    },
+    "demo": {
+        "title": "crwdns1525:0crwdne1525:0",
+        "description": "crwdns1527:0crwdne1527:0",
+        "description_login": "crwdns1529:0crwdne1529:0",
+        "email": "crwdns1531:0{{email}}crwdne1531:0",
+        "password": "crwdns1533:0{{password}}crwdne1533:0"
+    },
+    "search": {
+        "input_placeholder": "crwdns1535:0crwdne1535:0",
+        "attribution": "crwdns1537:0crwdne1537:0",
+        "error_not_found": {
+            "title": "crwdns1539:0crwdne1539:0",
+            "description": "crwdns1541:0crwdne1541:0"
+        },
+        "error_unknown": {
+            "title": "crwdns1543:0crwdne1543:0",
+            "description": "crwdns1545:0{{error}}crwdne1545:0"
+        },
+        "in_library": "crwdns1547:0crwdne1547:0",
+        "results": "crwdns1549:0crwdne1549:0"
+    },
+    "book": {
+        "by_author": "crwdns1551:0{{author}}crwdne1551:0",
+        "unknown_author": "crwdns1553:0crwdne1553:0",
+        "no_description_found": "crwdns1555:0crwdne1555:0",
+        "description": "crwdns1557:0crwdne1557:0",
+        "pages": "crwdns1559:0crwdne1559:0",
+        "cover": "crwdns1561:0crwdne1561:0",
+        "book_cover": "crwdns1563:0crwdne1563:0",
+        "details": "crwdns1565:0crwdne1565:0",
+        "isbn": "crwdns1567:0crwdne1567:0",
+        "add_to_reading": "crwdns1569:0{{book_title}}crwdne1569:0",
+        "share_mastodon": "crwdns1571:0crwdne1571:0",
+        "total_pages": "crwdns1573:0crwdne1573:0",
+        "num_pages": "crwdns1575:0crwdne1575:0",
+        "not_implemented": "crwdns1577:0crwdne1577:0",
+        "remove_confirmation": {
+            "title": "crwdns1579:0crwdne1579:0",
+            "yes": "crwdns1581:0crwdne1581:0",
+            "no": "crwdns1583:0crwdne1583:0"
+        },
+        "update_reading": {
+            "update_progress": "crwdns1585:0crwdne1585:0",
+            "update_reading_progress": "crwdns1587:0crwdne1587:0",
+            "reading_progress": "crwdns1589:0crwdne1589:0",
+            "set_as_finished": "crwdns1591:0crwdne1591:0",
+            "how_far": "crwdns1593:0{{book_title}}crwdne1593:0",
+            "current_page": "crwdns1595:0crwdne1595:0",
+            "progress": "crwdns1597:0{{percentage}}crwdne1597:0",
+            "percentage": "crwdns1599:0crwdne1599:0",
+            "percentage_complete": "crwdns1601:0crwdne1601:0",
+            "current_page_of": "crwdns1603:0{{current_page}}crwdnd1603:0{{total_pages}}crwdne1603:0",
+            "error": {
+                "greater_than": "crwdns1605:0crwdne1605:0",
+                "less_than": "crwdns1607:0crwdne1607:0"
+            },
+            "finished": {
+                "title": "crwdns1609:0crwdne1609:0",
+                "description": "crwdns1611:0{{book_title}}crwdne1611:0"
+            }
+        },
+        "rating": {
+            "give": "crwdns1613:0crwdne1613:0",
+            "rate_book": "crwdns1615:0crwdne1615:0",
+            "how_many_starts": "crwdns1617:0{{book_title}}crwdne1617:0",
+            "rate_this_book": "crwdns1619:0crwdne1619:0",
+            "error": {
+                "greater_than": "crwdns1621:0crwdne1621:0",
+                "less_than": "crwdns1623:0crwdne1623:0"
+            }
+        },
+        "missing_info": {
+            "title": "crwdns1625:0crwdne1625:0",
+            "description": "crwdns1627:0{{book_title}}crwdne1627:0",
+            "total_pages_placeholder": "crwdns1629:0crwdne1629:0",
+            "author_placeholder": "crwdns1631:0crwdne1631:0"
+        }
+    },
+    "editions": {
+        "title": "crwdns1633:0crwdne1633:0",
+        "change": "crwdns1635:0crwdne1635:0",
+        "current": "crwdns1637:0crwdne1637:0",
+        "filter": "crwdns1639:0crwdne1639:0",
+        "all_languages": "crwdns1641:0crwdne1641:0"
+    },
+    "navigation": {
+        "search": "crwdns1643:0crwdne1643:0",
+        "profile": "crwdns1645:0crwdne1645:0",
+        "settings": "crwdns1647:0crwdne1647:0",
+        "logout": "crwdns1649:0crwdne1649:0",
+        "expand": "crwdns1651:0crwdne1651:0",
+        "collapse": "crwdns1653:0crwdne1653:0",
+        "library": "crwdns1655:0crwdne1655:0",
+        "home": "crwdns1657:0crwdne1657:0",
+        "go_home": "crwdns1659:0crwdne1659:0"
+    },
+    "profile": {
+        "not_found_error": {
+            "title": "crwdns1661:0crwdne1661:0",
+            "description": "crwdns1663:0crwdne1663:0"
+        },
+        "stats": {
+            "read": "crwdns1665:0crwdne1665:0",
+            "reading": "crwdns1667:0crwdne1667:0",
+            "to_be_read": "crwdns1669:0crwdne1669:0",
+            "did_not_finish": "crwdns1671:0crwdne1671:0"
+        },
+        "update_profile": "crwdns1673:0crwdne1673:0",
+        "all_books": "crwdns1675:0crwdne1675:0",
+        "profile_settings": "crwdns1677:0crwdne1677:0",
+        "share": "crwdns1679:0crwdne1679:0",
+        "share_profile": "crwdns1681:0crwdne1681:0",
+        "copy_link": "crwdns1683:0crwdne1683:0",
+        "link_copied": "crwdns1685:0crwdne1685:0",
+        "share_title": "crwdns1687:0{{name}}crwdne1687:0",
+        "share_text": "crwdns1689:0crwdne1689:0"
+    },
+    "actions": {
+        "edit_book": "crwdns1691:0crwdne1691:0",
+        "replace_cover": "crwdns1693:0crwdne1693:0",
+        "add_book": "crwdns1695:0crwdne1695:0"
+    },
+    "notes": {
+        "title": "crwdns1697:0crwdne1697:0",
+        "open": "crwdns1699:0crwdne1699:0",
+        "note": "crwdns1701:0crwdne1701:0",
+        "quote": "crwdns1703:0crwdne1703:0",
+        "notes": "crwdns1705:0crwdne1705:0",
+        "quotes": "crwdns1707:0crwdne1707:0",
+        "add_note": "crwdns1709:0crwdne1709:0",
+        "add_quote": "crwdns1711:0crwdne1711:0",
+        "input_placeholder": "crwdns1713:0{{type}}crwdne1713:0",
+        "page": "crwdns1715:0crwdne1715:0",
+        "edit": "crwdns1717:0crwdne1717:0",
+        "page_number": "crwdns1719:0crwdne1719:0",
+        "make_this_public": "crwdns1721:0{{type}}crwdne1721:0",
+        "no_both_error": {
+            "title": "crwdns1723:0crwdne1723:0",
+            "description": "crwdns1725:0crwdne1725:0"
+        },
+        "no_notes_error": {
+            "title": "crwdns1727:0crwdne1727:0",
+            "description": "crwdns1729:0crwdne1729:0"
+        },
+        "no_quotes_error": {
+            "title": "crwdns1731:0crwdne1731:0",
+            "description": "crwdns1733:0crwdne1733:0"
+        },
+        "remove_confirmation": {
+            "title": "crwdns1735:0crwdne1735:0",
+            "yes": "crwdns1737:0crwdne1737:0",
+            "no": "crwdns1739:0crwdne1739:0"
+        }
+    },
+    "update": {
+        "version": "crwdns1741:0crwdne1741:0",
+        "new_version": "crwdns1743:0{{version}}crwdne1743:0",
+        "release_notes": "crwdns1745:0crwdne1745:0",
+        "go_to_release": "crwdns1747:0crwdne1747:0"
+    },
+    "language": {
+        "language": "crwdns1749:0crwdne1749:0",
+        "region": "crwdns1751:0crwdne1751:0",
+        "region_info": "crwdns1753:0crwdne1753:0",
+        "timezone": "crwdns1755:0crwdne1755:0",
+        "time_format": "crwdns1757:0crwdne1757:0",
+        "12hour": "crwdns1759:0crwdne1759:0",
+        "24hour": "crwdns1761:0crwdne1761:0",
+        "language_updated_toast": "crwdns1763:0crwdne1763:0",
+        "region_updated_toast": "crwdns1765:0crwdne1765:0",
+        "timezone_updated_toast": "crwdns1767:0crwdne1767:0",
+        "time_format_updated_toast": "crwdns1769:0crwdne1769:0"
+    },
+    "sort": {
+        "sort_by": "crwdns1771:0{{sortType}}crwdne1771:0",
+        "order_by": "crwdns1773:0crwdne1773:0",
+        "title": "crwdns1775:0crwdne1775:0",
+        "author": "crwdns1777:0crwdne1777:0",
+        "progress": "crwdns1779:0crwdne1779:0",
+        "rating": "crwdns1781:0crwdne1781:0",
+        "date_added": "crwdns1783:0crwdne1783:0"
+    },
+    "help": {
+        "title": "crwdns1785:0crwdne1785:0",
+        "display_name_information": "crwdns1787:0crwdne1787:0",
+        "display_name_change_information": "crwdns1789:0crwdne1789:0",
+        "no_books_found": {
+            "title": "crwdns1791:0crwdne1791:0",
+            "description": "crwdns1793:0crwdne1793:0"
+        },
+        "google_client_id_error": {
+            "title": "crwdns1795:0crwdne1795:0",
+            "description": "crwdns1797:0crwdne1797:0"
+        },
+        "number_of_pages_information": "crwdns1799:0crwdne1799:0"
+    },
+    "reading_history": {
+        "title": "crwdns1801:0crwdne1801:0",
+        "status": "crwdns1803:0crwdne1803:0",
+        "start": "crwdns1805:0crwdne1805:0",
+        "end": "crwdns1807:0crwdne1807:0"
+    }
+}
