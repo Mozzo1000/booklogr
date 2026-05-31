@@ -11,6 +11,7 @@ function LanguageSwitcher({ fullSize }) {
     { code: "de-DE", label: "Deutsch", flag: "🇩🇪" },
     { code: "hi-IN", label: "हिंदी", flag: "🇮🇳" },
     { code: "fr-FR", label: "Français", flag: "🇫🇷" },
+    {code: "es-ES", label: "Español", flag: "🇪🇸" },
   ];
 
 const currentLang = languages.find((lang) => lang.code === i18n.language) || languages[0];

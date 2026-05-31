@@ -8,6 +8,7 @@ import hiIN from "./locales/hi-IN/hi-IN.json";
 import svSE from "./locales/sv-SE/sv-SE.json";
 import zhCN from "./locales/zh-CN/zh-CN.json";
 import frFR from "./locales/fr-FR/fr-FR.json";
+import esES from "./locales/es-ES/es-ES.json";
 
 const resources = {
   "ar-SA": {
@@ -31,6 +32,9 @@ const resources = {
   "fr-FR": {
     translation: frFR,
   },
+  "es-ES": {
+    translation: esES,
+  }
 };
 
 i18n.use(LanguageDetector).use(initReactI18next).init({
