@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+### Added
+- Searching by ISBN will now find matching books in either ISBN10/13 format by converting between them if possible.
+- Added French language.
+- Added Spanish language
+- - Added Portuguese language
+
+### Fixed
+- Fix typos in english translation.
+- Resolved layout issues in the edition list by enforcing a fixed cover frame and rendering a styled fallback cover when OpenLibrary is missing a cover ID.
+- Resolved an issue where sorting options displayed the incorrect translation key after switching languages.
+
+### Changed
+- Changed the empty-state icon in the Notes tab to a note icon to match the tab label.
+- Language switcher now lists the languages in a sorted order, trying to prioritize the users web browser language to the top.
+- Updated swedish translation.
+- Improved image loading speeds in the book list by using smaller cover sizes.
+- Changed "Want to read" to "To be read" when adding book to match the name of the reading list.
 
 ## [1.10.0] - 2026-05-17
 ### Added
