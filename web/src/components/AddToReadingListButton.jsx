@@ -176,7 +176,7 @@ function AddToReadingListButton(props) {
                     } else if (readingStatus === "Read") {
                         return <Button className="w-full" disabled><RiBook2Line className="mr-2 h-5 w-5" />{t("reading_status.read")}</Button>;
                     }else {
-                        return <Button className="w-full" onClick={() => handleSetReadingToBeRead()}><RiBookmarkLine className="mr-2 h-5 w-5" />{t("reading_status.want_to_read")}</Button>;
+                        return <Button className="w-full" onClick={() => handleSetReadingToBeRead()}><RiBookmarkLine className="mr-2 h-5 w-5" />{t("reading_status.to_be_read")}</Button>;
                     }
                 })()}
         
@@ -184,7 +184,7 @@ function AddToReadingListButton(props) {
                     {(() => {
                         if (readingStatus === "To be read") {
                             return <>
-                                <DropdownHeader ><span className="block text-sm opacity-50">{t("reading_status.want_to_read")}</span></DropdownHeader>
+                                <DropdownHeader ><span className="block text-sm opacity-50">{t("reading_status.to_be_read")}</span></DropdownHeader>
                                 <DropdownDivider />
                                 <DropdownItem icon={RiBook2Line} onClick={() => handleSetReadingRead() }>{t("reading_status.read")}</DropdownItem>
                                 <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
@@ -193,7 +193,7 @@ function AddToReadingListButton(props) {
                             return <>
                                 <DropdownHeader><span className="block text-sm opacity-50">{t("reading_status.currently_reading")}</span></DropdownHeader>
                                 <DropdownDivider />
-                                <DropdownItem icon={RiBookmarkLine} onClick={() => handleSetReadingToBeRead() }>{t("reading_status.want_to_read")}</DropdownItem>
+                                <DropdownItem icon={RiBookmarkLine} onClick={() => handleSetReadingToBeRead() }>{t("reading_status.to_be_read")}</DropdownItem>
                                 <DropdownItem icon={RiBook2Line} onClick={() => handleSetReadingRead() }>{t("reading_status.read")}</DropdownItem>
                                 <DropdownItem icon={RiHistoryLine} onClick={() => (setOpenReadingHistoryModal(true))}>{t("reading_history.title")}</DropdownItem>
                                 <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>

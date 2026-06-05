@@ -140,7 +140,7 @@ function AddBookManualModal(props) {
                             <Label htmlFor="list">{t("reading_status.list")}</Label>
                         </div>
                         <Select id="list" require value={readingList} onChange={(e) => setReadingList(e.target.value)}>
-                            <option value="To be read">{t("reading_status.want_to_read")}</option>
+                            <option value="To be read">{t("reading_status.to_be_read")}</option>
                             <option value="Currently reading">{t("reading_status.currently_reading")}</option>
                             <option value="Read">{t("reading_status.read")}</option>
                             <option value="Did not finish">{t("reading_status.did_not_finish")}</option>
