@@ -11,6 +11,7 @@ const LANGUAGES = [
   { code: "hi-IN", label: "हिंदी", flag: "🇮🇳" },
   { code: "fr-FR", label: "Français", flag: "🇫🇷" },
   { code: "es-ES", label: "Español", flag: "🇪🇸" },
+  { code: "pt-PT", label: "Portuguese", flag: "🇵🇹" },
 ];
 
 const getSubtag = (code) => code.split("-")[0].toLowerCase();

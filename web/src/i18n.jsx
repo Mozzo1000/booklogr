@@ -9,6 +9,7 @@ import svSE from "./locales/sv-SE/sv-SE.json";
 import zhCN from "./locales/zh-CN/zh-CN.json";
 import frFR from "./locales/fr-FR/fr-FR.json";
 import esES from "./locales/es-ES/es-ES.json";
+import ptPT from "./locales/pt-PT/pt-PT.json";
 
 const resources = {
   "ar-SA": {
@@ -34,7 +35,10 @@ const resources = {
   },
   "es-ES": {
     translation: esES,
-  }
+  },
+  "pt-PT": {
+    translation: ptPT
+  },
 };
 
 i18n.use(LanguageDetector).use(initReactI18next).init({
