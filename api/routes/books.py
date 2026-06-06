@@ -11,7 +11,7 @@ from api.utils import validate_date_string, get_current_user_id
 from dataclasses import dataclass, asdict
 from typing import Optional
 import requests
-from sqlalchemy import or_
+from sqlalchemy import or_, func
 from api.extensions import cache
 from api.book_provider import BookProvider
 from api.isbn import isbn_lookup_values
@@ -256,9 +256,9 @@ def get_books():
               books = books.order_by(progress_calc.desc()).paginate(page=offset, per_page=limit, error_out=False)
         else:
           if order == "asc":
-            books = books.order_by(getattr(Books, sort_by).asc()).paginate(page=offset, per_page=limit, error_out=False)
+            books = books.order_by(func.lower(getattr(Books, sort_by)).asc()).paginate(page=offset, per_page=limit, error_out=False)
           else:
-            books = books.order_by(getattr(Books, sort_by).desc()).paginate(page=offset, per_page=limit, error_out=False)
+            books = books.order_by(func.lower(getattr(Books, sort_by)).desc()).paginate(page=offset, per_page=limit, error_out=False)
 
     return jsonify({"items": books_schema.dump(books.items), "meta": {
             "page": books.page,
