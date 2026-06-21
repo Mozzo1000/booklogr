@@ -1,0 +1,317 @@
+{
+    "library": "Моя библиотека",
+    "reading_status": {
+        "title": "Статус чтения",
+        "read": "Прочитано",
+        "currently_reading": "Читаю сейчас",
+        "to_be_read": "Буду читать",
+        "all": "Все",
+        "did_not_finish": "Не дочитано",
+        "read_again": "Перечитать",
+        "list": "Список чтения"
+    },
+    "onboarding": {
+        "step_0": {
+            "title": "Добро пожаловать! 🎉",
+            "description": "Мы очень рады, что вы с нами! Чтобы начать отслеживать прочитанных вами книг, сначала выберите отображаемое имя."
+        },
+        "step_1": {
+            "title": "Все готово!",
+            "description": "Почему бы вам не начать с добавления нескольких любимых книг в свои списки? Это очень просто!"
+        }
+    },
+    "forms": {
+        "next": "Далее",
+        "previous": "Назад",
+        "close": "Закрыть",
+        "update": "Обновить",
+        "save": "Сохранить",
+        "upload_picture": "Загрузить изображение",
+        "upload": "Загрузить",
+        "uploading": "Загрузка...",
+        "remove": "Удалить",
+        "display_name": "Отображаемое имя",
+        "visibility_label": "Видимость",
+        "visibility_hidden": "Приватный",
+        "visibility_public": "Публичный",
+        "email": "Электронная почта",
+        "email_placeholder": "name@example.com",
+        "password": "Пароль",
+        "confirm_password": "Подтвердите пароль",
+        "name": "Ваше имя",
+        "login": "Войти",
+        "register": "Зарегистрироваться",
+        "register_title": "Регистрация аккаунта",
+        "register_button": "Зарегистрировать новый аккаунт",
+        "google_sign_in": "Войти через Google",
+        "oidc_sign_in": "Войти через OpenID Connect",
+        "login_title": "Войти в свою учетную запись",
+        "password_no_match": "Пароли не совпадают",
+        "change_password": "Изменить пароль",
+        "old_password": "Старый пароль",
+        "new_password": "Новый пароль",
+        "new_password_confirm": "Подтвердите новый пароль",
+        "download": "Скачать",
+        "cancel": "Отмена",
+        "skip": "Пропустить",
+        "or": "Или",
+        "back_to_login": "Вернуться ко входу",
+        "isbn_required": "Необходимо указать ISBN",
+        "title_required": "Необходимо указать название",
+        "placeholder_total_num_pages": "Введите общее количество страниц",
+        "placeholder_description": "Введите краткое описание книги"
+    },
+    "settings": {
+        "nav": {
+            "account": "Аккаунт",
+            "interface": "Интерфейс",
+            "mastodon": "Mastodon",
+            "data": "Данные"
+        },
+        "mastodon": {
+            "share_events": "Публикация событий",
+            "enable_sharing": "Включить публикацию событий",
+            "enable_sharing_description": "BookLogr будет отслеживать события, например завершение чтения книги, и публиковать их в социальных сетях.",
+            "instance": "Mastodon instance",
+            "access_token": "Токен доступа",
+            "account": "Аккаунт Mastodon"
+        },
+        "data": {
+            "request_data": {
+                "title": "Запросить данные",
+                "description": "Вы можете запросить копию всех своих данных. После завершения запроса файл появится в таблице Доступные экспорты, откуда его можно будет скачать.",
+                "format": "Выберите формат данных"
+            },
+            "files": {
+                "available_exports": "Доступные экспорты",
+                "filename": "Имя файла",
+                "created": "Создан",
+                "action": "Действие"
+            },
+            "import_books": {
+                "title": "Импорт книг",
+                "platform": "Платформа",
+                "file": "Файл",
+                "add_duplicate_books": "Добавить дубликаты книг"
+            }
+        },
+        "theme": {
+            "theme": "Тема",
+            "dark": "Тёмная тема",
+            "light": "Светлая тема",
+            "system": "Системная"
+        }
+    },
+    "toast": {
+        "file_available_download": "Экспортированный файл доступен для скачивания",
+        "email_empty": "E-mail не может быть пустым"
+    },
+    "verification": {
+        "title": "Подтвердите учетную запись",
+        "verification_code_sent": "Код подтверждения отправлен на адрес {{email_hidden}}",
+        "verification_code": "Код подтверждения",
+        "verify_button": "Проверить"
+    },
+    "demo": {
+        "title": "Это демонстрационная версия BookLogr",
+        "description": "Некоторые функции отключены.",
+        "description_login": "Для входа используйте",
+        "email": "Email: {{email}}",
+        "password": "Пароль: {{password}}"
+    },
+    "search": {
+        "input_placeholder": "Найти книгу",
+        "attribution": "Поиск предоставлен <link_to_info>OpenLibrary</link_to_info>",
+        "error_not_found": {
+            "title": "Ничего не найдено",
+            "description": "Попробуйте поискать по другому названию или ISBN."
+        },
+        "error_unknown": {
+            "title": "Что-то пошло не так",
+            "description": "Попробуйте позже. {{error}}"
+        },
+        "in_library": "В вашей библиотеке",
+        "results": "Результаты поиска"
+    },
+    "book": {
+        "by_author": "автор: {{author}}",
+        "unknown_author": "неизвестный автор",
+        "no_description_found": "Описание не найдено",
+        "description": "Описание",
+        "pages": "Количество страниц",
+        "cover": "Обложка",
+        "book_cover": "Обложка книги",
+        "details": "Сведения о книге",
+        "isbn": "ISBN",
+        "add_to_reading": "Добавить {{book_title}} в список текущего чтения",
+        "share_mastodon": "Опубликовать в Mastodon",
+        "total_pages": "Всего страниц",
+        "num_pages": "Количество страниц",
+        "not_implemented": "В настоящее время не реализовано",
+        "remove_confirmation": {
+            "title": "Вы уверены, что хотите удалить эту книгу?",
+            "yes": "Да, уверен(а)",
+            "no": "Нет, отмена"
+        },
+        "update_reading": {
+            "update_progress": "Обновить прогресс",
+            "update_reading_progress": "Обновить прогресс чтения",
+            "reading_progress": "Прогресс чтения",
+            "set_as_finished": "Пометить как прочитанную",
+            "how_far": "На какой странице {{book_title}} вы остановились?",
+            "current_page": "Текущая страница",
+            "progress": "Прогресс: {{percentage}}%",
+            "percentage": "Процент",
+            "percentage_complete": "Процент прочитанного",
+            "current_page_of": "Текущая страница: {{current_page}} из {{total_pages}}",
+            "error": {
+                "greater_than": "Номер текущей страницы не может превышать общее количество страниц.",
+                "less_than": "Номер текущей страницы не может быть меньше 0."
+            },
+            "finished": {
+                "title": "Поздравляем!",
+                "description": "Вы закончили читать книгу {{book_title}}"
+            }
+        },
+        "rating": {
+            "give": "Поставить оценку",
+            "rate_book": "Оценить книгу",
+            "how_many_starts": "Сколько звезд вы хотите поставить книге {{book_title}}?",
+            "rate_this_book": "Оценить эту книгу",
+            "error": {
+                "greater_than": "Оценка не может быть больше 5.",
+                "less_than": "Оценка не может быть меньше 0."
+            }
+        },
+        "missing_info": {
+            "title": "Информация отсутствует",
+            "description": "Некоторые сведения о книге {{book_title}} отсутствуют. Хотите добавить их?",
+            "total_pages_placeholder": "Введите общее количество страниц",
+            "author_placeholder": "Введите имя автора"
+        }
+    },
+    "editions": {
+        "title": "Издания",
+        "change": "Изменить издание",
+        "current": "Текущее издание",
+        "filter": "Фильтр по языку",
+        "all_languages": "Все языки"
+    },
+    "navigation": {
+        "search": "Поиск",
+        "profile": "Профиль",
+        "settings": "Настройки",
+        "logout": "Выйти",
+        "expand": "Развернуть",
+        "collapse": "Свернуть",
+        "library": "Библиотека",
+        "home": "Главная",
+        "go_home": "На главную"
+    },
+    "profile": {
+        "not_found_error": {
+            "title": "Профиль не найден",
+            "description": "Не удалось найти профиль с таким именем. Возможно, он не существует или является приватным."
+        },
+        "stats": {
+            "read": "Прочитано",
+            "reading": "Читаю",
+            "to_be_read": "Буду читать",
+            "did_not_finish": "Не дочитано"
+        },
+        "update_profile": "Обновить профиль",
+        "all_books": "Все книги",
+        "profile_settings": "Настройки профиля",
+        "share": "Поделиться",
+        "share_profile": "Поделиться профилем",
+        "copy_link": "Скопировать ссылку",
+        "link_copied": "Ссылка скопирована в буфер обмена",
+        "share_title": "Библиотека пользователя {{name}}",
+        "share_text": "Я отслеживаю свой прогресс чтения. Посмотрите, что я читаю!"
+    },
+    "actions": {
+        "edit_book": "Редактировать книгу",
+        "replace_cover": "Заменить обложку",
+        "add_book": "Добавить книгу"
+    },
+    "notes": {
+        "title": "Заметки и Цитаты",
+        "open": "Открыть заметки",
+        "note": "Заметка",
+        "quote": "Цитата",
+        "notes": "Заметки",
+        "quotes": "Цитаты",
+        "add_note": "Добавить заметку",
+        "add_quote": "Добавить цитату",
+        "input_placeholder": "Напишите свою {{type}} здесь...",
+        "page": "Страница",
+        "edit": "Редактировать",
+        "page_number": "Номер страницы",
+        "make_this_public": "Сделать {{type}} публичным",
+        "no_both_error": {
+            "title": "Заметки или цитаты не найдены",
+            "description": "Для этой книги нет заметок или цитат."
+        },
+        "no_notes_error": {
+            "title": "Заметки не найдены",
+            "description": "Для этой книги нет заметок."
+        },
+        "no_quotes_error": {
+            "title": "Цитаты не найдены",
+            "description": "Для этой книги нет цитат."
+        },
+        "remove_confirmation": {
+            "title": "Вы уверены, что хотите удалить эту заметку?",
+            "yes": "Да, уверен",
+            "no": "Нет, отменить"
+        }
+    },
+    "update": {
+        "version": "Версия",
+        "new_version": "Доступна новая версия {{version}} ! 🎉",
+        "release_notes": "Примечания к выпуску",
+        "go_to_release": "Перейти на страницу выпуска"
+    },
+    "language": {
+        "language": "Язык",
+        "region": "Регион",
+        "region_info": "Влияет на формат даты и чисел.",
+        "timezone": "Часовой пояс",
+        "time_format": "Формат времени",
+        "12hour": "12-часовой",
+        "24hour": "24-часовой",
+        "language_updated_toast": "Язык обновлен.",
+        "region_updated_toast": "Регион обновлён.",
+        "timezone_updated_toast": "Часовой пояс обновлен.",
+        "time_format_updated_toast": "Формат времени обновлён."
+    },
+    "sort": {
+        "sort_by": "Сортировать по полю {{sortType}}",
+        "order_by": "Сортировать по",
+        "title": "Название",
+        "author": "Автор",
+        "progress": "Прогресс",
+        "rating": "Оценка",
+        "date_added": "Дата добавления"
+    },
+    "help": {
+        "title": "Помощь",
+        "display_name_information": "Отображаемое имя будет использоваться на странице вашего профиля со списком книг. Профиль может быть приватным или публичным. Отображаемое имя и видимость профиля можно изменить в любое время. Если профиль является публичным, отображаемое имя также используется в ссылке на него.",
+        "display_name_change_information": "При изменении отображаемого имени также изменится ссылка на ваш публичный профиль.",
+        "no_books_found": {
+            "title": "Книги не найдены",
+            "description": "В этом списке пока нет книг. Воспользуйтесь поиском, чтобы найти книгу и добавить ее в список."
+        },
+        "google_client_id_error": {
+            "title": "Вход через Google отключен",
+            "description": "Указанный Google Client ID не соответствует ожидаемому формату. Если вы установили BookLogr на этом сервере, проверьте настройки и обновите идентификатор, чтобы включить вход."
+        },
+        "number_of_pages_information": "Количество страниц в книге, которую вы читаете."
+    },
+    "reading_history": {
+        "title": "История чтения",
+        "status": "Статус",
+        "start": "Дата начала",
+        "end": "Дата окончания"
+    }
+}
