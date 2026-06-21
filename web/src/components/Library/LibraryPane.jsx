@@ -45,11 +45,11 @@ const TAB_VISIBILITY_KEYS = {
 };
 
 const DEFAULT_VISIBLE_TABS = {
-    all: true,
+    all: false,
     currentlyReading: true,
-    completed: false,
+    completed: true,
     toBeRead: true,
-    didNotFinish: false,
+    didNotFinish: true,
 };
 
 function getVisibleTabs() {
