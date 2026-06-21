@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import EditionItem from './EditionItem';
 import { RiExternalLinkLine } from "react-icons/ri";
 import { useTranslation, Trans } from 'react-i18next';
-import { RiCheckLine } from "react-icons/ri";
+import { RiCheckLine, RiArrowDownSLine } from "react-icons/ri";
 
 function EditionSelector({work_id, selected_isbn}) {
     const [editionList, setEditionList] = useState();
@@ -59,18 +59,22 @@ function EditionSelector({work_id, selected_isbn}) {
 
     function LanguageSelector() {
         return (
-            <div className="flex gap-2 items-center">
-                <Label className="flex" htmlFor="language">{t("editions.filter")}</Label>
-                <Dropdown id="language" label={selectedLanguage ? selectedLanguage.toUpperCase() : t("editions.all_languages")} outline>
-                    <div className="overflow-auto h-36">
-                        <DropdownItem onClick={() => setSelectedLanguage("")}>{t("editions.all_languages")}</DropdownItem>
+            <div className="flex gap-2 items-center px-2 py-1">
+                <Label htmlFor="language">{t("editions.filter")}</Label>
+                <div className="relative">
+                    <select
+                        id="language"
+                        value={selectedLanguage}
+                        onChange={e => setSelectedLanguage(e.target.value)}
+                        className="appearance-none cursor-pointer rounded-lg border border-gray-300 bg-white py-1.5 pl-3 pr-8 text-sm text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+                    >
+                        <option value="">{t("editions.all_languages")}</option>
                         {languages.map(lang => (
-                            <DropdownItem key={lang} value={lang} onClick={() => setSelectedLanguage(lang)} className={selectedLanguage == lang ? "bg-blue-600 text-white hover:text-black": ""}>
-                                {lang.toUpperCase()}
-                            </DropdownItem>
+                            <option key={lang} value={lang}>{lang.toUpperCase()}</option>
                         ))}
-                    </div>
-                </Dropdown>
+                    </select>
+                    <RiArrowDownSLine className="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500 dark:text-gray-400" />
+                </div>
             </div>
         )
     }
