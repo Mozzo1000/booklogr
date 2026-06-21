@@ -15,7 +15,7 @@ const get = (status, sort, order, page) => {
         return axios.get(getAPIUrl(`v1/books?status=${status}&sort_by=${sort}&order=${order}&offset=${page}`), { headers: authHeader() })
 
     } else {
-        return axios.get(API_URL + "v1/books", { headers: authHeader() })
+        return axios.get(getAPIUrl("v1/books"), { headers: authHeader() })
 
     }
 }

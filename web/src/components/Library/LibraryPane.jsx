@@ -13,17 +13,49 @@ import BookSkeleton from '../BookSkeleton';
 import Controls from './Controls';
 import BookTabs from '../BookTabs';
 
-const TAB_CURRENTLY_READING = 0;
-const TAB_TO_BE_READ = 1;
-const TAB_READ = 2;
-const TAB_DID_NOT_FINISH = 3;
+const TAB_ALL = 0
+const TAB_CURRENTLY_READING = 1;
+const TAB_TO_BE_READ = 2;
+const TAB_READ = 3;
+const TAB_DID_NOT_FINISH = 4;
 
 const TABS_CONFIG = [
+    { id: TAB_ALL, status: "", tKey: "reading_status.all", icon: RiBook2Line },
     { id: TAB_CURRENTLY_READING, status: "Currently reading", tKey: "reading_status.currently_reading", icon: RiBookOpenLine },
     { id: TAB_TO_BE_READ, status: "To be read", tKey: "reading_status.to_be_read", icon: RiBookmarkLine },
     { id: TAB_READ, status: "Read", tKey: "reading_status.read", icon: RiBook2Line },
     { id: TAB_DID_NOT_FINISH, status: "Did not finish", tKey: "reading_status.did_not_finish", icon: RiArchiveLine },
+
 ];
+
+const STATUS_TO_TAB = {
+    "All": TAB_ALL,
+    "Currently reading": TAB_CURRENTLY_READING,
+    "To be read": TAB_TO_BE_READ,
+    "Read": TAB_READ,
+    "Did not finish": TAB_DID_NOT_FINISH,
+};
+
+const TAB_VISIBILITY_KEYS = {
+    [TAB_ALL]: "all",
+    [TAB_CURRENTLY_READING]: "currentlyReading",
+    [TAB_TO_BE_READ]: "toBeRead",
+    [TAB_READ]: "completed",
+    [TAB_DID_NOT_FINISH]: "didNotFinish",
+};
+
+const DEFAULT_VISIBLE_TABS = {
+    all: true,
+    currentlyReading: true,
+    completed: false,
+    toBeRead: true,
+    didNotFinish: false,
+};
+
+function getVisibleTabs() {
+    const saved = localStorage.getItem("library_visible_tabs");
+    return saved ? JSON.parse(saved) : DEFAULT_VISIBLE_TABS;
+}
 
 function LibraryPane() {
     const { t, i18n } = useTranslation();
@@ -31,9 +63,10 @@ function LibraryPane() {
         const match = window.location.hash.match(/^#tab-(\d+)$/);
         if (match) {
             const index = parseInt(match[1], 10);
-            if (index >= TAB_CURRENTLY_READING && index <= TAB_DID_NOT_FINISH) return index;
+            if (index >= TAB_ALL && index <= TAB_DID_NOT_FINISH) return index;
         }
-        return TAB_CURRENTLY_READING;
+        const savedDefault = localStorage.getItem("library_default_view");
+        return savedDefault ? (STATUS_TO_TAB[savedDefault] ?? TAB_CURRENTLY_READING) : TAB_CURRENTLY_READING;
     };
     const [activeTab, setActiveTab] = useState(hashToTab);
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -44,10 +77,13 @@ function LibraryPane() {
     const [order, setOrder] = useState(localStorage.getItem("last_ordered") || "asc");
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-    const tabs = TABS_CONFIG.map(tab => ({
-        ...tab,
-        title: t(tab.tKey)
-    }));
+    const visibleTabSettings = getVisibleTabs();
+    const tabs = TABS_CONFIG
+        .filter(tab => visibleTabSettings[TAB_VISIBILITY_KEYS[tab.id]])
+        .map(tab => ({
+            ...tab,
+            title: t(tab.tKey)
+        }));
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
@@ -82,12 +118,14 @@ function LibraryPane() {
             status = "Read"
         } else if (activeTab == TAB_DID_NOT_FINISH) {
             status = "Did not finish"
+        } else if (activeTab == TAB_ALL) {
+            status = ""
         }
         return status;
     }
 
     const getBooks = (status) => {
-        BooksService.get(status, sort.value, order, page).then(
+        BooksService.get(status === "" ? undefined : status, sort.value, order, page).then(
             response => {
                 dispatch({type: actionTypes.BOOKS, books: response.data})
                 if (response.data.meta.total_pages > 0) {
