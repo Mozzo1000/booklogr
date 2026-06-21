@@ -10,6 +10,7 @@ import zhCN from "./locales/zh-CN/zh-CN.json";
 import frFR from "./locales/fr-FR/fr-FR.json";
 import esES from "./locales/es-ES/es-ES.json";
 import ptPT from "./locales/pt-PT/pt-PT.json";
+import ruRU from "./locales/ru-RU/ru-RU.json";
 
 const resources = {
   "ar-SA": {
@@ -38,6 +39,9 @@ const resources = {
   },
   "pt-PT": {
     translation: ptPT
+  },
+  "ru-RU": {
+    translation: ruRU
   },
 };
 
