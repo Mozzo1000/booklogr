@@ -85,9 +85,12 @@ function LibraryPane() {
             title: t(tab.tKey)
         }));
 
-    const handleTabChange = (tab) => {
-        setActiveTab(tab);
-        window.location.hash = `tab-${tab}`;
+    const handleTabChange = (tabIndex) => {
+        const tab = tabs[tabIndex];
+        if (tab) {
+            setActiveTab(tab.id);
+            window.location.hash = `tab-${tab.id}`;
+        }
     };
 
     useEffect(() => {
