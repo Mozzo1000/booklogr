@@ -10,21 +10,23 @@ function ReadingHistoryModal({bookID, show, onClose}) {
     const toast = useToast(4000);
 
     useEffect(() => {
-      BooksService.getReadingSessions(bookID).then(
-        response => {
-          console.log(response.data)
-          setHistory(response.data);
-        },
-        error => {
-              const resMessage =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
-                toast("error", resMessage);
+        if (show) {
+            BooksService.getReadingSessions(bookID).then(
+                response => {
+                    console.log(response.data)
+                    setHistory(response.data);
+                },
+                error => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                        toast("error", resMessage);
                 }
-      )
+            )
+        }
     }, [show])
     
     
