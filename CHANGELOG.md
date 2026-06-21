@@ -4,18 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+
+## [1.11.0] - 2026-06-21
 ### Added
 - Searching by ISBN will now find matching books in either ISBN10/13 format by converting between them if possible.
 - Added French language.
-- Added Spanish language
-- Added Portuguese language
-- Subtitle to books page
+- Added Spanish language.
+- Added Portuguese language.
+- Added Russian language.
+- Added subtitle to books page
+- Added an "All" tab to the library, configurable tab visibility, and a default view setting.
 
 ### Fixed
 - Fix typos in english translation.
 - Resolved layout issues in the edition list by enforcing a fixed cover frame and rendering a styled fallback cover when OpenLibrary is missing a cover ID.
 - Resolved an issue where sorting options displayed the incorrect translation key after switching languages.
-- Resolved an issue where OpenLibrary was unreachable during searches due to a typo in the book provider code.
+- Resolved an issue where OpenLibrary was unreachable during searching due to a typo in the book provider code.
+- Resolved an issue where reading history was fetched unnecessarily during the initial loading of the library component.
+- Resolved an issue where the language filter in the edition selector was covered by the edition list, making it difficult to select a language.
 
 ### Changed
 - Changed the empty-state icon in the Notes tab to a note icon to match the tab label.
