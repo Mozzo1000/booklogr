@@ -58,7 +58,7 @@ class BookProvider:
             "fields": "title,isbn,author_name",
             "lang": "en"
         }
-        resp = self.session.get("https://openlijbrary.org/search.json", params=params, timeout=8)
+        resp = self.session.get("https://openlibrary.org/search.json", params=params, timeout=8)
         resp.raise_for_status()
         
         docs = resp.json().get("docs", [])
@@ -75,7 +75,7 @@ class BookProvider:
 
     def _search_booklogr_api(self, url, query):
         """Fetcher for the custom sqlite-based search.booklogr.app API"""
-        base_url = url if url.startswith("http") else "https://search.booklogr.app"
+        base_url = url if url.startswith("http") else "https://metadata.booklogr.app"
         
         endpoint = f"{base_url.rstrip('/')}/v1/search/{requests.utils.quote(query)}"
         params = {"limit": 10, "sort": "relevance"}
@@ -138,7 +138,7 @@ class BookProvider:
         }
     
     def _get_booklogr_api(self, url, isbn):
-        base_url = url if url.startswith("http") else "https://search.booklogr.app"
+        base_url = url if url.startswith("http") else "https://metadata.booklogr.app"
         
         ed_resp = self.session.get(f"{base_url.rstrip('/')}/v1/edition/{isbn}", timeout=8)
         if ed_resp.status_code != 200:
