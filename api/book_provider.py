@@ -131,6 +131,7 @@ class BookProvider:
 
         return {
             "title": ol_data.get("title"),
+            "subtitle": ol_data.get("subtitle"),
             "author": author_name,
             "description": description,
             "total_pages": ol_data.get("number_of_pages", 0)
@@ -161,6 +162,7 @@ class BookProvider:
 
         return {
             "title": ed_data.get("title"),
+            "subtitle": ed_data.get("subtitle"),
             "author": author_name,
             "description": description,
             "total_pages": ed_data.get("number_of_pages", 0)

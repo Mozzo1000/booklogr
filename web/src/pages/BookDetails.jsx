@@ -21,6 +21,7 @@ function BookDetails() {
     const [imageLoaded, setImageLoaded] = useState(false);
     const [loading, setLoading] = useState(true);
     const [workID, setWorkID] = useState();
+    const [subtitle, setSubtitle] = useState(" ");
     const theme = useThemeMode();
     const toast = useToast(4000);
     const { t } = useTranslation();
@@ -37,6 +38,10 @@ function BookDetails() {
                     setAuthor(response.data.author)
                 else
                     setAuthor(t("book.unknown_author"))
+                if (response.data.subtitle)
+                    setSubtitle(response.data.subtitle)
+                else
+                    setSubtitle(" ")
                 setLoading(false)
             },
             error => {
@@ -83,7 +88,8 @@ function BookDetails() {
                     </div>
                 <div>
                     <article className="format dark:format-invert">
-                        <h2>{data?.title || <Skeleton />}</h2>
+                        <h2 className="mb-2">{data?.title || <Skeleton />}</h2>
+                        <h3 className="text-xl font-medium text-gray-900 tracking-tight">{subtitle || <Skeleton />}</h3>
                         {author ? (
                             <p className="lead">{t("book.by_author", { author: author })}</p>
                         ) : (

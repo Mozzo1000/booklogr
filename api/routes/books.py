@@ -22,6 +22,7 @@ books_endpoint = Blueprint('books', __name__)
 class BookData:
     isbn: str
     title: str
+    subtitle: str
     in_library: bool
     total_pages: int
     library_data: Optional[dict] = None
@@ -128,7 +129,7 @@ def get_book(isbn):
         Books.isbn.in_(isbn_lookup_values(isbn))
     ).first()
     if book:
-        return jsonify(BookData(isbn=book.isbn, title=book.title, author=book.author, description=book.description, in_library=True, total_pages=book.total_pages, library_data={"reading_status": book.reading_status, "current_page": book.current_page, "rating": book.rating})), 200
+        return jsonify(BookData(isbn=book.isbn, title=book.title, subtitle=None, author=book.author, description=book.description, in_library=True, total_pages=book.total_pages, library_data={"reading_status": book.reading_status, "current_page": book.current_page, "rating": book.rating})), 200
     
     external_data = BookProvider().get(isbn)
     if not external_data:
@@ -140,6 +141,7 @@ def get_book(isbn):
     return jsonify(BookData(
         isbn=isbn,
         title=external_data["title"],
+        subtitle=external_data["subtitle"],
         author=external_data["author"],
         description=external_data["description"],
         in_library=False,
