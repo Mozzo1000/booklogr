@@ -145,9 +145,9 @@ function InterfaceTab() {
                         <div className="rounded-lg border border-gray-200 dark:border-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
                             {[
                                 { key: "all", icon: RiBook2Line, label: "All", description: "Everything in your library", value: "All" },
-                                { key: "currentlyReading", icon: RiBookOpenLine, label: "Currently Reading", description: "Books you are reading now", value: "Currently reading" },
+                                { key: "currentlyReading", icon: RiBookOpenLine, label: "Currently reading", description: "Books you are reading now", value: "Currently reading" },
                                 { key: "toBeRead", icon: RiBookmarkLine, label: "To be read", description: "Books you want to read", value: "To be read" },
-                                { key: "completed", icon: RiBook2Line, label: "Completed", description: "Books you have finished reading", value: "Read" },
+                                { key: "completed", icon: RiBook2Line, label: "Read", description: "Books you have finished reading", value: "Read" },
                                 { key: "didNotFinish", icon: RiArchiveLine, label: "Did Not Finish", description: "Books you did not / want not to finish reading", value: "Did not finish" },
                             ].map(({ key, icon: Icon, label, description, value }) => (
                                 <div key={key} className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-gray-800 first:rounded-t-lg last:rounded-b-lg">
