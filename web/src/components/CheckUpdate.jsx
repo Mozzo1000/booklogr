@@ -68,7 +68,7 @@ function CheckUpdate({currentVersion}) {
                     }
                     setLatestRelease({
                         title: "Unavailable",
-                        version: import.meta.env("VITE_APP_VERSION"),
+                        version: import.meta.env.VITE_APP_VERSION,
                         link: "#",
                         release_date: "",
                         content: "Could not fetch release info.",
