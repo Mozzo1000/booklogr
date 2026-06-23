@@ -6,6 +6,9 @@ import GithubService from '../services/github.service';
 import { compare } from 'compare-versions';
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
+import { remarkAlert } from 'remark-github-blockquote-alert'
+import 'remark-github-blockquote-alert/alert.css'
 import { Link } from 'react-router-dom';
 import { formatDate } from '../DateFormat';
 
@@ -107,7 +110,7 @@ function CheckUpdate({currentVersion}) {
                         <p>{formatDate(new Date(latestRelease?.release_date))}</p>
                    </div>
                    <div className="format dark:format-invert">
-                        <Markdown remarkPlugins={[[remarkGfm, {singleTilde: false}]]}>
+                        <Markdown remarkPlugins={[[remarkGfm, {singleTilde: false}], remarkAlert]} rehypePlugins={[rehypeRaw]}>
                                 {latestRelease?.content}
                         </Markdown>
                     </div>
