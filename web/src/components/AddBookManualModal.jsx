@@ -42,11 +42,17 @@ function AddBookManualModal(props) {
 
         setErrors({ isbn: false, title: false });
 
+        var currentPage = 0
+        if (readingList == "Read") {
+            currentPage = totalPages
+        }
+
         BooksService.add({
                 isbn: isbn, 
                 title: title, 
                 author: author,
                 description: description,
+                current_page: currentPage,
                 total_pages: totalPages,
                 reading_status: readingList}).then(
             response => {
