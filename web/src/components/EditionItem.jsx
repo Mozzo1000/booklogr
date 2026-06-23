@@ -65,7 +65,7 @@ function EditionItem({data, selected_isbn}) {
         <div className="flex w-full items-start gap-4 p-4">
         <div className="flex h-32 w-24 shrink-0 items-center justify-center">
             {coverId ? (
-                <Img className={coverClassName} src={"https://covers.openlibrary.org/b/id/" + coverId + "-M.jpg?default=false"}
+                <Img crossorigin="anonymous" className={coverClassName} src={"https://covers.openlibrary.org/b/id/" + coverId + "-M.jpg?default=false"}
                     loader={<Skeleton count={1} width={96} height={128} borderRadius={0} inline={true}/>}
                     unloader={<img className={coverClassName} src={fallbackCover} alt="" />}
                 />

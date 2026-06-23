@@ -81,7 +81,7 @@ function BookDetails() {
         <div className="pt-10 lg:pt-20 pb-10">
             <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4 justify-items-stretch	">
                 <div className="lg:row-span-2 mx-auto">
-                    <Img className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + id + "-L.jpg?default=false"} 
+                    <Img crossorigin="anonymous" className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + id + "-L.jpg?default=false"}
                         loader={<Skeleton count={1} width={320} height={500} borderRadius={0} inline={true}/>}
                         unloader={theme.mode == "dark" && <img src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img src="/fallback-cover.svg"/>}
                     />

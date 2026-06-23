@@ -168,7 +168,7 @@ function SearchBar(props) {
                                     <Link key={data.id} to={"/books/" + data.isbn} onClick={(e) => (props.onNavigate(), closeSearch(), navigate("/books/" + data.isbn))}>
                                         <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4">
                                             <div className="lg:row-span-2 md:mx-auto">
-                                                <Img className="object-contain h-32" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn + "-M.jpg?default=false"} 
+                                                <Img crossorigin="anonymous" className="object-contain h-32" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn + "-M.jpg?default=false"}
                                                     loader={<Skeleton count={1} width={100} height={"100%"} borderRadius={0} inline={true}/>}
                                                     unloader={theme.mode == "dark" && <img className="object-contain h-32" src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img className="object-contain h-32" src="/fallback-cover.svg"/>}
                                                 />
@@ -194,7 +194,7 @@ function SearchBar(props) {
                                     <Link key={data.id} to={"/books/" + data.isbn} onClick={(e) => (props.onNavigate(), closeSearch(), navigate("/books/" + data.isbn))}>
                                         <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4">
                                             <div className="lg:row-span-2 md:mx-auto">
-                                                <Img className="object-contain h-32" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn + "-M.jpg?default=false"} 
+                                                <Img crossorigin="anonymous" className="object-contain h-32" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn + "-M.jpg?default=false"}
                                                     loader={<Skeleton count={1} width={100} height={"100%"} borderRadius={0} inline={true}/>}
                                                     unloader={theme.mode == "dark" && <img className="object-contain h-32" src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img className="object-contain h-32" src="/fallback-cover.svg"/>}
                                                 />

@@ -91,7 +91,7 @@ function AddBookManualModal(props) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-start">
                 <Card>
                     <h2>{t("book.book_cover")}</h2>
-                    <Img width={200} height={200} className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg?default=false"} 
+                    <Img crossorigin="anonymous" width={200} height={200} className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg?default=false"}
                         loader={<Skeleton count={1} width={200} height={200} borderRadius={0} inline={true}/>}
                         unloader={theme.mode == "dark" && <img width={200} src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img width={200} src="/fallback-cover.svg"/>}
                     />
