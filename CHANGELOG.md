@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+### Fixed
+- Resolved an issue where books manually added to the Read list had their progress incorrectly set to 0% instead of 100%.
+- Fixed wrong use of env variable in CheckUpdate error handler when GitHub API fails.
+- Resolved an issue where OpenLibrary errors on the book page would always show an error toast, including expected 404s that should be silently ignored.
+- Fixed a z-index issue where the add book button tooltip in the search bar was hidden behind the search results.
+
+### Changed
+- Increased HTTP timeouts for external data providers to reduce failures on slow connections.
+- Improved the expanded sidebar search bar to display results in a floating panel above the sidebar, with a shadow and border for better visibility.
+- Release notes in the update modal now render images and GitHub-style alerts ([!NOTE], [!WARNING], etc.) correctly.
 
 ## [1.11.0] - 2026-06-21
 ### Added
