@@ -141,7 +141,7 @@ function SearchBar(props) {
             <div className={`
                 ${showList ? "block" : "hidden"} 
                 ${props.absolute ? "md:absolute md:max-w-md" : "relative"} 
-                z-10 bg-white dark:bg-inherit overflow-y-auto 
+                bg-white dark:bg-inherit overflow-y-auto 
                 max-md:flex-1 max-md:w-full
                 md:max-h-1/2 min-w-28 min-h-28
             `}>
