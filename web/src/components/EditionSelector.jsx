@@ -95,11 +95,10 @@ function EditionSelector({work_id, selected_isbn}) {
                 {filteredEntries?.map(function(data) {
                     return (
                         data.isbn_13?.[0] && (
-                            <DropdownItem as={Link} to={"/books/" + data.isbn_13[0]} >
+                            <DropdownItem key={data.isbn_13[0]} as={Link} to={"/books/" + data.isbn_13[0]}>
                                 <EditionItem data={data} selected_isbn={selected_isbn}/>
                             </DropdownItem>
                         )
-                        
                     )
                 })}
             </div>
@@ -113,7 +112,7 @@ function EditionSelector({work_id, selected_isbn}) {
                 {filteredEntries?.map(function(data) {
                     return (
                         data.isbn_13?.[0] && (
-                            <Link to={"/books/" + data.isbn_13[0]} className="contents">
+                            <Link key={data.isbn_13[0]} to={"/books/" + data.isbn_13[0]} className="contents">
                                 <div className="flex w-full hover:bg-gray-100">
                                     <EditionItem data={data} selected_isbn={selected_isbn} />
                                 </div>
