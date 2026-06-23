@@ -58,7 +58,7 @@ class BookProvider:
             "fields": "title,isbn,author_name",
             "lang": "en"
         }
-        resp = self.session.get("https://openlibrary.org/search.json", params=params, timeout=8)
+        resp = self.session.get("https://openlibrary.org/search.json", params=params, timeout=30)
         resp.raise_for_status()
         
         docs = resp.json().get("docs", [])
@@ -80,7 +80,7 @@ class BookProvider:
         endpoint = f"{base_url.rstrip('/')}/v1/search/{requests.utils.quote(query)}"
         params = {"limit": 10, "sort": "relevance"}
         
-        resp = self.session.get(endpoint, params=params, timeout=8)
+        resp = self.session.get(endpoint, params=params, timeout=30)
         resp.raise_for_status()
         
         data = resp.json()
@@ -106,7 +106,7 @@ class BookProvider:
     
     def _get_openlibrary(self, isbn):
         base = "https://openlibrary.org"
-        resp = self.session.get(f"{base}/isbn/{isbn}.json", timeout=10)
+        resp = self.session.get(f"{base}/isbn/{isbn}.json", timeout=30)
         if resp.status_code != 200:
             return None
         
@@ -115,14 +115,14 @@ class BookProvider:
         author_name = "Unknown"
         if ol_data.get("authors"):
             auth_key = ol_data["authors"][0].get("key")
-            a_resp = self.session.get(f"{base}{auth_key}.json", timeout=5)
+            a_resp = self.session.get(f"{base}{auth_key}.json", timeout=30)
             if a_resp.status_code == 200:
                 author_name = a_resp.json().get("name", "Unknown")
 
         description = ol_data.get("description")
         if not description and ol_data.get("works"):
             work_key = ol_data["works"][0].get("key")
-            w_resp = self.session.get(f"{base}{work_key}.json", timeout=5)
+            w_resp = self.session.get(f"{base}{work_key}.json", timeout=30)
             if w_resp.status_code == 200:
                 description = w_resp.json().get("description")
 
@@ -140,7 +140,7 @@ class BookProvider:
     def _get_booklogr_api(self, url, isbn):
         base_url = url if url.startswith("http") else "https://metadata.booklogr.app"
         
-        ed_resp = self.session.get(f"{base_url.rstrip('/')}/v1/edition/{isbn}", timeout=8)
+        ed_resp = self.session.get(f"{base_url.rstrip('/')}/v1/edition/{isbn}", timeout=30)
         if ed_resp.status_code != 200:
             return None
         
@@ -153,7 +153,7 @@ class BookProvider:
         work_ids = ed_data.get("work_ids", [])
         if work_ids:
             work_id = work_ids[0].replace("/works/", "")
-            w_resp = self.session.get(f"{base_url.rstrip('/')}/v1/work/{work_id}", timeout=5)
+            w_resp = self.session.get(f"{base_url.rstrip('/')}/v1/work/{work_id}", timeout=30)
             if w_resp.status_code == 200:
                 work_data = w_resp.json()
                 description = work_data.get("description", "")
