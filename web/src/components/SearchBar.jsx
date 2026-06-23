@@ -139,9 +139,9 @@ function SearchBar(props) {
             </div>
 
             <div className={`
-                ${showList ? "block" : "hidden"} 
-                ${props.absolute ? "md:absolute md:max-w-md" : "relative"} 
-                bg-white dark:bg-inherit overflow-y-auto 
+                ${showList ? "block" : "hidden"}
+                ${props.fixedResults ? "fixed z-100 w-96 max-h-[80vh] shadow-xl border border-gray-200 dark:border-gray-700" : props.absolute ? "md:absolute md:max-w-md" : "relative"}
+                bg-white dark:bg-gray-900 overflow-y-auto
                 max-md:flex-1 max-md:w-full
                 md:max-h-1/2 min-w-28 min-h-28
             `}>
