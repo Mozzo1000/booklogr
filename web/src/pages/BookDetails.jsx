@@ -68,7 +68,7 @@ function BookDetails() {
                         error.response.data.message) ||
                     error.message ||
                     error.toString();
-                if (error.status != 404) {
+                if (error.response?.status != 404) {
                     toast("error", "OpenLibrary: " + resMessage)
                 }
             }
