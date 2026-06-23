@@ -13,7 +13,6 @@ function ReadingHistoryModal({bookID, show, onClose}) {
         if (show) {
             BooksService.getReadingSessions(bookID).then(
                 response => {
-                    console.log(response.data)
                     setHistory(response.data);
                 },
                 error => {

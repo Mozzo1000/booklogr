@@ -31,7 +31,6 @@ function AccountTab() {
             response => {
                 toast("success", response.data.message)
                 setDisableChangePasswordButton(true);
-                console.log(response.status)
                 if (response.status == 201) {
                     setCurrentdPassword("");
                     setNewPassword("");
@@ -59,7 +58,6 @@ function AccountTab() {
             response => {
                 toast("success", response.data.message)
                 setDisableSaveButton(true);
-                console.log(response.status)
                 if (response.status == 201) {
                     const user = AuthService.getCurrentUser();
                     user.email = email;

@@ -21,7 +21,6 @@ function EditionSelector({work_id, selected_isbn}) {
             OpenlibraryService.getEditions(work_id, 100).then(
                 response => {
                     setEditionList(response.data.entries)
-                    console.log(response.data.entries)
                 },
                 error => {
                     const resMessage =

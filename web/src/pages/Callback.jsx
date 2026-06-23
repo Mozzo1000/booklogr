@@ -14,7 +14,6 @@ function Callback() {
 
         if (code && !hasCalledBackend.current) {
             hasCalledBackend.current = true;
-            console.log("Passing code to backend...");
 
             AuthService.loginOIDC({ code: code })
                 .then(() => {
