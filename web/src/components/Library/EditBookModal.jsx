@@ -11,10 +11,10 @@ import { useThemeMode } from 'flowbite-react';
 
 function EditBookModal(props) {
     const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
-    const [totalPages, setTotalPages] = useState(props.totalPages);
-    const [author, setAuthor] = useState(props.author);
-    const [title, setTitle] = useState(props.title);
-    const [isbn, setISBN] = useState(props.isbn);
+    const [totalPages, setTotalPages] = useState(props.totalPages ?? "");
+    const [author, setAuthor] = useState(props.author ?? "");
+    const [title, setTitle] = useState(props.title ?? "");
+    const [isbn, setISBN] = useState(props.isbn ?? "");
     const toast = useToast(4000);
     const theme = useThemeMode();    
     const { t } = useTranslation();
@@ -88,8 +88,8 @@ function EditBookModal(props) {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div className="format lg:format-lg dark:format-invert">
-                                <p>{t("book.total_pages")}
-                                <div className="text-xs">{t("help.number_of_pages_information")}</div></p>
+                                <p>{t("book.total_pages")}</p>
+                                <div className="text-xs">{t("help.number_of_pages_information")}</div>
                             </div>
                             <div className="col-span-2 ">
                                 <TextInput type="number" value={totalPages} onChange={(e) => setTotalPages(e.target.value)} />
