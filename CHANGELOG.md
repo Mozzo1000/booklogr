@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+
+## [1.11.1] - 2026-06-23
 ### Fixed
 - Resolved an issue where books manually added to the Read list had their progress incorrectly set to 0% instead of 100%.
 - Fixed wrong use of env variable in CheckUpdate error handler when GitHub API fails.
