@@ -5,9 +5,9 @@ from api.models import Files, FilesSchema, Books
 import os
 import csv
 
-files_endpoint = Blueprint('files', __name__)
+files_endpoint = Blueprint('files', __name__, url_prefix="/v1/files")
 
-@files_endpoint.route("/v1/files/<filename>", methods=["GET"])
+@files_endpoint.route("/<filename>", methods=["GET"])
 @auth_required()
 def download_file(filename):
     """
@@ -41,8 +41,7 @@ def download_file(filename):
     }), 500
 
 
-
-@files_endpoint.route("/v1/files", methods=["GET"])
+@files_endpoint.route("", methods=["GET"])
 @auth_required()
 def get_files():
     """
@@ -74,7 +73,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in current_app.config["ALLOWED_EXTENSIONS"]
 
-@files_endpoint.route("/v1/files", methods=["POST"])
+@files_endpoint.route("", methods=["POST"])
 @auth_required()
 def upload_file_for_import():
     claim_id = get_current_user_id()

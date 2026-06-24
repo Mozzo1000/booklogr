@@ -3,9 +3,9 @@ from api.models import Notes, NotesSchema, Books
 from api.utils import validate_date_string, get_current_user_id
 from api.decorators import auth_required
 
-notes_endpoint = Blueprint('notes', __name__)
+notes_endpoint = Blueprint('notes', __name__, url_prefix="/v1/notes")
 
-@notes_endpoint.route("/v1/notes/<id>", methods=["DELETE"])
+@notes_endpoint.route("/<int:id>", methods=["DELETE"])
 @auth_required()
 def remove_note(id):
     """
@@ -40,7 +40,7 @@ def remove_note(id):
         }), 404
 
 
-@notes_endpoint.route("/v1/notes/<id>", methods=["PATCH"])
+@notes_endpoint.route("/<int:id>", methods=["PATCH"])
 @auth_required()
 def edit_note(id):
     """

@@ -3,9 +3,9 @@ from api.models import Profile, ProfileSchema, Notes, Books, UserSettings
 from api.decorators import required_params, auth_required
 from api.utils import get_current_user_id
 
-profiles_endpoint = Blueprint('profiles', __name__)
+profiles_endpoint = Blueprint('profiles', __name__, url_prefix="/v1/profiles")
 
-@profiles_endpoint.route("/v1/profiles/<display_name>", methods=["GET"])
+@profiles_endpoint.route("/<display_name>", methods=["GET"])
 def get_profile(display_name):
     """
         Get profile by name
@@ -37,7 +37,7 @@ def get_profile(display_name):
                     "message": "No profile found"
         }), 404
     
-@profiles_endpoint.route("/v1/profiles", methods=["GET"])
+@profiles_endpoint.route("", methods=["GET"])
 @auth_required()
 def get_profile_by_logged_in_id():
     """
@@ -67,7 +67,7 @@ def get_profile_by_logged_in_id():
         }), 404
 
 @required_params("display_name")
-@profiles_endpoint.route("/v1/profiles", methods=["POST"])
+@profiles_endpoint.route("", methods=["POST"])
 @auth_required()
 def create_profile():
     """
@@ -119,7 +119,7 @@ def create_profile():
         new_user_settings.save_to_db()
         return jsonify({'message': 'Profile created'}), 200
 
-@profiles_endpoint.route("/v1/profiles", methods=["PATCH"])
+@profiles_endpoint.route("", methods=["PATCH"])
 @auth_required()
 def edit_profile():
     """

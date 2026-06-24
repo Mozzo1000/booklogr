@@ -14,7 +14,7 @@ from jinja2 import Environment, FileSystemLoader
 from mastodon import Mastodon
 from api.utils import get_current_user_id
 
-tasks_endpoint = Blueprint('tasks', __name__)
+tasks_endpoint = Blueprint('tasks', __name__, url_prefix="/v1/tasks")
 
 def _create_task(type, data, created_by):
     new_task = Tasks(type=type, data=data, created_by=created_by)
@@ -49,10 +49,7 @@ def _start_background_task(app, task_id, claim):
         finish(task)
 
         
-
-
-
-@tasks_endpoint.route("/v1/tasks/<id>", methods=["GET"])
+@tasks_endpoint.route("/<int:id>", methods=["GET"])
 @auth_required()
 def get_task(id):
     """
@@ -87,7 +84,7 @@ def get_task(id):
                     "message": "No task found"
         }), 404
 
-@tasks_endpoint.route("/v1/tasks", methods=["POST"])
+@tasks_endpoint.route("", methods=["POST"])
 @auth_required()
 @required_params("type", "data")
 def create_task():
@@ -128,7 +125,7 @@ def create_task():
         }), 500
 
 
-@tasks_endpoint.route("/v1/tasks/<id>/retry", methods=["POST"])
+@tasks_endpoint.route("/<int:id>/retry", methods=["POST"])
 @auth_required()
 def retry_task(id):
     """

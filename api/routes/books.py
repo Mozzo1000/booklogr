@@ -16,7 +16,7 @@ from api.extensions import cache
 from api.book_provider import BookProvider
 from api.isbn import isbn_lookup_values
 
-books_endpoint = Blueprint('books', __name__)
+books_endpoint = Blueprint('books', __name__, url_prefix="/v1/books")
 
 @dataclass
 class BookData:
@@ -36,7 +36,7 @@ class SearchResult:
     author: str
     in_library: bool
 
-@books_endpoint.route("/v1/books/search", methods=["GET"])
+@books_endpoint.route("/search", methods=["GET"])
 @auth_required()
 @cache.cached(query_string=True)
 def search_books():
@@ -96,7 +96,7 @@ def search_books():
     }), 200
 
 
-@books_endpoint.route("/v1/books/<isbn>", methods=["GET"])
+@books_endpoint.route("/<isbn>", methods=["GET"])
 @auth_required()
 def get_book(isbn):
     """
@@ -148,7 +148,7 @@ def get_book(isbn):
         total_pages=external_data["total_pages"]
     )), 200
 
-@books_endpoint.route("/v1/books/<isbn>/status", methods=["GET"])
+@books_endpoint.route("/<isbn>/status", methods=["GET"])
 @auth_required()
 def get_book_reading_status(isbn):
     """
@@ -185,7 +185,7 @@ def get_book_reading_status(isbn):
                     "message": f"No book with isbn {isbn} found in any reading list."
         }), 404
 
-@books_endpoint.route("/v1/books", methods=["GET"])
+@books_endpoint.route("", methods=["GET"])
 @auth_required()
 def get_books():
     """
@@ -273,7 +273,7 @@ def get_books():
         }})
 
 @required_params("title", "isbn")
-@books_endpoint.route("/v1/books", methods=["POST"])
+@books_endpoint.route("", methods=["POST"])
 @auth_required()
 def add_book():
     """
@@ -374,7 +374,7 @@ def add_book():
         
     return jsonify({'message': 'Book added to list.'}), 200
 
-@books_endpoint.route("/v1/books/<id>", methods=["PATCH"])
+@books_endpoint.route("/<int:id>", methods=["PATCH"])
 @auth_required()
 def edit_book(id):
     """
@@ -481,7 +481,7 @@ def edit_book(id):
                 "message": "Unkown error occurred"
     }), 500
 
-@books_endpoint.route("/v1/books/<id>", methods=["DELETE"])
+@books_endpoint.route("/<int:id>", methods=["DELETE"])
 @auth_required()
 def remove_book(id):
     """
@@ -515,7 +515,7 @@ def remove_book(id):
                     "message": f"No book with ID: {id} was found"
         }), 404
     
-@books_endpoint.route("/v1/books/<id>/notes", methods=["GET"])
+@books_endpoint.route("/<int:id>/notes", methods=["GET"])
 @auth_required()
 def get_notes_for_book(id):
     """
@@ -551,7 +551,7 @@ def get_notes_for_book(id):
 
 
 @required_params("content")
-@books_endpoint.route("/v1/books/<id>/notes", methods=["POST"])
+@books_endpoint.route("/<int:id>/notes", methods=["POST"])
 @auth_required()
 def add_book_note(id):
     """
@@ -633,7 +633,7 @@ def add_book_note(id):
     
 
 
-@books_endpoint.route("/v1/books/<id>/sessions", methods=["GET"])
+@books_endpoint.route("/<int:id>/sessions", methods=["GET"])
 @auth_required()
 def get_book_reading_sessions(id):
     claim_id = get_current_user_id()

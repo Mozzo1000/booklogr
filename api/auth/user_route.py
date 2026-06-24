@@ -8,9 +8,9 @@ import uuid
 from api.models import Profile
 from api.utils import get_current_user_id
 
-user_endpoint = Blueprint('user_endpoint', __name__)
+user_endpoint = Blueprint('user_endpoint', __name__, url_prefix="/v1/users")
 
-@user_endpoint.route("/v1/users/me", methods=["GET"])
+@user_endpoint.route("/me", methods=["GET"])
 @jwt_required()
 def get_logged_in_user():
     user_schema = UserSchema(many=False)
@@ -18,7 +18,7 @@ def get_logged_in_user():
     return jsonify(user_schema.dump(user))
 
 
-@user_endpoint.route('/v1/users', methods=["GET"])
+@user_endpoint.route("", methods=["GET"])
 @require_role("internal_admin")
 def get_all_users():
     user_schema = UserSchema(many=True)
@@ -29,7 +29,7 @@ def get_all_users():
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in current_app.config.get("ALLOWED_PROFILE_PICTURE_EXTENSIONS")
 
-@user_endpoint.route("/v1/users/me/profile-picture", methods=["POST"])
+@user_endpoint.route("/me/profile-picture", methods=["POST"])
 @jwt_required()
 def upload_profile_picture():
     if 'file' not in request.files:
@@ -63,7 +63,7 @@ def upload_profile_picture():
     return jsonify({"message": "Invalid file type"}), 400
 
 
-@user_endpoint.route("/v1/users/profile-picture/<filename>", methods=["GET"])
+@user_endpoint.route("/profile-picture/<filename>", methods=["GET"])
 @jwt_required(optional=True)
 def serve_profile_picture(filename):
     filename = os.path.basename(filename)
@@ -84,7 +84,7 @@ def serve_profile_picture(filename):
     return jsonify({"message": "Profile picture not found"}), 404
 
 
-@user_endpoint.route("/v1/users/me/profile-picture", methods=["DELETE"])
+@user_endpoint.route("/me/profile-picture", methods=["DELETE"])
 @jwt_required()
 def remove_profile_picture():
     claim_id = get_current_user_id()

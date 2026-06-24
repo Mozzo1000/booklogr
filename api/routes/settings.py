@@ -5,9 +5,9 @@ from api.utils import get_current_user_id
 import time
 from datetime import datetime, timezone
 
-settings_endpoint = Blueprint('settings', __name__)
+settings_endpoint = Blueprint('settings', __name__, url_prefix="/v1/settings")
 
-@settings_endpoint.route("/v1/settings", methods=["GET"])
+@settings_endpoint.route("", methods=["GET"])
 @auth_required()
 def get_settings():
     claim_id = get_current_user_id()
@@ -21,7 +21,7 @@ def get_settings():
                     "message": "User settings not found"
         }), 404
     
-@settings_endpoint.route("/v1/settings", methods=["PATCH"])
+@settings_endpoint.route("", methods=["PATCH"])
 @auth_required()
 def edit_settings():
     claim_id = get_current_user_id()
