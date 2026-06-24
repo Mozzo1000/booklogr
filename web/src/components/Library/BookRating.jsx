@@ -54,7 +54,7 @@ function BookRating(props) {
 
     const rating = () => {
         return (
-            <Rating size={props.size} onClick={() => handleOpenModal()} className={`${!props.disableGiveRating ? "hover:bg-gray-100 hover:cursor-pointer":""} w-fit`}>
+            <Rating size={props.size} onClick={() => handleOpenModal()} className={`${!props.disableGiveRating ? "hover:bg-gray-100 dark:hover:bg-gray-600 hover:cursor-pointer":""} w-fit`}>
                 <RatingStar filled={Math.floor(props.rating) >= 1 ? true : false} />
                 <RatingStar filled={Math.floor(props.rating) >= 2 ? true : false} />
                 <RatingStar filled={Math.floor(props.rating) >= 3 ? true : false} />
