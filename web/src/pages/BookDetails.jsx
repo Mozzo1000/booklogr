@@ -89,7 +89,7 @@ function BookDetails() {
                 <div>
                     <article className="format dark:format-invert">
                         <h2 className="mb-2">{data?.title || <Skeleton />}</h2>
-                        <h3 className="text-xl font-medium text-gray-900 tracking-tight">{subtitle || <Skeleton />}</h3>
+                        <h3 className="text-xl font-medium text-gray-900 dark:text-gray-100 tracking-tight">{subtitle || <Skeleton />}</h3>
                         {author ? (
                             <p className="lead">{t("book.by_author", { author: author })}</p>
                         ) : (
