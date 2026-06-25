@@ -122,6 +122,8 @@ def upload_file_for_import():
                     new_book = Books(owner_id=claim_id, title=row["title"], isbn=row["isbn"], 
                             description=row["description"], reading_status=row["reading_status"], 
                             current_page=row["current_page"], total_pages=row["total_pages"], author=row["author"])
+                    if row["rating"]:
+                        new_book.rating = row["rating"]
                     new_book.save_to_db()
                     count_imported += 1
                 else:
@@ -130,6 +132,8 @@ def upload_file_for_import():
                         new_book = Books(owner_id=claim_id, title=row["title"], isbn=row["isbn"], 
                             description=row["description"], reading_status=row["reading_status"], 
                             current_page=row["current_page"], total_pages=row["total_pages"], author=row["author"])
+                        if row["rating"]:
+                            new_book.rating = row["rating"]
                         new_book.save_to_db()
                         count_imported += 1
                     else:
@@ -164,14 +168,14 @@ def upload_file_for_import():
                 if isbn and reading_status:
                     if allow_duplicates:
                         new_book = Books(owner_id=claim_id, title=row["Title"], isbn=isbn, reading_status=reading_status, 
-                                    current_page=0, total_pages=row["Number of Pages"], author=row["Author"])
+                                    current_page=0, total_pages=row["Number of Pages"], author=row["Author"], rating=row["My Rating"])
                         new_book.save_to_db()
                         count_imported += 1
                     else:
                         existing_book = Books.query.filter_by(owner_id=claim_id, isbn=isbn).first()
                         if not existing_book:
                             new_book = Books(owner_id=claim_id, title=row["Title"], isbn=isbn, reading_status=reading_status, 
-                                    current_page=0, total_pages=row["Number of Pages"], author=row["Author"])
+                                    current_page=0, total_pages=row["Number of Pages"], author=row["Author"], rating=row["My Rating"])
                             new_book.save_to_db()
                             count_imported += 1
                         else:
