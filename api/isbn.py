@@ -46,6 +46,15 @@ def isbn13_to_isbn10(isbn13):
     return f"{stem}{_isbn10_check_digit(stem)}"
 
 
+def isbn_from_query(text):
+    cleaned = _clean_isbn(text)
+    if len(cleaned) == 13 and _isbn13_check_digit(cleaned[:12]) == cleaned[-1]:
+        return cleaned
+    if len(cleaned) == 10:
+        return isbn10_to_isbn13(cleaned) or cleaned
+    return None
+
+
 def isbn_lookup_values(isbn):
     values = []
 
