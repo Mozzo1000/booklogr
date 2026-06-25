@@ -63,31 +63,31 @@ def search_books():
         seen_isbns.add(b.isbn)
 
     external_data = BookProvider().search(search_term)
-
-    for item in external_data:
-        isbn = item["isbn"]
-        if isbn in seen_isbns:
-            continue
-        
-        existing_book = Books.query.filter_by(owner_id=claim_id, isbn=isbn).first()
-        
-        if existing_book:
-            book_obj = SearchResult(
-                isbn=existing_book.isbn,
-                title=existing_book.title,
-                author=existing_book.author,
-                in_library=True
-            )
-        else:
-            book_obj = SearchResult(
-                isbn=isbn,
-                title=item["title"],
-                author=item["author"],
-                in_library=False
-            )
-        
-        results.append(book_obj)
-        seen_isbns.add(isbn)
+    if external_data:
+      for item in external_data:
+          isbn = item["isbn"]
+          if isbn in seen_isbns:
+              continue
+          
+          existing_book = Books.query.filter_by(owner_id=claim_id, isbn=isbn).first()
+          
+          if existing_book:
+              book_obj = SearchResult(
+                  isbn=existing_book.isbn,
+                  title=existing_book.title,
+                  author=existing_book.author,
+                  in_library=True
+              )
+          else:
+              book_obj = SearchResult(
+                  isbn=isbn,
+                  title=item["title"],
+                  author=item["author"],
+                  in_library=False
+              )
+          
+          results.append(book_obj)
+          seen_isbns.add(isbn)
 
     results.sort(key=lambda x: x.in_library, reverse=True)
     return jsonify({
