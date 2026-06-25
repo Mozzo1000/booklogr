@@ -69,7 +69,7 @@ function ActionsBookLibraryButton(props) {
         
         <NotesView id={props.id} open={openNotesModal} setOpen={setOpenNotesModal} allowEditing={props.allowNoteEditing}/>
         <RemoveBookModal id={props.id} open={openRemoveModal} close={setOpenRemoveModal} onSuccess={props.onSuccess}/>
-        <EditBookModal id={props.id} totalPages={props.totalPages} open={openEditBookModal} close={setOpenEditBookModal} onSuccess={props.onSuccess} author={props.author} title={props.title} isbn={props.isbn}/>
+        <EditBookModal id={props.id} totalPages={props.totalPages} open={openEditBookModal} close={setOpenEditBookModal} onSuccess={props.onSuccess} author={props.author} title={props.title} isbn={props.isbn} description={props.description} readingStatus={props.readingStatus}/>
         <ReadingHistoryModal bookID={props.id} show={openReadingHistoryModal} onClose={() => setOpenReadingHistoryModal(false)} />
         </>
     )

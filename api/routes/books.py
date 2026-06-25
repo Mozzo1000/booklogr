@@ -407,6 +407,8 @@ def edit_book(id):
                     type: string
                   author:
                     type: string
+                  description:
+                    type: string
         security:
             - bearerAuth: []
         responses:
@@ -467,6 +469,8 @@ def edit_book(id):
             book.title = request.json["title"]
         if "author" in request.json:
             book.author = request.json["author"]
+        if "description" in request.json:
+            book.description = request.json["description"]
     else:
         return jsonify({
                     "error": "Bad request",
