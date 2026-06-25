@@ -86,7 +86,13 @@ def edit_note(id):
     note = Notes.query.join(Books, Books.id==Notes.book_id).filter(Books.owner_id==claim_id, Notes.id==id).first()
     if request.json:
         if "visibility" in request.json:
-            note.visibility = request.json["visibility"]
+            if request.json["visibility"] in ("hidden", "public"):
+                note.visibility = request.json["visibility"]
+            else:
+                return jsonify({
+                    "error": "Invalid visibility",
+                    "message": "The supplied visibility is invalid. It can be either hidden or public."
+                }), 422
         if "content" in request.json:
             note.content = request.json["content"]
         if "quote_page" in request.json:

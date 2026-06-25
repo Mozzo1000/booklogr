@@ -459,12 +459,14 @@ def edit_book(id):
                 return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Status needs to be either 'Currently reading', 'To be read' or 'Read' (case sensitive)"}), 422 
 
         if "rating" in request.json:
-            if 0 <= float(request.json["rating"]) <= 5:
-                book.rating = request.json["rating"]
-            elif int(request.json["rating"]) > 5:
-                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating can't be more than 5."}), 422 
-            elif int(request.json["rating"]) < 0:
-                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating can't be less than 0."}), 422
+            try:
+                rating_val = float(request.json["rating"])
+                if 0 <= rating_val <= 5:
+                    book.rating = rating_val
+                else:
+                    return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating must be between 0 and 5."}), 422
+            except (ValueError, TypeError):
+                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating must be a number."}), 422
         if "title" in request.json:
             book.title = request.json["title"]
         if "author" in request.json:
@@ -609,7 +611,7 @@ def add_book_note(id):
     if "quote_page" in request.json:
         page = request.json["quote_page"]
     if "visibility" in request.json:
-        if "hidden" or "public" in request.json["visibility"]:
+        if request.json["visibility"] in ("hidden", "public"):
           visibility = request.json["visibility"]
         else:
             return jsonify({
