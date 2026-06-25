@@ -170,17 +170,17 @@ function AddToReadingListButton(props) {
             <ButtonGroup outline className="w-full flex">
                 {(() => {
                     if (readingStatus === "To be read") {
-                        return <Button className="w-full" onClick={() => handleSetReadingCurrentlyReading()}><RiBookOpenLine className="mr-2 h-5 w-5" />{t("reading_status.currently_reading")}</Button>;
+                        return <Button className="w-full" disabled={!props.data?.title} onClick={() => handleSetReadingCurrentlyReading()}><RiBookOpenLine className="mr-2 h-5 w-5" />{t("reading_status.currently_reading")}</Button>;
                     } else if (readingStatus === "Currently reading") {
                         return <UpdateReadingStatusButton currentPage={currentPage} totalPages={totalPages} id={readID} title={props.data?.title} rating={0} buttonStyle={"alternative"} onSucess={updateReadStatus}/>
                     } else if (readingStatus === "Read") {
                         return <Button className="w-full" disabled><RiBook2Line className="mr-2 h-5 w-5" />{t("reading_status.read")}</Button>;
                     }else {
-                        return <Button className="w-full" onClick={() => handleSetReadingToBeRead()}><RiBookmarkLine className="mr-2 h-5 w-5" />{t("reading_status.to_be_read")}</Button>;
+                        return <Button className="w-full" disabled={!props.data?.title} onClick={() => handleSetReadingToBeRead()}><RiBookmarkLine className="mr-2 h-5 w-5" />{t("reading_status.to_be_read")}</Button>;
                     }
                 })()}
-        
-                <Dropdown className="shrink-0">
+
+                <Dropdown className="shrink-0" disabled={!props.data?.title}>
                     {(() => {
                         if (readingStatus === "To be read") {
                             return <>
