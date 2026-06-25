@@ -272,9 +272,9 @@ def get_books():
             "offset": (books.page - 1) * books.per_page
         }})
 
-@required_params("title", "isbn")
 @books_endpoint.route("/v1/books", methods=["POST"])
 @auth_required()
+@required_params("title", "isbn")
 def add_book():
     """
         Add book to list
@@ -550,9 +550,9 @@ def get_notes_for_book(id):
         }), 404
 
 
-@required_params("content")
 @books_endpoint.route("/v1/books/<id>/notes", methods=["POST"])
 @auth_required()
+@required_params("content")
 def add_book_note(id):
     """
         Add note to book

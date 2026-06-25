@@ -12,7 +12,8 @@ def required_params(*args):
  
         @wraps(fn)
         def wrapper(*args, **kwargs):
-            missing = [r for r in required if r not in request.get_json()]
+            body = request.get_json() or {}
+            missing = [r for r in required if r not in body]
             if missing:
                 response = {
                     "status": "error",
