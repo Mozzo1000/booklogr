@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+### Fixed
+- Resolved an issue where searching by ISBN with hyphens returned no results when using the BookLogr metadata provider.
+- Resolved an issue where the search endpoint returned a 500 error instead of an empty result when the external data provider returned no books.
+- Fixed missing dark mode hover styles on the book rating component.
+- Fixed subtitle text color not respecting dark mode on the book details page.
+
+### Changed
+- Ratings are now included when importing books from BookLogr CSV and Goodreads formats.
 
 ## [1.11.1] - 2026-06-23
 ### Fixed
