@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings, BooksStatusSchema, Profile, ReadingSessions, ReadingSessionsSchema, db
 from api.decorators import required_params, auth_required
 from api.routes.tasks import _create_task
@@ -217,8 +216,8 @@ def get_books():
           200:
             description: Returns books in list
     """
-    sort_fields = {"progress", "created_on", "title", "author", "rating", "reading_status", "isbn"}
-    order_fields = {"asc", "desc"}
+    SORT_FIELDS = {"progress", "created_on", "title", "author", "rating", "reading_status", "isbn"}
+    ORDER_FIELDS = {"asc", "desc"}
 
     limit = 25
     offset = request.args.get('offset', 1, type=int)
@@ -230,37 +229,37 @@ def get_books():
     sort_by = request.args.get("sort_by", "title")
     order = request.args.get("order", "asc")
 
-    if sort_by not in sort_fields:
+    if sort_by not in SORT_FIELDS:
       return jsonify({
                   'error': 'Invalid sort field',
                   'message': 'Sort can be only one of the following fields: progress, created_on, title, author, rating, reading_status, isbn'
               }), 400
     
-    if order not in order_fields:
+    if order not in ORDER_FIELDS:
       return jsonify({
                   'error': 'Invalid order field',
                   'message': 'Order can be only one of the following fields: asc, desc'
               }), 400
-    
   
     books_schema = BooksSchema(many=True)
-    books = Books.query.filter(Books.owner_id == claim_id)
+    books_query = Books.query.filter(Books.owner_id == claim_id)
 
     if query_status:
-        books = books.filter(Books.reading_status==query_status)
+        books_query = books_query.filter(Books.reading_status==query_status)
     
-    if sort_by in sort_fields:
-        if sort_by == "progress":
-          progress_calc = (Books.current_page * 100.0 / Books.total_pages).label('progress')
-          if order == "asc":
-            books = books.order_by(progress_calc.asc()).paginate(page=offset, per_page=limit, error_out=False)
-          else:
-              books = books.order_by(progress_calc.desc()).paginate(page=offset, per_page=limit, error_out=False)
-        else:
-          if order == "asc":
-            books = books.order_by(func.lower(getattr(Books, sort_by)).asc()).paginate(page=offset, per_page=limit, error_out=False)
-          else:
-            books = books.order_by(func.lower(getattr(Books, sort_by)).desc()).paginate(page=offset, per_page=limit, error_out=False)
+    if sort_by == "progress":
+      sort_field = (Books.current_page * 100.0 / Books.total_pages).label('progress')
+    elif sort_by == "created_on":
+      sort_field = Books.created_on
+    else:
+      sort_field = func.lower(getattr(Books, sort_by))
+
+    if order == "asc":
+      books_query = books_query.order_by(sort_field.asc())
+    else:    
+     books_query = books_query.order_by(sort_field.desc())
+
+    books = books_query.paginate(page=offset, per_page=limit, error_out=False)
 
     return jsonify({"items": books_schema.dump(books.items), "meta": {
             "page": books.page,
