@@ -50,7 +50,7 @@ def register():
       500:
         description: Internal server error.
     """
-    if not "email" or not "password" or not "name" in request.json:
+    if not request.json or "email" not in request.json or "password" not in request.json or "name" not in request.json:
         abort(422)
     if User.find_by_email(request.json["email"]):
         return jsonify({'message': 'Email {} is already in use'.format(request.json["email"])}), 409
@@ -107,7 +107,7 @@ def verify():
       500:
         description: Internal server error.
     """
-    if not "email" or not "code" in request.json:
+    if not request.json or "email" not in request.json or "code" not in request.json:
         abort(422)
 
     current_user = User.find_by_email(request.json["email"])
@@ -160,7 +160,7 @@ def login():
       404:
         description: Missing email or password.
     """
-    if not "email" or not "password" in request.json:
+    if not request.json or "email" not in request.json or "password" not in request.json:
         abort(422)
     current_user = User.find_by_email(request.json["email"])
     if not current_user:
@@ -302,7 +302,7 @@ def change_email():
     requestBody:
       required: true
       content:
-        application/json:
+        application/json: 
           schema:
             type: object
             required: [new_email]

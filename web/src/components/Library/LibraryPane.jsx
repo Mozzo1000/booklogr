@@ -175,6 +175,8 @@ function LibraryPane() {
                                 totalPages={item.total_pages} 
                                 currentPage={item.current_page}
                                 isbn={item.isbn}
+                                description={item.description}
+                                readingStatus={item.reading_status}
                                 showProgress={activeTab === TAB_ALL || activeTab === TAB_CURRENTLY_READING}
                                 showRating={activeTab === TAB_ALL || activeTab === TAB_READ || activeTab === TAB_DID_NOT_FINISH}
                                 showNotes={activeTab === TAB_ALL || activeTab === TAB_TO_BE_READ || activeTab === TAB_READ || activeTab === TAB_DID_NOT_FINISH}

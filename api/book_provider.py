@@ -1,6 +1,7 @@
 import os
 import requests
 from flask import current_app
+from api.isbn import isbn_from_query
 
 class BookProvider:
     def __init__(self):
@@ -76,9 +77,11 @@ class BookProvider:
     def _search_booklogr_api(self, url, query):
         """Fetcher for the custom sqlite-based search.booklogr.app API"""
         base_url = url if url.startswith("http") else "https://metadata.booklogr.app"
-        
-        endpoint = f"{base_url.rstrip('/')}/v1/search/{requests.utils.quote(query)}"
+
+        normalized_query = isbn_from_query(query) or query
+        endpoint = f"{base_url.rstrip('/')}/v1/search/{requests.utils.quote(normalized_query)}"
         params = {"limit": 10, "sort": "relevance"}
+        print(endpoint)
         
         resp = self.session.get(endpoint, params=params, timeout=30)
         resp.raise_for_status()

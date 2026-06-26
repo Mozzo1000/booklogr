@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+### Fixed
+- Fixed an issue where registration, login, and email verification could silently ignore missing required fields, potentially causing an unexpected error instead of a proper validation message.
+- Fixed an issue where a book rating of exactly 5.5 or -0.5 could bypass validation and be saved incorrectly.
+- Fixed an issue where the note visibility field was not properly validated when creating or editing a note, allowing invalid values to be saved.
+- Resolved an issue where searching by ISBN with hyphens returned no results when using the BookLogr metadata provider.
+- Resolved an issue where the search endpoint returned a 500 error instead of an empty result when the external data provider returned no books.
+- Fixed missing dark mode hover styles on the book rating component.
+- Fixed subtitle text color not respecting dark mode on the book details page.
+- Fixed an issue where adding a book without a title returned a 500 error instead of a validation error.
+
+### Changed
+- Ratings are now included when importing books from BookLogr CSV and Goodreads formats.
+- The Add to Reading List button is now disabled until the book title has finished loading.
+- The Edit Book modal has been redesigned to match the Add Book modal and now supports editing description and reading status in addition to title, author, and total pages.
 
 ## [1.11.1] - 2026-06-23
 ### Fixed

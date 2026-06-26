@@ -63,31 +63,31 @@ def search_books():
         seen_isbns.add(b.isbn)
 
     external_data = BookProvider().search(search_term)
-
-    for item in external_data:
-        isbn = item["isbn"]
-        if isbn in seen_isbns:
-            continue
-        
-        existing_book = Books.query.filter_by(owner_id=claim_id, isbn=isbn).first()
-        
-        if existing_book:
-            book_obj = SearchResult(
-                isbn=existing_book.isbn,
-                title=existing_book.title,
-                author=existing_book.author,
-                in_library=True
-            )
-        else:
-            book_obj = SearchResult(
-                isbn=isbn,
-                title=item["title"],
-                author=item["author"],
-                in_library=False
-            )
-        
-        results.append(book_obj)
-        seen_isbns.add(isbn)
+    if external_data:
+      for item in external_data:
+          isbn = item["isbn"]
+          if isbn in seen_isbns:
+              continue
+          
+          existing_book = Books.query.filter_by(owner_id=claim_id, isbn=isbn).first()
+          
+          if existing_book:
+              book_obj = SearchResult(
+                  isbn=existing_book.isbn,
+                  title=existing_book.title,
+                  author=existing_book.author,
+                  in_library=True
+              )
+          else:
+              book_obj = SearchResult(
+                  isbn=isbn,
+                  title=item["title"],
+                  author=item["author"],
+                  in_library=False
+              )
+          
+          results.append(book_obj)
+          seen_isbns.add(isbn)
 
     results.sort(key=lambda x: x.in_library, reverse=True)
     return jsonify({
@@ -272,9 +272,9 @@ def get_books():
             "offset": (books.page - 1) * books.per_page
         }})
 
-@required_params("title", "isbn")
 @books_endpoint.route("", methods=["POST"])
 @auth_required()
+@required_params("title", "isbn")
 def add_book():
     """
         Add book to list
@@ -407,6 +407,8 @@ def edit_book(id):
                     type: string
                   author:
                     type: string
+                  description:
+                    type: string
         security:
             - bearerAuth: []
         responses:
@@ -457,16 +459,20 @@ def edit_book(id):
                 return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Status needs to be either 'Currently reading', 'To be read' or 'Read' (case sensitive)"}), 422 
 
         if "rating" in request.json:
-            if 0 <= float(request.json["rating"]) <= 5:
-                book.rating = request.json["rating"]
-            elif int(request.json["rating"]) > 5:
-                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating can't be more than 5."}), 422 
-            elif int(request.json["rating"]) < 0:
-                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating can't be less than 0."}), 422
+            try:
+                rating_val = float(request.json["rating"])
+                if 0 <= rating_val <= 5:
+                    book.rating = rating_val
+                else:
+                    return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating must be between 0 and 5."}), 422
+            except (ValueError, TypeError):
+                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating must be a number."}), 422
         if "title" in request.json:
             book.title = request.json["title"]
         if "author" in request.json:
             book.author = request.json["author"]
+        if "description" in request.json:
+            book.description = request.json["description"]
     else:
         return jsonify({
                     "error": "Bad request",
@@ -550,9 +556,9 @@ def get_notes_for_book(id):
         }), 404
 
 
-@required_params("content")
 @books_endpoint.route("/<int:id>/notes", methods=["POST"])
 @auth_required()
+@required_params("content")
 def add_book_note(id):
     """
         Add note to book
@@ -605,7 +611,7 @@ def add_book_note(id):
     if "quote_page" in request.json:
         page = request.json["quote_page"]
     if "visibility" in request.json:
-        if "hidden" or "public" in request.json["visibility"]:
+        if request.json["visibility"] in ("hidden", "public"):
           visibility = request.json["visibility"]
         else:
             return jsonify({
