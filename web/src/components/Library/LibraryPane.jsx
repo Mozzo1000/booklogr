@@ -169,6 +169,7 @@ function LibraryPane() {
                                 internalID={item.id} 
                                 view={view}
                                 title={item.title}
+                                subtitle={item.subtitle}
                                 author={item.author} 
                                 rating={item.rating} 
                                 notes={item.num_notes}

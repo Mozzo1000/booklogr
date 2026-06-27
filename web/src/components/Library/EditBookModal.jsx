@@ -13,6 +13,7 @@ function EditBookModal(props) {
     const [totalPages, setTotalPages] = useState(props.totalPages ?? "");
     const [author, setAuthor] = useState(props.author ?? "");
     const [title, setTitle] = useState(props.title ?? "");
+    const [subtitle, setSubtitle] = useState(props.subtitle ?? "");
     const [isbn] = useState(props.isbn ?? "");
     const [description, setDescription] = useState(props.description ?? "");
     const [readingStatus, setReadingStatus] = useState(props.readingStatus ?? "To be read");
@@ -24,6 +25,7 @@ function EditBookModal(props) {
         BooksService.edit(props.id, {
             total_pages: parseInt(totalPages),
             title: title,
+            subtitle: subtitle,
             author: author,
             description: description,
             status: readingStatus,
@@ -84,6 +86,12 @@ function EditBookModal(props) {
                             <Label htmlFor="title">{t("sort.title")}</Label>
                         </div>
                         <TextInput id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                    </div>
+                    <div>
+                        <div className="mb-2 block">
+                            <Label htmlFor="subtitle">{t("book.subtitle")}</Label>
+                        </div>
+                        <TextInput id="subtitle" type="text" value={subtitle} onChange={(e) => setSubtitle(e.target.value)}/>
                     </div>
                     <div>
                         <div className="mb-2 block">

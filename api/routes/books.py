@@ -476,6 +476,8 @@ def edit_book(id):
                 return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Rating must be a number."}), 422
         if "title" in request.json:
             book.title = request.json["title"]
+        if "subtitle" in request.json:
+            book.subtitle = request.json["subtitle"]
         if "author" in request.json:
             book.author = request.json["author"]
         if "description" in request.json:
