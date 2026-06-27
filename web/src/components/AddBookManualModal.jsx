@@ -13,6 +13,7 @@ function AddBookManualModal(props) {
     const [totalPages, setTotalPages] = useState();
     const [author, setAuthor] = useState();
     const [title, setTitle] = useState();
+    const [subtitle, setSubtitle] = useState();
     const [isbn, setISBN] = useState();
     const [description, setDescription] = useState("");
     const [readingList, setReadingList] = useState("To be read");
@@ -25,6 +26,7 @@ function AddBookManualModal(props) {
         setTotalPages();
         setAuthor();
         setTitle();
+        setSubtitle();
         setISBN();
         setDescription("");
         setReadingList("To be read");
@@ -50,6 +52,7 @@ function AddBookManualModal(props) {
         BooksService.add({
                 isbn: isbn, 
                 title: title, 
+                subtitle: subtitle,
                 author: author,
                 description: description,
                 current_page: currentPage,
@@ -122,6 +125,12 @@ function AddBookManualModal(props) {
                             <span className="font-medium">{t("forms.title_required")}</span>
                         </HelperText>
                         )}
+                    </div>
+                    <div>
+                        <div className="mb-2 block">
+                            <Label htmlFor="subtitle">{t("book.subtitle")}</Label>
+                        </div>
+                        <TextInput id="subtitle" type="text" value={subtitle} onChange={(e) => setSubtitle(e.target.value)}/>
                     </div>
                     <div>
                         <div className="mb-2 block">
