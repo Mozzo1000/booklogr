@@ -11,13 +11,14 @@ const get_isbn = (isbn) => {
 }
 
 const get = (status, sort, order, page) => {
-    if (status) {
-        return axios.get(getAPIUrl(`v1/books?status=${status}&sort_by=${sort}&order=${order}&offset=${page}`), { headers: authHeader() })
-
-    } else {
-        return axios.get(getAPIUrl("v1/books"), { headers: authHeader() })
-
-    }
+    var params = {
+        status,
+        sort_by: sort,
+        order,
+        offset: page
+    };
+    
+    return axios.get(getAPIUrl(`v1/books`),  { headers: authHeader(), params: params });
 }
 
 const edit = (id, data) => {
