@@ -129,7 +129,7 @@ def get_book(isbn):
         Books.isbn.in_(isbn_lookup_values(isbn))
     ).first()
     if book:
-        return jsonify(BookData(isbn=book.isbn, title=book.title, subtitle=None, author=book.author, description=book.description, in_library=True, total_pages=book.total_pages, library_data={"reading_status": book.reading_status, "current_page": book.current_page, "rating": book.rating})), 200
+        return jsonify(BookData(isbn=book.isbn, title=book.title, subtitle=book.subtitle, author=book.author, description=book.description, in_library=True, total_pages=book.total_pages, library_data={"reading_status": book.reading_status, "current_page": book.current_page, "rating": book.rating})), 200
     
     external_data = BookProvider().get(isbn)
     if not external_data:
@@ -294,6 +294,9 @@ def add_book():
                   title:
                     type: string
                     description: Title of the book
+                  subtitle:
+                    type: string
+                    description: Subtitle of the book
                   isbn:
                     type: string
                     description: ISBN number
@@ -347,9 +350,13 @@ def add_book():
     total_pages = 0
     if "total_pages" in request.json:
         total_pages = request.json["total_pages"]
+    
+    subtitle = None
+    if "subtitle" in request.json:
+        subtitle = request.json["subtitle"]
 
     try:
-      new_book = Books(owner_id=claim_id, title=request.json["title"], isbn=request.json["isbn"], 
+      new_book = Books(owner_id=claim_id, title=request.json["title"], subtitle=subtitle, isbn=request.json["isbn"], 
                       description=description, reading_status=reading_status, 
                       current_page=current_page, total_pages=total_pages, author=author)
       new_book.save_to_db()

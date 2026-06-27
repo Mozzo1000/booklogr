@@ -99,6 +99,7 @@ class Books(db.Model):
     __tablename__ = "books"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
+    subtitle = db.Column(db.String)
     isbn = db.Column(db.String)
     description = db.Column(db.String)
     author = db.Column(db.String)

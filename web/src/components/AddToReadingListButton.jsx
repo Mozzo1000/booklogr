@@ -29,6 +29,7 @@ function AddToReadingListButton(props) {
     const handleSave = (status, current_page, total_pages, author_man ) => {
         var arr = {}
         arr.title = props.data?.title;
+        arr.subtitle = props.data?.subtitle
         arr.isbn = props.isbn;
         if (author_man) {
             arr.author = author_man
