@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings, BooksStatusSchema, Profile, ReadingSessions, ReadingSessionsSchema, db
 from api.decorators import required_params, auth_required
 from api.routes.tasks import _create_task
@@ -242,10 +243,10 @@ def get_books():
               }), 400
   
     books_schema = BooksSchema(many=True)
-    books_query = Books.query.filter(Books.owner_id == claim_id)
+    books = Books.query.filter(Books.owner_id == claim_id)
 
     if query_status:
-        books_query = books_query.filter(Books.reading_status==query_status)
+        books = books.filter(Books.reading_status==query_status)
     
     if sort_by == "progress":
       sort_field = (Books.current_page * 100.0 / Books.total_pages).label('progress')
@@ -255,11 +256,11 @@ def get_books():
       sort_field = func.lower(getattr(Books, sort_by))
 
     if order == "asc":
-      books_query = books_query.order_by(sort_field.asc())
+      books = books.order_by(sort_field.asc())
     else:    
-     books_query = books_query.order_by(sort_field.desc())
+     books = books.order_by(sort_field.desc())
 
-    books = books_query.paginate(page=offset, per_page=limit, error_out=False)
+    books = books.paginate(page=offset, per_page=limit, error_out=False)
 
     return jsonify({"items": books_schema.dump(books.items), "meta": {
             "page": books.page,
