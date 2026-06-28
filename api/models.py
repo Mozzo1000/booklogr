@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import uuid
+import json as _json
 from werkzeug.security import generate_password_hash, check_password_hash
 from marshmallow import post_dump
 from datetime import datetime, timezone
@@ -235,3 +236,50 @@ class UserSettings(db.Model):
 class UserSettingsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = UserSettings
+
+
+class FieldValue(db.Model):
+    __tablename__ = "field_values"
+    id = db.Column(db.Integer, primary_key=True)
+    book_id = db.Column(db.Integer, db.ForeignKey("books.id", ondelete="CASCADE"), nullable=False)
+    field_id = db.Column(db.Integer, db.ForeignKey("fields.id"), nullable=False)
+    value = db.Column(db.String, nullable=False)
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+class Fields(db.Model):
+    __tablename__ = "fields"
+    id = db.Column(db.Integer, primary_key=True)
+    owner_id = db.Column(db.Integer, db.ForeignKey("profiles.owner_id"))
+    name = db.Column(db.String, nullable=False)
+    field_type = db.Column(db.String, nullable=False)
+    show_order = db.Column(db.Integer, nullable=False, default=1)
+    options = db.Column(db.String, nullable=True)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    field_values = db.relationship("FieldValue", backref="fields", cascade="all, delete-orphan")
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+class FieldsSchema(ma.SQLAlchemyAutoSchema):
+    options = ma.Method("serialize_options")
+
+    class Meta:
+        model = Fields
+
+    def serialize_options(self, obj):
+        if obj.options:
+            try:
+                return _json.loads(obj.options)
+            except (_json.JSONDecodeError, TypeError):
+                return None
+        return None
+
+
