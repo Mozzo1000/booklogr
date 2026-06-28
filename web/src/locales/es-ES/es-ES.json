@@ -6,6 +6,7 @@
         "currently_reading": "Leyendo",
         "to_be_read": "Pendiente",
         "all": "Todos",
+        "want_to_read": "Want to read",
         "did_not_finish": "No terminado",
         "read_again": "Leer de nuevo",
         "list": "Lista de lectura"
@@ -137,6 +138,7 @@
         "by_author": "de {{author}}",
         "unknown_author": "autor desconocido",
         "no_description_found": "No se ha encontrado ninguna descripción",
+        "subtitle": "Subtitle",
         "description": "Descripción",
         "pages": "Páginas",
         "cover": "Portada",
