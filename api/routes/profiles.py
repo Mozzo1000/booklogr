@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from api.models import Profile, ProfileSchema, Notes, Books, UserSettings
+from api.models import Profile, ProfileSchema, Books, UserSettings
 from api.decorators import required_params, auth_required
 from api.utils import get_current_user_id
 
