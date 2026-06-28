@@ -11,6 +11,17 @@ VALID_TYPES = {"text", "number", "date", "selection", "boolean"}
 @fields_endpoint.route("/v1/fields", methods=["GET"])
 @auth_required()
 def get_fields():
+    """
+        Get all fields
+        ---
+        tags:
+            - Fields
+        security:
+            - bearerAuth: []
+        responses:
+          200:
+            description: Returns all fields for the authenticated user.
+    """
     claim_id = get_current_user_id()
     fields = Fields.query.filter(Fields.owner_id == claim_id).order_by(Fields.show_order).all()
     fields_schema = FieldsSchema(many=True)
@@ -20,6 +31,51 @@ def get_fields():
 @fields_endpoint.route("/v1/fields", methods=["POST"])
 @auth_required()
 def add_field():
+    """
+        Add a field
+        ---
+        tags:
+            - Fields
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - name
+                  - field_type
+                properties:
+                  name:
+                    type: string
+                    description: Name of the field
+                  field_type:
+                    type: string
+                    description: Type of the field
+                    enum:
+                      - text
+                      - number
+                      - date
+                      - selection
+                      - boolean
+                  show_order:
+                    type: integer
+                    description: Display order of the field
+                  options:
+                    type: array
+                    description: Options for selection fields
+                    items:
+                      type: string
+        security:
+            - bearerAuth: []
+        responses:
+          201:
+            description: Field created.
+          400:
+            description: Bad request.
+          409:
+            description: A field with that name already exists.
+    """
     claim_id = get_current_user_id()
     if not request.json:
         return jsonify({"error": "Bad request", "message": "No JSON provided"}), 400
@@ -55,13 +111,54 @@ def add_field():
 
     fields_schema = FieldsSchema(many=False)
 
-
     return jsonify(fields_schema.dump(new_field)), 201
 
 
 @fields_endpoint.route("/v1/fields/<int:field_id>", methods=["PATCH"])
 @auth_required()
 def edit_field(field_id):
+    """
+        Edit a field
+        ---
+        tags:
+            - Fields
+        parameters:
+            - name: field_id
+              in: path
+              description: ID of the field
+              required: true
+              schema:
+                type: integer
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: New name of the field
+                  show_order:
+                    type: integer
+                    description: Display order of the field
+                  options:
+                    type: array
+                    description: Options for selection fields
+                    items:
+                      type: string
+        security:
+            - bearerAuth: []
+        responses:
+          200:
+            description: Field updated.
+          400:
+            description: Bad request.
+          404:
+            description: Field not found.
+          409:
+            description: A field with that name already exists.
+    """
     claim_id = get_current_user_id()
     field = Fields.query.filter(Fields.id == field_id, Fields.owner_id == claim_id).first()
     if not field:
@@ -83,7 +180,7 @@ def edit_field(field_id):
         field.options = json.dumps(request.json["options"])
 
     field.save_to_db()
-    fields_schema =  FieldsSchema(many=False)
+    fields_schema = FieldsSchema(many=False)
 
     return jsonify(fields_schema.dump(field)), 200
 
@@ -91,6 +188,26 @@ def edit_field(field_id):
 @fields_endpoint.route("/v1/fields/<int:field_id>", methods=["DELETE"])
 @auth_required()
 def remove_field(field_id):
+    """
+        Remove a field
+        ---
+        tags:
+            - Fields
+        parameters:
+            - name: field_id
+              in: path
+              description: ID of the field
+              required: true
+              schema:
+                type: integer
+        security:
+            - bearerAuth: []
+        responses:
+          200:
+            description: Field removed.
+          404:
+            description: Field not found.
+    """
     claim_id = get_current_user_id()
     field = Fields.query.filter(Fields.id == field_id, Fields.owner_id == claim_id).first()
     if not field:

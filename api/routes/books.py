@@ -651,6 +651,26 @@ def add_book_note(id):
 @books_endpoint.route("/v1/books/<int:id>/field-values", methods=["GET"])
 @auth_required()
 def get_book_field_values(id):
+    """
+        Get field values for a book
+        ---
+        tags:
+            - Books
+        parameters:
+            - name: id
+              in: path
+              description: ID of book (NOT ISBN)
+              schema:
+                type: integer
+              required: true
+        security:
+            - bearerAuth: []
+        responses:
+          200:
+            description: Returns field values for the book.
+          404:
+            description: No book found.
+    """
     claim_id = get_current_user_id()
     book = Books.query.filter(Books.owner_id == claim_id, Books.id == id).first()
     if not book:
@@ -672,6 +692,45 @@ def get_book_field_values(id):
 @books_endpoint.route("/v1/books/<int:id>/field-values", methods=["PATCH"])
 @auth_required()
 def patch_book_field_values(id):
+    """
+        Update field values for a book
+        ---
+        tags:
+            - Books
+        parameters:
+            - name: id
+              in: path
+              description: ID of book (NOT ISBN)
+              schema:
+                type: integer
+              required: true
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - field_id
+                  properties:
+                    field_id:
+                      type: integer
+                      description: ID of the field
+                    value:
+                      type: string
+                      description: Value to set (omit or null to clear)
+        security:
+            - bearerAuth: []
+        responses:
+          200:
+            description: Field values updated.
+          400:
+            description: Bad request.
+          404:
+            description: No book found.
+    """
     claim_id = get_current_user_id()
     book = Books.query.filter(Books.owner_id == claim_id, Books.id == id).first()
     if not book:
