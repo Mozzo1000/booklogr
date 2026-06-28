@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
-from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings, BooksStatusSchema, Profile, ReadingSessions, ReadingSessionsSchema, db
+from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings, BooksStatusSchema, Profile, ReadingSessions, ReadingSessionsSchema, Fields, FieldValue, db
 from api.decorators import required_params, auth_required
 from api.routes.tasks import _create_task
 import json
@@ -129,7 +129,7 @@ def get_book(isbn):
         Books.isbn.in_(isbn_lookup_values(isbn))
     ).first()
     if book:
-        return jsonify(BookData(isbn=book.isbn, title=book.title, subtitle=book.subtitle, author=book.author, description=book.description, in_library=True, total_pages=book.total_pages, library_data={"reading_status": book.reading_status, "current_page": book.current_page, "rating": book.rating})), 200
+        return jsonify(BookData(isbn=book.isbn, title=book.title, subtitle=book.subtitle, author=book.author, description=book.description, in_library=True, total_pages=book.total_pages, library_data={"id": book.id, "reading_status": book.reading_status, "current_page": book.current_page, "rating": book.rating})), 200
     
     external_data = BookProvider().get(isbn)
     if not external_data:
@@ -379,7 +379,7 @@ def add_book():
                   'message': 'A profile does not exist. Please create one before trying to add a book.'
               }), 409
         
-    return jsonify({'message': 'Book added to list.'}), 200
+    return jsonify({'message': 'Book added to list.', 'id': new_book.id}), 200
 
 @books_endpoint.route("/v1/books/<id>", methods=["PATCH"])
 @auth_required()
@@ -646,6 +646,65 @@ def add_book_note(id):
                     "message": "No book found"
         }), 404
     
+
+
+@books_endpoint.route("/v1/books/<int:id>/field-values", methods=["GET"])
+@auth_required()
+def get_book_field_values(id):
+    claim_id = get_current_user_id()
+    book = Books.query.filter(Books.owner_id == claim_id, Books.id == id).first()
+    if not book:
+        return jsonify({"error": "Not found", "message": "No book found"}), 404
+
+    fields = Fields.query.filter(Fields.owner_id == claim_id).order_by(Fields.show_order).all()
+    values_map = {
+        v.field_id: v.value
+        for v in FieldValue.query.filter(FieldValue.book_id == id).all()
+    }
+
+    result = [
+        {"field_id": f.id, "name": f.name, "field_type": f.field_type, "value": values_map[f.id], "show_order": f.show_order}
+        for f in fields if f.id in values_map
+    ]
+    return jsonify(result), 200
+
+
+@books_endpoint.route("/v1/books/<int:id>/field-values", methods=["PATCH"])
+@auth_required()
+def patch_book_field_values(id):
+    claim_id = get_current_user_id()
+    book = Books.query.filter(Books.owner_id == claim_id, Books.id == id).first()
+    if not book:
+        return jsonify({"error": "Not found", "message": "No book found"}), 404
+
+    if not isinstance(request.json, list):
+        return jsonify({"error": "Bad request", "message": "Expected a JSON array"}), 400
+
+    owned_field_ids = {
+        f.id for f in Fields.query.filter(Fields.owner_id == claim_id).all()
+    }
+
+    for entry in request.json:
+        field_id = entry.get("field_id")
+        value = entry.get("value")
+        if field_id not in owned_field_ids:
+            continue
+
+        existing = FieldValue.query.filter(
+            FieldValue.book_id == id,
+            FieldValue.field_id == field_id
+        ).first()
+
+        if not value:
+            if existing:
+                db.session.delete(existing)
+        elif existing:
+            existing.value = str(value)
+        else:
+            db.session.add(FieldValue(book_id=id, field_id=field_id, value=str(value)))
+
+    db.session.commit()
+    return jsonify({"message": "Field values updated"}), 200
 
 
 @books_endpoint.route("/v1/books/<id>/sessions", methods=["GET"])

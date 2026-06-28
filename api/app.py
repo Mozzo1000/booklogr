@@ -10,6 +10,7 @@ from api.routes.notes import notes_endpoint
 from api.routes.tasks import tasks_endpoint
 from api.routes.files import files_endpoint
 from api.routes.settings import settings_endpoint
+from api.routes.fields import fields_endpoint
 from flasgger import Swagger
 from api.auth.auth_route import auth_endpoint, mail
 from api.auth.user_route import user_endpoint
@@ -54,6 +55,7 @@ app.register_blueprint(notes_endpoint)
 app.register_blueprint(tasks_endpoint)
 app.register_blueprint(files_endpoint)
 app.register_blueprint(settings_endpoint)
+app.register_blueprint(fields_endpoint)
 
 app.register_blueprint(auth_endpoint)
 app.register_blueprint(user_endpoint)
