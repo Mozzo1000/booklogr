@@ -33,7 +33,7 @@ function SortSelector({sort, setSort, order, setOrder}) {
     const dropdownLabel = (
         <>
             <RiArrowUpDownLine className="h-4 w-4 mr-1"/>
-            <p>{t("sort.sort_by", {sortType: getSortName().toLowerCase()})}</p>
+            <p>{t("sort.sort_by", { interpolation: { escapeValue: false}, sortType: getSortName().toLowerCase()})}</p>
         </>
     )
 
