@@ -116,6 +116,12 @@ def create_task():
             description: Task created.
     """
     claim_id = get_current_user_id()
+    allowed_types = ("csv_export", "json_export", "html_export")
+    if request.json["type"] not in allowed_types:
+        return jsonify({
+            "error": "Invalid type",
+            "message": "The supplied task type is invalid. It can be either csv_export, json_export or html_export."
+        }), 422
     try:
         new_task = _create_task(type=request.json["type"], data=str(request.json["data"]), created_by=claim_id)
 
