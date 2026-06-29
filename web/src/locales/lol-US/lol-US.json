@@ -6,6 +6,7 @@
         "currently_reading": "crwdns1363:0crwdne1363:0",
         "to_be_read": "crwdns1365:0crwdne1365:0",
         "all": "crwdns1367:0crwdne1367:0",
+        "want_to_read": "crwdns1809:0crwdne1809:0",
         "did_not_finish": "crwdns1371:0crwdne1371:0",
         "read_again": "crwdns1373:0crwdne1373:0",
         "list": "crwdns1375:0crwdne1375:0"
@@ -137,6 +138,7 @@
         "by_author": "crwdns1551:0{{author}}crwdne1551:0",
         "unknown_author": "crwdns1553:0crwdne1553:0",
         "no_description_found": "crwdns1555:0crwdne1555:0",
+        "subtitle": "crwdns1811:0crwdne1811:0",
         "description": "crwdns1557:0crwdne1557:0",
         "pages": "crwdns1559:0crwdne1559:0",
         "cover": "crwdns1561:0crwdne1561:0",

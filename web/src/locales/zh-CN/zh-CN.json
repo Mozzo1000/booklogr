@@ -6,6 +6,7 @@
         "currently_reading": "正在阅读",
         "to_be_read": "待读",
         "all": "全部",
+        "want_to_read": "Want to read",
         "did_not_finish": "Did not finish",
         "read_again": "Read again",
         "list": "Reading list"
@@ -137,6 +138,7 @@
         "by_author": "作者：{{author}}",
         "unknown_author": "未知作者",
         "no_description_found": "未找到描述",
+        "subtitle": "Subtitle",
         "description": "Description",
         "pages": "页数",
         "cover": "Cover",
