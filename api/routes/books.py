@@ -341,14 +341,25 @@ def add_book():
 
     reading_status = "To be read"
     if "reading_status" in request.json:
-        reading_status = request.json["reading_status"]
+        if request.json["reading_status"] in ("Currently reading", "To be read", "Read", "Did not finish"):
+            reading_status = request.json["reading_status"]
+        else:
+            return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Status needs to be either 'Currently reading', 'To be read', 'Read' or 'Did not finish' (case sensitive)"}), 422
+
+    total_pages = 0
+    if "total_pages" in request.json:
+        if isinstance(request.json["total_pages"], int):
+            total_pages = request.json["total_pages"]
+        else:
+            return jsonify({"error": "Unprocessable entity", "message": "Can't process change. Total pages must be an integer."}), 422
 
     current_page = 0
     if "current_page" in request.json:
+        if not isinstance(request.json["current_page"], int) or request.json["current_page"] < 0:
+            return jsonify({"error": "Unprocessable entity", "message": "Can't process change. The current page can't be less than 0."}), 422
+        if request.json["current_page"] > total_pages:
+            return jsonify({"error": "Unprocessable entity", "message": "Can't process change. The current page is greater than total pages."}), 422
         current_page = request.json["current_page"]
-    total_pages = 0
-    if "total_pages" in request.json:
-        total_pages = request.json["total_pages"]
     
     subtitle = None
     if "subtitle" in request.json:
