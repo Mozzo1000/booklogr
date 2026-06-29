@@ -111,8 +111,13 @@ def create_profile():
     else:
         visibility = "hidden"
         if "visibility" in request.json:
-            if "hidden" or "public" in request.json["visibility"]:
+            if request.json["visibility"] in ("hidden", "public"):
                 visibility = request.json["visibility"]
+            else:
+                return jsonify({
+                    "error": "Invalid visibility",
+                    "message": "The supplied visibility is invalid. It can be either hidden or public."
+                }), 422
         new_profile = Profile(owner_id=claim_id, display_name=request.json["display_name"], visibility=visibility)
         new_user_settings = UserSettings(owner_id=claim_id)
         new_profile.save_to_db()
@@ -154,8 +159,13 @@ def edit_profile():
             if "display_name" in request.json:
                 profile.display_name = request.json["display_name"]
             if "visibility" in request.json:
-                if "hidden" or "public" in request.json["visibility"]:
+                if request.json["visibility"] in ("hidden", "public"):
                     profile.visibility = request.json["visibility"]
+                else:
+                    return jsonify({
+                        "error": "Invalid visibility",
+                        "message": "The supplied visibility is invalid. It can be either hidden or public."
+                    }), 422
             profile.save_to_db()
             return jsonify({'message': 'Profile updated'}), 200
         else:
