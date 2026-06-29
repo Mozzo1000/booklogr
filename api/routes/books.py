@@ -63,30 +63,29 @@ def search_books():
 
     external_data = BookProvider().search(search_term)
     if external_data:
-      for item in external_data:
-          isbn = item["isbn"]
-          if isbn in seen_isbns:
-              continue
-          
-          existing_book = Books.query.filter_by(owner_id=claim_id, isbn=isbn).first()
-          
-          if existing_book:
-              book_obj = SearchResult(
-                  isbn=existing_book.isbn,
-                  title=existing_book.title,
-                  author=existing_book.author,
-                  in_library=True
-              )
-          else:
-              book_obj = SearchResult(
-                  isbn=isbn,
-                  title=item["title"],
-                  author=item["author"],
-                  in_library=False
-              )
-          
-          results.append(book_obj)
-          seen_isbns.add(isbn)
+        external_isbns = [item["isbn"] for item in external_data if item["isbn"] and item["isbn"] not in seen_isbns]
+
+        existing_books = {}
+        if external_isbns:
+            rows = Books.query.filter(
+                Books.owner_id == claim_id,
+                Books.isbn.in_(external_isbns)
+            ).all()
+            existing_books = {b.isbn: b for b in rows}
+
+        for item in external_data:
+            isbn = item["isbn"]
+            if isbn in seen_isbns:
+                continue
+
+            b = existing_books.get(isbn)
+            if b:
+                book_obj = SearchResult(isbn=b.isbn, title=b.title, author=b.author, in_library=True)
+            else:
+                book_obj = SearchResult(isbn=isbn, title=item["title"], author=item["author"], in_library=False)
+
+            results.append(book_obj)
+            seen_isbns.add(isbn)
 
     results.sort(key=lambda x: x.in_library, reverse=True)
     return jsonify({
