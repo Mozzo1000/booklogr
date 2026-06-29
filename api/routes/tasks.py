@@ -155,12 +155,13 @@ def retry_task(id):
           404:
             description: Could not find task.
     """
-    task = Tasks.query.filter(id==id).first()
-    
+    claim_id = get_current_user_id()
+    task = Tasks.query.filter(Tasks.id==id, Tasks.created_by==claim_id).first()
+
     if task:
         task.status = "fresh"
         task.updated_on = datetime.now(timezone.utc)
-        _start_background_task(current_app.app_context(), task.id, get_current_user_id())
+        _start_background_task(current_app.app_context(), task.id, claim_id)
         return jsonify({"message": "Task set to be retried."})
 
     else:
