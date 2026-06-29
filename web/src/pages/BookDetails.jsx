@@ -12,6 +12,7 @@ import { useThemeMode } from 'flowbite-react';
 import EditionSelector from '../components/EditionSelector';
 import { useTranslation, Trans } from 'react-i18next';
 import BooksService from '../services/books.service';
+import FieldsService from '../services/fields.service';
 
 function BookDetails() {
     let { id } = useParams();
@@ -22,6 +23,7 @@ function BookDetails() {
     const [loading, setLoading] = useState(true);
     const [workID, setWorkID] = useState();
     const [subtitle, setSubtitle] = useState(" ");
+    const [fieldValues, setFieldValues] = useState([]);
     const theme = useThemeMode();
     const toast = useToast(4000);
     const { t } = useTranslation();
@@ -43,6 +45,11 @@ function BookDetails() {
                 else
                     setSubtitle(" ")
                 setLoading(false)
+                if (response.data.library_data?.id) {
+                    FieldsService.getBookValues(response.data.library_data.id).then(
+                        cfResponse => setFieldValues(cfResponse.data)
+                    );
+                }
             },
             error => {
                 const resMessage =
@@ -105,6 +112,12 @@ function BookDetails() {
                             )}
                         </p>
                         <p><span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">ISBN</span> {id}</p>
+                        {fieldValues.map(field => (
+                            <p key={field.field_id}>
+                                <span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">{field.name}</span>
+                                {field.field_type === 'boolean' ? (field.value === 'true' ? 'Yes' : 'No') : field.value}
+                            </p>
+                        ))}
                     </article>
                 </div>
                 <div className="lg:col-start-2 lg:row-start-2">
