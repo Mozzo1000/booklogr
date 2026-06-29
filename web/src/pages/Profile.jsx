@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import ProfileService from '../services/profile.service';
-import { Button, ButtonGroup, TextInput, Label, Badge, Modal, ModalHeader, ModalBody, Select, Popover, Avatar, Tooltip } from "flowbite-react";
+import { Button, ButtonGroup, TextInput, Label, Badge, Modal, ModalHeader, ModalBody, Select, Popover, Avatar, Tooltip, useThemeMode } from "flowbite-react";
 import useToast from '../toast/useToast';
 import BookItem from '../components/Library/BookItem';
 import PaneTabView from '../components/Library/PaneTabView';
@@ -13,6 +13,8 @@ import { RiBook2Line } from "react-icons/ri";
 import { RiBookOpenLine } from "react-icons/ri";
 import { RiBookmarkLine } from "react-icons/ri";
 import { RiEyeLine } from "react-icons/ri";
+import { RiBook2Fill } from "react-icons/ri";
+import { RiStickyNoteLine, RiDoubleQuotesR } from "react-icons/ri";
 import AnimatedLayout from '../AnimatedLayout';
 import WelcomeModal from '../components/WelcomeModal';
 import { useTranslation, Trans } from 'react-i18next';
@@ -24,6 +26,7 @@ import Controls from '../components/Library/Controls';
 import BookTabs from '../components/BookTabs';
 import AuthService from '../services/auth.service';
 import { useProfilePicture } from '../useProfilePicture';
+import NotesFeedItem from '../components/NotesFeedItem';
 
 const PROFILE_TABS = [
     { id: 0, status: "All", tKey: "reading_status.all", icon: RiBook2Line }, // Icon of your choice
@@ -42,6 +45,7 @@ function Profile() {
     const [profileVisiblity, setProfileVisiblity] = useState();
     const [profileNotFound, setProfileNotFound] = useState(false);
     const [view, setView] = useState(localStorage.getItem("library_view") ? localStorage.getItem("library_view") : "gallery");
+    const [section, setSection] = useState("books"); // "books" | "notes"
 
     const [showWelcomeModal, setShowWelcomeScreen] = useState(false);
 
@@ -53,6 +57,7 @@ function Profile() {
     const currentUser = authService.getCurrentUser();
     let navigate = useNavigate();
     const { t } = useTranslation();
+    const { mode } = useThemeMode();
 
     const displayNamePopoverContent = (
         <div className="w-64 text-sm text-gray-500 dark:text-gray-400">
@@ -77,6 +82,21 @@ function Profile() {
         }
     }
     }, [data, activeTab]);
+
+    const allNotes = useMemo(() => {
+        if (!data) return null;
+        const notes = data.books.flatMap(book =>
+            (book.notes || [])
+                .filter(note => note && note.visibility === 'public')
+                .map(note => ({
+                    ...note,
+                    bookTitle: book.title,
+                    bookIsbn: book.isbn,
+                    bookAuthor: book.author,
+                }))
+        );
+        return notes.sort((a, b) => new Date(b.created_on) - new Date(a.created_on));
+    }, [data, name]);
     
     const tabs = PROFILE_TABS.map(tab => ({
         ...tab,
@@ -233,61 +253,101 @@ function Profile() {
                     <BookStatsCard icon={<RiArchiveLine className="w-8 h-8 dark:text-white"/>} number={data?.num_books_dnf || 0} text={t("profile.stats.did_not_finish")}/>
 
                 </div>
-                <div className="relative flex items-center py-5">
-                    <div className="grow border-t border-gray-200"></div>
-                    <span className="shrink mx-4 text-gray-900 font-medium dark:text-white">
-                        {t("profile.all_books")}
-                    </span>
-                    <div className="grow border-t border-gray-200"></div>
-                </div>
-                
-                <div className="flex flex-col md:flex-row justify-between md:items-start">
-                    <div className="w-full order-2 md:order-1">
-                        <BookTabs 
-                            tabs={tabs} 
-                            activeTab={activeTab} 
-                            onTabChange={(tabIndex) => setActiveTab(tabIndex)} 
-                        />
-                    </div>
-
-                    <div className="flex justify-end order-1 md:order-2 shrink-0">
-                        <Controls view={view} changeView={changeView} enableSort={false} />
-                    </div>
+                <div className="flex pt-8 pb-4">
+                    <ButtonGroup className="w-full">
+                        <Button className="w-full" color={mode === "dark" ? "dark" : section === "books" ? "dark" : "light"} outline={mode === "dark" && section !== "books"} onClick={() => setSection("books")}>
+                            <RiBook2Fill className="mr-2 h-4 w-4" />
+                            {t("profile.all_books")}
+                        </Button>
+                        <Button className="w-full" color={mode === "dark" ? "dark" : section === "notes" ? "dark" : "light"} outline={mode === "dark" && section !== "notes"} onClick={() => setSection("notes")}>
+                            <RiStickyNoteLine className="mr-2 h-4 w-4" />
+                            {t("notes.title")}
+                        </Button>
+                    </ButtonGroup>
                 </div>
 
-                <div className="w-full">
-                    <PaneTabView view={view}>
-                        {!filteredBooks ? (
-                            <BookSkeleton count={4}/>
-                        ) : (
-                            filteredBooks?.map((item, i) => (
-                                <div key={i}>
-                                    <BookItem 
-                                        {...item} 
-                                        internalID={item.id} 
-                                        view={view} 
-                                        showReadingStatusBadge={true} 
-                                        allowNoteEditing={false}
-                                        showNotes 
-                                        showRating 
-                                        disableGiveRating={true}
-                                        showOptions={false} 
-                                        showProgress={false} 
-                                        title={item.title} 
-                                        isbn={item.isbn} 
-                                        totalPages={item.total_pages} 
-                                        currentPage={item.current_page} 
-                                        author={item.author} 
-                                        readingStatus={formatStatus(item.reading_status)} 
-                                        rating={item.rating} 
-                                        notes={item.num_notes} 
-                                        overrideNotes={item.notes}
-                                    />
+                {section === "books" && (
+                    <>
+                        <div className="flex flex-col md:flex-row justify-between md:items-start">
+                            <div className="w-full order-2 md:order-1">
+                                <BookTabs
+                                    tabs={tabs}
+                                    activeTab={activeTab}
+                                    onTabChange={(tabIndex) => setActiveTab(tabIndex)}
+                                />
+                            </div>
+
+                            <div className="flex justify-end order-1 md:order-2 shrink-0">
+                                <Controls view={view} changeView={changeView} enableSort={false} />
+                            </div>
+                        </div>
+
+                        <div className="w-full">
+                            <PaneTabView view={view}>
+                                {!filteredBooks ? (
+                                    <BookSkeleton count={4}/>
+                                ) : (
+                                    filteredBooks?.map((item, i) => (
+                                        <div key={i}>
+                                            <BookItem 
+                                                {...item} 
+                                                internalID={item.id} 
+                                                view={view} 
+                                                showReadingStatusBadge={true} 
+                                                allowNoteEditing={false}
+                                                showNotes 
+                                                showRating 
+                                                disableGiveRating={true}
+                                                showOptions={false} 
+                                                showProgress={false} 
+                                                title={item.title} 
+                                                isbn={item.isbn} 
+                                                totalPages={item.total_pages} 
+                                                currentPage={item.current_page} 
+                                                author={item.author} 
+                                                readingStatus={formatStatus(item.reading_status)} 
+                                                rating={item.rating} 
+                                                notes={item.num_notes} 
+                                                overrideNotes={item.notes}
+                                            />
+                                        </div>
+                                    ))
+                                )}
+                            </PaneTabView>
+                        </div>
+                    </>
+                )}
+
+                {section === "notes" && (
+                    <div className="w-full">
+                        {!allNotes ? (
+                            <BookSkeleton count={4} />
+                        ) : allNotes.length === 0 ? (
+                            <div className="flex flex-col items-center justify-center text-center py-16 gap-4">
+                                <RiDoubleQuotesR size={64} className="text-gray-300 dark:text-gray-600" />
+                                <div className="format dark:format-invert">
+                                    <h3>{t("profile.notes_feed.empty_title")}</h3>
+                                    <p>{t("profile.notes_feed.empty_description")}</p>
                                 </div>
-                            ))
+                            </div>
+                        ) : (
+                            <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-4">
+                                {allNotes.map((note) => (
+                                    <NotesFeedItem
+                                        key={note.id}
+                                        id={note.id}
+                                        content={note.content}
+                                        quotePage={note.quote_page}
+                                        date={note.created_on + "Z"}
+                                        bookTitle={note.bookTitle}
+                                        bookIsbn={note.bookIsbn}
+                                        bookAuthor={note.bookAuthor}
+                                    />
+                                ))}
+                            </div>
                         )}
-                    </PaneTabView>
-                </div>
+                    </div>
+                )}
 
                 <Modal dismissible show={openSettingsModal} onClose={() => setOpenSettingsModal(false)}>
                     <ModalHeader className="border-gray-200">{t("profile.update_profile")}</ModalHeader>
