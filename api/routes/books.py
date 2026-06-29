@@ -595,10 +595,6 @@ def add_book_note(id):
                   visibility:
                     type: string
                     description: Visibility of the note (hidden or public)
-                  created_on:
-                    type: string
-                    format: date-time
-                    description: Date of note creation (optional)
         security:
             - bearerAuth: []
         responses:
@@ -606,8 +602,6 @@ def add_book_note(id):
             description: Note created.
           404:
             description: No book found.
-          422:
-            description: Invalid date format.
     """
 
     claim_id = get_current_user_id()
@@ -625,15 +619,6 @@ def add_book_note(id):
             return jsonify({
                 "error": "Invalid visibility",
                 "message": "The supplied visibility is invalid. It can be either hidden or public."
-            }), 422
-    if "created_on" in request.json:
-      parsed = validate_date_string(request.json["created_on"])
-      if parsed:
-          created_on = parsed
-      else:
-          return jsonify({
-                "error": "Invalid date format.",
-                "message": "The date format is invalid. Accepted formats: 'YYYY-MM-DD', 'YYYY-MM-DD HH:MM:SS', or 'YYYY-MM-DD HH:MM:SS.ssssss'."
             }), 422
     if owns_book:
         new_note = Notes(book_id=id, content=request.json["content"], quote_page=page, created_on=created_on, visibility=visibility)

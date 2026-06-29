@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from api.models import Notes, Books
-from api.utils import validate_date_string, get_current_user_id
+from api.utils import get_current_user_id
 from api.decorators import auth_required
 
 notes_endpoint = Blueprint('notes', __name__)
@@ -69,10 +69,6 @@ def edit_note(id):
                   quote_page:
                     type: integer
                     description: Page of the quote
-                  created_on:
-                    type: string
-                    format: date-time
-                    description: Date of note creation (optional)
         security:
             - bearerAuth: []         
         responses:
@@ -97,15 +93,6 @@ def edit_note(id):
             note.content = request.json["content"]
         if "quote_page" in request.json:
             note.quote_page = request.json["quote_page"]
-        if "created_on" in request.json:
-          parsed = validate_date_string(request.json["created_on"])
-          if parsed:
-              note.created_on = parsed
-          else:
-              return jsonify({
-                    "error": "Invalid date format.",
-                    "message": "The date format is invalid. Accepted formats: 'YYYY-MM-DD', 'YYYY-MM-DD HH:MM:SS', or 'YYYY-MM-DD HH:MM:SS.ssssss'."
-                }), 422
     else:
         return jsonify({
                     "error": "Bad request",
