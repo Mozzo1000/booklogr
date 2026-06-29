@@ -229,7 +229,13 @@
         "copy_link": "Copy link",
         "link_copied": "Link copied to clipboard",
         "share_title": "{{name}}'s Library",
-        "share_text": "I'm tracking my reading progress. Take a look at what I've been reading!"
+        "share_text": "I'm tracking my reading progress. Take a look at what I've been reading!",
+        "notes_feed": {
+            "empty_title": "No public notes or quotes",
+            "empty_description": "There are no public notes or quotes to display yet.",
+            "share_note": "Share note",
+            "copied": "Copied!"
+        }
     },
     "actions": {
         "edit_book": "تحرير الكتاب",
