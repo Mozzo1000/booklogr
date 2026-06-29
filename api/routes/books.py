@@ -37,7 +37,7 @@ class SearchResult:
 
 @books_endpoint.route("/v1/books/search", methods=["GET"])
 @auth_required()
-@cache.cached(query_string=True)
+@cache.cached(query_string=True, key_prefix=lambda: f"view/{get_current_user_id()}/{request.path}")
 def search_books():
     search_term = request.args.get('q', '')
     if not search_term:
