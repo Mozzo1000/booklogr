@@ -13,6 +13,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Fixed missing dark mode hover styles on the book rating component.
 - Fixed subtitle text color not respecting dark mode on the book details page.
 - Fixed an issue where adding a book without a title returned a 500 error instead of a validation error.
+- Fixed an issue where the book subtitle was not being saved to the database when adding a book.
+- Resolved an issue where sort, order, and pagination settings were not applied when viewing the All tab in the library.
+
+### Added
+- Added subtitle field to the add book and edit book modals.
+- Added custom fields support, allowing users to define and attach custom metadata (text, number, date, selection, and boolean) to books. Fields can be managed from the Settings page and their values are editable from the add/edit book modals and displayed on the book details page.
 
 ### Changed
 - Ratings are now included when importing books from BookLogr CSV and Goodreads formats.
