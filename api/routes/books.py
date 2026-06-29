@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from api.models import Books, BooksSchema, NotesSchema, Notes, UserSettings, BooksStatusSchema, Profile, ReadingSessions, ReadingSessionsSchema, Fields, FieldValue, db
 from api.decorators import required_params, auth_required
 from api.routes.tasks import _create_task

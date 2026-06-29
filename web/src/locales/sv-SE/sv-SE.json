@@ -6,6 +6,7 @@
         "currently_reading": "Läser just nu",
         "to_be_read": "Att läsa",
         "all": "Alla",
+        "want_to_read": "Want to read",
         "did_not_finish": "Slutfördes inte",
         "read_again": "Läs igen",
         "list": "Läslista"
@@ -137,6 +138,7 @@
         "by_author": "av {{author}}",
         "unknown_author": "okänd författare",
         "no_description_found": "Ingen beskrivning hittad",
+        "subtitle": "Subtitle",
         "description": "Beskrivning",
         "pages": "Sidor",
         "cover": "Omslag",

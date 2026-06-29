@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from api.models import Notes, NotesSchema, Books
+from api.models import Notes, Books
 from api.utils import validate_date_string, get_current_user_id
 from api.decorators import auth_required
 

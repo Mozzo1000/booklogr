@@ -1,8 +1,7 @@
 from flask import Blueprint, request, jsonify, current_app
-from api.models import Tasks, TasksSchema, db, Books, Files, UserSettings
+from api.models import Tasks, TasksSchema, Books, Files, UserSettings
 from api.decorators import required_params, auth_required
 from sqlalchemy import text 
-import time
 import threading
 import string
 import random

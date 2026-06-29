@@ -6,6 +6,7 @@
         "currently_reading": "Читаю сейчас",
         "to_be_read": "Буду читать",
         "all": "Все",
+        "want_to_read": "Want to read",
         "did_not_finish": "Не дочитано",
         "read_again": "Перечитать",
         "list": "Список чтения"
@@ -137,6 +138,7 @@
         "by_author": "автор: {{author}}",
         "unknown_author": "неизвестный автор",
         "no_description_found": "Описание не найдено",
+        "subtitle": "Subtitle",
         "description": "Описание",
         "pages": "Количество страниц",
         "cover": "Обложка",

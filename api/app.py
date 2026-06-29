@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_jwt_extended import JWTManager, jwt_required
+from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from api.config import Config
 from flask_migrate import Migrate
@@ -19,7 +19,6 @@ from api.commands.user import user_command
 from pathlib import Path
 import tomllib
 import os
-from flask_mail import Mail
 from dotenv import load_dotenv
 from api.extensions import cache
 from api.auth.models import RevokedTokenModel

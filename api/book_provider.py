@@ -1,4 +1,3 @@
-import os
 import requests
 from flask import current_app
 from api.isbn import isbn_from_query
