@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, current_app, send_from_directory
 from api.auth.models import User, UserSchema
 from api.auth.decorators import require_role
-from flask_jwt_extended import jwt_required, get_jwt_identity, verify_jwt_in_request
+from flask_jwt_extended import jwt_required, get_jwt_identity
 import os
 from werkzeug.utils import secure_filename
 import uuid

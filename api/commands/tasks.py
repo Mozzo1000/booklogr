@@ -1,8 +1,6 @@
 from flask import Blueprint
-import click
 from getpass import getpass
 import sys
-import re
 from api.models import Tasks, db
 
 tasks_command = Blueprint('tasks_cli', __name__)

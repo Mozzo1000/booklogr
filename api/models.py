@@ -1,7 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-import uuid
-from werkzeug.security import generate_password_hash, check_password_hash
 from marshmallow import post_dump
 from datetime import datetime, timezone
 

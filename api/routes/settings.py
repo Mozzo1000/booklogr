@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify
 from api.models import UserSettings, UserSettingsSchema
 from api.decorators import auth_required
 from api.utils import get_current_user_id
-import time
 from datetime import datetime, timezone
 
 settings_endpoint = Blueprint('settings', __name__)
