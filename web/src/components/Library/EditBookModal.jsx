@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TextInput, Button, Select, Label, Textarea, Tooltip, Card } from 'flowbite-react';
 import useToast from '../../toast/useToast';
 import BooksService from '../../services/books.service';
+import FieldsService from '../../services/fields.service';
+import FieldInputs from '../FieldInputs';
 import { useTranslation } from 'react-i18next';
 import { Img } from 'react-image'
 import Skeleton from 'react-loading-skeleton'
@@ -17,9 +19,31 @@ function EditBookModal(props) {
     const [isbn] = useState(props.isbn ?? "");
     const [description, setDescription] = useState(props.description ?? "");
     const [readingStatus, setReadingStatus] = useState(props.readingStatus ?? "To be read");
+    const [fields, setFields] = useState([]);
+    const [fieldValues, setFieldValues] = useState({});
     const toast = useToast(4000);
     const theme = useThemeMode();
     const { t } = useTranslation();
+
+    useEffect(() => {
+        if (!props.open) return;
+        FieldsService.get().then(
+            response => setFields(response.data),
+            () => {}
+        );
+        FieldsService.getBookValues(props.id).then(
+            response => {
+                const valuesObj = {};
+                response.data.forEach(v => { valuesObj[v.field_id] = v.value; });
+                setFieldValues(valuesObj);
+            },
+            () => {}
+        );
+    }, [props.open, props.id]);
+
+    const handleFieldChange = (fieldId, value) => {
+        setFieldValues(prev => ({ ...prev, [fieldId]: value }));
+    };
 
     const handleEditBook = () => {
         BooksService.edit(props.id, {
@@ -31,9 +55,18 @@ function EditBookModal(props) {
             status: readingStatus,
         }).then(
             response => {
-                toast("success", response.data.message);
-                props.close(false);
-                props.onSuccess();
+                const fieldsToSave = fields.map(f => ({
+                    field_id: f.id,
+                    value: fieldValues[f.id] || null,
+                }));
+                if (fields.length > 0) {
+                    FieldsService.saveBookValues(props.id, fieldsToSave).then(
+                        response => {
+                            props.close(false);
+                            props.onSuccess();
+                        },
+                    );
+                }
             },
             error => {
                 const resMessage =
@@ -63,6 +96,7 @@ function EditBookModal(props) {
         <>
         <AdaptiveDialog type="modal" show={props.open} onClose={() => props.close(false)} title={t("actions.edit_book")} footer={modalFooter} size="6xl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-start">
+                <div className="flex flex-col gap-2">
                 <Card>
                     <h2>{t("book.book_cover")}</h2>
                     <Img crossorigin="anonymous" width={200} height={200} className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg?default=false"}
@@ -73,6 +107,14 @@ function EditBookModal(props) {
                         <Button disabled>{t("actions.replace_cover")}</Button>
                     </Tooltip>
                 </Card>
+                {fields.length > 0 && (
+                    <Card>
+                        <h2>Fields</h2>
+                        <FieldInputs fields={fields} values={fieldValues} onChange={handleFieldChange}
+                        />
+                    </Card>
+                )}
+                </div>
                 <Card>
                     <h2>{t("book.details")}</h2>
                     <div>

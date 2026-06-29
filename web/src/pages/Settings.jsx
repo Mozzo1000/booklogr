@@ -8,8 +8,9 @@ import AnimatedLayout from '../AnimatedLayout';
 import MastodonTab from '../components/MastodonTab';
 import { RiMastodonLine } from "react-icons/ri";
 import { useTranslation, Trans } from 'react-i18next';
-import { RiSlideshowView } from "react-icons/ri";
+import { RiSlideshowView, RiTableLine } from "react-icons/ri";
 import InterfaceTab from '../components/InterfaceTab';
+import FieldsTab from '../components/FieldsTab';
 
 const isSingleUserMode = import.meta.env.VITE_SINGLE_USER_MODE?.toString().toLowerCase() === 'true';
 
@@ -34,6 +35,9 @@ function Settings() {
                 </TabItem>
                 <TabItem title={t("settings.nav.mastodon")} icon={RiMastodonLine}>
                     <MastodonTab />
+                </TabItem>
+                <TabItem title="Fields" icon={RiTableLine}>
+                    <FieldsTab />
                 </TabItem>
                 <TabItem title={t("settings.nav.data")} icon={RiDatabase2Line }>
                     <DataTab />
