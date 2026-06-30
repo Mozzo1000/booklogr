@@ -229,7 +229,13 @@
         "copy_link": "Copiar link",
         "link_copied": "Link copiado para a área de transferência",
         "share_title": "Biblioteca de {{name}}",
-        "share_text": "Estou a acompanhar o progresso da minha leitura. Veja o que eu tenho estado a ler!"
+        "share_text": "Estou a acompanhar o progresso da minha leitura. Veja o que eu tenho estado a ler!",
+        "notes_feed": {
+            "empty_title": "No public notes or quotes",
+            "empty_description": "There are no public notes or quotes to display yet.",
+            "share_note": "Share note",
+            "copied": "Copied!"
+        }
     },
     "actions": {
         "edit_book": "Editar livro",

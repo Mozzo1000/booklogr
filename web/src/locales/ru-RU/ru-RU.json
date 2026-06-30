@@ -229,7 +229,13 @@
         "copy_link": "Скопировать ссылку",
         "link_copied": "Ссылка скопирована в буфер обмена",
         "share_title": "Библиотека пользователя {{name}}",
-        "share_text": "Я отслеживаю свой прогресс чтения. Посмотрите, что я читаю!"
+        "share_text": "Я отслеживаю свой прогресс чтения. Посмотрите, что я читаю!",
+        "notes_feed": {
+            "empty_title": "No public notes or quotes",
+            "empty_description": "There are no public notes or quotes to display yet.",
+            "share_note": "Share note",
+            "copied": "Copied!"
+        }
     },
     "actions": {
         "edit_book": "Редактировать книгу",

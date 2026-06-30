@@ -229,7 +229,13 @@
         "copy_link": "Copier le lien",
         "link_copied": "Lien copié dans le presse-papiers",
         "share_title": "Bibliothèque de {{name}}",
-        "share_text": "Je suis en train de suivre ma progression de lecture. Jetez un œil à ce que j'ai lu !"
+        "share_text": "Je suis en train de suivre ma progression de lecture. Jetez un œil à ce que j'ai lu !",
+        "notes_feed": {
+            "empty_title": "No public notes or quotes",
+            "empty_description": "There are no public notes or quotes to display yet.",
+            "share_note": "Share note",
+            "copied": "Copied!"
+        }
     },
     "actions": {
         "edit_book": "Modifier le livre",

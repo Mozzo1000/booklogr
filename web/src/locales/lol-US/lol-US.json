@@ -229,7 +229,13 @@
         "copy_link": "crwdns1683:0crwdne1683:0",
         "link_copied": "crwdns1685:0crwdne1685:0",
         "share_title": "crwdns1687:0{{name}}crwdne1687:0",
-        "share_text": "crwdns1689:0crwdne1689:0"
+        "share_text": "crwdns1689:0crwdne1689:0",
+        "notes_feed": {
+            "empty_title": "crwdns1813:0crwdne1813:0",
+            "empty_description": "crwdns1815:0crwdne1815:0",
+            "share_note": "crwdns1817:0crwdne1817:0",
+            "copied": "crwdns1819:0crwdne1819:0"
+        }
     },
     "actions": {
         "edit_book": "crwdns1691:0crwdne1691:0",
