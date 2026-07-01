@@ -229,7 +229,13 @@
         "copy_link": "लिंक की प्रतिलिपि करें",
         "link_copied": "लिंक क्लिपबोर्ड पर प्रतिलिपि हो गया है",
         "share_title": "{{name}} के पुस्तकालय",
-        "share_text": "मैं अपनी पढ़ने की प्रगति पर नज़र रख रहा हूँ। देखो मैं क्या-क्या पढ़ रहा हूँ!"
+        "share_text": "मैं अपनी पढ़ने की प्रगति पर नज़र रख रहा हूँ। देखो मैं क्या-क्या पढ़ रहा हूँ!",
+        "notes_feed": {
+            "empty_title": "No public notes or quotes",
+            "empty_description": "There are no public notes or quotes to display yet.",
+            "share_note": "Share note",
+            "copied": "Copied!"
+        }
     },
     "actions": {
         "edit_book": "पुस्तक संपादित करें",

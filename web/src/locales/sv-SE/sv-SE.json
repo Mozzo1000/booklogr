@@ -229,7 +229,13 @@
         "copy_link": "Kopiera länk",
         "link_copied": "Länk kopierad till urklipp",
         "share_title": "{{name}}'s Bibliotek",
-        "share_text": "Jag håller koll på hur mycket jag läser. Kolla in vad jag har läst!"
+        "share_text": "Jag håller koll på hur mycket jag läser. Kolla in vad jag har läst!",
+        "notes_feed": {
+            "empty_title": "No public notes or quotes",
+            "empty_description": "There are no public notes or quotes to display yet.",
+            "share_note": "Share note",
+            "copied": "Copied!"
+        }
     },
     "actions": {
         "edit_book": "Redigera bok",
