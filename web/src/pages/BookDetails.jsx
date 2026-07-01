@@ -11,57 +11,41 @@ import AnimatedLayout from '../AnimatedLayout';
 import { useThemeMode } from 'flowbite-react';
 import EditionSelector from '../components/EditionSelector';
 import { useTranslation, Trans } from 'react-i18next';
-import BooksService from '../services/books.service';
 import FieldsService from '../services/fields.service';
+import { useBookDetails } from '../hooks/useBookDetails';
 
 function BookDetails() {
     let { id } = useParams();
-    const [data, setData] = useState();
-    const [description, setDescription] = useState();
-    const [author, setAuthor] = useState();
-    const [imageLoaded, setImageLoaded] = useState(false);
-    const [loading, setLoading] = useState(true);
     const [workID, setWorkID] = useState();
-    const [subtitle, setSubtitle] = useState(" ");
     const [fieldValues, setFieldValues] = useState([]);
     const theme = useThemeMode();
     const toast = useToast(4000);
     const { t } = useTranslation();
 
+    const { data: response, isLoading: loading, error: bookError } = useBookDetails(id);
+    const data = response?.data;
+    const description = data ? (data.description || t("book.no_description_found")) : undefined;
+    const author = data ? (data.author || t("book.unknown_author")) : undefined;
+    const subtitle = data ? (data.subtitle || " ") : " ";
+
     useEffect(() => {
-        BooksService.get_isbn(id).then(
-            response => {
-                setData(response.data)
-                if (response.data.description)
-                    setDescription(response.data.description)
-                else
-                    setDescription(t("book.no_description_found"))
-                if(response.data.author)
-                    setAuthor(response.data.author)
-                else
-                    setAuthor(t("book.unknown_author"))
-                if (response.data.subtitle)
-                    setSubtitle(response.data.subtitle)
-                else
-                    setSubtitle(" ")
-                setLoading(false)
-                if (response.data.library_data?.id) {
-                    FieldsService.getBookValues(response.data.library_data.id).then(
-                        cfResponse => setFieldValues(cfResponse.data)
-                    );
-                }
-            },
-            error => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-                toast("error", resMessage);
-            }
-        )
-    }, [])
+        if (!bookError) return;
+        const resMessage =
+            (bookError.response &&
+                bookError.response.data &&
+                bookError.response.data.message) ||
+            bookError.message ||
+            bookError.toString();
+        toast("error", resMessage);
+    }, [bookError])
+
+    useEffect(() => {
+        if (data?.library_data?.id) {
+            FieldsService.getBookValues(data.library_data.id).then(
+                cfResponse => setFieldValues(cfResponse.data)
+            );
+        }
+    }, [data?.library_data?.id])
 
     useEffect(() => {
         OpenLibraryService.get(id).then(
