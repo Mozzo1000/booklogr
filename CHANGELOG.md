@@ -8,8 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Fixed an issue where registration, login, and email verification could silently ignore missing required fields, potentially causing an unexpected error instead of a proper validation message.
 - Fixed an issue where a book rating of exactly 5.5 or -0.5 could bypass validation and be saved incorrectly.
 - Fixed an issue where the note visibility field was not properly validated when creating or editing a note, allowing invalid values to be saved.
+- Fixed an issue where the profile visibility field was not properly validated when creating or editing a profile, allowing invalid values to be saved.
+- Fixed an issue where adding a book did not validate the reading status, current page, or total pages fields, allowing invalid values to be saved.
+- Fixed an issue where the task type was not validated when creating a task, allowing unintended task types to be submitted.
+- Fixed an issue where the task retry endpoint did not correctly verify the task ID or ownership, potentially affecting the wrong task.
+- Fixed an issue where search results could be shared across different users due to a missing user identity component in the cache key.
 - Resolved an issue where searching by ISBN with hyphens returned no results when using the BookLogr metadata provider.
 - Resolved an issue where the search endpoint returned a 500 error instead of an empty result when the external data provider returned no books.
+- Fixed an issue where books could not be correctly sorted by the date they were added.
+- Fixed an issue where the sort-by-status label was displayed as an escaped string in the sort dropdown when using the French language.
 - Fixed missing dark mode hover styles on the book rating component.
 - Fixed subtitle text color not respecting dark mode on the book details page.
 - Fixed an issue where adding a book without a title returned a 500 error instead of a validation error.
@@ -17,10 +24,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Resolved an issue where sort, order, and pagination settings were not applied when viewing the All tab in the library.
 
 ### Added
+- Added the ability to filter the library by author.
+- Added a Notes & Quotes feed to the profile page, displaying all public notes and quotes across a users library.
 - Added subtitle field to the add book and edit book modals.
 - Added custom fields support, allowing users to define and attach custom metadata (text, number, date, selection, and boolean) to books. Fields can be managed from the Settings page and their values are editable from the add/edit book modals and displayed on the book details page.
 
 ### Changed
+- Improved search performance by batching ISBN lookups into a single query instead of querying once per external result.
+- Search results are now cached client-side to avoid redundant requests when repeating the same query.
+- Book details are now cached client-side, avoiding a redundant request when revisiting a book page.
+- The library page is now cached client-side per tab/sort/order/page, avoiding redundant requests when switching between tabs.
 - Ratings are now included when importing books from BookLogr CSV and Goodreads formats.
 - The Add to Reading List button is now disabled until the book title has finished loading.
 - The Edit Book modal has been redesigned to match the Add Book modal and now supports editing description and reading status in addition to title, author, and total pages.
