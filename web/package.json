@@ -12,6 +12,8 @@
 	"dependencies": {
 		"@react-oauth/google": "0.13.4",
 		"@tailwindcss/postcss": "^4.1.18",
+		"@tanstack/react-query": "^5.101.2",
+		"@tanstack/react-query-devtools": "^5.101.2",
 		"axios": "^1.13.2",
 		"compare-versions": "^6.1.1",
 		"flowbite-react": "^0.12.17",

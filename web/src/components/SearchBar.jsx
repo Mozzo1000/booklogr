@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { debounce } from 'lodash';
+import React, { useState, useEffect } from "react";
 import { Button, TextInput, HR, useThemeMode } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import Skeleton from 'react-loading-skeleton';
@@ -9,81 +8,47 @@ import { Img } from 'react-image';
 import { useTranslation, Trans } from 'react-i18next';
 import ESCIcon from "./ESCIcon";
 import AddBookButton from "./AddBookButton";
-import BooksService from "../services/books.service";
+import { useSearch } from "../hooks/useSearch";
 
 function SearchBar(props) {
     const [searchTerm, setSearchTerm] = useState('');
-    const [suggestions, setSuggestions] = useState([{id: 0, name: ""}]);
-    const [noSuggestionsFound, setNoSuggestionsFound] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [debouncedQuery, setDebouncedQuery] = useState('');
     const [showList, setShowList] = useState(false);
     const loadingPlaceholder = [0,1,2,3,4,5];
-    const [isFocused, setIsFocused] = useState(false); 
-    const [onError, setOnError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState();
-    
+    const [isFocused, setIsFocused] = useState(false);
+
     let navigate = useNavigate();
     const theme = useThemeMode();
     const { t } = useTranslation();
 
-    const fetchSuggestions = (searchTerm) => {
-        if (searchTerm) {
-            BooksService.search(searchTerm).then(
-                response => {
-                    let newArray = []
-                    for (let i = 0; i < response.data.items.length; i++) {
-                        newArray.push({
-                            id: i, name: response.data.items[i].title,
-                            isbn: response.data.items[i].isbn, 
-                            author: response.data.items[i].author,
-                            inLibrary: response.data.items[i].in_library,
-                        })
-                    }
-                    setSuggestions(newArray);
-                    setLoading(false);
-                    setShowList(true);
-                    setNoSuggestionsFound(false)
-                    setOnError(false);
-                    setErrorMessage();
-                    
-                    if (response.data.num_found == 0) {
-                        setSuggestions([])
-                        setNoSuggestionsFound(true)
-                    }
-                },
-                error => {
-                    setLoading(false);
-                    setOnError(true);
-                    setErrorMessage(error.code)
-                }
-            )
-        }
-    };
-
     useEffect(() => {
         if (searchTerm.trim() === '') {
-            setSuggestions([]);
-            setLoading(false);
             setShowList(false);
-        } 
+            setDebouncedQuery('');
+            return;
+        }
+        setShowList(true);
+        const id = setTimeout(() => setDebouncedQuery(searchTerm.trim()), 500);
+        return () => clearTimeout(id);
     }, [searchTerm]);
 
-    const changeHandler = (e) => {
-        if (e.target.value) {
-            setLoading(true);
-            setShowList(true);
-            setOnError(false);
-            setErrorMessage();
-            fetchSuggestions(e.target.value)
-        }
-    }
+    const { data, isFetching, isError, error } = useSearch(debouncedQuery);
 
-    const debouncedChangeHandler = useMemo(() => debounce(changeHandler, 500), []);
+    const suggestions = data?.data?.items?.map((item, i) => ({
+        id: i,
+        name: item.title,
+        isbn: item.isbn,
+        author: item.author,
+        inLibrary: item.in_library,
+    })) ?? [];
+
+    const noSuggestionsFound = !isFetching && !isError && debouncedQuery.length >= 2 && data?.data?.num_found === 0;
 
     const closeSearch = () => {
         setIsFocused(false);
         setShowList(false);
         setSearchTerm('');
+        setDebouncedQuery('');
         props.onClose();
     };
 
@@ -122,7 +87,7 @@ function SearchBar(props) {
                         type="text" 
                         placeholder={t("search.input_placeholder")} 
                         onFocus={() => setIsFocused(true)}
-                        onChange={(e) => (debouncedChangeHandler(e), setSearchTerm(e.target.value))} 
+                        onChange={(e) => setSearchTerm(e.target.value)}
                         value={searchTerm} 
                     />
                 </div>
@@ -139,13 +104,13 @@ function SearchBar(props) {
             </div>
 
             <div className={`
-                ${showList ? "block" : "hidden"}
+                ${showList && (isFetching || suggestions.length > 0 || noSuggestionsFound || isError) ? "block" : "hidden"}
                 ${props.fixedResults ? "fixed z-100 w-96 max-h-[80vh] shadow-xl border border-gray-200 dark:border-gray-700" : props.absolute ? "md:absolute md:max-w-md" : "relative"}
                 bg-white dark:bg-gray-900 overflow-y-auto
                 max-md:flex-1 max-md:w-full
                 md:max-h-1/2 min-w-28 min-h-28
             `}>
-                {loading ? (
+                {isFetching ? (
                      loadingPlaceholder.map((i) => (
                         <div key={i}>
                             <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4 pt-10">
@@ -225,12 +190,12 @@ function SearchBar(props) {
                 </div>
                 }
 
-                {onError &&
+                {isError &&
                 <div className="flex flex-col justify-center items-center text-center gap-4 pb-8">
                     <RiErrorWarningLine size={96} className="dark:text-white"/>
                     <div className="format lg:format-lg dark:format-invert">
                         <h2>{t("search.error_unknown.title")}</h2>
-                        <p>{t("search.error_unknown.description", {error: errorMessage})}</p>
+                        <p>{t("search.error_unknown.description", {error: error?.code})}</p>
                     </div>
                 </div>
                 }
