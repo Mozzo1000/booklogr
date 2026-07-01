@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { Modal, ModalBody, ModalHeader, Label, Textarea, ToggleSwitch, ModalFooter, Button, TextInput } from 'flowbite-react'
+import { useQueryClient } from '@tanstack/react-query';
 import NotesService from '../services/notes.service';
 import useToast from '../toast/useToast';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +12,7 @@ function EditNoteModal({noteID, content, page, open, visibility, setOpen, onSave
 
     const toast = useToast(4000);
     const { t } = useTranslation();
+    const queryClient = useQueryClient();
 
     let noteOrQuote = page ? t("notes.quote") : t("notes.note");
 
@@ -37,6 +39,7 @@ function EditNoteModal({noteID, content, page, open, visibility, setOpen, onSave
             response => {
                 toast("success", response.data.message)
                 onSave();
+                queryClient.invalidateQueries({ queryKey: ['books'] });
                 setOpen(false);
             },
             error => {

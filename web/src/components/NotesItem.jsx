@@ -5,6 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { RiEditBoxLine } from "react-icons/ri";
 import { RiBookOpenLine } from "react-icons/ri";
 import { RiStickyNoteLine } from "react-icons/ri";
+import { useQueryClient } from '@tanstack/react-query';
 import NotesService from '../services/notes.service';
 import useToast from '../toast/useToast';
 import { useTranslation } from 'react-i18next';
@@ -15,9 +16,10 @@ import {formatDateTime} from "../DateFormat";
 function NotesItem({ id, content, visibility, page, date, allowEditing, onDelete, onEdit}) {
     const [removalConfModal, setRemovalConfModal] = useState();
     const [openEditNote, setOpenEditNote] = useState(false);
-    
+
     const toast = useToast(4000);
     const { t } = useTranslation();
+    const queryClient = useQueryClient();
 
     const getType = () => {
         if (page && page > 0) {
@@ -32,6 +34,7 @@ function NotesItem({ id, content, visibility, page, date, allowEditing, onDelete
             response => {
                 toast("success", response.data.message)
                 onDelete();
+                queryClient.invalidateQueries({ queryKey: ['books'] });
             },
             error => {
                 const resMessage =

@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import { Modal, ModalBody, ModalHeader, Label, Textarea, ToggleSwitch, ModalFooter, Button } from 'flowbite-react'
+import { useQueryClient } from '@tanstack/react-query';
 import BooksService from '../services/books.service';
 import useToast from '../toast/useToast';
 import { useTranslation } from 'react-i18next';
@@ -10,11 +11,12 @@ function AddNoteModal({bookID, open, setOpen, onSave}) {
 
     const toast = useToast(4000);
     const { t } = useTranslation();
+    const queryClient = useQueryClient();
 
     const save = () => {
         let data = {}
         data.content = noteContent;
-       
+
         if(publicSwitch) {
             data.visibility = "public";
         }
@@ -24,6 +26,7 @@ function AddNoteModal({bookID, open, setOpen, onSave}) {
                 toast("success", response.data.message)
                 setNoteContent();
                 onSave();
+                queryClient.invalidateQueries({ queryKey: ['books'] });
                 setOpen(false);
                 setPublicSwitch(false);
             },

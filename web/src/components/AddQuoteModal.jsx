@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import { Modal, ModalBody, ModalHeader, Label, Textarea, ToggleSwitch, ModalFooter, Button, TextInput } from 'flowbite-react'
+import { useQueryClient } from '@tanstack/react-query';
 import BooksService from '../services/books.service';
 import useToast from '../toast/useToast';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +12,7 @@ function AddQuoteModal({bookID, open, setOpen, onSave}) {
 
     const toast = useToast(4000);
     const { t } = useTranslation();
+    const queryClient = useQueryClient();
 
     const save = () => {
         let data = {}
@@ -25,6 +27,7 @@ function AddQuoteModal({bookID, open, setOpen, onSave}) {
                 toast("success", response.data.message)
                 setQuoteContent();
                 onSave();
+                queryClient.invalidateQueries({ queryKey: ['books'] });
                 setOpen(false);
                 setPublicSwitch(false);
                 setQuotePage(0);

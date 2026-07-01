@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useEffect } from 'react'
 import BookItem from './BookItem'
 import { Tabs, Pagination } from "flowbite-react";
-import BooksService from '../../services/books.service';
+import { useQueryClient } from '@tanstack/react-query';
+import { useBooks } from '../../hooks/useBooks';
 import PaneTabView from './PaneTabView';
-import reducer, { initialState, actionTypes } from '../../useLibraryReducer';
 import { RiArchiveLine, RiBook2Line } from "react-icons/ri";
 import { RiBookOpenLine } from "react-icons/ri";
 import { RiBookmarkLine } from "react-icons/ri";
@@ -69,9 +69,7 @@ function LibraryPane() {
         return savedDefault ? (STATUS_TO_TAB[savedDefault] ?? TAB_CURRENTLY_READING) : TAB_CURRENTLY_READING;
     };
     const [activeTab, setActiveTab] = useState(hashToTab);
-    const [state, dispatch] = useReducer(reducer, initialState);
     const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
     const [view, setView] = useState(localStorage.getItem("library_view") ? localStorage.getItem("library_view") : "gallery");
     const [sort, setSort] = useState(JSON.parse(localStorage.getItem("last_sorted")) || {value: "title"});
     const [order, setOrder] = useState(localStorage.getItem("last_ordered") || "asc");
@@ -103,12 +101,7 @@ function LibraryPane() {
 
 
     useEffect(() => {
-        dispatch({
-            type: actionTypes.CLEAR
-        });
-        getBooks(translateTabsToStatus());
         setPage(1);
-        
     }, [activeTab])
 
     const translateTabsToStatus = () => {
@@ -127,21 +120,12 @@ function LibraryPane() {
         return status;
     }
 
-    const getBooks = (status) => {
-        BooksService.get(status === "" ? undefined : status, sort.value, order, page).then(
-            response => {
-                dispatch({type: actionTypes.BOOKS, books: response.data})
-                if (response.data.meta.total_pages > 0) {
-                    setTotalPages(response.data.meta.total_pages)
-                }
-            }
-        )
-    }
+    const queryClient = useQueryClient();
+    const { data: booksResponse } = useBooks({ status: translateTabsToStatus(), sort: sort.value, order, page });
+    const books = booksResponse?.data;
+    const totalPages = books?.meta.total_pages > 0 ? books.meta.total_pages : 1;
+    const refetchBooks = () => queryClient.invalidateQueries({ queryKey: ['books'] });
 
-    useEffect(() => {
-      getBooks(translateTabsToStatus())
-    }, [page, sort, order])
-    
     const changeView = (changeToView) => {
         setView(changeToView);
         localStorage.setItem("library_view", changeToView);
@@ -154,16 +138,16 @@ function LibraryPane() {
                     <h2>{t("library")}</h2>
             </article>
             <div className="flex flex-row gap-4 pb-4">
-                <AddBookButton collapseButton={isMobile} onSuccess={() => getBooks(translateTabsToStatus())}/>
+                <AddBookButton collapseButton={isMobile} onSuccess={refetchBooks}/>
                 <Controls sort={sort} setSort={setSort} order={order} setOrder={setOrder} view={view} changeView={changeView}/>
             </div>
         </div>
         <BookTabs tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange}>
             <PaneTabView view={view} setView={setView}>
-                {!state.books ? (
+                {!books ? (
                     <BookSkeleton view={view} count={3} />
                 ) : (
-                    state.books?.items.map((item) => (
+                    books?.items.map((item) => (
                         <div key={item.id}>
                             <BookItem 
                                 internalID={item.id} 
@@ -183,20 +167,20 @@ function LibraryPane() {
                                 showNotes={activeTab === TAB_ALL || activeTab === TAB_TO_BE_READ || activeTab === TAB_READ || activeTab === TAB_DID_NOT_FINISH}
                                 allowNoteEditing
                                 showOptions={activeTab !== TAB_ALL && activeTab !== TAB_CURRENTLY_READING}
-                                onReadingStatusChanged={() => getBooks(translateTabsToStatus())}
+                                onReadingStatusChanged={refetchBooks}
                             />
                         </div>
                     ))
                 )}
             </PaneTabView>
         </BookTabs>
-        {state.books?.items.length > 0 &&
+        {books?.items.length > 0 &&
             <div className="flex flex-row justify-center pt-8">
                 <Pagination currentPage={page} totalPages={totalPages} onPageChange={onPageChange} showIcons />
             </div>
         }
 
-        {state.books?.items.length <= 0 &&
+        {books?.items.length <= 0 &&
             <div className="flex flex-col justify-center items-center text-center gap-4 pt-8">
                 <RiBook2Line size={96} className="dark:text-white"/>
                 <div className="format lg:format-lg dark:format-invert">
