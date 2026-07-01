@@ -10,14 +10,14 @@ const get_isbn = (isbn) => {
     return axios.get(getAPIUrl(`v1/books/${isbn}`), {headers: authHeader() });
 }
 
-const get = (status, sort, order, page) => {
+const get = (status, sort, order, page, author) => {
     var params = {
         status,
         sort_by: sort,
         order,
-        offset: page
+        offset: page,
+        author
     };
-    
     return axios.get(getAPIUrl(`v1/books`),  { headers: authHeader(), params: params });
 }
 

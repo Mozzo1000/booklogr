@@ -7,6 +7,7 @@ import PaneTabView from './PaneTabView';
 import { RiArchiveLine, RiBook2Line } from "react-icons/ri";
 import { RiBookOpenLine } from "react-icons/ri";
 import { RiBookmarkLine } from "react-icons/ri";
+import { RiCloseLine, RiFilterLine } from "react-icons/ri";
 import { useTranslation } from 'react-i18next';
 import AddBookButton from '../AddBookButton';
 import BookSkeleton from '../BookSkeleton';
@@ -74,6 +75,7 @@ function LibraryPane() {
     const [sort, setSort] = useState(JSON.parse(localStorage.getItem("last_sorted")) || {value: "title"});
     const [order, setOrder] = useState(localStorage.getItem("last_ordered") || "asc");
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [authorFilter, setAuthorFilter] = useState(null);
 
     const visibleTabSettings = getVisibleTabs();
     const tabs = TABS_CONFIG
@@ -102,7 +104,7 @@ function LibraryPane() {
 
     useEffect(() => {
         setPage(1);
-    }, [activeTab])
+    }, [activeTab, authorFilter])
 
     const translateTabsToStatus = () => {
         let status = "Currently reading";
@@ -121,7 +123,7 @@ function LibraryPane() {
     }
 
     const queryClient = useQueryClient();
-    const { data: booksResponse } = useBooks({ status: translateTabsToStatus(), sort: sort.value, order, page });
+    const { data: booksResponse } = useBooks({ status: translateTabsToStatus(), sort: sort.value, order, page, author: authorFilter });
     const books = booksResponse?.data;
     const totalPages = books?.meta.total_pages > 0 ? books.meta.total_pages : 1;
     const refetchBooks = () => queryClient.invalidateQueries({ queryKey: ['books'] });
@@ -143,6 +145,22 @@ function LibraryPane() {
             </div>
         </div>
         <BookTabs tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange}>
+            {authorFilter &&
+                <div className="flex items-center justify-between gap-2 mb-4 px-3 py-2 rounded-lg bg-blue-50 text-blue-800 dark:bg-blue-900/40 dark:text-blue-200 w-full sm:w-fit">
+                    <span className="flex items-center gap-2 text-sm font-medium">
+                        <RiFilterLine className="h-4 w-4 shrink-0" />
+                        {t("book.filter_by_author", {author: authorFilter})}
+                    </span>
+                    <button
+                        type="button"
+                        onClick={() => setAuthorFilter(null)}
+                        aria-label={t("book.clear_author_filter")}
+                        className="p-1.5 -mr-1 rounded-md hover:bg-blue-100 dark:hover:bg-blue-800"
+                    >
+                        <RiCloseLine className="h-5 w-5" />
+                    </button>
+                </div>
+            }
             <PaneTabView view={view} setView={setView}>
                 {!books ? (
                     <BookSkeleton view={view} count={3} />
@@ -162,6 +180,7 @@ function LibraryPane() {
                                 isbn={item.isbn}
                                 description={item.description}
                                 readingStatus={item.reading_status}
+                                onAuthorClick={setAuthorFilter}
                                 showProgress={activeTab === TAB_ALL || activeTab === TAB_CURRENTLY_READING}
                                 showRating={activeTab === TAB_ALL || activeTab === TAB_READ || activeTab === TAB_DID_NOT_FINISH}
                                 showNotes={activeTab === TAB_ALL || activeTab === TAB_TO_BE_READ || activeTab === TAB_READ || activeTab === TAB_DID_NOT_FINISH}

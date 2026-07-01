@@ -197,6 +197,12 @@ def get_books():
               required: false
               schema:
                 type: string
+            - name: author
+              in: query
+              required: false
+              schema:
+                type: string
+              description: Filter books by exact author name
             - name: sort_by
               in: query
               schema:
@@ -225,6 +231,7 @@ def get_books():
 
     claim_id = get_current_user_id()
     query_status = request.args.get("status")
+    query_author = request.args.get("author")
     sort_by = request.args.get("sort_by", "title")
     order = request.args.get("order", "asc")
 
@@ -245,7 +252,10 @@ def get_books():
 
     if query_status:
         books = books.filter(Books.reading_status==query_status)
-    
+
+    if query_author:
+        books = books.filter(Books.author==query_author)
+
     if sort_by == "progress":
       sort_field = (Books.current_page * 100.0 / Books.total_pages).label('progress')
     elif sort_by == "created_on":
