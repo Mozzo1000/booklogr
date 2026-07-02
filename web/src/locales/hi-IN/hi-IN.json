@@ -137,6 +137,8 @@
     "book": {
         "by_author": "{{author}} द्वारा",
         "unknown_author": "अज्ञात लेखक",
+        "filter_by_author": "Filtering by {{author}}",
+        "clear_author_filter": "Clear author filter",
         "no_description_found": "कोई विवरण नहीं मिला",
         "subtitle": "Subtitle",
         "description": "Description",
