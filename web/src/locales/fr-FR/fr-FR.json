@@ -137,6 +137,8 @@
     "book": {
         "by_author": "par {{author}}",
         "unknown_author": "auteur inconnu",
+        "filter_by_author": "Filtering by {{author}}",
+        "clear_author_filter": "Clear author filter",
         "no_description_found": "Aucune description trouvée",
         "subtitle": "Subtitle",
         "description": "Description",
@@ -232,7 +234,7 @@
         "share_text": "Je suis en train de suivre ma progression de lecture. Jetez un œil à ce que j'ai lu !",
         "notes_feed": {
             "empty_title": "No public notes or quotes",
-            "empty_description": "There are no public notes or quotes to display yet.",
+            "empty_description": "Il n'y a pas encore de note ou de citation publique à afficher.",
             "share_note": "Share note",
             "copied": "Copied!"
         }
