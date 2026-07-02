@@ -137,6 +137,8 @@
     "book": {
         "by_author": "geschrieben von {{author}}",
         "unknown_author": "unbekannter Autor",
+        "filter_by_author": "Filtering by {{author}}",
+        "clear_author_filter": "Clear author filter",
         "no_description_found": "Keine Beschreibung gefunden",
         "subtitle": "Subtitle",
         "description": "Description",
