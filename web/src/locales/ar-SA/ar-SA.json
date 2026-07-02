@@ -137,6 +137,8 @@
     "book": {
         "by_author": "بقلم {{author}}",
         "unknown_author": "مؤلف غير معروف",
+        "filter_by_author": "Filtering by {{author}}",
+        "clear_author_filter": "Clear author filter",
         "no_description_found": "لم يتم العثور على وصف",
         "subtitle": "Subtitle",
         "description": "Description",
