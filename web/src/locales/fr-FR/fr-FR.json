@@ -138,7 +138,7 @@
         "by_author": "par {{author}}",
         "unknown_author": "auteur inconnu",
         "filter_by_author": "Filtering by {{author}}",
-        "clear_author_filter": "Clear author filter",
+        "clear_author_filter": "Effacer le filtre auteur",
         "no_description_found": "Aucune description trouvée",
         "subtitle": "Subtitle",
         "description": "Description",
