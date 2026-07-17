@@ -23,7 +23,7 @@ function BookItem(props) {
 
                 />
                 <div className="flex flex-col p-4 leading-normal w-full">
-                <Link to={"/books/" + props.isbn} className="hover:underline">
+                <Link to={"/books/" + props.isbn} className="hover:underline dark:decoration-white">
                     <h5 className="mb-2 text font-bold tracking-tight text-gray-900 dark:text-white">{props.title}</h5>
                 </Link>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 truncate">
