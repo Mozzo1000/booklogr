@@ -39,6 +39,13 @@ function BookRating(props) {
         }
     }
 
+    const formatRating = () => {
+        if (props.rating) {
+            return Number.parseFloat(props.rating);
+        }
+        return "";
+    }
+
     useEffect(() => {
         if (rangeValue > 5) {
             setRatingErrorText(t("book.rating.error.greater_than"));
@@ -60,7 +67,7 @@ function BookRating(props) {
                 <RatingStar filled={Math.floor(props.rating) >= 3 ? true : false} />
                 <RatingStar filled={Math.floor(props.rating) >= 4 ? true : false} />
                 <RatingStar filled={Math.floor(props.rating) >= 5 ? true : false} />
-                <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">{props.rating}</p>
+                <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">{formatRating(props.rating)}</p>
             </Rating>
         )
     }
