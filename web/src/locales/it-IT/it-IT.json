@@ -1,327 +1,327 @@
 {
-    "library": "My Library",
+    "library": "La mia Libreria",
     "reading_status": {
-        "title": "Reading status",
-        "read": "Read",
-        "currently_reading": "Currently reading",
-        "to_be_read": "To be read",
-        "all": "All",
-        "want_to_read": "Want to read",
-        "did_not_finish": "Did not finish",
-        "read_again": "Read again",
-        "list": "Reading list"
+        "title": "Stato di lettura",
+        "read": "Letto",
+        "currently_reading": "In lettura",
+        "to_be_read": "Da leggere",
+        "all": "Tutti",
+        "want_to_read": "Voglio leggerlo",
+        "did_not_finish": "Non terminato",
+        "read_again": "Leggi di nuovo",
+        "list": "Lista di lettura"
     },
     "onboarding": {
         "step_0": {
-            "title": "Welcome! 🎉",
-            "description": "We are so happy to have you here! To get started tracking all the books you are reading you first need to choose a display name."
+            "title": "Benvenuto! 🎉",
+            "description": "Siamo così felici di averti qui! Per iniziare a registrare tutti i libri che stai leggendo devi prima scegliere un nome visualizzato."
         },
         "step_1": {
-            "title": "You are all set!",
-            "description": "Why don't you start by adding some of your favorites books to your lists? It's super simple!"
+            "title": "È tutto pronto!",
+            "description": "Perché non cominci aggiungendo alcuni dei tuoi libri preferiti alla tua lista? È super semplice!"
         }
     },
     "forms": {
-        "next": "Next",
-        "previous": "Previous",
-        "close": "Close",
-        "update": "Update",
-        "save": "Save",
-        "upload_picture": "Upload picture",
-        "upload": "Upload",
-        "uploading": "Uploading...",
-        "remove": "Remove",
-        "display_name": "Display name",
-        "visibility_label": "Visibility",
-        "visibility_hidden": "Private",
-        "visibility_public": "Public",
+        "next": "Successivo",
+        "previous": "Precedente",
+        "close": "Chiudi",
+        "update": "Aggiorna",
+        "save": "Salva",
+        "upload_picture": "Carica immagine",
+        "upload": "Carica",
+        "uploading": "Caricamento in corso...",
+        "remove": "Rimuovi",
+        "display_name": "Nome visualizzato",
+        "visibility_label": "Visibilità",
+        "visibility_hidden": "Privato",
+        "visibility_public": "Pubblico",
         "email": "Email",
-        "email_placeholder": "name@example.com",
+        "email_placeholder": "nome@esempio.com",
         "password": "Password",
-        "confirm_password": "Confirm password",
-        "name": "Your name",
-        "login": "Login",
-        "register": "Register",
-        "register_title": "Register an account",
-        "register_button": "Register new account",
-        "google_sign_in": "Sign in with Google",
-        "oidc_sign_in": "Sign in with OpenID Connect",
-        "login_title": "Login to your account",
-        "password_no_match": "Passwords do not match",
-        "change_password": "Change password",
-        "old_password": "Old password",
-        "new_password": "New password",
-        "new_password_confirm": "Confirm new password",
-        "download": "Download",
-        "cancel": "Cancel",
-        "skip": "Skip",
-        "or": "Or",
-        "back_to_login": "Back to Login",
-        "isbn_required": "ISBN is required",
-        "title_required": "Title is required",
-        "placeholder_total_num_pages": "Enter a total number of pages",
-        "placeholder_description": "Enter a brief description of the book"
+        "confirm_password": "Conferma password",
+        "name": "Il tuo nome",
+        "login": "Accedi",
+        "register": "Registrati",
+        "register_title": "Registra un profilo",
+        "register_button": "Registra un nuovo account",
+        "google_sign_in": "Accedi con Google",
+        "oidc_sign_in": "Accedi con OpenID Connect",
+        "login_title": "Accedi al tuo profilo",
+        "password_no_match": "Le password non corrispondono",
+        "change_password": "Cambia la password",
+        "old_password": "Vecchia password",
+        "new_password": "Nuova Password",
+        "new_password_confirm": "Conferma nuova password",
+        "download": "Scarica",
+        "cancel": "Annulla",
+        "skip": "Salta",
+        "or": "Oppure",
+        "back_to_login": "Torna alla pagina d'accesso",
+        "isbn_required": "L'ISBN è obbligatorio",
+        "title_required": "Il Titolo è obbligatorio",
+        "placeholder_total_num_pages": "Inserisci il numero totale di pagine",
+        "placeholder_description": "Inserisci una breve descrizione del libro"
     },
     "settings": {
         "nav": {
-            "account": "Account",
-            "interface": "Interface",
+            "account": "Profilo",
+            "interface": "Interfaccia",
             "mastodon": "Mastodon",
-            "data": "Data"
+            "data": "Dati"
         },
         "mastodon": {
-            "share_events": "Share events",
-            "enable_sharing": "Enable event sharing",
-            "enable_sharing_description": "This will enable BookLogr to listen for events such as when finishing a book and share it to social media.",
+            "share_events": "Condividi eventi",
+            "enable_sharing": "Abilita condivisione eventi",
+            "enable_sharing_description": "Questo permetterà a BookLogr di condividere sui social media i tuoi eventi come quando finisci un libro.",
             "instance": "Mastodon instance",
-            "access_token": "Access token",
-            "account": "Mastodon account"
+            "access_token": "Token di accesso",
+            "account": "Profilo Mastodon"
         },
         "data": {
             "request_data": {
-                "title": "Request data",
-                "description": "You can request a copy of all your data. Once the request has finished, the data will be displayed in the Available exports table for you to download.",
-                "format": "Choose data format"
+                "title": "Richiedi dati",
+                "description": "Puoi richiedere una copia di tutti i tuoi dati. Una volta terminata la richiesta, i dati verranno visualizzati nella tabella Esportazioni disponibili in modo da poterli scaricare.",
+                "format": "Scegli formato dati"
             },
             "files": {
-                "available_exports": "Available exports",
-                "filename": "Filename",
-                "created": "Created",
-                "action": "Action"
+                "available_exports": "Esportazioni disponibili",
+                "filename": "Nome del file",
+                "created": "Creato",
+                "action": "Azioni"
             },
             "import_books": {
-                "title": "Import books",
-                "platform": "Platform",
+                "title": "Importa libri",
+                "platform": "Piattaforma",
                 "file": "File",
-                "add_duplicate_books": "Add duplicate books"
+                "add_duplicate_books": "Aggiungi libri duplicati"
             }
         },
         "theme": {
-            "theme": "Theme",
-            "dark": "Dark theme",
-            "light": "Light theme",
-            "system": "System"
+            "theme": "Tema",
+            "dark": "Tema scuro",
+            "light": "Tema chiaro",
+            "system": "Sistema"
         }
     },
     "toast": {
-        "file_available_download": "Exported file is now available for download",
-        "email_empty": "Email cannot be empty"
+        "file_available_download": "Il file esportato è ora disponibile per il download",
+        "email_empty": "L'Email non può essere vuota"
     },
     "verification": {
-        "title": "Verify your account",
-        "verification_code_sent": "A verification code has been sent to {{email_hidden}}",
-        "verification_code": "Verification code",
-        "verify_button": "Verify"
+        "title": "Verifica il tuo profilo",
+        "verification_code_sent": "Il codice di verifica è stato inviato a {{email_hidden}}",
+        "verification_code": "Codice di verifica",
+        "verify_button": "Verifica"
     },
     "demo": {
-        "title": "This is a demo of BookLogr",
-        "description": "Some features are disabled.",
-        "description_login": "To login use,",
+        "title": "Questa è una demo di BookLogr",
+        "description": "Alcune funzionalità sono disabilitate.",
+        "description_login": "Per effettuare il login,",
         "email": "Email: {{email}}",
         "password": "Password: {{password}}"
     },
     "search": {
-        "input_placeholder": "Search for a book",
-        "attribution": "Search powered by <link_to_info>OpenLibrary</link_to_info>",
+        "input_placeholder": "Cerca un libro",
+        "attribution": "Ricerca fornita da <link_to_info>OpenLibrary</link_to_info>",
         "error_not_found": {
-            "title": "No results found",
-            "description": "Try searching for a different title or ISBN."
+            "title": "Nessun risultato trovato",
+            "description": "Prova a cercare un titolo o un ISBN diverso."
         },
         "error_unknown": {
-            "title": "Something went wrong",
-            "description": "Try again later. {{error}}"
+            "title": "Qualcosa è andato storto",
+            "description": "Riprova più tardi. {{error}}"
         },
-        "in_library": "In your library",
-        "results": "Search results"
+        "in_library": "Nella tua libreria",
+        "results": "Risultati di ricerca"
     },
     "book": {
-        "by_author": "by {{author}}",
-        "unknown_author": "unknown author",
-        "filter_by_author": "Filtering by {{author}}",
-        "clear_author_filter": "Clear author filter",
-        "no_description_found": "No description found",
-        "subtitle": "Subtitle",
-        "description": "Description",
-        "pages": "Pages",
-        "cover": "Cover",
-        "book_cover": "Book Cover",
-        "details": "Book details",
+        "by_author": "di {{author}}",
+        "unknown_author": "autore sconosciuto",
+        "filter_by_author": "Filtrando per {{author}}",
+        "clear_author_filter": "Cancella filtro autore",
+        "no_description_found": "Nessuna descrizione trovata",
+        "subtitle": "Sottotitolo",
+        "description": "Descrizione",
+        "pages": "Pagine",
+        "cover": "Copertina",
+        "book_cover": "Copertina del libro",
+        "details": "Dettagli del libro",
         "isbn": "ISBN",
-        "add_to_reading": "Add {{book_title}} to currently reading",
-        "share_mastodon": "Share to Mastodon",
-        "total_pages": "Total pages",
-        "num_pages": "Number of pages",
-        "not_implemented": "Currently not implemented",
+        "add_to_reading": "Aggiungi {{book_title}} a \"in lettura\"",
+        "share_mastodon": "Condividi con Mastodon",
+        "total_pages": "Pagine totali",
+        "num_pages": "Numero di pagine",
+        "not_implemented": "Attualmente non implementato",
         "remove_confirmation": {
-            "title": "Are you sure you want to remove this book?",
-            "yes": "Yes, I'm sure",
-            "no": "No, cancel"
+            "title": "Sei sicuro di voler rimuovere questo libro?",
+            "yes": "Sì, sono sicuro",
+            "no": "No, annulla"
         },
         "update_reading": {
-            "update_progress": "Update progress",
-            "update_reading_progress": "Update reading progress",
-            "reading_progress": "Reading progress",
-            "set_as_finished": "Set as finished",
-            "how_far": "How far are you in {{book_title}}?",
-            "current_page": "Current page",
-            "progress": "Progress: {{percentage}}%",
-            "percentage": "Percentage",
-            "percentage_complete": "Percentage complete",
-            "current_page_of": "Current page: {{current_page}} of {{total_pages}}",
+            "update_progress": "Aggiorna avanzamento",
+            "update_reading_progress": "Aggiorna avanzamento di lettura",
+            "reading_progress": "Avanzamento di lettura",
+            "set_as_finished": "Imposta come terminato",
+            "how_far": "Qual è il tuo avanzamento per {{book_title}}?",
+            "current_page": "Pagina corrente",
+            "progress": "Avanzamento: {{percentage}}%",
+            "percentage": "Percentuale",
+            "percentage_complete": "Percentuale letta",
+            "current_page_of": "Pagina attuale: {{current_page}} di {{total_pages}}",
             "error": {
-                "greater_than": "Current page cannot be greater than total pages.",
-                "less_than": "Current page cannot be less than 0."
+                "greater_than": "La pagina corrente non può essere maggiore del totale delle pagine.",
+                "less_than": "La pagina corrente non può essere inferiore a 0."
             },
             "finished": {
-                "title": "Congratulations!",
-                "description": "On finishing reading {{book_title}}"
+                "title": "Congratulazioni!",
+                "description": "Hai finito di leggere {{book_title}}"
             }
         },
         "rating": {
-            "give": "Give a rating",
-            "rate_book": "Rate book",
-            "how_many_starts": "How many stars would you like to give {{book_title}}?",
-            "rate_this_book": "Rate this book",
+            "give": "Dai una valutazione",
+            "rate_book": "Valuta il libro",
+            "how_many_starts": "Quante stelle vorresti dare a {{book_title}}?",
+            "rate_this_book": "Valuta questo libro",
             "error": {
-                "greater_than": "Rating cannot be more than 5.",
-                "less_than": "Rating cannot be less than 0."
+                "greater_than": "La valutazione non può essere superiore a 5.",
+                "less_than": "La valutazione non può essere inferiore a 0."
             }
         },
         "missing_info": {
-            "title": "Missing information",
-            "description": "Some information for {{book_title}} is missing. Would you like to add it?",
-            "total_pages_placeholder": "Enter total pages",
-            "author_placeholder": "Enter author name"
+            "title": "Informazioni mancanti",
+            "description": "Mancano alcune informazioni per {{book_title}}. Vuoi aggiungerle?",
+            "total_pages_placeholder": "Inserisci pagine totali",
+            "author_placeholder": "Inserisci il nome dell'autore"
         }
     },
     "editions": {
-        "title": "Editions",
-        "change": "Change edition",
-        "current": "Current Edition",
-        "filter": "Filter by language",
-        "all_languages": "All languages"
+        "title": "Edizioni",
+        "change": "Cambia edizione",
+        "current": "Edizione Attuale",
+        "filter": "Filtra per lingua",
+        "all_languages": "Tutte le lingue"
     },
     "navigation": {
-        "search": "Search",
-        "profile": "Profile",
-        "settings": "Settings",
-        "logout": "Logout",
-        "expand": "Expand",
-        "collapse": "Collapse",
-        "library": "Library",
+        "search": "Ricerca",
+        "profile": "Profilo",
+        "settings": "Impostazioni",
+        "logout": "Esci",
+        "expand": "Espandi",
+        "collapse": "Riduci",
+        "library": "Libreria",
         "home": "Home",
-        "go_home": "Go home"
+        "go_home": "Vai alla home"
     },
     "profile": {
         "not_found_error": {
-            "title": "No profile found",
-            "description": "We could not find a profile with that name. Either the profile does not exist or it is set to private."
+            "title": "Nessun profilo trovato",
+            "description": "Non siamo riusciti a trovare un profilo con quel nome. Il profilo non esiste oppure è impostato su privato."
         },
         "stats": {
-            "read": "Read",
-            "reading": "Reading",
-            "to_be_read": "To Be Read",
-            "did_not_finish": "Did Not Finish"
+            "read": "Letto",
+            "reading": "In lettura",
+            "to_be_read": "Da leggere",
+            "did_not_finish": "Non terminato"
         },
-        "update_profile": "Update profile",
-        "all_books": "All books",
-        "profile_settings": "Profile settings",
-        "share": "Share",
-        "share_profile": "Share profile",
-        "copy_link": "Copy link",
-        "link_copied": "Link copied to clipboard",
-        "share_title": "{{name}}'s Library",
-        "share_text": "I'm tracking my reading progress. Take a look at what I've been reading!",
+        "update_profile": "Aggiorna il profilo",
+        "all_books": "Tutti i libri",
+        "profile_settings": "Impostazioni profilo",
+        "share": "Condividi",
+        "share_profile": "Condividi profilo",
+        "copy_link": "Copia link",
+        "link_copied": "Link copiato negli appunti",
+        "share_title": "Libreria di {{name}}",
+        "share_text": "Sto registrando le mie letture. Dai un'occhiata a quello che ho letto!",
         "notes_feed": {
-            "empty_title": "No public notes or quotes",
-            "empty_description": "There are no public notes or quotes to display yet.",
-            "share_note": "Share note",
-            "copied": "Copied!"
+            "empty_title": "Nessuna nota o citazione pubblica",
+            "empty_description": "Non ci sono ancora note o citazioni pubbliche da visualizzare.",
+            "share_note": "Condividi nota",
+            "copied": "Copiato!"
         }
     },
     "actions": {
-        "edit_book": "Edit book",
-        "replace_cover": "Replace cover",
-        "add_book": "Add book"
+        "edit_book": "Modifica libro",
+        "replace_cover": "Sostituisci copertina",
+        "add_book": "Aggiungi Libro"
     },
     "notes": {
-        "title": "Notes & Quotes",
-        "open": "Open notes",
-        "note": "Note",
-        "quote": "Quote",
-        "notes": "Notes",
-        "quotes": "Quotes",
-        "add_note": "Add note",
-        "add_quote": "Add quote",
-        "input_placeholder": "Write your {{type}} here...",
-        "page": "Page",
-        "edit": "Edit",
-        "page_number": "Page number",
-        "make_this_public": "Make this {{type}} public",
+        "title": "Note E Citazioni",
+        "open": "Apri note",
+        "note": "Nota",
+        "quote": "Citazione",
+        "notes": "Note",
+        "quotes": "Citazioni",
+        "add_note": "Aggiungi nota",
+        "add_quote": "Aggiungi citazione",
+        "input_placeholder": "Scrivi le tue {{type}} qui...",
+        "page": "Pagina",
+        "edit": "Modifica",
+        "page_number": "Numero di pagina",
+        "make_this_public": "Rendi pubbliche queste {{type}}",
         "no_both_error": {
-            "title": "No notes or quotes found",
-            "description": "There does not seem to be any notes or quotes for this book."
+            "title": "Nessuna nota o citazione trovata",
+            "description": "Non sembrano esserci note o citazioni per questo libro."
         },
         "no_notes_error": {
-            "title": "No notes found",
-            "description": "There does not seem to be any notes for this book."
+            "title": "Nessuna nota trovata",
+            "description": "Non sembra esserci alcuna nota per questo libro."
         },
         "no_quotes_error": {
-            "title": "No quotes found",
-            "description": "There does not seem to be any quotes for this book."
+            "title": "Nessuna citazione trovata",
+            "description": "Non sembra esserci nessuna citazione per questo libro."
         },
         "remove_confirmation": {
-            "title": "Are you sure you want to remove this note?",
-            "yes": "Yes, I'm sure",
-            "no": "No, cancel"
+            "title": "Sei sicuro di voler rimuovere questa nota?",
+            "yes": "Sì, sono sicuro",
+            "no": "No, annulla"
         }
     },
     "update": {
-        "version": "Version",
-        "new_version": "New version {{version}} available! 🎉",
-        "release_notes": "Release Notes",
-        "go_to_release": "Go to release page"
+        "version": "Versione",
+        "new_version": "Nuova versione {{version}} disponibile! 🎉",
+        "release_notes": "Note di rilascio",
+        "go_to_release": "Vai alla pagina di rilascio"
     },
     "language": {
-        "language": "Language",
-        "region": "Region",
-        "region_info": "This affects date and number format.",
-        "timezone": "Timezone",
-        "time_format": "Time format",
-        "12hour": "12 hour",
-        "24hour": "24 hour",
-        "language_updated_toast": "Language updated.",
-        "region_updated_toast": "Region updated.",
-        "timezone_updated_toast": "Timezone updated.",
-        "time_format_updated_toast": "Time format updated."
+        "language": "Lingua",
+        "region": "Regione",
+        "region_info": "Questo influenza il formato della data e dei numeri.",
+        "timezone": "Fuso orario",
+        "time_format": "Formato ora",
+        "12hour": "12 ore",
+        "24hour": "24 ore",
+        "language_updated_toast": "Lingua aggiornata.",
+        "region_updated_toast": "Regione aggiornata.",
+        "timezone_updated_toast": "Fuso orario aggiornato.",
+        "time_format_updated_toast": "Formato dell'ora aggiornato."
     },
     "sort": {
-        "sort_by": "Sort by {{sortType}}",
-        "order_by": "Order by",
-        "title": "Title",
-        "author": "Author",
-        "progress": "Progress",
-        "rating": "Rating",
-        "date_added": "Date added"
+        "sort_by": "Ordina per {{sortType}}",
+        "order_by": "Ordina per",
+        "title": "Titolo",
+        "author": "Autore",
+        "progress": "Avanzamento",
+        "rating": "Valutazione",
+        "date_added": "Data di inserimento"
     },
     "help": {
-        "title": "Help",
-        "display_name_information": "A display name will be used on your profile page that lists all your books. A profile page can be private or public. Display name and visibility of the profile page can be changed at any time. Your display name will also be used for a link to your profile page if you have set it to public.",
-        "display_name_change_information": "Changing your display name will also change the link to get to your public profile.",
+        "title": "Aiuto",
+        "display_name_information": "Il nome visualizzato verrà utilizzato nella pagina del tuo profilo che elenca tutti i tuoi libri. La pagina del profilo può essere privata o pubblica. Il nome visualizzato e la visibilità della pagina del profilo possono essere modificati in qualsiasi momento. Il tuo nome visualizzato sarà utilizzato anche per il link alla pagina del tuo profilo se è impostata in pubblico.",
+        "display_name_change_information": "Cambiando il nome visualizzato cambierà anche il link per raggiungere il tuo profilo pubblico.",
         "no_books_found": {
-            "title": "No books found",
-            "description": "There does not seem to be any books in this list. Use the search to find a book and add it to your list."
+            "title": "Nessun libro trovato",
+            "description": "Sembra che non ci siano libri in questa lista. Usa la ricerca per trovare un libro e aggiungerlo alla tua lista."
         },
         "google_client_id_error": {
-            "title": "Google Sign-In Disabled",
-            "description": "The provided Google Client ID does not follow the expected format. If you are the person who installed BookLogr on this server, check your setup and update the ID to enable sign-in."
+            "title": "Accesso con Google Disabilitato",
+            "description": "L'ID Google Client fornito non rispetta il formato previsto. Se sei la persona che ha installato BookLogr su questo server, controlla la configurazione e aggiorna l'ID per abilitare l'accesso."
         },
-        "number_of_pages_information": "The number of pages in the book you are reading."
+        "number_of_pages_information": "Il numero di pagine del libro che stai leggendo."
     },
     "reading_history": {
-        "title": "Reading history",
-        "status": "Status",
-        "start": "Start date",
-        "end": "End date"
+        "title": "Cronologia di lettura",
+        "status": "Stato",
+        "start": "Data di Inizio",
+        "end": "Data di fine"
     }
 }
