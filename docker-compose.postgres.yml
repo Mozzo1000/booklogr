@@ -14,7 +14,7 @@ services:
         env_file:
             - .env
         volumes:
-            - ./booklogr:/var/lib/postgresql/data # persist data even if container shuts down
+            - ./booklogr:/var/lib/postgresql # persist data even if container shuts down
 
     booklogr-api:
         container_name: "booklogr-api"
