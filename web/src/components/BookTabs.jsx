@@ -12,7 +12,7 @@ const BookTabs = ({ tabs, activeTab, onTabChange, children }) => {
     }, []);
 
     return (
-        <Tabs onActiveTabChange={onTabChange} variant={isMobile ? "fullWidth" : "underline"} className="pt-1">
+        <Tabs onActiveTabChange={onTabChange} variant={isMobile ? "fullWidth" : "underline"}>
             {tabs.map((tab) => (
                 <Tabs.Item key={tab.id} active={activeTab === tab.id} title={isMobile ? "" : tab.title} icon={tab.icon}>
                     <div className="pt-4">
