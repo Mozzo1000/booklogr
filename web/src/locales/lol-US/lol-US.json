@@ -137,6 +137,8 @@
     "book": {
         "by_author": "crwdns1551:0{{author}}crwdne1551:0",
         "unknown_author": "crwdns1553:0crwdne1553:0",
+        "filter_by_author": "crwdns1821:0{{author}}crwdne1821:0",
+        "clear_author_filter": "crwdns1823:0crwdne1823:0",
         "no_description_found": "crwdns1555:0crwdne1555:0",
         "subtitle": "crwdns1811:0crwdne1811:0",
         "description": "crwdns1557:0crwdne1557:0",

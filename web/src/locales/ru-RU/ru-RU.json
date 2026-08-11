@@ -137,6 +137,8 @@
     "book": {
         "by_author": "автор: {{author}}",
         "unknown_author": "неизвестный автор",
+        "filter_by_author": "Filtering by {{author}}",
+        "clear_author_filter": "Clear author filter",
         "no_description_found": "Описание не найдено",
         "subtitle": "Subtitle",
         "description": "Описание",

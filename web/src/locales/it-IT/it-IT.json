@@ -1,0 +1,327 @@
+{
+    "library": "La mia Libreria",
+    "reading_status": {
+        "title": "Stato di lettura",
+        "read": "Letto",
+        "currently_reading": "In lettura",
+        "to_be_read": "Da leggere",
+        "all": "Tutti",
+        "want_to_read": "Voglio leggerlo",
+        "did_not_finish": "Non terminato",
+        "read_again": "Leggi di nuovo",
+        "list": "Lista di lettura"
+    },
+    "onboarding": {
+        "step_0": {
+            "title": "Benvenuto! 🎉",
+            "description": "Siamo così felici di averti qui! Per iniziare a registrare tutti i libri che stai leggendo devi prima scegliere un nome visualizzato."
+        },
+        "step_1": {
+            "title": "È tutto pronto!",
+            "description": "Perché non cominci aggiungendo alcuni dei tuoi libri preferiti alla tua lista? È super semplice!"
+        }
+    },
+    "forms": {
+        "next": "Successivo",
+        "previous": "Precedente",
+        "close": "Chiudi",
+        "update": "Aggiorna",
+        "save": "Salva",
+        "upload_picture": "Carica immagine",
+        "upload": "Carica",
+        "uploading": "Caricamento in corso...",
+        "remove": "Rimuovi",
+        "display_name": "Nome visualizzato",
+        "visibility_label": "Visibilità",
+        "visibility_hidden": "Privato",
+        "visibility_public": "Pubblico",
+        "email": "Email",
+        "email_placeholder": "nome@esempio.com",
+        "password": "Password",
+        "confirm_password": "Conferma password",
+        "name": "Il tuo nome",
+        "login": "Accedi",
+        "register": "Registrati",
+        "register_title": "Registra un profilo",
+        "register_button": "Registra un nuovo account",
+        "google_sign_in": "Accedi con Google",
+        "oidc_sign_in": "Accedi con OpenID Connect",
+        "login_title": "Accedi al tuo profilo",
+        "password_no_match": "Le password non corrispondono",
+        "change_password": "Cambia la password",
+        "old_password": "Vecchia password",
+        "new_password": "Nuova Password",
+        "new_password_confirm": "Conferma nuova password",
+        "download": "Scarica",
+        "cancel": "Annulla",
+        "skip": "Salta",
+        "or": "Oppure",
+        "back_to_login": "Torna alla pagina d'accesso",
+        "isbn_required": "L'ISBN è obbligatorio",
+        "title_required": "Il Titolo è obbligatorio",
+        "placeholder_total_num_pages": "Inserisci il numero totale di pagine",
+        "placeholder_description": "Inserisci una breve descrizione del libro"
+    },
+    "settings": {
+        "nav": {
+            "account": "Profilo",
+            "interface": "Interfaccia",
+            "mastodon": "Mastodon",
+            "data": "Dati"
+        },
+        "mastodon": {
+            "share_events": "Condividi eventi",
+            "enable_sharing": "Abilita condivisione eventi",
+            "enable_sharing_description": "Questo permetterà a BookLogr di condividere sui social media i tuoi eventi come quando finisci un libro.",
+            "instance": "Mastodon instance",
+            "access_token": "Token di accesso",
+            "account": "Profilo Mastodon"
+        },
+        "data": {
+            "request_data": {
+                "title": "Richiedi dati",
+                "description": "Puoi richiedere una copia di tutti i tuoi dati. Una volta terminata la richiesta, i dati verranno visualizzati nella tabella Esportazioni disponibili in modo da poterli scaricare.",
+                "format": "Scegli formato dati"
+            },
+            "files": {
+                "available_exports": "Esportazioni disponibili",
+                "filename": "Nome del file",
+                "created": "Creato",
+                "action": "Azioni"
+            },
+            "import_books": {
+                "title": "Importa libri",
+                "platform": "Piattaforma",
+                "file": "File",
+                "add_duplicate_books": "Aggiungi libri duplicati"
+            }
+        },
+        "theme": {
+            "theme": "Tema",
+            "dark": "Tema scuro",
+            "light": "Tema chiaro",
+            "system": "Sistema"
+        }
+    },
+    "toast": {
+        "file_available_download": "Il file esportato è ora disponibile per il download",
+        "email_empty": "L'Email non può essere vuota"
+    },
+    "verification": {
+        "title": "Verifica il tuo profilo",
+        "verification_code_sent": "Il codice di verifica è stato inviato a {{email_hidden}}",
+        "verification_code": "Codice di verifica",
+        "verify_button": "Verifica"
+    },
+    "demo": {
+        "title": "Questa è una demo di BookLogr",
+        "description": "Alcune funzionalità sono disabilitate.",
+        "description_login": "Per effettuare il login,",
+        "email": "Email: {{email}}",
+        "password": "Password: {{password}}"
+    },
+    "search": {
+        "input_placeholder": "Cerca un libro",
+        "attribution": "Ricerca fornita da <link_to_info>OpenLibrary</link_to_info>",
+        "error_not_found": {
+            "title": "Nessun risultato trovato",
+            "description": "Prova a cercare un titolo o un ISBN diverso."
+        },
+        "error_unknown": {
+            "title": "Qualcosa è andato storto",
+            "description": "Riprova più tardi. {{error}}"
+        },
+        "in_library": "Nella tua libreria",
+        "results": "Risultati di ricerca"
+    },
+    "book": {
+        "by_author": "di {{author}}",
+        "unknown_author": "autore sconosciuto",
+        "filter_by_author": "Filtrando per {{author}}",
+        "clear_author_filter": "Cancella filtro autore",
+        "no_description_found": "Nessuna descrizione trovata",
+        "subtitle": "Sottotitolo",
+        "description": "Descrizione",
+        "pages": "Pagine",
+        "cover": "Copertina",
+        "book_cover": "Copertina del libro",
+        "details": "Dettagli del libro",
+        "isbn": "ISBN",
+        "add_to_reading": "Aggiungi {{book_title}} a \"in lettura\"",
+        "share_mastodon": "Condividi con Mastodon",
+        "total_pages": "Pagine totali",
+        "num_pages": "Numero di pagine",
+        "not_implemented": "Attualmente non implementato",
+        "remove_confirmation": {
+            "title": "Sei sicuro di voler rimuovere questo libro?",
+            "yes": "Sì, sono sicuro",
+            "no": "No, annulla"
+        },
+        "update_reading": {
+            "update_progress": "Aggiorna avanzamento",
+            "update_reading_progress": "Aggiorna avanzamento di lettura",
+            "reading_progress": "Avanzamento di lettura",
+            "set_as_finished": "Imposta come terminato",
+            "how_far": "Qual è il tuo avanzamento per {{book_title}}?",
+            "current_page": "Pagina corrente",
+            "progress": "Avanzamento: {{percentage}}%",
+            "percentage": "Percentuale",
+            "percentage_complete": "Percentuale letta",
+            "current_page_of": "Pagina attuale: {{current_page}} di {{total_pages}}",
+            "error": {
+                "greater_than": "La pagina corrente non può essere maggiore del totale delle pagine.",
+                "less_than": "La pagina corrente non può essere inferiore a 0."
+            },
+            "finished": {
+                "title": "Congratulazioni!",
+                "description": "Hai finito di leggere {{book_title}}"
+            }
+        },
+        "rating": {
+            "give": "Dai una valutazione",
+            "rate_book": "Valuta il libro",
+            "how_many_starts": "Quante stelle vorresti dare a {{book_title}}?",
+            "rate_this_book": "Valuta questo libro",
+            "error": {
+                "greater_than": "La valutazione non può essere superiore a 5.",
+                "less_than": "La valutazione non può essere inferiore a 0."
+            }
+        },
+        "missing_info": {
+            "title": "Informazioni mancanti",
+            "description": "Mancano alcune informazioni per {{book_title}}. Vuoi aggiungerle?",
+            "total_pages_placeholder": "Inserisci pagine totali",
+            "author_placeholder": "Inserisci il nome dell'autore"
+        }
+    },
+    "editions": {
+        "title": "Edizioni",
+        "change": "Cambia edizione",
+        "current": "Edizione Attuale",
+        "filter": "Filtra per lingua",
+        "all_languages": "Tutte le lingue"
+    },
+    "navigation": {
+        "search": "Ricerca",
+        "profile": "Profilo",
+        "settings": "Impostazioni",
+        "logout": "Esci",
+        "expand": "Espandi",
+        "collapse": "Riduci",
+        "library": "Libreria",
+        "home": "Home",
+        "go_home": "Vai alla home"
+    },
+    "profile": {
+        "not_found_error": {
+            "title": "Nessun profilo trovato",
+            "description": "Non siamo riusciti a trovare un profilo con quel nome. Il profilo non esiste oppure è impostato su privato."
+        },
+        "stats": {
+            "read": "Letto",
+            "reading": "In lettura",
+            "to_be_read": "Da leggere",
+            "did_not_finish": "Non terminato"
+        },
+        "update_profile": "Aggiorna il profilo",
+        "all_books": "Tutti i libri",
+        "profile_settings": "Impostazioni profilo",
+        "share": "Condividi",
+        "share_profile": "Condividi profilo",
+        "copy_link": "Copia link",
+        "link_copied": "Link copiato negli appunti",
+        "share_title": "Libreria di {{name}}",
+        "share_text": "Sto registrando le mie letture. Dai un'occhiata a quello che ho letto!",
+        "notes_feed": {
+            "empty_title": "Nessuna nota o citazione pubblica",
+            "empty_description": "Non ci sono ancora note o citazioni pubbliche da visualizzare.",
+            "share_note": "Condividi nota",
+            "copied": "Copiato!"
+        }
+    },
+    "actions": {
+        "edit_book": "Modifica libro",
+        "replace_cover": "Sostituisci copertina",
+        "add_book": "Aggiungi Libro"
+    },
+    "notes": {
+        "title": "Note E Citazioni",
+        "open": "Apri note",
+        "note": "Nota",
+        "quote": "Citazione",
+        "notes": "Note",
+        "quotes": "Citazioni",
+        "add_note": "Aggiungi nota",
+        "add_quote": "Aggiungi citazione",
+        "input_placeholder": "Scrivi le tue {{type}} qui...",
+        "page": "Pagina",
+        "edit": "Modifica",
+        "page_number": "Numero di pagina",
+        "make_this_public": "Rendi pubbliche queste {{type}}",
+        "no_both_error": {
+            "title": "Nessuna nota o citazione trovata",
+            "description": "Non sembrano esserci note o citazioni per questo libro."
+        },
+        "no_notes_error": {
+            "title": "Nessuna nota trovata",
+            "description": "Non sembra esserci alcuna nota per questo libro."
+        },
+        "no_quotes_error": {
+            "title": "Nessuna citazione trovata",
+            "description": "Non sembra esserci nessuna citazione per questo libro."
+        },
+        "remove_confirmation": {
+            "title": "Sei sicuro di voler rimuovere questa nota?",
+            "yes": "Sì, sono sicuro",
+            "no": "No, annulla"
+        }
+    },
+    "update": {
+        "version": "Versione",
+        "new_version": "Nuova versione {{version}} disponibile! 🎉",
+        "release_notes": "Note di rilascio",
+        "go_to_release": "Vai alla pagina di rilascio"
+    },
+    "language": {
+        "language": "Lingua",
+        "region": "Regione",
+        "region_info": "Questo influenza il formato della data e dei numeri.",
+        "timezone": "Fuso orario",
+        "time_format": "Formato ora",
+        "12hour": "12 ore",
+        "24hour": "24 ore",
+        "language_updated_toast": "Lingua aggiornata.",
+        "region_updated_toast": "Regione aggiornata.",
+        "timezone_updated_toast": "Fuso orario aggiornato.",
+        "time_format_updated_toast": "Formato dell'ora aggiornato."
+    },
+    "sort": {
+        "sort_by": "Ordina per {{sortType}}",
+        "order_by": "Ordina per",
+        "title": "Titolo",
+        "author": "Autore",
+        "progress": "Avanzamento",
+        "rating": "Valutazione",
+        "date_added": "Data di inserimento"
+    },
+    "help": {
+        "title": "Aiuto",
+        "display_name_information": "Il nome visualizzato verrà utilizzato nella pagina del tuo profilo che elenca tutti i tuoi libri. La pagina del profilo può essere privata o pubblica. Il nome visualizzato e la visibilità della pagina del profilo possono essere modificati in qualsiasi momento. Il tuo nome visualizzato sarà utilizzato anche per il link alla pagina del tuo profilo se è impostata in pubblico.",
+        "display_name_change_information": "Cambiando il nome visualizzato cambierà anche il link per raggiungere il tuo profilo pubblico.",
+        "no_books_found": {
+            "title": "Nessun libro trovato",
+            "description": "Sembra che non ci siano libri in questa lista. Usa la ricerca per trovare un libro e aggiungerlo alla tua lista."
+        },
+        "google_client_id_error": {
+            "title": "Accesso con Google Disabilitato",
+            "description": "L'ID Google Client fornito non rispetta il formato previsto. Se sei la persona che ha installato BookLogr su questo server, controlla la configurazione e aggiorna l'ID per abilitare l'accesso."
+        },
+        "number_of_pages_information": "Il numero di pagine del libro che stai leggendo."
+    },
+    "reading_history": {
+        "title": "Cronologia di lettura",
+        "status": "Stato",
+        "start": "Data di Inizio",
+        "end": "Data di fine"
+    }
+}

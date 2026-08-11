@@ -137,6 +137,8 @@
     "book": {
         "by_author": "作者：{{author}}",
         "unknown_author": "未知作者",
+        "filter_by_author": "Filtering by {{author}}",
+        "clear_author_filter": "Clear author filter",
         "no_description_found": "未找到描述",
         "subtitle": "Subtitle",
         "description": "Description",
