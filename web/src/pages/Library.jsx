@@ -6,7 +6,7 @@ import AnimatedLayout from '../AnimatedLayout'
 function Library() {
   return (
     <AnimatedLayout>
-    <div className="container mx-auto ">
+    <div className="container mx-auto pb-15 md:pb-0">
       <LibraryPane />
       <WelcomeModal />
     </div>
