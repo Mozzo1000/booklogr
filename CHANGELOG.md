@@ -22,12 +22,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Fixed an issue where adding a book without a title returned a 500 error instead of a validation error.
 - Fixed an issue where the book subtitle was not being saved to the database when adding a book.
 - Resolved an issue where sort, order, and pagination settings were not applied when viewing the All tab in the library.
+- Resolved an issue where the skeleton loading animation did not properly fit the book card dimensions.
+- Fixed an issue where book content would overflow the card when the author name was too long.
+- Fixed an issue where the underline color on the book title did not respect dark mode.
+- Resolved an issue where insufficient padding on small screens hid the pagination controls in the library.
 
 ### Added
 - Added the ability to filter the library by author.
 - Added a Notes & Quotes feed to the profile page, displaying all public notes and quotes across a users library.
 - Added subtitle field to the add book and edit book modals.
 - Added custom fields support, allowing users to define and attach custom metadata (text, number, date, selection, and boolean) to books. Fields can be managed from the Settings page and their values are editable from the add/edit book modals and displayed on the book details page.
+- Added Italian language.
 
 ### Changed
 - Improved search performance by batching ISBN lookups into a single query instead of querying once per external result.
@@ -37,6 +42,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Ratings are now included when importing books from BookLogr CSV and Goodreads formats.
 - The Add to Reading List button is now disabled until the book title has finished loading.
 - The Edit Book modal has been redesigned to match the Add Book modal and now supports editing description and reading status in addition to title, author, and total pages.
+- Removed the trailing zero from book rating displays for better card layout spacing.
 
 ## [1.11.1] - 2026-06-23
 ### Fixed
