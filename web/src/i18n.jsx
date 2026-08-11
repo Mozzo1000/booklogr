@@ -1,53 +1,15 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
-import arSA from "./locales/ar-SA/ar-SA.json";
-import deDE from "./locales/de-DE/de-DE.json";
-import enGB from "./locales/en-GB/en-GB.json";
-import hiIN from "./locales/hi-IN/hi-IN.json";
-import svSE from "./locales/sv-SE/sv-SE.json";
-import zhCN from "./locales/zh-CN/zh-CN.json";
-import frFR from "./locales/fr-FR/fr-FR.json";
-import esES from "./locales/es-ES/es-ES.json";
-import ptPT from "./locales/pt-PT/pt-PT.json";
-import ruRU from "./locales/ru-RU/ru-RU.json";
-import itIT from "./locales/it-IT/it-IT.json";
 
-const resources = {
-  "ar-SA": {
-    translation: arSA,
-  },
-  "de-DE": {
-    translation: deDE,
-  },
-  "en-GB": {
-    translation: enGB,
-  },
-  "hi-IN": {
-    translation: hiIN,
-  },
-  "sv-SE": {
-    translation: svSE,
-  },
-  "zh-CN": {
-    translation: zhCN,
-  },
-  "fr-FR": {
-    translation: frFR,
-  },
-  "es-ES": {
-    translation: esES,
-  },
-  "pt-PT": {
-    translation: ptPT
-  },
-  "ru-RU": {
-    translation: ruRU
-  },
-  "it-IT": {
-    translation: itIT
-  },
-};
+const localeModules = import.meta.glob("./locales/*/*.json", { eager: true });
+
+const resources = Object.fromEntries(
+  Object.entries(localeModules).map(([path, mod]) => {
+    const code = path.split("/").at(-2);
+    return [code, { translation: mod.default }];
+  })
+);
 
 i18n.use(LanguageDetector).use(initReactI18next).init({
   resources,

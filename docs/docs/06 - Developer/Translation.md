@@ -12,11 +12,11 @@ The easiest way to contribute translations is through our Crowdin project. You d
 * In-Context Translation (Live Preview): You can also translate strings directly inside the running application interface by visiting [https://translate-live.booklogr.app](https://translate-live.booklogr.app). This allows you to see exactly where and how your translations will appear in context.
 
 ### Manual Translation
-If you prefer to manage translations locally via Git, language files are located in `web/src/locales`. Each language has its own subfolder named after its respective language code (e.g., `en` for English, `sv` for Swedish). Inside, you’ll find a `.json` file containing the translation keys and values.
+If you prefer to manage translations locally via Git, language files are located in `web/src/locales`. Each language has its own subfolder named after its respective locale code, made up of an ISO 639-1 language code and an ISO 3166-1 country code (e.g., `en-GB` for English (UK), `sv-SE` for Swedish). Inside, you’ll find a `.json` file containing the translation keys and values.
 
 1. **Locate the Language File**
-   - Navigate to `web/src/locales/<language_code>/<language_code>.json`
-   - For example, English is stored at: `web/src/locales/en/en.json`
+   - Navigate to `web/src/locales/<locale_code>/<locale_code>.json`
+   - For example, English is stored at: `web/src/locales/en-GB/en-GB.json`
 2. **Edit the File**
    - Each entry is structured as a key-value pair.
    - **Translate only the value**, not the key.
@@ -59,49 +59,31 @@ If you are a translator and a language you want to work on is missing, the best 
 :::
 
 :::warning
-Always use `en.json` as the base translation file when adding a new language. This ensures consistency in the translation keys across all languages.
+Always use `en-GB.json` as the base translation file when adding a new language. This ensures consistency in the translation keys across all languages.
 :::
 ---
 
 ### 1. Create the language file
-Add a new language folder in `web/src/locales` using the language code (e.g., `fr` for French) and copy the English translation as the base:
+Add a new language folder in `web/src/locales` using its locale code (language + country, e.g., `fr-FR` for French) and copy the English translation as the base:
 
 ```bash
-mkdir -p web/src/locales/fr
-cp web/src/locales/en/en.json web/src/locales/fr/fr.json
+mkdir -p web/src/locales/fr-FR
+cp web/src/locales/en-GB/en-GB.json web/src/locales/fr-FR/fr-FR.json
 ```
 
-### 2. Update `i18n.jsx`
-1. Open the file `web/src/i18n.jsx` and import the new language translation file.
-2. Add it to the `resources` object so it is included in the `react-i18next` configuration.
-
-For example, if you're adding French (`fr`):
-
-```jsx
-import en from "./locales/en/en.json";
-import sv from "./locales/sv/sv.json";
-import fr from "./locales/fr/fr.json";
-
-const resources = {
-  en: { translation: en },
-  sv: { translation: sv },
-  fr: { translation: fr }
-};
-```
-
-### 3. Update the Language Switcher Component
+### 2. Update the Language Switcher Component
 To make the new language selectable in the web interface, 
-open the file `web/src/components/LanguageSwitcher.jsx` and add a new object to the `languages` array. 
+open the file `web/src/components/LanguageSwitcher.jsx` and add a new object to the `LANGUAGES` array. 
 
-For example, to add French (`fr`):
+For example, to add French (`fr-FR`):
 ```jsx
-const languages = [
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "sv", label: "Svenska", flag: "🇸🇪" },
-  { code: "fr", label: "Français", flag: "🇫🇷" }
+const LANGUAGES = [
+  { code: "en-GB", label: "English", flag: "🇬🇧" },
+  { code: "sv-SE", label: "Svenska", flag: "🇸🇪" },
+  { code: "fr-FR", label: "Français", flag: "🇫🇷" }
 ];
 ```
-- `code`: Must match the language code used in `i18n.jsx`.
+- `code`: Must match the locale code used for the folder/file in `web/src/locales`.
 - `label`: Display name shown in the dropdown menu.
 - `flag`: Emoji for the country's flag.
 
