@@ -11,6 +11,7 @@ import frFR from "./locales/fr-FR/fr-FR.json";
 import esES from "./locales/es-ES/es-ES.json";
 import ptPT from "./locales/pt-PT/pt-PT.json";
 import ruRU from "./locales/ru-RU/ru-RU.json";
+import itIT from "./locales/it-IT/it-IT.json";
 
 const resources = {
   "ar-SA": {
@@ -42,6 +43,9 @@ const resources = {
   },
   "ru-RU": {
     translation: ruRU
+  },
+  "it-IT": {
+    translation: itIT
   },
 };
 
