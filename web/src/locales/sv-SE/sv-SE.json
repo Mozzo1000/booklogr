@@ -180,12 +180,12 @@
         "rating": {
             "give": "Ge ett betyg",
             "rate_book": "Betygsätt bok",
-            "how_many_starts": "Hur många stjärnor skulle du vilja ge {{book_title}} ?",
             "rate_this_book": "Betygsätt boken",
             "error": {
                 "greater_than": "Betyget får inte vara högre än 5.",
                 "less_than": "Betyget får inte vara mindre än 0."
-            }
+            },
+            "how_many_stars": "Hur många stjärnor skulle du vilja ge {{book_title}} ?"
         },
         "missing_info": {
             "title": "Information saknas",

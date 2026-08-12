@@ -180,12 +180,12 @@
         "rating": {
             "give": "Donner une note",
             "rate_book": "Noter le livre",
-            "how_many_starts": "Combien d'étoiles souhaitez-vous donner à {{book_title}} ?",
             "rate_this_book": "Noter ce livre",
             "error": {
                 "greater_than": "La note ne peut pas être supérieure à 5.",
                 "less_than": "La note ne peut pas être inférieure à 0."
-            }
+            },
+            "how_many_stars": "Combien d'étoiles souhaitez-vous donner à {{book_title}} ?"
         },
         "missing_info": {
             "title": "Informations manquantes",
