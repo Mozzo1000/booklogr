@@ -180,12 +180,12 @@
         "rating": {
             "give": "给出评分",
             "rate_book": "为书籍评分",
-            "how_many_starts": "您想给 {{book_title}} 几颗星？",
             "rate_this_book": "为这本书评分",
             "error": {
                 "greater_than": "评分不能超过 5 星",
                 "less_than": "评分不能小于 0。"
-            }
+            },
+            "how_many_stars": "您想给 {{book_title}} 几颗星？"
         },
         "missing_info": {
             "title": "信息缺失",
