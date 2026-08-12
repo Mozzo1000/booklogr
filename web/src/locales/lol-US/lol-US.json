@@ -180,12 +180,12 @@
         "rating": {
             "give": "crwdns1613:0crwdne1613:0",
             "rate_book": "crwdns1615:0crwdne1615:0",
-            "how_many_starts": "crwdns1617:0{{book_title}}crwdne1617:0",
             "rate_this_book": "crwdns1619:0crwdne1619:0",
             "error": {
                 "greater_than": "crwdns1621:0crwdne1621:0",
                 "less_than": "crwdns1623:0crwdne1623:0"
-            }
+            },
+            "how_many_stars": "crwdns1617:0{{book_title}}crwdne1617:0"
         },
         "missing_info": {
             "title": "crwdns1625:0crwdne1625:0",
