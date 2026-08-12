@@ -6,7 +6,7 @@
         "currently_reading": "Leyendo",
         "to_be_read": "Pendiente",
         "all": "Todos",
-        "want_to_read": "Want to read",
+        "want_to_read": "Quiero leer",
         "did_not_finish": "No terminado",
         "read_again": "Leer de nuevo",
         "list": "Lista de lectura"
@@ -137,10 +137,10 @@
     "book": {
         "by_author": "de {{author}}",
         "unknown_author": "autor desconocido",
-        "filter_by_author": "Filtering by {{author}}",
-        "clear_author_filter": "Clear author filter",
+        "filter_by_author": "Filtrando por {{author}}",
+        "clear_author_filter": "Quitar filtro de autor",
         "no_description_found": "No se ha encontrado ninguna descripción",
-        "subtitle": "Subtitle",
+        "subtitle": "Subtítulo",
         "description": "Descripción",
         "pages": "Páginas",
         "cover": "Portada",
@@ -233,15 +233,15 @@
         "share_title": "Biblioteca de {{name}}",
         "share_text": "Estoy llevando un registro de mis lecturas. ¡Echa un vistazo a lo que he estado leyendo!",
         "notes_feed": {
-            "empty_title": "No public notes or quotes",
-            "empty_description": "There are no public notes or quotes to display yet.",
-            "share_note": "Share note",
-            "copied": "Copied!"
+            "empty_title": "No hay notas ni citas públicas",
+            "empty_description": "Todavía no hay notas ni citas públicas que mostrar.",
+            "share_note": "Compartir nota",
+            "copied": "¡Copiado!"
         }
     },
     "actions": {
         "edit_book": "Editar libro",
-        "replace_cover": "Reeemplazar portada",
+        "replace_cover": "Reemplazar portada",
         "add_book": "Añadir libro"
     },
     "notes": {
@@ -306,7 +306,7 @@
     },
     "help": {
         "title": "Ayuda",
-        "display_name_information": "El nombre para mostrar se utilizará tu página de perfil, donde aparecerán todos tus libros. La página de perfil puede ser privada o pública. El nombre para mostrar y la visibilidad de la página de perfil pueden cambiarse en cualquier momento. Tu nombre para mostrar también se utilizará para el enlace a tu página de perfil si la has configurado como pública.",
+        "display_name_information": "El nombre para mostrar se utilizará en tu página de perfil, donde aparecerán todos tus libros. La página de perfil puede ser privada o pública. El nombre para mostrar y la visibilidad de la página de perfil pueden cambiarse en cualquier momento. Tu nombre para mostrar también se utilizará para el enlace a tu página de perfil si la has configurado como pública.",
         "display_name_change_information": "Si cambias tu nombre para mostrar, también cambiará el enlace para acceder a tu perfil público.",
         "no_books_found": {
             "title": "No se han encontrado libros",
