@@ -180,12 +180,12 @@
         "rating": {
             "give": "Gib dem Buch eine Bewertung",
             "rate_book": "Bewerte Buch",
-            "how_many_starts": "Wie viele Sterne möchtest du {{book_title}} geben?",
             "rate_this_book": "Bewerte dieses Buch",
             "error": {
                 "greater_than": "Bewertung darf nicht mehr als 5 betragen.",
                 "less_than": "Bewertung darf nicht weniger als 0 betragen."
-            }
+            },
+            "how_many_stars": "Wie viele Sterne möchtest du {{book_title}} geben?"
         },
         "missing_info": {
             "title": "Fehlende Informationen",
