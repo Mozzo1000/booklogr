@@ -56,7 +56,7 @@ See [development instructions](https://github.com/Mozzo1000/booklogr/wiki/Develo
 All contributions, from bug reports to feature requests and code submissions are welcome!
 
 ### Translations
-[![Crowdin](https://badges.crowdin.net/booklogr/localized.svg)](https://crowdin.com/project/booklogr)
+[![Translation Progress](https://crowdin-stats.rewake.org/embed/559a1906-c9a2-4b5d-a57c-b716190332e9/table.svg)](https://crowdin.com/project/booklogr)
 
 We use Crowdin to manage our localization efforts. This is our preferred way to receive translation contributions, as it requires no coding knowledge.
 
