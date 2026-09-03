@@ -111,7 +111,7 @@ function EditionSelector({work_id, selected_isbn}) {
                 <LanguageSelector />
                 {filteredEntries?.map(function(data) {
                     return (
-                            <Link key={data.isbn_13[0]} to={"/books/" + data.isbn_13[0]} className="contents">
+                            <Link key={data.key} to={"/books/" + data.isbn_13[0]} className="contents">
                                 <div className="flex w-full hover:bg-gray-100">
                                     <EditionItem data={data} selected_isbn={selected_isbn} />
                                 </div>
