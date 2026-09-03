@@ -48,14 +48,9 @@ function EditionSelector({work_id, selected_isbn}) {
         )
     );
     const filteredEntries = selectedLanguage
-    ? editionList?.filter(entry => {
-        if (!entry.languages || entry.languages.length === 0) {
-            return selectedLanguage === "unknown";
-        }
-        return entry.languages.some(
-            lang => lang.key === `/languages/${selectedLanguage}`
-        );
-        })
+    ? selectedLanguage === "unknown"
+        ? editionList?.filter(entry => !entry.languages || entry.languages.length === 0)
+        : editionList?.filter(entry => entry.languages && entry.languages.some(lang => lang.key === `/languages/${selectedLanguage}`))
     : editionList;
 
     function LanguageSelector() {
@@ -96,7 +91,7 @@ function EditionSelector({work_id, selected_isbn}) {
             <div className="max-h-96 overflow-y-auto">
                 {filteredEntries?.map(function(data) {
                     return (
-                            <DropdownItem key={data.isbn_13[0]} as={Link} to={"/books/" + data.isbn_13[0]}>
+                            <DropdownItem key={data.key} as={Link} to={"/books/" + data.isbn_13[0]}>
                                 <EditionItem data={data} selected_isbn={selected_isbn}/>
                             </DropdownItem>
                         )
