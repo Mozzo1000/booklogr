@@ -43,6 +43,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - The Add to Reading List button is now disabled until the book title has finished loading.
 - The Edit Book modal has been redesigned to match the Add Book modal and now supports editing description and reading status in addition to title, author, and total pages.
 - Removed the trailing zero from book rating displays for better card layout spacing.
+- Removed the ability to set a custom `created_on` date when creating or editing a note via the API.
 
 ## [1.11.1] - 2026-06-23
 ### Fixed
