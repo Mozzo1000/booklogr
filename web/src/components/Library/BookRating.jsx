@@ -85,7 +85,7 @@ function BookRating(props) {
         <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
             <ModalHeader className="border-gray-200">{t("book.rating.rate_book")}</ModalHeader>
             <ModalBody>
-                <p>
+                <p className="dark:text-gray-200">
                     {t("book.rating.how_many_stars", {book_title: props.title})}
                 </p>
                 <div className="flex flex-row items-center gap-4">
@@ -94,13 +94,13 @@ function BookRating(props) {
                     </div>
                     <div className="basis-2/12">
                         <TextInput type="number" min={0} max={5} step={0.5} value={rangeValue} onChange={(e) => setRangeValue(e.target.value)} color={ratingErrorText ? 'failure' : 'gray'} />
-
                     </div>
+                </div>
 
                 </div>
                 <span className="text-red-600 text-sm">
-                            {ratingErrorText}
-                        </span>
+                    {ratingErrorText}
+                </span>
             </ModalBody>
             <ModalFooter>
             <Button onClick={() => handleRateBook()} disabled={saveButtonDisabled}>{t("forms.save")}</Button>
