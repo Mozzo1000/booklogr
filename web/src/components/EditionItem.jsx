@@ -13,12 +13,12 @@ function EditionItem({data, selected_isbn}) {
     const coverId = data.covers?.[0];
     const fallbackCover = theme.mode === "dark" ? "/fallback-cover-light.svg" : "/fallback-cover.svg";
     const coverClassName = "h-full w-full rounded object-contain shadow-2xl";
-    
+
     function extractYear(dateString) {
         if (!dateString) return null; // handle null
 
         const parsedDate = new Date(dateString);
-        
+
         if (!isNaN(parsedDate)) {
             return parsedDate.getFullYear(); // works for both "Nov 11, 2021" and "2021"
         }
@@ -31,15 +31,15 @@ function EditionItem({data, selected_isbn}) {
     const languageFlags = {
         eng: "🇬🇧", // English - United Kingdom
         spa: "🇪🇸", // Spanish - Spain
-        fra: "🇫🇷", // French - France
-        deu: "🇩🇪", // German - Germany
+        fre: "🇫🇷", // French - France
+        ger: "🇩🇪", // German - Germany
         jpn: "🇯🇵", // Japanese - Japan
         rus: "🇷🇺", // Russian - Russia
         ita: "🇮🇹", // Italian - Italy
         swe: "🇸🇪", // Swedish - Sweden
-        nld: "🇳🇱", // Dutch - Netherlands
+        dut: "🇳🇱", // Dutch - Netherlands
         por: "🇵🇹", // Portuguese - Portugal
-        zho: "🇨🇳", // Chinese - China
+        chi: "🇨🇳", // Chinese - China
         ara: "🇸🇦", // Arabic - Saudi Arabia
         hin: "🇮🇳", // Hindi - India
         kor: "🇰🇷", // Korean - South Korea
@@ -51,10 +51,10 @@ function EditionItem({data, selected_isbn}) {
         dan: "🇩🇰", // Danish - Denmark
         fin: "🇫🇮", // Finnish - Finland
         nor: "🇳🇴", // Norwegian - Norway
-        ces: "🇨🇿", // Czech - Czech Republic
+        cze: "🇨🇿", // Czech - Czech Republic
         hun: "🇭🇺", // Hungarian - Hungary
-        ron: "🇷🇴", // Romanian - Romania
-        ell: "🇬🇷", // Greek - Greece
+        rum: "🇷🇴", // Romanian - Romania
+        gre: "🇬🇷", // Greek - Greece
         vie: "🇻🇳", // Vietnamese - Vietnam
         ind: "🇮🇩", // Indonesian - Indonesia
         tam: "🇮🇳", // Tamil - India
@@ -83,12 +83,12 @@ function EditionItem({data, selected_isbn}) {
                 {data.physical_format &&
                     <Badge color="dark">{data.physical_format}</Badge>
                 }
-                
+
                 {data.languages?.map(function(lang) {
                     const code = lang.key.replace("/languages/", "");
                     const flag = languageFlags[code] ? languageFlags[code] : "🏳️";
                     return (
-                        <p className="text-sm">{flag}</p>
+                        <p key={code} className="text-sm">{flag}</p>
                     )
             })}
             </div>
