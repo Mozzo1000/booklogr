@@ -6,6 +6,7 @@ import random
 import string
 from datetime import datetime, timedelta
 import os
+from urllib.parse import urlparse
 from api.auth.decorators import disable_route
 import requests
 from flask_mail import Mail, Message
@@ -345,8 +346,10 @@ def authorize_oidc():
 
     discovery_url = os.getenv("OIDC_DISCOVERY_URL")
     oidc_config = None
+    if not discovery_url or urlparse(discovery_url).scheme != "https":
+        return jsonify({'message': 'OIDC provider not configured.'}), 500
     try:
-        response = requests.get(discovery_url)
+        response = requests.get(discovery_url, timeout=10)
         response.raise_for_status()
         oidc_config = response.json()
     except Exception as e:
@@ -371,14 +374,14 @@ def authorize_oidc():
         'grant_type': 'authorization_code',
     }
 
-    token_res = requests.post(token_endpoint, data=token_data)
+    token_res = requests.post(token_endpoint, data=token_data, timeout=10)
     if token_res.status_code != 200:
         return jsonify({'message': 'Failed to fetch tokens from OIDC provider'}), 401
     
     tokens = token_res.json()
 
     headers = {'Authorization': f'Bearer {tokens["access_token"]}'}
-    user_info = requests.get(userinfo_endpoint, headers=headers).json()
+    user_info = requests.get(userinfo_endpoint, headers=headers, timeout=10).json()
 
     email = user_info.get('email')
     name = user_info.get('name', email.split('@')[0])
@@ -466,11 +469,11 @@ def authorize_google():
         'grant_type': 'authorization_code'
     }
 
-    response = requests.post('https://oauth2.googleapis.com/token', data=data).json()
+    response = requests.post('https://oauth2.googleapis.com/token', data=data, timeout=10).json()
     headers = {
         'Authorization': f'Bearer {response["access_token"]}'
     }
-    user_info = requests.get('https://www.googleapis.com/oauth2/v3/userinfo', headers=headers).json()
+    user_info = requests.get('https://www.googleapis.com/oauth2/v3/userinfo', headers=headers, timeout=10).json()
     print(user_info)
     # CREATE USER AND THEN SEND BACK NORMAL ACCESS TOKEN, SAME AS WITH NORMAL LOGIN
     current_user = User.find_by_email(user_info["email"])
