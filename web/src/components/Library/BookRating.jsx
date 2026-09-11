@@ -86,7 +86,7 @@ function BookRating(props) {
             <ModalHeader className="border-gray-200">{t("book.rating.rate_book")}</ModalHeader>
             <ModalBody>
                 <p className="dark:text-gray-200">
-                    {t("book.rating.how_many_stars", {book_title: props.title})}
+                    {t("book.rating.how_many_stars", {book_title: props.title, interpolation: {escapeValue: false}})}
                 </p>
                 <div className="flex flex-row items-center gap-4">
                     <div className="basis-10/12">
