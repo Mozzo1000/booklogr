@@ -86,7 +86,7 @@ function BookRating(props) {
             <ModalHeader className="border-gray-200">{t("book.rating.rate_book")}</ModalHeader>
             <ModalBody>
                 <p className="dark:text-gray-200">
-                    {t("book.rating.how_many_starts", {book_title: props.title})}
+                    {t("book.rating.how_many_stars", {book_title: props.title})}
                 </p>
                 <div className="flex flex-row items-center gap-4">
                     <div className="basis-10/12">
@@ -95,6 +95,8 @@ function BookRating(props) {
                     <div className="basis-2/12">
                         <TextInput type="number" min={0} max={5} step={0.5} value={rangeValue} onChange={(e) => setRangeValue(e.target.value)} color={ratingErrorText ? 'failure' : 'gray'} />
                     </div>
+                </div>
+
                 </div>
                 <span className="text-red-600 text-sm">
                     {ratingErrorText}
