@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+
+## [1.12.0] - 2026-09-07
 ### Fixed
 - Fixed an issue where registration, login, and email verification could silently ignore missing required fields, potentially causing an unexpected error instead of a proper validation message.
 - Fixed an issue where a book rating of exactly 5.5 or -0.5 could bypass validation and be saved incorrectly.
@@ -43,6 +45,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - The Add to Reading List button is now disabled until the book title has finished loading.
 - The Edit Book modal has been redesigned to match the Add Book modal and now supports editing description and reading status in addition to title, author, and total pages.
 - Removed the trailing zero from book rating displays for better card layout spacing.
+- Removed the ability to set a custom `created_on` date when creating or editing a note via the API.
 
 ## [1.11.1] - 2026-06-23
 ### Fixed

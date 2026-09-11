@@ -107,7 +107,7 @@ function EditionSelector({work_id, selected_isbn}) {
                 {filteredEntries?.map(function(data) {
                     return (
                             <Link key={data.key} to={"/books/" + data.isbn_13[0]} className="contents">
-                                <div className="flex w-full hover:bg-gray-100">
+                                <div className="flex w-full hover:bg-gray-100 hover:dark:bg-gray-600">
                                     <EditionItem data={data} selected_isbn={selected_isbn} />
                                 </div>
                             </Link>
