@@ -23,7 +23,7 @@ function AddBookManualModal(props) {
     const [fields, setFields] = useState([]);
     const [fieldValues, setFieldValues] = useState({});
     const toast = useToast(4000);
-    const theme = useThemeMode();    
+    const theme = useThemeMode();
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -36,7 +36,7 @@ function AddBookManualModal(props) {
     const handleFieldChange = (fieldId, value) => {
         setFieldValues(prev => ({ ...prev, [fieldId]: value }));
     };
-    
+
     const resetState = () => {
         setTotalPages();
         setAuthor();
@@ -66,8 +66,8 @@ function AddBookManualModal(props) {
         }
 
         BooksService.add({
-                isbn: isbn, 
-                title: title, 
+                isbn: isbn,
+                title: title,
                 subtitle: subtitle,
                 author: author,
                 description: description,
@@ -183,7 +183,7 @@ function AddBookManualModal(props) {
                         <div className="mb-2 block">
                             <Label htmlFor="num_pages">{t("book.num_pages")}</Label>
                         </div>
-                        <TextInput id="num_pages" type="number" placeholder={t("forms.placeholder_total_num_pages")} required value={totalPages} onChange={(e) => setTotalPages(e.target.value)} />
+                        <TextInput id="num_pages" type="number" placeholder={t("forms.placeholder_total_num_pages")} required value={totalPages} onChange={(e) => e.target.value ? setTotalPages(parseInt(e.target.value)) : setTotalPages(undefined)} />
                     </div>
                     <div>
                         <div className="mb-2 block">
