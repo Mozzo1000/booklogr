@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
+### Fixed
+- Fixed an issue where the edition selector counted editions without a valid ISBN-13 even though they were filtered out of the displayed list, causing the edition count to be incorrect.
+- Fixed missing dark mode hover styles in the edition selector.
+- Fixed a typo in the translation key that caused the rating modal to display an untranslated key instead of the "how many stars" prompt.
+- Fixed missing dark mode text color for the rating description in the rating modal.
 
 ## [1.12.0] - 2026-09-07
 ### Fixed
