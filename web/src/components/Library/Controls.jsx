@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Button, ButtonGroup, Drawer, DrawerHeader, DrawerItems } from "flowbite-react";
+import { Button, ButtonGroup, Drawer, DrawerHeader, DrawerItems, Tooltip } from "flowbite-react";
 import { RiGalleryView, RiListView, RiListSettingsLine } from "react-icons/ri";
 import SortSelector from "../SortSelector";
+import { useTranslation } from 'react-i18next';
 
 function Controls({ sort, setSort, order, setOrder, view, changeView, enableSort = true }) {
   const [isOpen, setIsOpen] = useState(false);
   const handleClose = () => setIsOpen(false);
+  const { t, i18n } = useTranslation();
 
   return (
     <div className="flex items-center justify-between w-full">      
@@ -14,12 +16,17 @@ function Controls({ sort, setSort, order, setOrder, view, changeView, enableSort
           <SortSelector sort={sort} setSort={setSort} order={order} setOrder={setOrder} />
         }
         <ButtonGroup>
-            <Button size="sm" color={view === "gallery" ? "default" : "alternative"} onClick={() => changeView("gallery")}>
-                <RiGalleryView className="w-6 h-6" />
-            </Button>
-            <Button size="sm" color={view === "list" ? "default" : "alternative"} onClick={() => changeView("list")}>
-                <RiListView className="w-6 h-6" />
-            </Button>
+            <Tooltip content={t("controls.grid")}>
+              <Button size="sm" color={view === "gallery" ? "default" : "alternative"} onClick={() => changeView("gallery")}>
+                  <RiGalleryView className="w-6 h-6" />
+              </Button>
+            </Tooltip>
+            <Tooltip content={t("controls.list")}>
+
+              <Button size="sm" color={view === "list" ? "default" : "alternative"} onClick={() => changeView("list")}>
+                  <RiListView className="w-6 h-6" />
+              </Button>
+            </Tooltip>
         </ButtonGroup>
       </div>
 

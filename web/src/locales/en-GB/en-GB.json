@@ -190,7 +190,7 @@
         "rating": {
             "give": "Give a rating",
             "rate_book": "Rate book",
-            "how_many_starts": "How many stars would you like to give {{book_title}}?",
+            "how_many_stars": "How many stars would you like to give {{book_title}}?",
             "rate_this_book": "Rate this book",
             "error": {
                 "greater_than": "Rating cannot be more than 5.",
@@ -344,5 +344,11 @@
         "start": "Start date",
         "end": "End date"
 
+    },
+
+    "controls": {
+        "grid": "Grid view",
+        "list": "List view"
     }
-  }
+
+}
