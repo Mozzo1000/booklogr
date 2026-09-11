@@ -20,7 +20,9 @@ function EditionSelector({work_id, selected_isbn}) {
         if (work_id) {
             OpenlibraryService.getEditions(work_id, 100).then(
                 response => {
-                    setEditionList(response.data.entries)
+                    const editions = response.data.entries
+                                        .filter(entry => entry.isbn_13 && entry.isbn_13.length > 0);
+                    setEditionList(editions);
                 },
                 error => {
                     const resMessage =
@@ -46,14 +48,9 @@ function EditionSelector({work_id, selected_isbn}) {
         )
     );
     const filteredEntries = selectedLanguage
-    ? editionList?.filter(entry => {
-        if (!entry.languages || entry.languages.length === 0) {
-            return selectedLanguage === "unknown";
-        }
-        return entry.languages.some(
-            lang => lang.key === `/languages/${selectedLanguage}`
-        );
-        })
+    ? selectedLanguage === "unknown"
+        ? editionList?.filter(entry => !entry.languages || entry.languages.length === 0)
+        : editionList?.filter(entry => entry.languages && entry.languages.some(lang => lang.key === `/languages/${selectedLanguage}`))
     : editionList;
 
     function LanguageSelector() {
@@ -94,12 +91,10 @@ function EditionSelector({work_id, selected_isbn}) {
             <div className="max-h-96 overflow-y-auto">
                 {filteredEntries?.map(function(data) {
                     return (
-                        data.isbn_13?.[0] && (
-                            <DropdownItem key={data.isbn_13[0]} as={Link} to={"/books/" + data.isbn_13[0]}>
+                            <DropdownItem key={data.key} as={Link} to={"/books/" + data.isbn_13[0]}>
                                 <EditionItem data={data} selected_isbn={selected_isbn}/>
                             </DropdownItem>
                         )
-                    )
                 })}
             </div>
         </Dropdown>
@@ -111,14 +106,12 @@ function EditionSelector({work_id, selected_isbn}) {
                 <LanguageSelector />
                 {filteredEntries?.map(function(data) {
                     return (
-                        data.isbn_13?.[0] && (
-                            <Link key={data.isbn_13[0]} to={"/books/" + data.isbn_13[0]} className="contents">
+                            <Link key={data.key} to={"/books/" + data.isbn_13[0]} className="contents">
                                 <div className="flex w-full hover:bg-gray-100 hover:dark:bg-gray-600">
                                     <EditionItem data={data} selected_isbn={selected_isbn} />
                                 </div>
                             </Link>
                         )
-                    )
                 })}
                 </div>
             </ModalBody>
