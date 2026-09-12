@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, TextInput, Select, ButtonGroup, Dropdown, DropdownItem, DropdownHeader, DropdownDivider} from "flowbite-react";
 import BooksService from '../services/books.service';
 import useToast from '../toast/useToast';
@@ -11,6 +12,8 @@ import RemoveBookModal from './RemoveBookModal';
 import UpdateReadingStatusView from './UpdateReadingStatusView';
 import { useTranslation, Trans } from 'react-i18next';
 import ReadingHistoryModal from './ReadingHistoryModal';
+import EditBookModal from './Library/EditBookModal';
+import { RiBallPenLine } from "react-icons/ri";
 
 function AddToReadingListButton(props) {
     const [readingStatus, setReadingStatus] = useState();
@@ -23,8 +26,11 @@ function AddToReadingListButton(props) {
     const [openMissingData, setOpenMissingData] = useState(false);
     const [author, setAuthor] = useState();
     const [openReadingHistoryModal, setOpenReadingHistoryModal] = useState(false);
+    const [openEditBookModal, setOpenEditBookModal] = useState();
+    
     const toast = useToast(4000);
     const { t } = useTranslation();
+    const queryClient = useQueryClient();
 
     const handleSave = (status, current_page, total_pages, author_man ) => {
         var arr = {}
@@ -150,6 +156,10 @@ function AddToReadingListButton(props) {
         setReadingStatus(undefined);
     }
 
+    const handleEditBookSuccess = () => {
+        queryClient.invalidateQueries({ queryKey: ['book', props.isbn] });
+    }
+
     return (
         <div className="w-full md:w-fit">
             <Modal show={openModalReading} onClose={() => setOpenModalReading(false)}>
@@ -189,6 +199,7 @@ function AddToReadingListButton(props) {
                                 <DropdownDivider />
                                 <DropdownItem icon={RiBook2Line} onClick={() => handleSetReadingRead() }>{t("reading_status.read")}</DropdownItem>
                                 <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
+                                <DropdownItem onClick={() => setOpenEditBookModal(true)}><RiBallPenLine size={18} className="mr-1"/>{t("actions.edit_book")}</DropdownItem>
                             </>;
                         } else if (readingStatus === "Currently reading") {
                             return <>
@@ -198,12 +209,14 @@ function AddToReadingListButton(props) {
                                 <DropdownItem icon={RiBook2Line} onClick={() => handleSetReadingRead() }>{t("reading_status.read")}</DropdownItem>
                                 <DropdownItem icon={RiHistoryLine} onClick={() => (setOpenReadingHistoryModal(true))}>{t("reading_history.title")}</DropdownItem>
                                 <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
+                                <DropdownItem onClick={() => setOpenEditBookModal(true)}><RiBallPenLine size={18} className="mr-1"/>{t("actions.edit_book")}</DropdownItem>
                             </>;
                         } else if (readingStatus === "Read") {
                             return <>
                                 <DropdownItem icon={RiBookOpenLine} onClick={() => handleSetReadingCurrentlyReading() }>{t("reading_status.read_again")}</DropdownItem>
                                 <DropdownItem icon={RiHistoryLine} onClick={() => (setOpenReadingHistoryModal(true))}>{t("reading_history.title")}</DropdownItem>
                                 <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
+                                <DropdownItem onClick={() => setOpenEditBookModal(true)}><RiBallPenLine size={18} className="mr-1"/>{t("actions.edit_book")}</DropdownItem>
                             </>;
                         }else {
                             return <>
@@ -216,7 +229,9 @@ function AddToReadingListButton(props) {
                 </Dropdown>
             </ButtonGroup>
             <RemoveBookModal id={readID} open={openRemoveModal} close={setOpenRemoveModal} onSuccess={handleBookRemoval}/>
-
+            {props.data &&
+                <EditBookModal id={readID} totalPages={props.data.total_pages} open={openEditBookModal} close={setOpenEditBookModal} onSuccess={handleEditBookSuccess} author={props.data?.author} title={props.data?.title} subtitle={props.data?.subtitle} isbn={props.isbn} description={props.data?.description} readingStatus={readingStatus}/>
+            }
             <Modal show={openMissingData} size="lg" onClose={() => setOpenMissingData(false)} popup>
                 <ModalHeader />
                 <ModalBody>
