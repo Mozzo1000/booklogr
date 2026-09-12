@@ -167,15 +167,15 @@ function LibraryPane() {
                 ) : (
                     books?.items.map((item) => (
                         <div key={item.id}>
-                            <BookItem 
-                                internalID={item.id} 
+                            <BookItem
+                                internalID={item.id}
                                 view={view}
                                 title={item.title}
                                 subtitle={item.subtitle}
-                                author={item.author} 
-                                rating={item.rating} 
+                                author={item.author}
+                                rating={item.rating}
                                 notes={item.num_notes}
-                                totalPages={item.total_pages} 
+                                totalPages={item.total_pages}
                                 currentPage={item.current_page}
                                 isbn={item.isbn}
                                 description={item.description}
@@ -185,7 +185,7 @@ function LibraryPane() {
                                 showRating={activeTab === TAB_ALL || activeTab === TAB_READ || activeTab === TAB_DID_NOT_FINISH}
                                 showNotes={activeTab === TAB_ALL || activeTab === TAB_TO_BE_READ || activeTab === TAB_READ || activeTab === TAB_DID_NOT_FINISH}
                                 allowNoteEditing
-                                showOptions={activeTab !== TAB_ALL && activeTab !== TAB_CURRENTLY_READING}
+                                showOptions={true}
                                 onReadingStatusChanged={refetchBooks}
                             />
                         </div>
