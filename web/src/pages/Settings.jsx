@@ -11,13 +11,12 @@ import { useTranslation, Trans } from 'react-i18next';
 import { RiSlideshowView, RiTableLine } from "react-icons/ri";
 import InterfaceTab from '../components/InterfaceTab';
 import FieldsTab from '../components/FieldsTab';
-
-const isSingleUserMode = import.meta.env.VITE_SINGLE_USER_MODE?.toString().toLowerCase() === 'true';
+import { isSingleUserMode } from '../config';
 
 function Settings() {
     const [activeTab, setActiveTab] = useState(0);
     const { t } = useTranslation();
-    
+
     return (
         <AnimatedLayout>
         <div className="container mx-auto ">

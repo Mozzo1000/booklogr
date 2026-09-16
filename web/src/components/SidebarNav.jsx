@@ -12,8 +12,7 @@ import { RiSearch2Line } from "react-icons/ri";
 import { RiLoginBoxLine } from "react-icons/ri";
 import { RiSettings4Line } from "react-icons/ri";
 import { useTranslation } from 'react-i18next';
-
-const isSingleUserMode = import.meta.env.VITE_SINGLE_USER_MODE?.toString().toLowerCase() === 'true';
+import { isSingleUserMode } from '../config';
 
 const customTheme = {
   root: {
@@ -61,7 +60,7 @@ export default function SidebarNav() {
 
                     <SidebarItem as={Link} to="/settings" active={location.pathname == "/settings"} icon={RiSettings4Line}>{t("navigation.settings")}</SidebarItem>
                     {!isSingleUserMode && (
-                      AuthService.getCurrentUser() ? ( 
+                      AuthService.getCurrentUser() ? (
                         <SidebarItem href="" onClick={async (e) => {
                             e.preventDefault();
                             await AuthService.logout();
@@ -95,7 +94,7 @@ export default function SidebarNav() {
                       <span className="text-sm dark:text-white">{t("navigation.library")}</span>
                   </button>
                 </Link>
-                
+
                 <button type="button" className="rounded-lg inline-flex flex-col items-center justify-center px-5 hover:bg-gray-100 dark:hover:bg-gray-800" onClick={() => setOpenSearchModal(true)}>
                     <RiSearch2Line className="w-5 h-5 mb-2 dark:text-white"/>
                     <span className="text-sm dark:text-white">{t("navigation.search")}</span>
@@ -115,11 +114,11 @@ export default function SidebarNav() {
                 </Link>
             </div>
         </div>
-        
+
         {/* Modal for search */}
         <Modal dismissible show={openSearchModal} onClose={() => setOpenSearchModal(false)} position={"top-center"}>
             <ModalBody>
-                <ModalHeader className='md:hidden border-b-0 pb-1 pt-0'></ModalHeader>  
+                <ModalHeader className='md:hidden border-b-0 pb-1 pt-0'></ModalHeader>
                 <SearchBar absolute={false} hideESCIcon={false} onNavigate={() =>setOpenSearchModal(false)} onClose={() => setOpenSearchModal(false)}/>
             </ModalBody>
         </Modal>

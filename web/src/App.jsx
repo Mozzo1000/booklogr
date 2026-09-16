@@ -17,8 +17,7 @@ import { useThemeMode } from "flowbite-react";
 import i18n from "./i18n";
 import DebugPage from "./pages/Debug";
 import Callback from "./pages/Callback";
-
-const isSingleUserMode = import.meta.env.VITE_SINGLE_USER_MODE?.toString().toLowerCase() === 'true';
+import { isSingleUserMode } from "./config";
 
 function PrivateRoute({ children }) {
   const auth = AuthService.getCurrentUser()
@@ -32,7 +31,7 @@ function App() {
 
   let location = useLocation();
   const isAuthenticated = isSingleUserMode || !!AuthService.getCurrentUser();
-  
+
   // Set the theme based on localStorage if it exists.
   useEffect(() => {
     if(localStorage.getItem("flowbite-theme-mode") === "dark") {
@@ -76,7 +75,7 @@ function App() {
           <Routes location={location} key={location.pathname}>
             <Route path="/">
               <Route index element={isSingleUserMode ? <Navigate to="/library" /> : <Login />}/>
-        
+
               <Route path="library" element={<PrivateRoute><Library /></PrivateRoute>} />
               <Route path="books/:id" element={<BookDetails />} />
               <Route exact path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
