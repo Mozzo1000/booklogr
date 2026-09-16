@@ -4,6 +4,7 @@ import {
     RiDraggable, RiPencilLine, RiDeleteBinLine, RiErrorWarningLine,
     RiText, RiHashtag, RiListCheck2, RiToggleLine, RiCalendarLine,
 } from 'react-icons/ri';
+import { useTranslation } from 'react-i18next';
 import FieldsService from '../services/fields.service';
 import AddFieldModal from './AddFieldModal';
 import EditFieldModal from './EditFieldModal';
@@ -11,27 +12,22 @@ import useToast from '../toast/useToast';
 
 const TYPE_CONFIG = {
     text: {
-        label: 'Text',
         Icon: RiText,
         badge: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
     },
     number: {
-        label: 'Number',
         Icon: RiHashtag,
         badge: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
     },
     selection: {
-        label: 'Selection',
         Icon: RiListCheck2,
         badge: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
     },
     boolean: {
-        label: 'Boolean',
         Icon: RiToggleLine,
         badge: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
     },
     date: {
-        label: 'Date',
         Icon: RiCalendarLine,
         badge: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
     },
@@ -44,7 +40,10 @@ function FieldsTab() {
     const [fieldToDelete, setFieldToDelete] = useState(null);
     const [dragOverId, setDragOverId] = useState(null);
     const dragSrcId = useRef(null);
+    const { t } = useTranslation();
     const toast = useToast(4000);
+
+    const getTypeLabel = (type) => t(`settings.fields.types.${type}`, { defaultValue: type });
 
     const loadFields = () => {
         FieldsService.get().then(
@@ -135,30 +134,31 @@ function FieldsTab() {
     return (
         <div className="flex flex-col gap-4">
             <div className="flex flex-row gap-4 items-center justify-between">
-                <h2 className="format lg:format-lg dark:format-invert">Fields ({fields.length})</h2>
-                <Button size="sm" onClick={() => setShowAddModal(true)}>Add Field</Button>
+                <h2 className="format lg:format-lg dark:format-invert">{t('settings.fields.title', { count: fields.length })}</h2>
+                <Button size="sm" onClick={() => setShowAddModal(true)}>{t('settings.fields.add_field_button')}</Button>
             </div>
 
             <Table striped>
                 <TableHead>
                     <TableRow>
                         <TableHeadCell className="w-10"></TableHeadCell>
-                        <TableHeadCell>Name</TableHeadCell>
-                        <TableHeadCell className="w-36">Type</TableHeadCell>
-                        <TableHeadCell className="w-28">Actions</TableHeadCell>
+                        <TableHeadCell>{t('settings.fields.name')}</TableHeadCell>
+                        <TableHeadCell className="w-36">{t('settings.fields.type')}</TableHeadCell>
+                        <TableHeadCell className="w-28">{t('settings.fields.actions')}</TableHeadCell>
                     </TableRow>
                 </TableHead>
                 <TableBody className="">
                     {fields.length === 0 ? (
                         <TableRow>
                             <TableCell colSpan={4} className="text-center text-gray-400 dark:text-gray-500">
-                                No fields defined yet — add one above.
+                                {t('settings.fields.empty')}
                             </TableCell>
                         </TableRow>
                     ) : (
                         fields.map((field) => {
-                            const conf = TYPE_CONFIG[field.field_type] ?? { label: field.field_type, Icon: RiText, badge: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200' };
+                            const conf = TYPE_CONFIG[field.field_type] ?? { Icon: RiText, badge: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200' };
                             const { Icon } = conf;
+                            const typeLabel = getTypeLabel(field.field_type);
                             const isDragOver = dragOverId === field.id;
                             return (
                                 <TableRow
@@ -177,15 +177,15 @@ function FieldsTab() {
                                     <TableCell>
                                         <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-sm font-medium ${conf.badge}`}>
                                             <Icon size={18} />
-                                            {conf.label}
+                                            {typeLabel}
                                         </span>
                                     </TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-1">
-                                            <Button size="xs" color="light" title="Edit" onClick={() => setEditingField(field)}>
+                                            <Button size="xs" color="light" title={t('settings.fields.edit_title')} onClick={() => setEditingField(field)}>
                                                 <RiPencilLine size={16} />
                                             </Button>
-                                            <Button size="xs" color="light" title="Delete" onClick={() => setFieldToDelete(field)}>
+                                            <Button size="xs" color="light" title={t('settings.fields.delete_title')} onClick={() => setFieldToDelete(field)}>
                                                 <RiDeleteBinLine size={16} className="text-red-500" />
                                             </Button>
                                         </div>
@@ -217,14 +217,14 @@ function FieldsTab() {
                     <div className="text-center">
                         <RiErrorWarningLine className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
                         <h3 className="mb-2 text-lg font-normal text-gray-500 dark:text-gray-400">
-                            Delete &ldquo;{fieldToDelete?.name}&rdquo;?
+                            {t('settings.fields.delete_modal_title', { fieldName: fieldToDelete?.name ?? '' })}
                         </h3>
                         <p className="mb-5 text-sm text-gray-400 dark:text-gray-500">
-                            This will permanently remove the field and all its values across every book.
+                            {t('settings.fields.delete_modal_description')}
                         </p>
                         <div className="flex justify-center gap-4">
-                            <Button color="red" onClick={handleDeleteConfirm}>Yes, delete</Button>
-                            <Button color="alternative" onClick={() => setFieldToDelete(null)}>Cancel</Button>
+                            <Button color="red" onClick={handleDeleteConfirm}>{t('settings.fields.delete_modal_confirm')}</Button>
+                            <Button color="alternative" onClick={() => setFieldToDelete(null)}>{t('forms.cancel')}</Button>
                         </div>
                     </div>
                 </ModalBody>

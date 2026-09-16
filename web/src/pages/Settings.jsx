@@ -17,7 +17,7 @@ const isSingleUserMode = import.meta.env.VITE_SINGLE_USER_MODE?.toString().toLow
 function Settings() {
     const [activeTab, setActiveTab] = useState(0);
     const { t } = useTranslation();
-    
+
     return (
         <AnimatedLayout>
         <div className="container mx-auto ">
@@ -36,7 +36,7 @@ function Settings() {
                 <TabItem title={t("settings.nav.mastodon")} icon={RiMastodonLine}>
                     <MastodonTab />
                 </TabItem>
-                <TabItem title="Fields" icon={RiTableLine}>
+                <TabItem title={t("settings.nav.fields")} icon={RiTableLine}>
                     <FieldsTab />
                 </TabItem>
                 <TabItem title={t("settings.nav.data")} icon={RiDatabase2Line }>

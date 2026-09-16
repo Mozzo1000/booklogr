@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import { Button, Label, TextInput, Select, HelperText } from 'flowbite-react';
 import { RiCloseLine } from 'react-icons/ri';
+import { useTranslation } from 'react-i18next';
 import AdaptiveDialog from './AdaptiveDialog';
 import FieldsService from '../services/fields.service';
 import useToast from '../toast/useToast';
 
 const FIELD_TYPES = [
-    { value: 'text', label: 'Text' },
-    { value: 'number', label: 'Number' },
-    { value: 'date', label: 'Date' },
-    { value: 'selection', label: 'Selection' },
-    { value: 'boolean', label: 'Boolean' },
-];
+    'text',
+    'number',
+    'date',
+    'selection',
+    'boolean'
+]
 
 function AddFieldModal({ open, close, onSuccess }) {
     const [name, setName] = useState('');
@@ -19,6 +20,7 @@ function AddFieldModal({ open, close, onSuccess }) {
     const [options, setOptions] = useState([]);
     const [optionInput, setOptionInput] = useState('');
     const [errors, setErrors] = useState({ name: false, options: false });
+    const { t } = useTranslation();
     const toast = useToast(4000);
 
     const reset = () => {
@@ -84,59 +86,59 @@ function AddFieldModal({ open, close, onSuccess }) {
 
     const modalFooter = (
         <div className="flex gap-2">
-            <Button color="gray" onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleSubmit}>Add Field</Button>
+            <Button color="gray" onClick={handleClose}>{t('forms.cancel')}</Button>
+            <Button onClick={handleSubmit}>{t('settings.fields.add_field_button')}</Button>
         </div>
     );
 
     return (
-        <AdaptiveDialog type="modal" show={open} onClose={handleClose} title="Add Field" footer={modalFooter}>
+        <AdaptiveDialog type="modal" show={open} onClose={handleClose} title={t('settings.fields.add_field_title')} footer={modalFooter}>
             <div className="flex flex-col gap-4">
                 <div>
                     <div className="mb-2 block">
-                        <Label htmlFor="cf-name">Name</Label>
+                        <Label htmlFor="cf-name">{t('settings.fields.name')}</Label>
                     </div>
                     <TextInput
                         id="cf-name"
-                        placeholder="e.g. Location, Purchase Date"
+                        placeholder={t('settings.fields.example_name')}
                         value={name}
                         onChange={e => { setName(e.target.value); if (errors.name) setErrors(prev => ({ ...prev, name: false })); }}
                         color={errors.name ? "failure" : "gray"}
                     />
                     {errors.name && (
                         <HelperText color="failure">
-                            <span className="font-medium">Field name is required</span>
+                            <span className="font-medium">{t('settings.fields.name_required')}</span>
                         </HelperText>
                     )}
                 </div>
                 <div>
                     <div className="mb-2 block">
-                        <Label htmlFor="cf-type">Type</Label>
+                        <Label htmlFor="cf-type">{t('settings.fields.type')}</Label>
                     </div>
                     <Select id="cf-type" value={fieldType} onChange={e => { setFieldType(e.target.value); setOptions([]); setErrors(prev => ({ ...prev, options: false })); }}>
-                        {FIELD_TYPES.map(t => (
-                            <option key={t.value} value={t.value}>{t.label}</option>
+                        {FIELD_TYPES.map(type => (
+                            <option key={type} value={type}>{t(`settings.fields.types.${type}`)}</option>
                         ))}
                     </Select>
                 </div>
                 {fieldType === 'selection' && (
                     <div>
                         <div className="mb-2 block">
-                            <Label>Options</Label>
+                            <Label>{t('settings.fields.options')}</Label>
                         </div>
                         <div className="flex gap-2 mb-2">
                             <TextInput
                                 className="flex-1"
-                                placeholder="Add an option"
+                                placeholder={t('settings.fields.option_placeholder')}
                                 value={optionInput}
                                 onChange={e => setOptionInput(e.target.value)}
                                 onKeyDown={handleOptionKeyDown}
                             />
-                            <Button size="sm" color="gray" onClick={handleAddOption}>Add</Button>
+                            <Button size="sm" color="gray" onClick={handleAddOption}>{t('settings.fields.option_add_button')}</Button>
                         </div>
                         {errors.options && (
                             <HelperText color="failure">
-                                <span className="font-medium">Add at least one option</span>
+                                <span className="font-medium">{t('settings.fields.selection_required')}</span>
                             </HelperText>
                         )}
                         <div className="flex flex-col gap-1 mt-1">

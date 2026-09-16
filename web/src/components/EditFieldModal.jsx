@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Label, TextInput, HelperText } from 'flowbite-react';
 import { RiCloseLine } from 'react-icons/ri';
+import { useTranslation } from 'react-i18next';
 import AdaptiveDialog from './AdaptiveDialog';
 import FieldsService from '../services/fields.service';
 import useToast from '../toast/useToast';
+
+const FIELD_TYPES = [
+    'text',
+    'number',
+    'date',
+    'selection',
+    'boolean'
+]
 
 function EditFieldModal({ open, field, close, onSuccess }) {
     const [name, setName] = useState('');
     const [options, setOptions] = useState([]);
     const [optionInput, setOptionInput] = useState('');
     const [nameError, setNameError] = useState(false);
+    const { t } = useTranslation();
     const toast = useToast(4000);
 
     useEffect(() => {
@@ -65,17 +75,17 @@ function EditFieldModal({ open, field, close, onSuccess }) {
 
     const modalFooter = (
         <div className="flex gap-2">
-            <Button color="gray" onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleSave}>Save</Button>
+            <Button color="gray" onClick={handleClose}>{t('forms.cancel')}</Button>
+            <Button onClick={handleSave}>{t('forms.save')}</Button>
         </div>
     );
 
     return (
-        <AdaptiveDialog type="modal" show={open} onClose={handleClose} title="Edit Field" footer={modalFooter}>
+        <AdaptiveDialog type="modal" show={open} onClose={handleClose} title={t('settings.fields.edit_field_title')} footer={modalFooter}>
             <div className="flex flex-col gap-4">
                 <div>
                     <div className="mb-2 block">
-                        <Label htmlFor="ecf-name">Name</Label>
+                        <Label htmlFor="ecf-name">{t('settings.fields.name')}</Label>
                     </div>
                     <TextInput
                         id="ecf-name"
@@ -85,31 +95,31 @@ function EditFieldModal({ open, field, close, onSuccess }) {
                     />
                     {nameError && (
                         <HelperText color="failure">
-                            <span className="font-medium">Field name is required</span>
+                            <span className="font-medium">{t('settings.fields.name_required')}</span>
                         </HelperText>
                     )}
                 </div>
                 <div>
                     <div className="mb-2 block">
-                        <Label>Type</Label>
+                        <Label>{t('settings.fields.type')}</Label>
                     </div>
-                    <TextInput value={field?.field_type?.toUpperCase() || ''} disabled />
-                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Field type cannot be changed after creation.</p>
+                    <TextInput value={t(`settings.fields.types.${field?.field_type}`) || ''} disabled />
+                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t('settings.fields.type_locked')}</p>
                 </div>
                 {field?.field_type === 'selection' && (
                     <div>
                         <div className="mb-2 block">
-                            <Label>Options</Label>
+                            <Label>{t('settings.fields.options')}</Label>
                         </div>
                         <div className="flex gap-2 mb-2">
                             <TextInput
                                 className="flex-1"
-                                placeholder="Add an option"
+                                placeholder={t('settings.fields.option_placeholder')}
                                 value={optionInput}
                                 onChange={e => setOptionInput(e.target.value)}
                                 onKeyDown={handleOptionKeyDown}
                             />
-                            <Button size="sm" color="gray" onClick={handleAddOption}>Add</Button>
+                            <Button size="sm" color="gray" onClick={handleAddOption}>{t('settings.fields.option_add_button')}</Button>
                         </div>
                         <div className="flex flex-col gap-1">
                             {options.map(opt => (

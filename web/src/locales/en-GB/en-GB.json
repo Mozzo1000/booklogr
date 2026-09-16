@@ -66,13 +66,42 @@
         "placeholder_total_num_pages": "Enter a total number of pages",
         "placeholder_description": "Enter a brief description of the book"
     },
-
     "settings": {
         "nav": {
             "account": "Account",
             "interface": "Interface",
             "mastodon": "Mastodon",
+            "fields": "Fields",
             "data": "Data"
+        },
+        "fields": {
+            "title": "Fields ({{count}})",
+            "add_field_button": "Add Field",
+            "add_field_title": "Add Field",
+            "edit_field_title": "Edit Field",
+            "name": "Name",
+            "type": "Type",
+            "actions": "Actions",
+            "empty": "No fields defined yet — add one above.",
+            "edit_title": "Edit",
+            "delete_title": "Delete",
+            "delete_modal_title": "Delete \"{{fieldName}}\"?",
+            "delete_modal_description": "This will permanently remove the field and all its values across every book.",
+            "delete_modal_confirm": "Yes, delete",
+            "example_name": "e.g. Location, Purchase Date",
+            "name_required": "Field name is required",
+            "options": "Options",
+            "option_placeholder": "Add an option",
+            "option_add_button": "Add",
+            "selection_required": "Add at least one option",
+            "type_locked": "Field type cannot be changed after creation.",
+            "types": {
+                "text": "Text",
+                "number": "Number",
+                "selection": "Selection",
+                "boolean": "Boolean",
+                "date": "Date"
+            }
         },
         "mastodon": {
             "share_events": "Share events",
@@ -111,7 +140,7 @@
 
     "toast": {
         "file_available_download": "Exported file is now available for download",
-        "email_empty": "Email cannot be empty" 
+        "email_empty": "Email cannot be empty"
     },
 
     "verification": {
