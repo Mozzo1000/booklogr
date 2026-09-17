@@ -218,7 +218,14 @@ function AddToReadingListButton(props) {
                                 <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
                                 <DropdownItem onClick={() => setOpenEditBookModal(true)}><RiBallPenLine size={18} className="mr-1"/>{t("actions.edit_book")}</DropdownItem>
                             </>;
-                        }else {
+                        } else if (readingStatus == "Did not finish") {
+                            return <>
+                                <DropdownItem icon={RiBookOpenLine} onClick={() => handleSetReadingCurrentlyReading()}>{t("reading_status.currently_reading")}</DropdownItem>
+                                <DropdownItem icon={RiBook2Line} onClick={() => handleSetReadingRead()}>{t("reading_status.read")}</DropdownItem>
+                                <DropdownItem onClick={() => setOpenRemoveModal(true)}><RiDeleteBin6Line size={18} className="mr-1" />{t("forms.remove")}</DropdownItem>
+                                <DropdownItem onClick={() => setOpenEditBookModal(true)}><RiBallPenLine size={18} className="mr-1"/>{t("actions.edit_book")}</DropdownItem>
+                            </>;
+                        } else {
                             return <>
                                 <DropdownItem icon={RiBookOpenLine} onClick={() => handleSetReadingCurrentlyReading()}>{t("reading_status.currently_reading")}</DropdownItem>
                                 <DropdownItem icon={RiBook2Line} onClick={() => handleSetReadingRead()}>{t("reading_status.read")}</DropdownItem>
