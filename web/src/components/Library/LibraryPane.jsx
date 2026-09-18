@@ -195,7 +195,7 @@ function LibraryPane() {
         </BookTabs>
         {books?.items.length > 0 &&
             <div className="flex flex-row justify-center pt-8">
-                <Pagination currentPage={page} totalPages={totalPages} onPageChange={onPageChange} showIcons />
+                <Pagination currentPage={page} totalPages={totalPages} onPageChange={onPageChange} showIcons nextLabel={t("pagination.next")} previousLabel={t("pagination.previous")}/>
             </div>
         }
 

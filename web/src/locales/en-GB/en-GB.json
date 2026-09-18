@@ -111,7 +111,7 @@
 
     "toast": {
         "file_available_download": "Exported file is now available for download",
-        "email_empty": "Email cannot be empty" 
+        "email_empty": "Email cannot be empty"
     },
 
     "verification": {
@@ -224,7 +224,10 @@
         "home": "Home",
         "go_home": "Go home"
     },
-
+    "pagination": {
+        "previous": "Previous",
+        "next": "Next"
+    },
     "profile": {
         "not_found_error": {
             "title": "No profile found",
