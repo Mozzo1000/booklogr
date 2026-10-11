@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import BookItem from './BookItem'
-import { Tabs, Pagination } from "flowbite-react";
+import { Pagination } from "flowbite-react";
 import { useQueryClient } from '@tanstack/react-query';
 import { useBooks } from '../../hooks/useBooks';
 import PaneTabView from './PaneTabView';
@@ -13,6 +13,7 @@ import AddBookButton from '../AddBookButton';
 import BookSkeleton from '../BookSkeleton';
 import Controls from './Controls';
 import BookTabs from '../BookTabs';
+import { LIBRARY_TABS, getLibraryNavigation, resolveLibraryTab } from '../../services/libraryNavigation';
 
 const TAB_ALL = 0
 const TAB_CURRENTLY_READING = 1;
@@ -20,56 +21,14 @@ const TAB_TO_BE_READ = 2;
 const TAB_READ = 3;
 const TAB_DID_NOT_FINISH = 4;
 
-const TABS_CONFIG = [
-    { id: TAB_ALL, status: "", tKey: "reading_status.all", icon: RiBook2Line },
-    { id: TAB_CURRENTLY_READING, status: "Currently reading", tKey: "reading_status.currently_reading", icon: RiBookOpenLine },
-    { id: TAB_TO_BE_READ, status: "To be read", tKey: "reading_status.to_be_read", icon: RiBookmarkLine },
-    { id: TAB_READ, status: "Read", tKey: "reading_status.read", icon: RiBook2Line },
-    { id: TAB_DID_NOT_FINISH, status: "Did not finish", tKey: "reading_status.did_not_finish", icon: RiArchiveLine },
-
-];
-
-const STATUS_TO_TAB = {
-    "All": TAB_ALL,
-    "Currently reading": TAB_CURRENTLY_READING,
-    "To be read": TAB_TO_BE_READ,
-    "Read": TAB_READ,
-    "Did not finish": TAB_DID_NOT_FINISH,
-};
-
-const TAB_VISIBILITY_KEYS = {
-    [TAB_ALL]: "all",
-    [TAB_CURRENTLY_READING]: "currentlyReading",
-    [TAB_TO_BE_READ]: "toBeRead",
-    [TAB_READ]: "completed",
-    [TAB_DID_NOT_FINISH]: "didNotFinish",
-};
-
-const DEFAULT_VISIBLE_TABS = {
-    all: false,
-    currentlyReading: true,
-    completed: true,
-    toBeRead: true,
-    didNotFinish: true,
-};
-
-function getVisibleTabs() {
-    const saved = localStorage.getItem("library_visible_tabs");
-    return saved ? JSON.parse(saved) : DEFAULT_VISIBLE_TABS;
-}
+const TAB_ICONS = [RiBook2Line, RiBookOpenLine, RiBookmarkLine, RiBook2Line, RiArchiveLine];
 
 function LibraryPane() {
-    const { t, i18n } = useTranslation();
-    const hashToTab = () => {
-        const match = window.location.hash.match(/^#tab-(\d+)$/);
-        if (match) {
-            const index = parseInt(match[1], 10);
-            if (index >= TAB_ALL && index <= TAB_DID_NOT_FINISH) return index;
-        }
-        const savedDefault = localStorage.getItem("library_default_view");
-        return savedDefault ? (STATUS_TO_TAB[savedDefault] ?? TAB_CURRENTLY_READING) : TAB_CURRENTLY_READING;
-    };
-    const [activeTab, setActiveTab] = useState(hashToTab);
+    const { t } = useTranslation();
+    const [navigation] = useState(getLibraryNavigation);
+    const [activeTab, setActiveTab] = useState(() => resolveLibraryTab(
+        window.location.hash, navigation.defaultView, navigation.visibleTabs,
+    ));
     const [page, setPage] = useState(1);
     const [view, setView] = useState(localStorage.getItem("library_view") ? localStorage.getItem("library_view") : "gallery");
     const [sort, setSort] = useState(JSON.parse(localStorage.getItem("last_sorted")) || {value: "title"});
@@ -77,13 +36,19 @@ function LibraryPane() {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [authorFilter, setAuthorFilter] = useState(null);
 
-    const visibleTabSettings = getVisibleTabs();
-    const tabs = TABS_CONFIG
-        .filter(tab => visibleTabSettings[TAB_VISIBILITY_KEYS[tab.id]])
+    const tabs = LIBRARY_TABS
+        .filter(tab => navigation.visibleTabs[tab.key])
         .map(tab => ({
             ...tab,
+            icon: TAB_ICONS[tab.id],
             title: t(tab.tKey)
         }));
+
+    useEffect(() => {
+        if (window.location.hash.match(/^#tab-\d+$/) && window.location.hash !== `#tab-${activeTab}`) {
+            window.history.replaceState(window.history.state, "", `${window.location.pathname}${window.location.search}#tab-${activeTab}`);
+        }
+    }, [activeTab]);
 
     const handleTabChange = (tabIndex) => {
         const tab = tabs[tabIndex];
@@ -106,24 +71,8 @@ function LibraryPane() {
         setPage(1);
     }, [activeTab, authorFilter])
 
-    const translateTabsToStatus = () => {
-        let status = "Currently reading";
-        if (activeTab == TAB_CURRENTLY_READING) {
-            status = "Currently reading"
-        } else if (activeTab == TAB_TO_BE_READ) {
-            status = "To be read"
-        } else if (activeTab == TAB_READ) {
-            status = "Read"
-        } else if (activeTab == TAB_DID_NOT_FINISH) {
-            status = "Did not finish"
-        } else if (activeTab == TAB_ALL) {
-            status = ""
-        }
-        return status;
-    }
-
     const queryClient = useQueryClient();
-    const { data: booksResponse } = useBooks({ status: translateTabsToStatus(), sort: sort.value, order, page, author: authorFilter });
+    const { data: booksResponse } = useBooks({ status: LIBRARY_TABS.find(tab => tab.id === activeTab).status, sort: sort.value, order, page, author: authorFilter });
     const books = booksResponse?.data;
     const totalPages = books?.meta.total_pages > 0 ? books.meta.total_pages : 1;
     const refetchBooks = () => queryClient.invalidateQueries({ queryKey: ['books'] });

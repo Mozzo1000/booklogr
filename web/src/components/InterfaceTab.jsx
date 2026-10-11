@@ -6,50 +6,31 @@ import LanguageSwitcher from './LanguageSwitcher';
 import RegionSwitcher from './RegionSwitcher';
 import TimezoneSwitcher from './TimezoneSwitcher';
 import ThemeToggle from './ThemeToggle';
-import { RiBook2Line, RiBookOpenLine, RiBookmarkLine, RiCheckLine, RiArchiveLine } from "react-icons/ri";
+import { RiBook2Line, RiBookOpenLine, RiBookmarkLine, RiArchiveLine } from "react-icons/ri";
+
+import { LIBRARY_TABS, DEFAULT_VISIBLE_TABS, getLibraryNavigation, saveLibraryNavigation } from "../services/libraryNavigation";
 
 function InterfaceTab() {
     const [use24Hour, setUse24Hour] = useState(localStorage.getItem("time_format_24h") === "true" ? true : false);
     const toast = useToast(4000);
     const { t } = useTranslation();
 
-    const [defaultView, setDefaultView] = useState(localStorage.getItem("library_default_view") || "Currently reading");
-    const [visibleTabs, setVisibleTabs] = useState(() => {
-        const saved = localStorage.getItem("library_visible_tabs");
-        return saved ? JSON.parse(saved) : {
-            all: false,
-            currentlyReading: true,
-            completed: true,
-            toBeRead: true,
-            didNotFinish: true
-        };
-    });
+    const [navigation, setNavigation] = useState(getLibraryNavigation);
+    const { defaultView, visibleTabs } = navigation;
+    const visibleTabCount = LIBRARY_TABS.filter(tab => visibleTabs[tab.key]).length;
 
     const handleToggleTab = (tabKey) => {
-        setVisibleTabs(prev => {
-            const next = { ...prev, [tabKey]: !prev[tabKey] };
-            localStorage.setItem("library_visible_tabs", JSON.stringify(next));
-            return next;
-        });
+        if (visibleTabs[tabKey] && visibleTabCount === 1) return;
+        const next = { ...visibleTabs, [tabKey]: !visibleTabs[tabKey] };
+        setNavigation(saveLibraryNavigation(defaultView, next));
     };
 
     const handleDefaultViewChange = (value) => {
-        setDefaultView(value);
-        localStorage.setItem("library_default_view", value);
+        setNavigation(saveLibraryNavigation(value, visibleTabs));
     };
 
     const handleResetNavigation = () => {
-        const defaults = {
-            all: false,
-            currentlyReading: true,
-            completed: true,
-            toBeRead: true,
-            didNotFinish: true
-        };
-        setDefaultView("Currently reading");
-        setVisibleTabs(defaults);
-        localStorage.setItem("library_default_view", "Currently reading");
-        localStorage.setItem("library_visible_tabs", JSON.stringify(defaults));
+        setNavigation(saveLibraryNavigation("Currently reading", DEFAULT_VISIBLE_TABS));
     };
 
     const setTimeFormat = (format) => {
@@ -125,11 +106,9 @@ function InterfaceTab() {
                             value={defaultView}
                             onChange={(e) => handleDefaultViewChange(e.target.value)}
                         >
-                            <option value="All">All</option>
-                            <option value="Currently reading">Currently reading</option>
-                            <option value="To be read">To be read</option>
-                            <option value="Read">Read</option>
-                            <option value="Did not finish">Did not finish</option>
+                            {LIBRARY_TABS.filter(tab => visibleTabs[tab.key]).map(tab => (
+                                <option key={tab.key} value={tab.value}>{tab.value}</option>
+                            ))}
                         </Select>
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">The first tab shown when you open your library.</p>
                     </div>
@@ -138,7 +117,7 @@ function InterfaceTab() {
                         <div className="flex items-center justify-between">
                             <span className="text-sm font-medium text-gray-900 dark:text-white">Visible tabs</span>
                             <span className="text-xs text-gray-500 dark:text-gray-400">
-                                {Object.values(visibleTabs).filter(Boolean).length} of {Object.keys(visibleTabs).length} shown
+                                {visibleTabCount} of {LIBRARY_TABS.length} shown
                             </span>
                         </div>
 
@@ -165,12 +144,15 @@ function InterfaceTab() {
                                     </div>
                                     <ToggleSwitch
                                         checked={visibleTabs[key]}
+                                        disabled={visibleTabs[key] && visibleTabCount === 1}
                                         onChange={() => handleToggleTab(key)}
                                     />
                                 </div>
                             ))}
                         </div>
                     </div>
+
+                    <p className="text-xs text-gray-500 dark:text-gray-400">At least one library tab must remain visible.</p>
 
                     <div className="flex justify-end">
                         <Button color="gray" onClick={handleResetNavigation}>
