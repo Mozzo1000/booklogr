@@ -35,7 +35,8 @@ If you are creating a file manually or building a third-party tool to interact w
 | Column | Type | Description |
 | :--- | :--- | :--- |
 | `title` | String | The full title of the book. |
-| `isbn` | String | The 10 or 13-digit ISBN. |
+| `isbn` | String | The ISBN; may be empty when `openlibrary_id` is provided. |
+| `openlibrary_id` | String | Optional Open Library edition ID, such as `OL62524517M`. |
 | `description` | String | A summary or synopsis of the book. |
 | `reading_status` | String | One of: `Read`, `Currently reading`, `To be read`, `Did not finish`. |
 | `current_page` | Integer | The number of pages read so far. |

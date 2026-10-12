@@ -202,6 +202,7 @@ def create_json(claim_id):
         book_dict = {
             'title': book.title,
             'isbn': book.isbn,
+            'openlibrary_id': book.openlibrary_id,
             'description': book.description,
             'reading_status': book.reading_status,
             'current_page': book.current_page,
@@ -228,10 +229,10 @@ def create_csv(claim_id):
 
     with open(os.path.join(current_app.config["EXPORT_FOLDER"], filename), "w", newline="", encoding="utf-8") as f:
         csvwriter = csv.writer(f, delimiter=",")
-        csvwriter.writerow(["title", "isbn", "description", "reading_status", "current_page", "total_pages", "author", "rating", "notes"])
+        csvwriter.writerow(["title", "isbn", "description", "reading_status", "current_page", "total_pages", "author", "rating", "notes", "openlibrary_id"])
         for b in books:
             notes_json = json.dumps([{"content": note.content, "quote_page": note.quote_page, "visibility": note.visibility, "created_on": note.created_on.isoformat()} for note in b.notes])
-            csvwriter.writerow([b.title, b.isbn, b.description, b.reading_status, b.current_page, b.total_pages, b.author, b.rating, notes_json])
+            csvwriter.writerow([b.title, b.isbn, b.description, b.reading_status, b.current_page, b.total_pages, b.author, b.rating, notes_json, b.openlibrary_id])
 
     new_file = Files(filename=filename, owner_id=claim_id)
     new_file.save_to_db()

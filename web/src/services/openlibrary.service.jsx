@@ -1,9 +1,10 @@
+import { isOpenLibraryId } from "./bookIdentifiers";
 import axios from "axios";
 
 const API_URL = "https://openlibrary.org";
 
 const get = (id) => {
-    return axios.get(API_URL + "/isbn/" + id + ".json")
+    return axios.get(API_URL + (isOpenLibraryId(id) ? "/books/" : "/isbn/") + id + ".json")
 };
 
 const getWorks = (id) => {

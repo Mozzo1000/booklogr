@@ -28,7 +28,7 @@
           <th>Title</th>
           <th>Author</th>
           <th>Description</th>
-          <th>ISBN</th>
+          <th>Identifier</th>
           <th>Reading status</th>
           <th>Total pages</th>
           <th>Current page</th>
@@ -40,7 +40,7 @@
             <td>{{ item.title }}</td>
             <td>{{ item.author }}</td>
             <td>{{ item.description }}</td>
-            <td>{{ item.isbn }}</td>
+            <td>{{ item.isbn or item.openlibrary_id }}</td>
             <td>{{ item.reading_status }}</td>
             <td>{{ item.total_pages }}</td>
             <td>{{ item.current_page }}</td>

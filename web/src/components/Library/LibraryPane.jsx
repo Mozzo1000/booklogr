@@ -177,7 +177,7 @@ function LibraryPane() {
                                 notes={item.num_notes}
                                 totalPages={item.total_pages} 
                                 currentPage={item.current_page}
-                                isbn={item.isbn}
+                                identifier={item.identifier || item.isbn || item.openlibrary_id}
                                 description={item.description}
                                 readingStatus={item.reading_status}
                                 onAuthorClick={setAuthorFilter}

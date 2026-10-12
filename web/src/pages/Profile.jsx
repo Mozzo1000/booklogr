@@ -91,7 +91,7 @@ function Profile() {
                 .map(note => ({
                     ...note,
                     bookTitle: book.title,
-                    bookIsbn: book.isbn,
+                    bookIdentifier: book.identifier || book.isbn || book.openlibrary_id,
                     bookAuthor: book.author,
                 }))
         );
@@ -301,7 +301,7 @@ function Profile() {
                                                 showOptions={false} 
                                                 showProgress={false} 
                                                 title={item.title} 
-                                                isbn={item.isbn} 
+                                                identifier={item.identifier || item.isbn || item.openlibrary_id}
                                                 totalPages={item.total_pages} 
                                                 currentPage={item.current_page} 
                                                 author={item.author} 
@@ -340,7 +340,7 @@ function Profile() {
                                         quotePage={note.quote_page}
                                         date={note.created_on + "Z"}
                                         bookTitle={note.bookTitle}
-                                        bookIsbn={note.bookIsbn}
+                                        bookIdentifier={note.bookIdentifier}
                                         bookAuthor={note.bookAuthor}
                                     />
                                 ))}

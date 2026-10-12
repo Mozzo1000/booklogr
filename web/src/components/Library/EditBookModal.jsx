@@ -1,3 +1,4 @@
+import { coverUrl, identifierLabel } from "../../services/bookIdentifiers";
 import React, { useState, useEffect } from 'react'
 import { TextInput, Button, Select, Label, Textarea, Tooltip, Card } from 'flowbite-react';
 import useToast from '../../toast/useToast';
@@ -16,7 +17,7 @@ function EditBookModal(props) {
     const [author, setAuthor] = useState(props.author ?? "");
     const [title, setTitle] = useState(props.title ?? "");
     const [subtitle, setSubtitle] = useState(props.subtitle ?? "");
-    const [isbn] = useState(props.isbn ?? "");
+    const isbn = props.identifier ?? "";
     const [description, setDescription] = useState(props.description ?? "");
     const [readingStatus, setReadingStatus] = useState(props.readingStatus ?? "To be read");
     const [fields, setFields] = useState([]);
@@ -59,14 +60,13 @@ function EditBookModal(props) {
                     field_id: f.id,
                     value: fieldValues[f.id] || null,
                 }));
-                if (fields.length > 0) {
-                    FieldsService.saveBookValues(props.id, fieldsToSave).then(
-                        response => {
-                            props.close(false);
-                            props.onSuccess();
-                        },
-                    );
-                }
+                const saveFields = fields.length > 0
+                    ? FieldsService.saveBookValues(props.id, fieldsToSave)
+                    : Promise.resolve();
+                saveFields.then(() => {
+                    props.close(false);
+                    props.onSuccess?.();
+                }).catch(error => toast("error", error.response?.data?.message || error.message));
             },
             error => {
                 const resMessage =
@@ -99,9 +99,9 @@ function EditBookModal(props) {
                 <div className="flex flex-col gap-2">
                 <Card>
                     <h2>{t("book.book_cover")}</h2>
-                    <Img crossorigin="anonymous" width={200} height={200} className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg?default=false"}
+                    <Img crossorigin="anonymous" width={200} height={200} className="shadow-2xl object-fit rounded" src={coverUrl(isbn)}
                         loader={<Skeleton count={1} width={200} height={200} borderRadius={0} inline={true}/>}
-                        unloader={theme.mode == "dark" && <img width={200} src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img width={200} src="/fallback-cover.svg"/>}
+                        unloader={theme.computedMode == "dark" && <img width={200} src="/fallback-cover-light.svg"/> || theme.computedMode == "light" && <img width={200} src="/fallback-cover.svg"/>}
                     />
                     <Tooltip content={t("book.not_implemented")}>
                         <Button disabled>{t("actions.replace_cover")}</Button>
@@ -119,7 +119,7 @@ function EditBookModal(props) {
                     <h2>{t("book.details")}</h2>
                     <div>
                         <div className="mb-2 block">
-                            <Label htmlFor="isbn">{t("book.isbn")}</Label>
+                            <Label htmlFor="isbn">{identifierLabel(isbn)}</Label>
                         </div>
                         <TextInput id="isbn" type="text" value={isbn} disabled/>
                     </div>

@@ -1,3 +1,4 @@
+import { coverUrl, identifierLabel } from "../services/bookIdentifiers";
 import React, { useState, useEffect } from "react";
 import { Button, TextInput, HR, useThemeMode } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -37,7 +38,7 @@ function SearchBar(props) {
     const suggestions = data?.data?.items?.map((item, i) => ({
         id: i,
         name: item.title,
-        isbn: item.isbn,
+        identifier: item.identifier || item.isbn || item.openlibrary_id,
         author: item.author,
         inLibrary: item.in_library,
     })) ?? [];
@@ -130,19 +131,19 @@ function SearchBar(props) {
                             <>
                                 <SectionHeader title={t("search.in_library")} />
                                 {inLibraryBooks.map((data) => (
-                                    <Link key={data.id} to={"/books/" + data.isbn} onClick={(e) => (props.onNavigate(), closeSearch(), navigate("/books/" + data.isbn))}>
+                                    <Link key={data.id} to={"/books/" + data.identifier} onClick={(e) => (props.onNavigate(), closeSearch(), navigate("/books/" + data.identifier))}>
                                         <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4">
                                             <div className="lg:row-span-2 md:mx-auto">
-                                                <Img crossorigin="anonymous" className="object-contain h-32" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn + "-M.jpg?default=false"}
+                                                <Img crossorigin="anonymous" className="object-contain h-32" src={coverUrl(data.identifier)}
                                                     loader={<Skeleton count={1} width={100} height={"100%"} borderRadius={0} inline={true}/>}
-                                                    unloader={theme.mode == "dark" && <img className="object-contain h-32" src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img className="object-contain h-32" src="/fallback-cover.svg"/>}
+                                                    unloader={theme.computedMode == "dark" && <img className="object-contain h-32" src="/fallback-cover-light.svg"/> || theme.computedMode == "light" && <img className="object-contain h-32" src="/fallback-cover.svg"/>}
                                                 />
                                             </div>
                                             <div className="row-span-2">
                                                 <div className="flex flex-col gap-1 dark:text-white">
                                                     <p className="font-bold lead">{data.name}</p>
                                                     <p className="font-semi">{t("book.by_author", {author: data.author})}</p>
-                                                    <p className="text-sm font-sans">ISBN: {data.isbn}</p>
+                                                    <p className="text-sm font-sans">{identifierLabel(data.identifier)}: {data.identifier}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -156,19 +157,19 @@ function SearchBar(props) {
                             <>
                                 <SectionHeader title={t("search.results")} />
                                 {otherBooks.map((data) => (
-                                    <Link key={data.id} to={"/books/" + data.isbn} onClick={(e) => (props.onNavigate(), closeSearch(), navigate("/books/" + data.isbn))}>
+                                    <Link key={data.id} to={"/books/" + data.identifier} onClick={(e) => (props.onNavigate(), closeSearch(), navigate("/books/" + data.identifier))}>
                                         <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4">
                                             <div className="lg:row-span-2 md:mx-auto">
-                                                <Img crossorigin="anonymous" className="object-contain h-32" src={"https://covers.openlibrary.org/b/isbn/" + data.isbn + "-M.jpg?default=false"}
+                                                <Img crossorigin="anonymous" className="object-contain h-32" src={coverUrl(data.identifier)}
                                                     loader={<Skeleton count={1} width={100} height={"100%"} borderRadius={0} inline={true}/>}
-                                                    unloader={theme.mode == "dark" && <img className="object-contain h-32" src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img className="object-contain h-32" src="/fallback-cover.svg"/>}
+                                                    unloader={theme.computedMode == "dark" && <img className="object-contain h-32" src="/fallback-cover-light.svg"/> || theme.computedMode == "light" && <img className="object-contain h-32" src="/fallback-cover.svg"/>}
                                                 />
                                             </div>
                                             <div className="row-span-2">
                                                 <div className="flex flex-col gap-1 dark:text-white">
                                                     <p className="font-bold lead">{data.name}</p>
                                                     <p className="font-semi">{t("book.by_author", {author: data.author})}</p>
-                                                    <p className="text-sm font-sans">ISBN: {data.isbn}</p>
+                                                    <p className="text-sm font-sans">{identifierLabel(data.identifier)}: {data.identifier}</p>
                                                 </div>
                                             </div>
                                         </div>

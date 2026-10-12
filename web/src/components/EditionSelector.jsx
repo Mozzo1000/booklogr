@@ -1,3 +1,4 @@
+import { editionIdentifier } from "../services/bookIdentifiers";
 import React, { useEffect, useState } from 'react'
 import OpenlibraryService from '../services/openlibrary.service';
 import useToast from '../toast/useToast';
@@ -9,7 +10,7 @@ import { RiExternalLinkLine } from "react-icons/ri";
 import { useTranslation, Trans } from 'react-i18next';
 import { RiCheckLine, RiArrowDownSLine } from "react-icons/ri";
 
-function EditionSelector({work_id, selected_isbn}) {
+function EditionSelector({work_id, selected_identifier}) {
     const [editionList, setEditionList] = useState();
     const [selectedLanguage, setSelectedLanguage] = useState("");
     const [openModal, setOpenModal] = useState(false);
@@ -21,7 +22,7 @@ function EditionSelector({work_id, selected_isbn}) {
             OpenlibraryService.getEditions(work_id, 100).then(
                 response => {
                     const editions = response.data.entries
-                                        .filter(entry => entry.isbn_13 && entry.isbn_13.length > 0);
+                                        .filter(entry => editionIdentifier(entry));
                     setEditionList(editions);
                 },
                 error => {
@@ -91,8 +92,8 @@ function EditionSelector({work_id, selected_isbn}) {
             <div className="max-h-96 overflow-y-auto">
                 {filteredEntries?.map(function(data) {
                     return (
-                            <DropdownItem key={data.key} as={Link} to={"/books/" + data.isbn_13[0]}>
-                                <EditionItem data={data} selected_isbn={selected_isbn}/>
+                            <DropdownItem key={data.key} as={Link} to={"/books/" + editionIdentifier(data)}>
+                                <EditionItem data={data} selected_identifier={selected_identifier}/>
                             </DropdownItem>
                         )
                 })}
@@ -106,9 +107,9 @@ function EditionSelector({work_id, selected_isbn}) {
                 <LanguageSelector />
                 {filteredEntries?.map(function(data) {
                     return (
-                            <Link key={data.key} to={"/books/" + data.isbn_13[0]} className="contents">
+                            <Link key={data.key} to={"/books/" + editionIdentifier(data)} className="contents">
                                 <div className="flex w-full hover:bg-gray-100 hover:dark:bg-gray-600">
-                                    <EditionItem data={data} selected_isbn={selected_isbn} />
+                                    <EditionItem data={data} selected_identifier={selected_identifier} />
                                 </div>
                             </Link>
                         )

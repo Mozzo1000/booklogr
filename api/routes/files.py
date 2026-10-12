@@ -1,3 +1,5 @@
+from api.identifiers import normalize_olid, book_identifier_filter
+from sqlalchemy import or_
 from flask import Blueprint, send_from_directory, jsonify, request, current_app
 from api.decorators import auth_required
 from api.utils import get_current_user_id
@@ -117,27 +119,32 @@ def upload_file_for_import():
                     "message": f"The uploaded CSV file is missing the following headers: {str(list(missing))}"
                 }), 400
             
-            for row in reader:
-                if allow_duplicates:
-                    new_book = Books(owner_id=claim_id, title=row["title"], isbn=row["isbn"], 
-                            description=row["description"], reading_status=row["reading_status"], 
-                            current_page=row["current_page"], total_pages=row["total_pages"], author=row["author"])
+            rows = list(reader)
+            # Validate before saving so an invalid ID cannot cause a partial import.
+            for row in rows:
+                row["isbn"] = row["isbn"].strip() or None
+                olid = row.get("openlibrary_id", "").strip()
+                try:
+                    row["openlibrary_id"] = normalize_olid(olid) if olid else None
+                except ValueError as error:
+                    return jsonify({"message": str(error)}), 422
+                if not row["isbn"] and not row["openlibrary_id"]:
+                    return jsonify({"message": "Each book requires an ISBN or Open Library edition ID."}), 422
+            for row in rows:
+                identifiers = [value for value in (row["isbn"], row["openlibrary_id"]) if value]
+                existing_book = Books.query.filter(
+                    Books.owner_id == claim_id,
+                    or_(*(book_identifier_filter(Books, value) for value in identifiers))
+                ).first()
+                if allow_duplicates or not existing_book:
+                    new_book = Books(owner_id=claim_id, title=row["title"], isbn=row["isbn"],
+                                     openlibrary_id=row["openlibrary_id"],
+                                     description=row["description"], reading_status=row["reading_status"],
+                                     current_page=row["current_page"], total_pages=row["total_pages"], author=row["author"])
                     if row["rating"]:
                         new_book.rating = row["rating"]
                     new_book.save_to_db()
                     count_imported += 1
-                else:
-                    existing_book = Books.query.filter_by(owner_id=claim_id, isbn=row["isbn"]).first()
-                    if not existing_book:
-                        new_book = Books(owner_id=claim_id, title=row["title"], isbn=row["isbn"], 
-                            description=row["description"], reading_status=row["reading_status"], 
-                            current_page=row["current_page"], total_pages=row["total_pages"], author=row["author"])
-                        if row["rating"]:
-                            new_book.rating = row["rating"]
-                        new_book.save_to_db()
-                        count_imported += 1
-                    else:
-                        print(f"Book with ISBN {row['isbn']} already exists. Skipping import.")
             return jsonify({"message": f"Imported {count_imported}/{reader.line_num-1} books."})
 
         elif request.form.get("type") == "goodreads":

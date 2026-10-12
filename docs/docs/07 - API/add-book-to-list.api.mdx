@@ -54,7 +54,7 @@ Add book to list
 
 <RequestSchema
   title={"Body"}
-  body={{"content":{"application/json":{"schema":{"properties":{"author":{"description":"Author of the book","type":"string"},"current_page":{"default":0,"description":"Current page being read","type":"integer"},"description":{"description":"Description of the book","type":"string"},"isbn":{"description":"ISBN number","type":"string"},"reading_status":{"default":"To be read","description":"Reading status","enum":["To be read","Currently reading","Read"],"type":"string"},"title":{"description":"Title of the book","type":"string"},"total_pages":{"default":0,"description":"Total number of pages","type":"integer"}},"required":["title","isbn"],"type":"object"}}},"required":true}}
+  body={{"content":{"application/json":{"schema":{"properties":{"author":{"description":"Author of the book","type":"string"},"current_page":{"default":0,"description":"Current page being read","type":"integer"},"description":{"description":"Description of the book","type":"string"},"isbn":{"description":"ISBN number; optional when openlibrary_id is provided","type":"string"},"openlibrary_id":{"description":"Open Library edition ID, such as OL62524517M; required when ISBN is absent","type":"string"},"reading_status":{"default":"To be read","description":"Reading status","enum":["To be read","Currently reading","Read"],"type":"string"},"title":{"description":"Title of the book","type":"string"},"total_pages":{"default":0,"description":"Total number of pages","type":"integer"}},"required":["title"],"type":"object"}}},"required":true}}
 >
   
 </RequestSchema>
