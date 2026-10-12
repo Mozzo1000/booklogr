@@ -39,7 +39,7 @@ function RequestData(props) {
         TasksService.create(taskType, {}).then(
             response => {
                 toast("success", response.data.message);
-                props.onRequest();
+                props.onRequest(response.data.task_id);
             },
             error => {
               const resMessage =

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Table, TableHead, TableHeadCell, TableBody, TableCell, TableRow, Button, Spinner} from "flowbite-react";
 import FilesService from '../../services/files.service';
+import TasksService from '../../services/tasks.service';
 import useToast from '../../toast/useToast';
 import { useInterval } from '../../useInterval';
 import { useTranslation, Trans } from 'react-i18next';
@@ -18,40 +19,47 @@ function FileList(props) {
             setLoading(true);
             setRefreshInterval(2000);
         }
-    }, [props.refresh])
+        else {
+            setLoading(false);
+            setRefreshInterval(null);
+        }
+    }, [props.refresh, props.taskId])
 
 
     useEffect(() => {
         getFiles();
     }, [])
 
-    const getFiles = () => {
-        const oldFiles = files;
-        FilesService.getAll().then(
-            response => {
-                setFiles(response.data);
-                if (refreshInterval) {
-                    if (JSON.stringify(oldFiles) != JSON.stringify(response.data)) {
-                        toast("success", t("toast.file_available_download"))
-                        props.refreshComplete();
-                        setRefreshInterval(null);
-                        setLoading(false);
-                    }
+    const getFiles = async () => {
+        try {
+            if (refreshInterval) {
+                const { data: task } = await TasksService.get(props.taskId);
+                if (task.status === "failed") {
+                    toast("error", task.error_message || "Export task failed.");
+                    props.refreshComplete();
+                    setRefreshInterval(null);
+                    setLoading(false);
+                    return;
                 }
-            },
-            error => {
-                if (error.response.status != 404) {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
-                    console.error(error);
-                    toast("error", resMessage);
+                if (task.status !== "success") {
+                    return;
                 }
             }
-        )
+            const response = await FilesService.getAll();
+            setFiles(response.data);
+            if (refreshInterval) {
+                toast("success", t("toast.file_available_download"));
+                props.refreshComplete();
+                setRefreshInterval(null);
+                setLoading(false);
+            }
+        } catch (error) {
+            if (error.response?.status !== 404) {
+                const resMessage = error.response?.data?.message || error.message || error.toString();
+                console.error(error);
+                toast("error", resMessage);
+            }
+        }
     }
 
     useInterval(() => {

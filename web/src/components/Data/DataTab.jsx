@@ -5,16 +5,17 @@ import FileImport from './FileImport';
 
 function DataTab() {
   const [forceRefresh, setForceRefresh] = useState();
+  const [taskId, setTaskId] = useState();
   return (
     <div>
         <div className="grid grid-rows-1 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
             <div>
-                <RequestData onRequest={()=> setForceRefresh(true)}/>
+                <RequestData onRequest={(id)=> { setTaskId(id); setForceRefresh(true); }}/>
                 <br/>
                 <FileImport />
             </div>
             <div className="col-span-2">
-                <FileList refresh={forceRefresh} refreshComplete={() => setForceRefresh(false)}/>
+                <FileList taskId={taskId} refresh={forceRefresh} refreshComplete={() => setForceRefresh(false)}/>
             </div>
         </div>
     
