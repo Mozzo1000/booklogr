@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Table, TableHead, TableHeadCell, TableBody, TableCell, TableRow, Button, Spinner} from "flowbite-react";
 import FilesService from '../../services/files.service';
 import TasksService from '../../services/tasks.service';
+import { createExportPoller } from './exportPolling';
 import useToast from '../../toast/useToast';
 import { useInterval } from '../../useInterval';
 import { useTranslation, Trans } from 'react-i18next';
@@ -11,61 +12,54 @@ function FileList(props) {
     const [files, setFiles] = useState();
     const [refreshInterval, setRefreshInterval] = useState(null);
     const [loading, setLoading] = useState(false);
+    const poller = useRef(null);
     const toast = useToast(4000);
     const { t } = useTranslation();
 
     useEffect(() => {
         if (props.refresh) {
-            setLoading(true);
-            setRefreshInterval(2000);
-        }
-        else {
-            setLoading(false);
-            setRefreshInterval(null);
-        }
-    }, [props.refresh, props.taskId])
-
-
-    useEffect(() => {
-        getFiles();
-    }, [])
-
-    const getFiles = async () => {
-        try {
-            if (refreshInterval) {
-                const { data: task } = await TasksService.get(props.taskId);
-                if (task.status === "failed") {
-                    toast("error", task.error_message || "Export task failed.");
-                    props.refreshComplete();
-                    setRefreshInterval(null);
-                    setLoading(false);
-                    return;
-                }
-                if (task.status !== "success") {
-                    return;
-                }
-            }
-            const response = await FilesService.getAll();
-            setFiles(response.data);
-            if (refreshInterval) {
-                toast("success", t("toast.file_available_download"));
+            const finish = () => {
                 props.refreshComplete();
                 setRefreshInterval(null);
                 setLoading(false);
-            }
-        } catch (error) {
-            if (error.response?.status !== 404) {
-                const resMessage = error.response?.data?.message || error.message || error.toString();
-                console.error(error);
-                toast("error", resMessage);
-            }
+            };
+            const requestPoller = createExportPoller({
+                getTask: () => TasksService.get(props.taskId),
+                getFiles: () => FilesService.getAll(),
+                onFiles: setFiles,
+                onSuccess: () => {
+                    toast("success", t("toast.file_available_download"));
+                    finish();
+                },
+                onFailure: message => {
+                    toast("error", message);
+                    finish();
+                },
+            });
+            poller.current = requestPoller;
+            setLoading(true);
+            setRefreshInterval(2000);
+            return () => requestPoller.stop();
         }
-    }
+        setLoading(false);
+        setRefreshInterval(null);
+    }, [props.refresh, props.taskId])
+
+    useEffect(() => {
+        FilesService.getAll().then(
+            response => setFiles(response.data),
+            error => {
+                if (error.response?.status !== 404) {
+                    toast("error", error.response?.data?.message || error.message || error.toString());
+                }
+            }
+        );
+    }, [])
 
     useInterval(() => {
-        getFiles();
+        poller.current?.poll();
     }, refreshInterval)
-    
+
     const downloadFile = (filename) => {
         FilesService.get(filename).then(
             response => {
