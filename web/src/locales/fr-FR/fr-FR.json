@@ -140,7 +140,7 @@
         "filter_by_author": "Filtering by {{author}}",
         "clear_author_filter": "Effacer le filtre auteur",
         "no_description_found": "Aucune description trouvée",
-        "subtitle": "Subtitle",
+        "subtitle": "Sous-titre",
         "description": "Description",
         "pages": "Pages",
         "cover": "Couverture",
@@ -325,7 +325,7 @@
         "end": "Date de fin"
     },
     "controls": {
-        "grid": "Grid view",
+        "grid": "Vue Grille",
         "list": "List view"
     }
 }
