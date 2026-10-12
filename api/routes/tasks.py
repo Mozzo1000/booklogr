@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, current_app
-from api.models import Tasks, TasksSchema, Books, Files, UserSettings
+from api.models import Tasks, TasksSchema, Books, Files, UserSettings, db
 from api.decorators import required_params, auth_required
-from sqlalchemy import text 
+from sqlalchemy.exc import SQLAlchemyError
 import threading
 import string
 import random
@@ -21,34 +21,54 @@ def _create_task(type, data, created_by):
     threading.Thread(target=_start_background_task, args=(current_app.app_context(), new_task.id, created_by,)).start()
     return new_task
 
-def _start_background_task(app, task_id, claim):
-    def start(task):
-        task.status = "started"
-        task.updated_on = datetime.now(timezone.utc)
-        task.save_to_db()
-        print("Background task started")
-    def finish(task):
-        task.status = "success"
-        task.updated_on = datetime.now(timezone.utc)
-        task.save_to_db()
-        print("Background task finished")
+def _start_background_task(app_context, task_id, claim):
+    # Each worker owns its context and scoped session, including synchronous retries.
+    with app_context:
+        try:
+            claimed = Tasks.query.filter_by(id=task_id, created_by=claim, status="fresh").update({
+                Tasks.status: "started",
+                Tasks.error_message: None,
+                Tasks.updated_on: datetime.now(timezone.utc),
+            }, synchronize_session=False)
+            db.session.commit()
+            if not claimed:
+                return
 
-    app.push()
-    task = Tasks.query.get(task_id)
-    if task:
-        start(task)
-        if task.type == "csv_export":
-            create_csv(claim)
-        if task.type == "json_export":
-            create_json(claim)
-        if task.type == "html_export":
-            create_html(claim)
-        if task.type == "share_book_event":
-            share_book(claim, task.data)
-        finish(task)
-
-        
-
+            task = db.session.get(Tasks, task_id)
+            handlers = {
+                "csv_export": lambda: create_csv(claim),
+                "json_export": lambda: create_json(claim),
+                "html_export": lambda: create_html(claim),
+                "share_book_event": lambda: share_book(claim, task.data),
+            }
+            if task.type not in handlers:
+                raise ValueError("Unsupported background task type")
+            handlers[task.type]()
+            task.status = "success"
+            task.error_message = None
+            task.updated_on = datetime.now(timezone.utc)
+            task.save_to_db()
+        except Exception as error:
+            # A failed flush/commit leaves the session unusable until rollback.
+            # Store a safe category rather than exception text (which may contain credentials).
+            message = ("Database operation failed." if isinstance(error, SQLAlchemyError)
+                       else "Task execution failed. See application logs for details.")
+            try:
+                db.session.rollback()
+                Tasks.query.filter_by(id=task_id, created_by=claim).update({
+                    Tasks.status: "failed",
+                    Tasks.error_message: message,
+                    Tasks.updated_on: datetime.now(timezone.utc),
+                }, synchronize_session=False)
+                db.session.commit()
+            except Exception:
+                db.session.rollback()
+                current_app.logger.exception("Could not persist background task failure", extra={"task_id": task_id})
+                raise
+            finally:
+                # Persist first so a broken logging handler cannot prevent failure tracking.
+                current_app.logger.error("Background task failed", extra={"task_id": task_id},
+                                         exc_info=(type(error), error, error.__traceback__))
 
 
 @tasks_endpoint.route("/v1/tasks/<id>", methods=["GET"])
@@ -154,13 +174,24 @@ def retry_task(id):
             description: Task set to be retried.
           404:
             description: Could not find task.
+          409:
+            description: Task is queued or already running.
     """
     claim_id = get_current_user_id()
     task = Tasks.query.filter(Tasks.id==id, Tasks.created_by==claim_id).first()
 
     if task:
-        task.status = "fresh"
-        task.updated_on = datetime.now(timezone.utc)
+        # Atomically reserve the retry; concurrent requests cannot both execute it.
+        reset = Tasks.query.filter(Tasks.id==id, Tasks.created_by==claim_id,
+                                   Tasks.status.in_(("failed", "success"))).update({
+            Tasks.status: "fresh",
+            Tasks.error_message: None,
+            Tasks.updated_on: datetime.now(timezone.utc),
+        }, synchronize_session=False)
+        db.session.commit()
+        if not reset:
+            return jsonify({"error": "Task already running",
+                            "message": "Task is queued or already running."}), 409
         _start_background_task(current_app.app_context(), task.id, claim_id)
         return jsonify({"message": "Task set to be retried."})
 

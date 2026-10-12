@@ -29,6 +29,7 @@ class Tasks(db.Model):
     type = db.Column(db.String)
     data = db.Column(db.String)
     status = db.Column(db.String, default="fresh")
+    error_message = db.Column(db.String(255), nullable=True)
     worker = db.Column(db.String, nullable=True)
     created_on = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_on = db.Column(db.DateTime, nullable=True)
