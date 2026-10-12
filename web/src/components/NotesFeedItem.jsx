@@ -1,3 +1,4 @@
+import { coverUrl } from "../services/bookIdentifiers";
 import { useState } from 'react';
 import { Badge, Tooltip } from 'flowbite-react';
 import { RiDoubleQuotesR, RiStickyNoteLine, RiBookOpenLine, RiShareLine, RiCheckLine } from 'react-icons/ri';
@@ -8,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { formatDate } from '../DateFormat';
 import Skeleton from 'react-loading-skeleton';
 
-function NotesFeedItem({ id, content, quotePage, date, bookTitle, bookIsbn, bookAuthor }) {
+function NotesFeedItem({ id, content, quotePage, date, bookTitle, bookIdentifier, bookAuthor }) {
     const [copied, setCopied] = useState(false);
     const theme = useThemeMode();
     const { t } = useTranslation();
@@ -66,15 +67,15 @@ function NotesFeedItem({ id, content, quotePage, date, bookTitle, bookIsbn, book
             </p>
 
             <div className="flex items-center justify-between pt-1 border-t border-gray-100 dark:border-gray-700">
-                <Link to={`/books/${bookIsbn}`} className="flex items-center gap-3 group min-w-0">
+                <Link to={`/books/${bookIdentifier}`} className="flex items-center gap-3 group min-w-0">
                     <div className="shrink-0">
                         <Img
                             crossOrigin="anonymous"
                             className="w-8 h-12 object-cover rounded shadow-sm"
-                            src={`https://covers.openlibrary.org/b/isbn/${bookIsbn}-S.jpg?default=false`}
+                            src={coverUrl(bookIdentifier, 'S')}
                             loader={<Skeleton count={1} width={32} height={48} borderRadius={4} inline={true} />}
                             unloader={
-                                theme.mode === 'dark'
+                                theme.computedMode === 'dark'
                                     ? <img className="w-8 h-12 object-cover rounded shadow-sm" src="/fallback-cover-light.svg" />
                                     : <img className="w-8 h-12 object-cover rounded shadow-sm" src="/fallback-cover.svg" />
                             }

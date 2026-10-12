@@ -1,3 +1,4 @@
+import { editionIdentifier, identifierLabel } from "../services/bookIdentifiers";
 import React from 'react'
 import { useThemeMode } from 'flowbite-react';
 import Skeleton from 'react-loading-skeleton'
@@ -6,12 +7,12 @@ import { Img } from 'react-image'
 import { Badge } from 'flowbite-react';
 import { useTranslation } from 'react-i18next';
 
-function EditionItem({data, selected_isbn}) {
+function EditionItem({data, selected_identifier}) {
     const theme = useThemeMode();
     const { t } = useTranslation();
-    const isbn = data.isbn_13?.[0];
+    const isbn = editionIdentifier(data);
     const coverId = data.covers?.[0];
-    const fallbackCover = theme.mode === "dark" ? "/fallback-cover-light.svg" : "/fallback-cover.svg";
+    const fallbackCover = theme.computedMode === "dark" ? "/fallback-cover-light.svg" : "/fallback-cover.svg";
     const coverClassName = "h-full w-full rounded object-contain shadow-2xl";
 
     function extractYear(dateString) {
@@ -93,8 +94,8 @@ function EditionItem({data, selected_isbn}) {
             })}
             </div>
             <p className="text-sm font-sans">{t("book.pages")}: {data.number_of_pages || "N/A"}</p>
-            <p className="text-sm font-sans">ISBN: {isbn}</p>
-            {isbn === selected_isbn &&
+            <p className="text-sm font-sans">{identifierLabel(isbn)}: {isbn}</p>
+            {isbn === selected_identifier &&
                 <Badge color="success">{t("editions.current")}</Badge>
             }
 

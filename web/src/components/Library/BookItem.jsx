@@ -1,3 +1,4 @@
+import { coverUrl } from "../../services/bookIdentifiers";
 import React, { useState } from 'react'
 import { Progress, Badge } from "flowbite-react";
 import { Link } from 'react-router-dom';
@@ -17,13 +18,13 @@ function BookItem(props) {
 
     return (
         <div className={`${props.view === "gallery" ? "flex-col min-h-full" : "min-w-full flex-row"} flex bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-md dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700`}>
-                <Img crossorigin="anonymous" className={`${props.view === "gallery" ? "w-full h-80" : "w-60 h-52"} object-cover  rounded-t-lg md:h-auto md:w-24 md:rounded-s-lg`} src={"https://covers.openlibrary.org/b/isbn/" + props.isbn + "-M.jpg?default=false"}
+                <Img crossorigin="anonymous" className={`${props.view === "gallery" ? "w-full h-80" : "w-60 h-52"} object-cover  rounded-t-lg md:h-auto md:w-24 md:rounded-s-lg`} src={coverUrl(props.identifier)}
                     loader={<Skeleton count={1} width={96} height={"100%"} borderRadius={0} inline={true}/>}
-                    unloader={theme.mode == "dark" && <img className="object-fit h-56 w-full rounded-t-lg md:h-auto md:w-24 md:rounded-s-lg" src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img className="object-fit h-56 w-full rounded-t-lg md:h-auto md:w-24 md:rounded-s-lg" src="/fallback-cover.svg"/>}
+                    unloader={theme.computedMode == "dark" && <img className="object-fit h-56 w-full rounded-t-lg md:h-auto md:w-24 md:rounded-s-lg" src="/fallback-cover-light.svg"/> || theme.computedMode == "light" && <img className="object-fit h-56 w-full rounded-t-lg md:h-auto md:w-24 md:rounded-s-lg" src="/fallback-cover.svg"/>}
 
                 />
                 <div className="flex flex-col p-4 leading-normal w-full overflow-hidden">
-                <Link to={"/books/" + props.isbn} className="hover:underline dark:decoration-white">
+                <Link to={"/books/" + props.identifier} className="hover:underline dark:decoration-white">
                     <h5 className="mb-2 text font-bold tracking-tight text-gray-900 dark:text-white">{props.title}</h5>
                 </Link>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 truncate">
@@ -54,7 +55,7 @@ function BookItem(props) {
                                 <UpdateReadingStatusButton currentPage={props.currentPage} totalPages={props.totalPages} id={props.internalID} title={props.title} rating={props.rating} onSucess={props.onReadingStatusChanged}/>
                             </div>
                             <div>
-                                <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged} allowNoteEditing={props.allowNoteEditing} totalPages={props.totalPages} author={props.author} title={props.title} subtitle={props.subtitle} isbn={props.isbn} description={props.description} readingStatus={props.readingStatus}/>
+                                <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged} allowNoteEditing={props.allowNoteEditing} totalPages={props.totalPages} author={props.author} title={props.title} subtitle={props.subtitle} identifier={props.identifier} description={props.description} readingStatus={props.readingStatus}/>
                             </div>
                         </div>
                     </div>
@@ -71,7 +72,7 @@ function BookItem(props) {
                 </div>
                 {props.showOptions &&
                     <div className="flex flex-row-reverse">
-                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged} allowNoteEditing={props.allowNoteEditing} totalPages={props.totalPages} author={props.author} title={props.title} subtitle={props.subtitle} isbn={props.isbn} description={props.description} readingStatus={props.readingStatus}/>
+                        <ActionsBookLibraryButton id={props.internalID} onSuccess={props.onReadingStatusChanged} allowNoteEditing={props.allowNoteEditing} totalPages={props.totalPages} author={props.author} title={props.title} subtitle={props.subtitle} identifier={props.identifier} description={props.description} readingStatus={props.readingStatus}/>
                     </div>
                 }
             </div>

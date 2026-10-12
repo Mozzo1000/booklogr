@@ -159,7 +159,10 @@ paths:
                   description: Description of the book
                   type: string
                 isbn:
-                  description: ISBN number
+                  description: ISBN number; optional when openlibrary_id is provided
+                  type: string
+                openlibrary_id:
+                  description: Open Library edition ID, such as OL62524517M
                   type: string
                 reading_status:
                   default: To be read
@@ -179,7 +182,6 @@ paths:
                   type: integer
               required:
               - title
-              - isbn
               type: object
         required: true
       responses:
@@ -304,12 +306,12 @@ paths:
   "/v1/books/{isbn}":
     get:
       parameters:
-      - description: ISBN of book
+      - description: ISBN or Open Library edition ID
         in: path
         name: isbn
         required: true
         schema:
-          type: integer
+          type: string
       responses:
         '200':
           description: Returns book id and what list it is in.

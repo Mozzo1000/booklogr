@@ -1,3 +1,5 @@
+import { coverUrl } from "../services/bookIdentifiers";
+import { useQueryClient } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react'
 import { TextInput, Button, Select, Label, Textarea, Tooltip, Card, HelperText} from 'flowbite-react';
 import useToast from '../toast/useToast';
@@ -16,13 +18,15 @@ function AddBookManualModal(props) {
     const [author, setAuthor] = useState();
     const [title, setTitle] = useState();
     const [subtitle, setSubtitle] = useState();
-    const [isbn, setISBN] = useState();
+    const [isbn, setISBN] = useState("");
+    const [identifierType, setIdentifierType] = useState("isbn");
     const [description, setDescription] = useState("");
     const [readingList, setReadingList] = useState("To be read");
     const [errors, setErrors] = useState({ isbn: false, title: false });
     const [fields, setFields] = useState([]);
     const [fieldValues, setFieldValues] = useState({});
     const toast = useToast(4000);
+    const queryClient = useQueryClient();
     const theme = useThemeMode();
     const { t } = useTranslation();
 
@@ -42,7 +46,8 @@ function AddBookManualModal(props) {
         setAuthor();
         setTitle();
         setSubtitle();
-        setISBN();
+        setISBN("");
+        setIdentifierType("isbn");
         setDescription("");
         setReadingList("To be read");
         setErrors({ isbn: false, title: false });
@@ -62,11 +67,11 @@ function AddBookManualModal(props) {
 
         var currentPage = 0
         if (readingList == "Read") {
-            currentPage = totalPages
+            currentPage = totalPages || 0
         }
 
         BooksService.add({
-                isbn: isbn,
+                [identifierType]: isbn.trim(),
                 title: title,
                 subtitle: subtitle,
                 author: author,
@@ -80,15 +85,16 @@ function AddBookManualModal(props) {
                     field_id: f.id,
                     value: fieldValues[f.id] || null,
                 }));
-                if (bookId && fields.length > 0) {
-                    FieldsService.saveBookValues(bookId, fieldsToSave).then(
-                        response => {
-                            props.close(false);
-                            props.onSuccess();
-                            resetState();
-                        }
-                    );
-                }
+                const saveFields = bookId && fields.length > 0
+                    ? FieldsService.saveBookValues(bookId, fieldsToSave)
+                    : Promise.resolve();
+                saveFields.then(() => {
+                    props.close(false);
+                    queryClient.invalidateQueries({ queryKey: ["books"] });
+                    queryClient.invalidateQueries({ queryKey: ["search"] });
+                    props.onSuccess?.();
+                    resetState();
+                }).catch(error => toast("error", error.response?.data?.message || error.message));
             },
             error => {
                 const resMessage =
@@ -121,9 +127,9 @@ function AddBookManualModal(props) {
                 <div className="flex flex-col gap-2">
                 <Card>
                     <h2>{t("book.book_cover")}</h2>
-                    <Img crossorigin="anonymous" width={200} height={200} className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg?default=false"}
+                    <Img crossorigin="anonymous" width={200} height={200} className="shadow-2xl object-fit rounded" src={coverUrl(isbn)}
                         loader={<Skeleton count={1} width={200} height={200} borderRadius={0} inline={true}/>}
-                        unloader={theme.mode == "dark" && <img width={200} src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img width={200} src="/fallback-cover.svg"/>}
+                        unloader={theme.computedMode == "dark" && <img width={200} src="/fallback-cover-light.svg"/> || theme.computedMode == "light" && <img width={200} src="/fallback-cover.svg"/>}
                     />
                     <Tooltip content={t("book.not_implemented")}>
                         <Button disabled>{t("actions.replace_cover")}</Button>
@@ -141,12 +147,17 @@ function AddBookManualModal(props) {
                     <h2>{t("book.details")}</h2>
                     <div>
                         <div className="mb-2 block">
-                            <Label htmlFor="isbn">{t("book.isbn")}</Label>
+                            <Label htmlFor="identifier-type">{t("book.identifier_type", "Identifier type")}</Label>
+                            <Select id="identifier-type" value={identifierType} onChange={(e) => { setIdentifierType(e.target.value); setISBN(""); }}>
+                                <option value="isbn">ISBN</option>
+                                <option value="openlibrary_id">Open Library edition ID</option>
+                            </Select>
+                            <Label htmlFor="isbn">{identifierType === "isbn" ? "ISBN" : "Open Library edition ID"}</Label>
                         </div>
-                        <TextInput id="isbn" type="number" placeholder="9781396251634" required value={isbn} onChange={(e) => {setISBN(e.target.value); if (errors.isbn) setErrors({...errors, isbn: false});}} color={errors.isbn ? "failure" : "gray"}/>
+                        <TextInput id="isbn" type="text" placeholder={identifierType === "isbn" ? "9781396251634" : "OL62524517M"} required value={isbn} onChange={(e) => {setISBN(e.target.value); if (errors.isbn) setErrors({...errors, isbn: false});}} color={errors.isbn ? "failure" : "gray"}/>
                         {errors.isbn && (
                         <HelperText color="failure">
-                            <span className="font-medium">{t("forms.isbn_required")}</span>
+                            <span className="font-medium">{t("forms.identifier_required", "A book identifier is required")}</span>
                         </HelperText>
                             )}
                     </div>

@@ -1,0 +1,9 @@
+# Apply after the existing installation's Compose file to preserve its data and networking.
+# Build images first:
+#   docker build -t booklogr-api:local-identifiers .
+#   docker build -t booklogr-web:local-identifiers web
+services:
+  booklogr-api:
+    image: booklogr-api:local-identifiers
+  booklogr-web:
+    image: booklogr-web:local-identifiers

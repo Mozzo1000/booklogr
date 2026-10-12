@@ -7,7 +7,7 @@ BookLogr provides two flexible ways to build your digital library: searching the
 The fastest way to add a book is by using the search functionality, which is powered by [OpenLibrary](https://openlibrary.org/).
 
 1.  Click on the **Search** bar (or use the shortcut `CTRL+K`).
-2.  Enter the **Title**, **Author**, or **ISBN** of the book.
+2.  Enter the **Title**, **Author**, **ISBN**, or **Open Library edition ID** of the book.
 3.  Select the correct edition from the results list.
 4.  Choose which list to add it to (_Reading_, _To Be Read_, _Read_, or _Did not finish_).
 
@@ -22,7 +22,7 @@ If a book cannot be found in the OpenLibrary database—such as a specific local
 3.  Fill in the required metadata:
     *   **Title** and **Author** (Required)
     *   **Total Pages** (Highly recommended for tracking progress)
-    *   **ISBN**
+    *   **ISBN** or **Open Library edition ID**
     *   **Description**
 4.  Click **Save** to add the book to your library.
 
@@ -35,3 +35,10 @@ Once a book is added, you can move it between your lists at any time. For exampl
 If you decide to stop reading a book before finishing, you can now move it to the *Did not finish* list to keep your reading list tidy while still maintaining a record of the book.
 
 ![A screenshot of the BookLogr web interface showing a book's "Reading progress" at 0% with an "Update progress" button. A vertical three-dot menu is open, revealing a dropdown list of actions: "Reading status" (with options for Currently reading, To be read, Read, and Did not finish), "Notes & Quotes", "Edit book", and "Remove".](/img/book-action-menu.png)
+### Books without an ISBN
+
+In the manual entry form, select **Open Library edition ID** as the identifier type and enter an ID such as `OL62524517M`. ISBN is not required when an edition ID is provided. You can also search directly for the edition ID to retrieve its metadata.
+
+Edition IDs end in `M`. Open Library work IDs end in `W` and group multiple editions; select a specific edition instead. Books with missing metadata can still be added, and their author and page count can be entered manually.
+
+Existing ISBN entries and book URLs continue to work. CSV exports include an optional `openlibrary_id` column; keep that column when importing books without ISBNs.

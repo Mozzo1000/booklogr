@@ -1,6 +1,7 @@
 import requests
 from flask import current_app
 from api.isbn import isbn_from_query
+from api.identifiers import OL_EDITION_RE, normalize_olid
 
 class BookProvider:
     def __init__(self):
@@ -16,6 +17,9 @@ class BookProvider:
         })
 
     def search(self, query):
+        if OL_EDITION_RE.fullmatch(query.strip()):
+            book = self.get(normalize_olid(query))
+            return [book] if book else []
         try:
             return self._fetch_search(self.primary_provider, query)
         except Exception as e:
@@ -26,17 +30,21 @@ class BookProvider:
                 print(f"Fallback search provider {self.fallback_provider} failed: {e}")
                 return None
         
-    def get(self, isbn):
-        try:
-            return self._fetch_get(self.primary_provider, isbn)
-        except Exception as e:
-            print(f"Primary search provider {self.primary_provider} failed: {e}")
-            try:
-                return self._fetch_get(self.fallback_provider, isbn)
-            except Exception as e:
-                print(f"Fallback search provider {self.fallback_provider} failed: {e}")
+    def get(self, identifier):
+        identifier = identifier.strip()
+        if identifier.upper().startswith("OL"):
+            if not OL_EDITION_RE.fullmatch(identifier):
                 return None
-    
+            identifier = normalize_olid(identifier)
+        for provider in dict.fromkeys((self.primary_provider, self.fallback_provider)):
+            try:
+                result = self._fetch_get(provider, identifier)
+                if result is not None:
+                    return result
+            except requests.RequestException as error:
+                print(f"Metadata provider {provider} failed: {error}")
+        return None
+
     def _fetch_search(self, provider, query):
         if provider == "openlibrary":
             return self._search_openlibrary(query)
@@ -55,7 +63,7 @@ class BookProvider:
         params = {
             "q": query,
             "limit": 10,
-            "fields": "title,isbn,author_name",
+            "fields": "title,isbn,author_name,edition_key",
             "lang": "en"
         }
         resp = self.session.get("https://openlibrary.org/search.json", params=params, timeout=30)
@@ -65,9 +73,11 @@ class BookProvider:
         normalized = []
         for doc in docs:
             isbns = doc.get("isbn", [])
-            if not isbns: continue
+            edition_ids = doc.get("edition_key", [])
+            if not isbns and not edition_ids: continue
             normalized.append({
-                "isbn": isbns[0],
+                "isbn": isbns[0] if isbns else None,
+                "openlibrary_id": edition_ids[0] if not isbns else None,
                 "title": doc.get("title"),
                 "author": doc.get("author_name")[0] if doc.get("author_name") else "Unknown"
             })
@@ -96,49 +106,56 @@ class BookProvider:
             isbn10 = row.get("isbn_10", [])
             isbn = isbn13[0] if isbn13 else (isbn10[0] if isbn10 else None)
             
-            if not isbn: continue
+            olid = row.get("ol_id") or row.get("key", "").replace("/books/", "")
+            if not isbn and not OL_EDITION_RE.fullmatch(olid or ""): continue
             
             authors = row.get("author_names", [])
             normalized.append({
                 "isbn": isbn,
+                "openlibrary_id": olid if OL_EDITION_RE.fullmatch(olid or "") else None,
                 "title": row.get("title"),
                 "author": authors[0] if authors else "Unknown"
             })
         return normalized
     
-    def _get_openlibrary(self, isbn):
+    def _get_openlibrary(self, identifier):
         base = "https://openlibrary.org"
-        resp = self.session.get(f"{base}/isbn/{isbn}.json", timeout=30)
-        if resp.status_code != 200:
+        path = "books" if OL_EDITION_RE.fullmatch(identifier) else "isbn"
+        resp = self.session.get(f"{base}/{path}/{identifier}.json", timeout=30)
+        if resp.status_code == 404:
             return None
-        
-        ol_data = resp.json()
-        
+        resp.raise_for_status()
+        edition = resp.json()
+        work_id = (edition.get("works") or [{}])[0].get("key")
+        work = {}
+        if work_id:
+            work_resp = self.session.get(f"{base}{work_id}.json", timeout=30)
+            if work_resp.status_code == 200:
+                work = work_resp.json()
+        authors = edition.get("authors") or work.get("authors") or []
         author_name = "Unknown"
-        if ol_data.get("authors"):
-            auth_key = ol_data["authors"][0].get("key")
-            a_resp = self.session.get(f"{base}{auth_key}.json", timeout=30)
-            if a_resp.status_code == 200:
-                author_name = a_resp.json().get("name", "Unknown")
-
-        description = ol_data.get("description")
-        if not description and ol_data.get("works"):
-            work_key = ol_data["works"][0].get("key")
-            w_resp = self.session.get(f"{base}{work_key}.json", timeout=30)
-            if w_resp.status_code == 200:
-                description = w_resp.json().get("description")
-
+        if authors:
+            author = authors[0].get("author", authors[0])
+            auth_key = author.get("key")
+            if auth_key:
+                author_resp = self.session.get(f"{base}{auth_key}.json", timeout=30)
+                if author_resp.status_code == 200:
+                    author_name = author_resp.json().get("name", "Unknown")
+        description = edition.get("description") or work.get("description")
         if isinstance(description, dict):
             description = description.get("value")
-
+        isbns = edition.get("isbn_13") or edition.get("isbn_10") or []
         return {
-            "title": ol_data.get("title"),
-            "subtitle": ol_data.get("subtitle"),
+            "isbn": isbns[0] if isbns else (identifier if path == "isbn" else None),
+            "openlibrary_id": edition.get("key", "").replace("/books/", "") or None,
+            "work_id": work_id,
+            "title": edition.get("title"),
+            "subtitle": edition.get("subtitle"),
             "author": author_name,
             "description": description,
-            "total_pages": ol_data.get("number_of_pages", 0)
+            "total_pages": edition.get("number_of_pages") or 0
         }
-    
+
     def _get_booklogr_api(self, url, isbn):
         base_url = url if url.startswith("http") else "https://metadata.booklogr.app"
         
@@ -147,6 +164,7 @@ class BookProvider:
             return None
         
         ed_data = ed_resp.json()
+        isbns = ed_data.get("isbn_13") or ed_data.get("isbn_10") or []
         
         authors = ed_data.get("author_names", [])
         author_name = authors[0] if (isinstance(authors, list) and len(authors) > 0) else "Unknown"
@@ -163,9 +181,12 @@ class BookProvider:
                     description = description.get("value")
 
         return {
+            "isbn": isbns[0] if isbns else (None if OL_EDITION_RE.fullmatch(isbn) else isbn),
+            "openlibrary_id": ed_data.get("ol_id") or ed_data.get("key", "").replace("/books/", "") or (isbn if OL_EDITION_RE.fullmatch(isbn) else None),
+            "work_id": "/works/" + work_id if work_ids else None,
             "title": ed_data.get("title"),
             "subtitle": ed_data.get("subtitle"),
             "author": author_name,
             "description": description,
-            "total_pages": ed_data.get("number_of_pages", 0)
+            "total_pages": ed_data.get("number_of_pages") or 0
         }

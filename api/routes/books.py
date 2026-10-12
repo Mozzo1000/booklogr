@@ -13,13 +13,13 @@ import requests
 from sqlalchemy import or_, func
 from api.extensions import cache
 from api.book_provider import BookProvider
-from api.isbn import isbn_lookup_values
+from api.identifiers import book_identifier_filter, normalize_olid
 
 books_endpoint = Blueprint('books', __name__)
 
 @dataclass
 class BookData:
-    isbn: str
+    isbn: Optional[str]
     title: str
     subtitle: str
     in_library: bool
@@ -27,13 +27,18 @@ class BookData:
     library_data: Optional[dict] = None
     author: Optional[str] = None
     description: Optional[str] = None
+    openlibrary_id: Optional[str] = None
+    identifier: Optional[str] = None
+    work_id: Optional[str] = None
 
 @dataclass
 class SearchResult:
-    isbn: str
+    isbn: Optional[str]
     title: str
     author: str
     in_library: bool
+    openlibrary_id: Optional[str] = None
+    identifier: Optional[str] = None
 
 @books_endpoint.route("/v1/books/search", methods=["GET"])
 @auth_required()
@@ -50,42 +55,42 @@ def search_books():
         or_(
             Books.title.ilike(f"%{search_term}%"),
             Books.author.ilike(f"%{search_term}%"),
-            Books.isbn.ilike(f"%{search_term}%")
+            Books.isbn.ilike(f"%{search_term}%"),
+            Books.openlibrary_id.ilike(f"%{search_term}%")
         )
     ).all()
 
     results = []
-    seen_isbns = set()
+    seen = set()
 
-    for b in local_db_results:
-        results.append(SearchResult(isbn=b.isbn, title=b.title, author=b.author, in_library=True))
-        seen_isbns.add(b.isbn)
+    def append_result(item, in_library):
+        identifier = item.isbn or item.openlibrary_id
+        if identifier in seen:
+            return
+        results.append(SearchResult(isbn=item.isbn, openlibrary_id=item.openlibrary_id,
+                                    identifier=identifier, title=item.title,
+                                    author=item.author, in_library=in_library))
+        seen.update(value for value in (item.isbn, item.openlibrary_id) if value)
+
+    for book in local_db_results:
+        append_result(book, True)
 
     external_data = BookProvider().search(search_term)
-    if external_data:
-        external_isbns = [item["isbn"] for item in external_data if item["isbn"] and item["isbn"] not in seen_isbns]
-
-        existing_books = {}
-        if external_isbns:
-            rows = Books.query.filter(
-                Books.owner_id == claim_id,
-                Books.isbn.in_(external_isbns)
-            ).all()
-            existing_books = {b.isbn: b for b in rows}
-
-        for item in external_data:
-            isbn = item["isbn"]
-            if isbn in seen_isbns:
-                continue
-
-            b = existing_books.get(isbn)
-            if b:
-                book_obj = SearchResult(isbn=b.isbn, title=b.title, author=b.author, in_library=True)
-            else:
-                book_obj = SearchResult(isbn=isbn, title=item["title"], author=item["author"], in_library=False)
-
-            results.append(book_obj)
-            seen_isbns.add(isbn)
+    for item in external_data or []:
+        identifier = item.get("isbn") or item.get("openlibrary_id")
+        if not identifier or identifier in seen:
+            continue
+        filters = [book_identifier_filter(Books, identifier)]
+        if item.get("openlibrary_id"):
+            filters.append(Books.openlibrary_id == item["openlibrary_id"])
+        book = Books.query.filter(Books.owner_id == claim_id, or_(*filters)).first()
+        if book:
+            append_result(book, True)
+        else:
+            results.append(SearchResult(isbn=item.get("isbn"), openlibrary_id=item.get("openlibrary_id"),
+                                        identifier=identifier, title=item["title"], author=item["author"],
+                                        in_library=False))
+            seen.update(value for value in (item.get("isbn"), item.get("openlibrary_id")) if value)
 
     results.sort(key=lambda x: x.in_library, reverse=True)
     return jsonify({
@@ -98,17 +103,17 @@ def search_books():
 @auth_required()
 def get_book(isbn):
     """
-        Get book by isbn
+        Get book by ISBN or Open Library edition ID
         ---
         tags:
             - Books
         parameters:
             - name: isbn
               in: path
-              description: ISBN of book
+              description: ISBN or Open Library edition ID
               required: true
               schema:
-                type: integer
+                type: string
         security:
           - bearerAuth: []         
         responses:
@@ -124,20 +129,36 @@ def get_book(isbn):
     claim_id = get_current_user_id()
     book = Books.query.filter(
         Books.owner_id==claim_id,
-        Books.isbn.in_(isbn_lookup_values(isbn))
+        book_identifier_filter(Books, isbn)
     ).first()
     if book:
-        return jsonify(BookData(isbn=book.isbn, title=book.title, subtitle=book.subtitle, author=book.author, description=book.description, in_library=True, total_pages=book.total_pages, library_data={"id": book.id, "reading_status": book.reading_status, "current_page": book.current_page, "rating": book.rating})), 200
+        return jsonify(BookData(isbn=book.isbn, openlibrary_id=book.openlibrary_id, identifier=book.isbn or book.openlibrary_id, title=book.title, subtitle=book.subtitle, author=book.author, description=book.description, in_library=True, total_pages=book.total_pages, library_data={"id": book.id, "reading_status": book.reading_status, "current_page": book.current_page, "rating": book.rating})), 200
     
     external_data = BookProvider().get(isbn)
     if not external_data:
         return jsonify({
             "error": "Not found",
-            "message": f"No book with isbn {isbn} found."
+            "message": f"No book with identifier {isbn} found."
         }), 404
     
+    # The same edition may already be stored under its ISBN or OLID alias.
+    aliases = [value for value in (external_data.get("isbn"), external_data.get("openlibrary_id")) if value]
+    if aliases:
+        book = Books.query.filter(Books.owner_id == claim_id,
+                                  or_(*(book_identifier_filter(Books, value) for value in aliases))).first()
+        if book:
+            return jsonify(BookData(isbn=book.isbn, openlibrary_id=book.openlibrary_id,
+                                    identifier=book.isbn or book.openlibrary_id, title=book.title,
+                                    subtitle=book.subtitle, author=book.author, description=book.description,
+                                    in_library=True, total_pages=book.total_pages,
+                                    library_data={"id": book.id, "reading_status": book.reading_status,
+                                                  "current_page": book.current_page, "rating": book.rating})), 200
+
     return jsonify(BookData(
-        isbn=isbn,
+        isbn=external_data.get("isbn"),
+        openlibrary_id=external_data.get("openlibrary_id"),
+        identifier=external_data.get("isbn") or external_data.get("openlibrary_id"),
+        work_id=external_data.get("work_id"),
         title=external_data["title"],
         subtitle=external_data["subtitle"],
         author=external_data["author"],
@@ -150,17 +171,17 @@ def get_book(isbn):
 @auth_required()
 def get_book_reading_status(isbn):
     """
-        Check if book (by isbn) is already in a list.
+        Check if book (by identifier) is already in a list.
         ---
         tags:
             - Books
         parameters:
             - name: isbn
               in: path
-              description: ISBN of book
+              description: ISBN or Open Library edition ID
               required: true
               schema:
-                type: integer
+                type: string
         security:
             - bearerAuth: []         
         responses:
@@ -172,15 +193,23 @@ def get_book_reading_status(isbn):
     claim_id = get_current_user_id()
     book = Books.query.filter(
         Books.owner_id==claim_id,
-        Books.isbn.in_(isbn_lookup_values(isbn))
+        book_identifier_filter(Books, isbn)
     ).first()
+    if not book:
+        external = BookProvider().get(isbn)
+        aliases = []
+        if external:
+            aliases = [value for value in (external.get("isbn"), external.get("openlibrary_id")) if value]
+        if aliases:
+            book = Books.query.filter(Books.owner_id == claim_id,
+                                      or_(*(book_identifier_filter(Books, value) for value in aliases))).first()
     books_status_schema = BooksStatusSchema(many=False)
     if book:
         return jsonify(books_status_schema.dump(book))
     else:
         return jsonify({
                     "error": "Not found",
-                    "message": f"No book with isbn {isbn} found in any reading list."
+                    "message": f"No book with identifier {isbn} found in any reading list."
         }), 404
 
 @books_endpoint.route("/v1/books", methods=["GET"])
@@ -282,7 +311,7 @@ def get_books():
 
 @books_endpoint.route("/v1/books", methods=["POST"])
 @auth_required()
-@required_params("title", "isbn")
+@required_params("title")
 def add_book():
     """
         Add book to list
@@ -297,7 +326,6 @@ def add_book():
                 type: object
                 required:
                   - title
-                  - isbn
                 properties:
                   title:
                     type: string
@@ -308,6 +336,9 @@ def add_book():
                   isbn:
                     type: string
                     description: ISBN number
+                  openlibrary_id:
+                    type: string
+                    description: Open Library edition ID (OL followed by digits and M); required when ISBN is absent
                   author:
                     type: string
                     description: Author of the book
@@ -339,6 +370,26 @@ def add_book():
     """
 
     claim_id = get_current_user_id()
+    isbn = request.json.get("isbn")
+    openlibrary_id = request.json.get("openlibrary_id")
+    if isbn is not None and not isinstance(isbn, str):
+        return jsonify({"message": "ISBN must be a string."}), 422
+    isbn = isbn.strip() if isbn else None
+    if openlibrary_id is not None:
+        try:
+            openlibrary_id = normalize_olid(openlibrary_id)
+        except ValueError as error:
+            return jsonify({"message": str(error)}), 422
+    if not isbn and not openlibrary_id:
+        return jsonify({"message": "An ISBN or Open Library edition ID is required."}), 422
+
+    if openlibrary_id:
+        matches = [Books.openlibrary_id == openlibrary_id]
+        if isbn:
+            matches.append(book_identifier_filter(Books, isbn))
+        existing = Books.query.filter(Books.owner_id == claim_id, or_(*matches)).first()
+        if existing:
+            return jsonify({"message": "This edition is already in your library.", "id": existing.id}), 409
 
     author = None
     if "author" in request.json:
@@ -375,7 +426,7 @@ def add_book():
         subtitle = request.json["subtitle"]
 
     try:
-      new_book = Books(owner_id=claim_id, title=request.json["title"], subtitle=subtitle, isbn=request.json["isbn"], 
+      new_book = Books(owner_id=claim_id, title=request.json["title"], subtitle=subtitle, isbn=isbn, openlibrary_id=openlibrary_id,
                       description=description, reading_status=reading_status, 
                       current_page=current_page, total_pages=total_pages, author=author)
       new_book.save_to_db()

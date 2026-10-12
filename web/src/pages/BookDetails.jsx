@@ -1,3 +1,4 @@
+import { coverUrl, identifierLabel } from "../services/bookIdentifiers";
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import OpenLibraryService from '../services/openlibrary.service';
@@ -50,7 +51,7 @@ function BookDetails() {
     useEffect(() => {
         OpenLibraryService.get(id).then(
             response => {
-                setWorkID(response.data.works[0].key)
+                setWorkID(response.data.works?.[0]?.key)
             },
             error => {
                 const resMessage =
@@ -64,7 +65,7 @@ function BookDetails() {
                 }
             }
         )
-    }, [])
+    }, [id])
     
 
     return (
@@ -72,9 +73,9 @@ function BookDetails() {
         <div className="pt-10 lg:pt-20 pb-10">
             <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 gap-4 justify-items-stretch	">
                 <div className="lg:row-span-2 mx-auto">
-                    <Img crossorigin="anonymous" className="shadow-2xl object-fit rounded" src={"https://covers.openlibrary.org/b/isbn/" + id + "-L.jpg?default=false"}
+                    <Img crossorigin="anonymous" className="shadow-2xl object-fit rounded" src={coverUrl(id, 'L')}
                         loader={<Skeleton count={1} width={320} height={500} borderRadius={0} inline={true}/>}
-                        unloader={theme.mode == "dark" && <img src="/fallback-cover-light.svg"/> || theme.mode == "light" && <img src="/fallback-cover.svg"/>}
+                        unloader={theme.computedMode == "dark" && <img src="/fallback-cover-light.svg"/> || theme.computedMode == "light" && <img src="/fallback-cover.svg"/>}
                     />
                     </div>
                 <div>
@@ -95,7 +96,7 @@ function BookDetails() {
                                 data?.total_pages || 0
                             )}
                         </p>
-                        <p><span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">ISBN</span> {id}</p>
+                        <p><span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">{identifierLabel(id)}</span> {id}</p>
                         {fieldValues.map(field => (
                             <p key={field.field_id}>
                                 <span className="uppercase whitespace-nowrap font-medium text-gray-900 dark:text-white pr-10">{field.name}</span>
@@ -106,9 +107,9 @@ function BookDetails() {
                 </div>
                 <div className="lg:col-start-2 lg:row-start-2">
                     <div className="flex flex-col md:flex-row gap-4">
-                        <AddToReadingListButtton isbn={id} data={data} description={description} author={author}/>
-                        <OpenLibraryButton isbn={id} />
-                        <EditionSelector work_id={workID} selected_isbn={id}/>
+                        <AddToReadingListButtton key={id} identifier={id} data={data} description={description} author={author}/>
+                        <OpenLibraryButton identifier={id} />
+                        <EditionSelector work_id={workID} selected_identifier={id}/>
                     </div>
                 </div>
             </div>

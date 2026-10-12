@@ -1,3 +1,4 @@
+import { identifierPayload } from "../services/bookIdentifiers";
 import React, { useState, useEffect } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, TextInput, Select, ButtonGroup, Dropdown, DropdownItem, DropdownHeader, DropdownDivider} from "flowbite-react";
@@ -36,7 +37,9 @@ function AddToReadingListButton(props) {
         var arr = {}
         arr.title = props.data?.title;
         arr.subtitle = props.data?.subtitle
-        arr.isbn = props.isbn;
+        Object.assign(arr, identifierPayload(props.identifier));
+        if (props.data?.openlibrary_id) arr.openlibrary_id = props.data.openlibrary_id;
+        if (props.data?.isbn) arr.isbn = props.data.isbn;
         if (author_man) {
             arr.author = author_man
         }else {
@@ -54,7 +57,7 @@ function AddToReadingListButton(props) {
         }
 
         if (total_pages) {
-            arr.total_pages = total_pages;
+            arr.total_pages = Number(total_pages);
         }else {
             arr.total_pages = totalPages
         }
@@ -69,7 +72,9 @@ function AddToReadingListButton(props) {
         BooksService.add(arr).then(
             response => {
                 toast("success", response.data.message);
-                updateReadStatus();
+                updateReadStatus(true);
+                queryClient.invalidateQueries({ queryKey: ["books"] });
+                queryClient.invalidateQueries({ queryKey: ["search"] });
             },
             error => {
               const resMessage =
@@ -115,8 +120,17 @@ function AddToReadingListButton(props) {
       updateReadStatus();
     }, [props.data])
 
-    const updateReadStatus = () => {
-        BooksService.status(props.isbn).then(
+    const updateReadStatus = (force = false) => {
+        if (!props.data) return;
+        const stored = props.data.library_data;
+        if (stored && !readID) {
+            setReadingStatus(stored.reading_status);
+            setReadID(stored.id);
+            setCurrentPage(stored.current_page);
+            return;
+        }
+        if (!force && !props.data.in_library && !readID && !readingStatus) return;
+        BooksService.status(props.identifier).then(
             response => {
                 setReadingStatus(response.data.reading_status);
                 setReadID(response.data.id);
@@ -129,7 +143,7 @@ function AddToReadingListButton(props) {
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
-              if (error.response.status != 404) {
+              if (error.response?.status != 404) {
                 toast("error", resMessage);
               }
             }
@@ -157,7 +171,7 @@ function AddToReadingListButton(props) {
     }
 
     const handleEditBookSuccess = () => {
-        queryClient.invalidateQueries({ queryKey: ['book', props.isbn] });
+        queryClient.invalidateQueries({ queryKey: ['book', props.identifier] });
     }
 
     return (
@@ -230,7 +244,7 @@ function AddToReadingListButton(props) {
             </ButtonGroup>
             <RemoveBookModal id={readID} open={openRemoveModal} close={setOpenRemoveModal} onSuccess={handleBookRemoval}/>
             {props.data &&
-                <EditBookModal id={readID} totalPages={props.data.total_pages} open={openEditBookModal} close={setOpenEditBookModal} onSuccess={handleEditBookSuccess} author={props.data?.author} title={props.data?.title} subtitle={props.data?.subtitle} isbn={props.isbn} description={props.data?.description} readingStatus={readingStatus}/>
+                <EditBookModal id={readID} totalPages={props.data.total_pages} open={openEditBookModal} close={setOpenEditBookModal} onSuccess={handleEditBookSuccess} author={props.data?.author} title={props.data?.title} subtitle={props.data?.subtitle} identifier={props.identifier} description={props.data?.description} readingStatus={readingStatus}/>
             }
             <Modal show={openMissingData} size="lg" onClose={() => setOpenMissingData(false)} popup>
                 <ModalHeader />

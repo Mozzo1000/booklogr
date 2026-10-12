@@ -100,6 +100,7 @@ class Books(db.Model):
     title = db.Column(db.String)
     subtitle = db.Column(db.String)
     isbn = db.Column(db.String)
+    openlibrary_id = db.Column(db.String)
     description = db.Column(db.String)
     author = db.Column(db.String)
     reading_status = db.Column(db.String)
@@ -146,6 +147,7 @@ class BooksStatusSchema(ma.SQLAlchemyAutoSchema):
         fields = ("id", "reading_status", "current_page",)
 
 class BooksSchema(ma.SQLAlchemyAutoSchema):
+    identifier = ma.Function(lambda book: book.isbn or book.openlibrary_id)
     num_notes = ma.Method("get_num_notes")
     class Meta:
         model = Books
@@ -158,6 +160,7 @@ class BooksSchema(ma.SQLAlchemyAutoSchema):
             return 0
 
 class BooksPublicOnlySchema(ma.SQLAlchemyAutoSchema):
+    identifier = ma.Function(lambda book: book.isbn or book.openlibrary_id)
     notes = ma.Nested(NotesPublicOnlySchema(many=True))
     num_notes = ma.Method("get_num_notes")
     class Meta:
@@ -182,7 +185,7 @@ class ProfileSchema(ma.SQLAlchemySchema):
     profile_picture = ma.String()
     
     books = db.relationship("Books", backref='profiles')
-    books = ma.List(ma.Nested(BooksPublicOnlySchema(only=("id", "author", "description", "current_page", "total_pages", "reading_status", "title", "isbn", "rating", "notes", "num_notes"))))
+    books = ma.List(ma.Nested(BooksPublicOnlySchema(only=("id", "author", "description", "current_page", "total_pages", "reading_status", "title", "isbn", "openlibrary_id", "identifier", "rating", "notes", "num_notes"))))
     num_books_read = ma.Method("get_num_books_read")
     num_books_reading = ma.Method("get_num_books_currently_reading")
     num_books_tbr = ma.Method("get_num_books_to_be_read")
