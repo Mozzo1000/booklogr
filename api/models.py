@@ -94,6 +94,18 @@ class Profile(db.Model):
         db.session.add(self)
         db.session.commit()
 
+# Define before book schemas trigger SQLAlchemy mapper configuration.
+class FieldValue(db.Model):
+    __tablename__ = "field_values"
+    id = db.Column(db.Integer, primary_key=True)
+    book_id = db.Column(db.Integer, db.ForeignKey("books.id", ondelete="CASCADE"), nullable=False)
+    field_id = db.Column(db.Integer, db.ForeignKey("fields.id"), nullable=False)
+    value = db.Column(db.String, nullable=False)
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
 class Books(db.Model):
     __tablename__ = "books"
     id = db.Column(db.Integer, primary_key=True)
@@ -108,8 +120,9 @@ class Books(db.Model):
     rating = db.Column(db.Numeric(precision=3, scale=2), nullable=True)
     owner_id = db.Column(db.Integer, db.ForeignKey("profiles.owner_id"))
     created_on = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
-    notes = db.relationship("Notes", backref="books")
+    notes = db.relationship("Notes", backref="books", cascade="all, delete-orphan")
     sessions = db.relationship("ReadingSessions", backref="books", cascade="all, delete-orphan")
+    field_values = db.relationship("FieldValue", cascade="all, delete-orphan")
 
     def save_to_db(self):
         db.session.add(self)
@@ -235,17 +248,6 @@ class UserSettingsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = UserSettings
 
-
-class FieldValue(db.Model):
-    __tablename__ = "field_values"
-    id = db.Column(db.Integer, primary_key=True)
-    book_id = db.Column(db.Integer, db.ForeignKey("books.id", ondelete="CASCADE"), nullable=False)
-    field_id = db.Column(db.Integer, db.ForeignKey("fields.id"), nullable=False)
-    value = db.Column(db.String, nullable=False)
-
-    def save_to_db(self):
-        db.session.add(self)
-        db.session.commit()
 
 class Fields(db.Model):
     __tablename__ = "fields"
