@@ -42,7 +42,7 @@ def edit_settings():
             return jsonify({
                         "error": "Bad request",
                         "message": "send_book_events, mastodon_url and/or mastodon_access_token not given."
-            }), 40
+            }), 400
     else:
         return jsonify({
                     "error": "Not found",
