@@ -440,8 +440,8 @@ def edit_book(id):
         responses:
           200:
             description: Book changed successfully.
-          409:
-            description: Recieved no JSON in body.
+          400:
+            description: Invalid current page or no JSON in body.
           500:
             description: Unknown error occurred.
     """
@@ -450,12 +450,21 @@ def edit_book(id):
     book = Books.query.filter(Books.owner_id==claim_id, Books.id==id).first()
     if request.json:
         if "current_page" in request.json:
-            if int(request.json["current_page"]) <= book.total_pages:
-                book.current_page = request.json["current_page"]
-            else:
-                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. The current page is greater than total pages."}), 422 
-            if int(request.json["current_page"]) < 0:
-                return jsonify({"error": "Unprocessable entity", "message": "Can't process change. The current page can't be less than 0."}), 422
+            current_page = request.json["current_page"]
+            if type(current_page) not in (int, str):
+                return jsonify({"error": "Bad request", "message": "Can't process change. The current page must be an integer."}), 400
+            try:
+                current_page = int(current_page)
+            except ValueError:
+                return jsonify({"error": "Bad request", "message": "Can't process change. The current page must be an integer."}), 400
+            if current_page < 0:
+                return jsonify({"error": "Bad request", "message": "Can't process change. The current page can't be less than 0."}), 400
+            # An unknown total cannot provide an upper bound for progress.
+            if book.total_pages is None:
+                return jsonify({"error": "Bad request", "message": "Can't process change. Set total pages before updating the current page."}), 400
+            if current_page > book.total_pages:
+                return jsonify({"error": "Bad request", "message": "Can't process change. The current page is greater than total pages."}), 400
+            book.current_page = current_page
         if "total_pages" in request.json:
             if isinstance(request.json["total_pages"], int):
                 book.total_pages = request.json["total_pages"]
