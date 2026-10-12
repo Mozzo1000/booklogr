@@ -75,11 +75,19 @@ def edit_note(id):
           200:
             description: Note changed sucessfully.
 
+          404:
+            description: No note found.
+
           500:
             description: Unknown error.
     """
     claim_id = get_current_user_id()
     note = Notes.query.join(Books, Books.id==Notes.book_id).filter(Books.owner_id==claim_id, Notes.id==id).first()
+    if note is None:
+        return jsonify({
+            "error": "Not found",
+            "message": f"No note with ID: {id} was found"
+        }), 404
     if request.json:
         if "visibility" in request.json:
             if request.json["visibility"] in ("hidden", "public"):
