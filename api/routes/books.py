@@ -440,6 +440,8 @@ def edit_book(id):
         responses:
           200:
             description: Book changed successfully.
+          404:
+            description: No book found.
           409:
             description: Recieved no JSON in body.
           500:
@@ -448,6 +450,11 @@ def edit_book(id):
     
     claim_id = get_current_user_id()
     book = Books.query.filter(Books.owner_id==claim_id, Books.id==id).first()
+    if book is None:
+        return jsonify({
+            "error": "Not found",
+            "message": f"No book with ID: {id} was found"
+        }), 404
     if request.json:
         if "current_page" in request.json:
             if int(request.json["current_page"]) <= book.total_pages:
