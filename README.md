@@ -49,6 +49,10 @@ BookLogr is made to be self-hosted and run on your own hardware.
 
 Check out the [Getting Started guide](https://booklogr.app/docs/Getting%20started) for step-by-step instructions.
 
+## 🚀One-Click Deploy
+
+[![Deploy on RepoCloud](https://d16t0pc4846x52.cloudfront.net/deploylobe.svg)](https://repocloud.io/details/BookLogr/)
+
 ## 🛠️Development
 See [development instructions](https://github.com/Mozzo1000/booklogr/wiki/Development) on the wiki to get started.
 
