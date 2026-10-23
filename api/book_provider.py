@@ -1,6 +1,13 @@
+import logging
+from urllib.parse import urlsplit
+
 import requests
 from flask import current_app
 from api.isbn import isbn_from_query
+
+
+logger = logging.getLogger(__name__)
+
 
 class BookProvider:
     def __init__(self):
@@ -15,27 +22,49 @@ class BookProvider:
             "Accept": "application/json"
         })
 
+    @staticmethod
+    def _provider_label(provider):
+        try:
+            parsed = urlsplit(provider if "://" in provider else f"//{provider}")
+            return parsed.hostname or "custom"
+        except ValueError:
+            return "custom"
+
     def search(self, query):
         try:
-            return self._fetch_search(self.primary_provider, query)
-        except Exception as e:
-            print(f"Primary search provider {self.primary_provider} failed: {e}")
-            try:
-                return self._fetch_search(self.fallback_provider, query)
-            except Exception as e:
-                print(f"Fallback search provider {self.fallback_provider} failed: {e}")
-                return None
-        
+            result = self._fetch_search(self.primary_provider, query)
+            if result:
+                return result
+        except Exception:
+            message = f"Primary book search provider {self._provider_label(self.primary_provider)} failed"
+            print(message)
+            logger.warning(message)
+
+        try:
+            return self._fetch_search(self.fallback_provider, query)
+        except Exception:
+            message = f"Fallback book search provider {self._provider_label(self.fallback_provider)} failed"
+            print(message)
+            logger.warning(message)
+            return None
+
     def get(self, isbn):
         try:
-            return self._fetch_get(self.primary_provider, isbn)
-        except Exception as e:
-            print(f"Primary search provider {self.primary_provider} failed: {e}")
-            try:
-                return self._fetch_get(self.fallback_provider, isbn)
-            except Exception as e:
-                print(f"Fallback search provider {self.fallback_provider} failed: {e}")
-                return None
+            result = self._fetch_get(self.primary_provider, isbn)
+            if result:
+                return result
+        except Exception:
+            message = f"Primary book detail provider {self._provider_label(self.primary_provider)} failed"
+            print(message)
+            logger.warning(message)
+
+        try:
+            return self._fetch_get(self.fallback_provider, isbn)
+        except Exception:
+            message = f"Fallback book detail provider {self._provider_label(self.fallback_provider)} failed"
+            print(message)
+            logger.warning(message)
+            return None
     
     def _fetch_search(self, provider, query):
         if provider == "openlibrary":
@@ -80,8 +109,6 @@ class BookProvider:
         normalized_query = isbn_from_query(query) or query
         endpoint = f"{base_url.rstrip('/')}/v1/search/{requests.utils.quote(normalized_query)}"
         params = {"limit": 10, "sort": "relevance"}
-        print(endpoint)
-        
         resp = self.session.get(endpoint, params=params, timeout=30)
         resp.raise_for_status()
         
