@@ -19,6 +19,7 @@ See [Environment variables](/docs/Configuration/Environment-variables) for more 
 | :--- | :--- | :--- |
 | **OpenLibrary** | `openlibrary` | The standard OpenLibrary API. This is the default primary source. |
 | **openlibrary-local-db** | `[https://metadata.booklogr.app](https://metadata.booklogr.app)` | A dedicated metadata database. This is the default fallback source. |
+| **DNB (German National Library)** | `dnb` | The catalogue of the Deutsche Nationalbibliothek, queried through its free [SRU interface](https://www.dnb.de/EN/Professionell/Metadatendienste/Datenbezug/SRU/sru_node.html). Especially strong for German-language books and manga that OpenLibrary covers poorly. No API key or access token is required. |
 
 :::info Official Instance
 The URL [https://metadata.booklogr.app](https://metadata.booklogr.app) is an official hosted instance of the openlibrary-local-db backend.
