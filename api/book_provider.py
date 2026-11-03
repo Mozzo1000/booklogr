@@ -1,6 +1,12 @@
+import re
 import requests
+import xml.etree.ElementTree as ET
 from flask import current_app
-from api.isbn import isbn_from_query
+from api.isbn import isbn_from_query, isbn10_to_isbn13, isbn_lookup_values
+
+DNB_SRU_URL = "https://services.dnb.de/sru/dnb"
+DNB_COVER_URL = "https://portal.dnb.de/opac/mvb/cover"
+MARC_NS = {"marc": "http://www.loc.gov/MARC21/slim"}
 
 class BookProvider:
     def __init__(self):
@@ -40,12 +46,16 @@ class BookProvider:
     def _fetch_search(self, provider, query):
         if provider == "openlibrary":
             return self._search_openlibrary(query)
+        elif provider == "dnb":
+            return self._search_dnb(query)
         else:
             return self._search_booklogr_api(provider, query)
-        
+
     def _fetch_get(self, provider, isbn):
         if provider == "openlibrary":
             return self._get_openlibrary(isbn)
+        elif provider == "dnb":
+            return self._get_dnb(isbn)
         else:
             return self._get_booklogr_api(provider, isbn)
 
@@ -168,4 +178,149 @@ class BookProvider:
             "author": author_name,
             "description": description,
             "total_pages": ed_data.get("number_of_pages", 0)
+        }
+
+    def _search_dnb(self, query):
+        """Fetcher for the German National Library (DNB) SRU API"""
+        isbn = isbn_from_query(query)
+        if isbn:
+            records = self._fetch_dnb_records(f"NUM={isbn}", maximum_records=10)
+        else:
+            escaped_query = query.replace('"', "")
+            cql_query = f'tit="{escaped_query}" OR per="{escaped_query}"'
+            records = self._fetch_dnb_records(cql_query, maximum_records=10)
+
+        normalized = []
+        seen_isbns = set()
+        for record in records:
+            parsed = self._parse_dnb_record(record)
+            if not parsed["isbn"] or parsed["isbn"] in seen_isbns:
+                continue
+            seen_isbns.add(parsed["isbn"])
+            normalized.append({
+                "isbn": parsed["isbn"],
+                "title": parsed["title"],
+                "author": parsed["author"]
+            })
+        return normalized
+
+    def _get_dnb(self, isbn):
+        lookup_values = isbn_lookup_values(isbn)
+        for candidate in lookup_values:
+            records = self._fetch_dnb_records(f"NUM={candidate}", maximum_records=1)
+            if not records:
+                continue
+
+            parsed = self._parse_dnb_record(records[0])
+            if not parsed["title"]:
+                continue
+
+            # The DNB NUM index can return near matches for invalid or
+            # placeholder ISBNs, so only accept a record that actually
+            # carries one of the requested ISBN values.
+            if parsed["isbn"] not in lookup_values:
+                continue
+
+            return {
+                "title": parsed["title"],
+                "subtitle": parsed["subtitle"],
+                "author": parsed["author"],
+                "description": parsed["description"],
+                "total_pages": parsed["total_pages"],
+                "isbn": parsed["isbn"],
+                "publisher": parsed["publisher"],
+                "published_year": parsed["published_year"],
+                "cover_url": parsed["cover_url"]
+            }
+        return None
+
+    def _fetch_dnb_records(self, cql_query, maximum_records=10):
+        """Run a searchRetrieve request against the DNB SRU interface.
+
+        The SRU interface of the DNB catalogue is free to use and does not
+        require an access token. Results are returned as MARC21-xml records.
+        """
+        params = {
+            "version": "1.1",
+            "operation": "searchRetrieve",
+            "query": cql_query,
+            "recordSchema": "MARC21-xml",
+            "maximumRecords": maximum_records
+        }
+        resp = self.session.get(DNB_SRU_URL, params=params, timeout=30)
+        resp.raise_for_status()
+
+        root = ET.fromstring(resp.content)
+        return root.findall(".//marc:record", MARC_NS)
+
+    def _parse_dnb_record(self, record):
+        def subfields(tag, code):
+            values = []
+            for field in record.findall(f"marc:datafield[@tag='{tag}']", MARC_NS):
+                for sub in field.findall(f"marc:subfield[@code='{code}']", MARC_NS):
+                    if sub.text and sub.text.strip():
+                        values.append(sub.text.strip())
+            return values
+
+        def subfield(tag, code):
+            values = subfields(tag, code)
+            return values[0] if values else None
+
+        def clean_text(value):
+            # MARC records wrap non-sorting words (e.g. leading articles) in
+            # U+0098/U+009C control characters; they are not printable text.
+            if value:
+                value = value.replace("\u0098", "").replace("\u009c", "")
+            return value
+
+        # ISBNs live in field 020 $a, sometimes followed by a price/qualifier note
+        isbn = None
+        for raw_isbn in subfields("020", "a"):
+            cleaned = re.sub(r"[^0-9Xx]", "", raw_isbn.split(" ")[0]).upper()
+            if len(cleaned) == 13:
+                isbn = cleaned
+                break
+            if len(cleaned) == 10 and isbn is None:
+                isbn = isbn10_to_isbn13(cleaned) or cleaned
+
+        # Authors: 100 $a is the main author, 700 $a holds additional authors
+        authors = []
+        for name in subfields("100", "a") + subfields("700", "a"):
+            name = clean_text(name).rstrip(",").strip()
+            if name and name not in authors:
+                authors.append(name)
+
+        title = subfield("245", "a")
+        if title:
+            title = clean_text(title).rstrip(" /:;").strip()
+        subtitle = subfield("245", "b")
+        if subtitle:
+            subtitle = clean_text(subtitle).rstrip(" /:;").strip()
+
+        # Publisher and year: 264 (RDA) or the older 260 (AACR2), $b = publisher, $c = year
+        publisher = subfield("264", "b") or subfield("260", "b")
+        if publisher:
+            publisher = clean_text(publisher).rstrip(" ,;").strip()
+        published = subfield("264", "c") or subfield("260", "c") or ""
+        year_match = re.search(r"\d{4}", published)
+        published_year = int(year_match.group(0)) if year_match else None
+
+        # Physical description 300 $a, e.g. "335 S." or "192 Seiten"
+        total_pages = 0
+        extent = subfield("300", "a")
+        if extent:
+            pages_match = re.match(r"\s*(\d+)", extent)
+            if pages_match:
+                total_pages = int(pages_match.group(1))
+
+        return {
+            "isbn": isbn,
+            "title": title,
+            "subtitle": subtitle,
+            "author": authors[0] if authors else "Unknown",
+            "description": clean_text(subfield("520", "a")),
+            "total_pages": total_pages,
+            "publisher": publisher,
+            "published_year": published_year,
+            "cover_url": f"{DNB_COVER_URL}?isbn={isbn}" if isbn else None
         }
