@@ -154,6 +154,7 @@ def upload_file_for_import():
                 }), 400
             
             for row in reader:
+                reading_status = None
                 if row["Exclusive Shelf"] == "to-read":
                     reading_status = "To be read"
                 elif row["Exclusive Shelf"] == "read":
