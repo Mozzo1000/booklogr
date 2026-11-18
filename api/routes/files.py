@@ -1,11 +1,41 @@
 from flask import Blueprint, send_from_directory, jsonify, request, current_app
 from api.decorators import auth_required
 from api.utils import get_current_user_id
-from api.models import Files, FilesSchema, Books
+from api.models import Files, FilesSchema, Books, Notes
+from datetime import datetime, timezone
 import os
 import csv
+import json
 
 files_endpoint = Blueprint('files', __name__)
+
+def import_notes(book, notes_json):
+    """Add the notes from an exported `notes` column (a JSON array) to an imported book."""
+    try:
+        notes = json.loads(notes_json) if notes_json else []
+    except ValueError:
+        print(f"Could not read the notes for book with ISBN {book.isbn}. Skipping notes.")
+        return
+    if not isinstance(notes, list):
+        return
+
+    for note in notes:
+        if not isinstance(note, dict) or not note.get("content"):
+            continue
+        created_on = datetime.now(timezone.utc)
+        if note.get("created_on"):
+            try:
+                created_on = datetime.fromisoformat(note["created_on"])
+            except (TypeError, ValueError):
+                pass
+        visibility = note.get("visibility") if note.get("visibility") in ("hidden", "public") else "hidden"
+        quote_page = note.get("quote_page") if isinstance(note.get("quote_page"), int) else None
+        Notes(book_id=book.id, content=note["content"], quote_page=quote_page, visibility=visibility, created_on=created_on).save_to_db()
+
+def import_goodreads_notes(book, private_notes):
+    """Add a Goodreads export's `Private Notes` to an imported book as a hidden note."""
+    if private_notes and private_notes.strip():
+        Notes(book_id=book.id, content=private_notes.strip(), visibility="hidden").save_to_db()
 
 @files_endpoint.route("/v1/files/<filename>", methods=["GET"])
 @auth_required()
@@ -125,6 +155,7 @@ def upload_file_for_import():
                     if row["rating"]:
                         new_book.rating = row["rating"]
                     new_book.save_to_db()
+                    import_notes(new_book, row.get("notes"))
                     count_imported += 1
                 else:
                     existing_book = Books.query.filter_by(owner_id=claim_id, isbn=row["isbn"]).first()
@@ -135,6 +166,7 @@ def upload_file_for_import():
                         if row["rating"]:
                             new_book.rating = row["rating"]
                         new_book.save_to_db()
+                        import_notes(new_book, row.get("notes"))
                         count_imported += 1
                     else:
                         print(f"Book with ISBN {row['isbn']} already exists. Skipping import.")
@@ -170,6 +202,7 @@ def upload_file_for_import():
                         new_book = Books(owner_id=claim_id, title=row["Title"], isbn=isbn, reading_status=reading_status, 
                                     current_page=0, total_pages=row["Number of Pages"], author=row["Author"], rating=row["My Rating"])
                         new_book.save_to_db()
+                        import_goodreads_notes(new_book, row.get("Private Notes"))
                         count_imported += 1
                     else:
                         existing_book = Books.query.filter_by(owner_id=claim_id, isbn=isbn).first()
@@ -177,6 +210,7 @@ def upload_file_for_import():
                             new_book = Books(owner_id=claim_id, title=row["Title"], isbn=isbn, reading_status=reading_status, 
                                     current_page=0, total_pages=row["Number of Pages"], author=row["Author"], rating=row["My Rating"])
                             new_book.save_to_db()
+                            import_goodreads_notes(new_book, row.get("Private Notes"))
                             count_imported += 1
                         else:
                             print(f"Book with ISBN {isbn} already exists. Skipping import.")
